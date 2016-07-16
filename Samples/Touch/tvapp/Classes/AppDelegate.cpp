@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
-#include "HelloWorldScene.h"
+#include "LoadLayer.h"
+//#include "GameData.h"
 
 USING_NS_CC;
 
@@ -48,19 +49,31 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 
     // turn on display FPS
-    director->setDisplayStats(true);
+    director->setDisplayStats(false);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);
 
+    
+//    SimpleAudioEngine::sharedEngine()->preloadEffect("card_shuffle.mp3");
+//    //SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("bgm.mp3");
+//    
+//    GameData::getInstance()->setCustomOrientation(0);
+//    GameData::getInstance()->setSoundEnabled(true);
+//    GameData::getInstance()->setEffectEnabled(false);
+//    GameData::getInstance()->setTimeMove(true);
+//    
+//    GameData::getInstance()->setRightHanded(false);
+//    GameData::getInstance()->setTapMove(true);
+//    GameData::getInstance()->setDoingAction(false);
+//    //GameData::getInstance()->setBackgroundIndex(0);
     // Set the design resolution
     glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
     Size frameSize = glview->getFrameSize();
-    
-    register_all_packages();
 
+    register_all_packages();
     // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
+    auto scene = LoadLayer::scene();
 
     // run
     director->runWithScene(scene);

@@ -22,8 +22,6 @@
 		46880B8219C43A67006E1F66 /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7A19C43A67006E1F66 /* HelloWorld.png */; };
 		46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
 		46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
-		46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */; };
-		46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
 		503AE10017EB989F00D1A890 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FB17EB989F00D1A890 /* AppController.mm */; };
 		503AE10117EB989F00D1A890 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FC17EB989F00D1A890 /* main.m */; };
@@ -80,7 +78,6 @@
 		9EF9A8E61BA89A7700102D0A /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EF9A8E51BA89A7700102D0A /* libiconv.tbd */; };
 		9EF9A8E71BA89A8200102D0A /* libcocos2d tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EF9A8B11BA88DA800102D0A /* libcocos2d tvOS.a */; };
 		9EF9A8EA1BA89E2D00102D0A /* AppDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8419C43A87006E1F66 /* AppDelegate.cpp */; };
-		9EF9A8EB1BA89E3100102D0A /* HelloWorldScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */; };
 		9EF9A8EC1BA89E6C00102D0A /* CloseNormal.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7619C43A67006E1F66 /* CloseNormal.png */; };
 		9EF9A8ED1BA89E6C00102D0A /* CloseSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7719C43A67006E1F66 /* CloseSelected.png */; };
 		9EF9A8EE1BA89E6C00102D0A /* HelloWorld.png in Resources */ = {isa = PBXBuildFile; fileRef = 46880B7A19C43A67006E1F66 /* HelloWorld.png */; };
@@ -89,6 +86,35 @@
 		BF171245129291EC00B8313A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB012928DE900B8313A /* OpenGLES.framework */; };
 		BF1712471292920000B8313A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = BF170DB412928DE900B8313A /* libz.dylib */; };
 		BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF1C47EA1293683800B63C5D /* QuartzCore.framework */; };
+		CE1489411D292A560010E6B9 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE1489401D292A560010E6B9 /* GameKit.framework */; };
+		CE1489431D292A5D0010E6B9 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE1489421D292A5D0010E6B9 /* GameController.framework */; };
+		CE1489461D292EDB0010E6B9 /* btn_freecell_act.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1489441D292EDB0010E6B9 /* btn_freecell_act.png */; };
+		CE1489471D292EDB0010E6B9 /* btn_freecell_nor.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1489451D292EDB0010E6B9 /* btn_freecell_nor.png */; };
+		CE1489481D2930D30010E6B9 /* btn_freecell_act.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1489441D292EDB0010E6B9 /* btn_freecell_act.png */; };
+		CE1489491D2930D30010E6B9 /* btn_freecell_nor.png in Resources */ = {isa = PBXBuildFile; fileRef = CE1489451D292EDB0010E6B9 /* btn_freecell_nor.png */; };
+		CE1B99ED1D3A6C2A007AB3E9 /* CardSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B99E51D3A6C2A007AB3E9 /* CardSprite.cpp */; };
+		CE1B99EE1D3A6C2A007AB3E9 /* CardSprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B99E51D3A6C2A007AB3E9 /* CardSprite.cpp */; };
+		CE1B99EF1D3A6C2A007AB3E9 /* Common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B99E71D3A6C2A007AB3E9 /* Common.cpp */; };
+		CE1B99F01D3A6C2A007AB3E9 /* Common.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B99E71D3A6C2A007AB3E9 /* Common.cpp */; };
+		CE1B99F11D3A6C2A007AB3E9 /* GameData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B99E91D3A6C2A007AB3E9 /* GameData.cpp */; };
+		CE1B99F21D3A6C2A007AB3E9 /* GameData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B99E91D3A6C2A007AB3E9 /* GameData.cpp */; };
+		CE1B99F31D3A6C2A007AB3E9 /* WinningDeal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B99EB1D3A6C2A007AB3E9 /* WinningDeal.cpp */; };
+		CE1B99F41D3A6C2A007AB3E9 /* WinningDeal.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B99EB1D3A6C2A007AB3E9 /* WinningDeal.cpp */; };
+		CE1B99FD1D3A76F3007AB3E9 /* LoadLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B99F91D3A76F3007AB3E9 /* LoadLayer.cpp */; };
+		CE1B99FE1D3A76F3007AB3E9 /* LoadLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B99F91D3A76F3007AB3E9 /* LoadLayer.cpp */; };
+		CE1B99FF1D3A76F3007AB3E9 /* MenuLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B99FB1D3A76F3007AB3E9 /* MenuLayer.cpp */; };
+		CE1B9A001D3A76F3007AB3E9 /* MenuLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B99FB1D3A76F3007AB3E9 /* MenuLayer.cpp */; };
+		CE1B9A081D3A772A007AB3E9 /* Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A021D3A772A007AB3E9 /* Card.cpp */; };
+		CE1B9A091D3A772A007AB3E9 /* Card.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A021D3A772A007AB3E9 /* Card.cpp */; };
+		CE1B9A0A1D3A772A007AB3E9 /* Deck.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A041D3A772A007AB3E9 /* Deck.cpp */; };
+		CE1B9A0B1D3A772A007AB3E9 /* Deck.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A041D3A772A007AB3E9 /* Deck.cpp */; };
+		CE1B9A0C1D3A772A007AB3E9 /* Move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A061D3A772A007AB3E9 /* Move.cpp */; };
+		CE1B9A0D1D3A772A007AB3E9 /* Move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A061D3A772A007AB3E9 /* Move.cpp */; };
+		CE1B9A101D3A7B41007AB3E9 /* BoardLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A0E1D3A7B41007AB3E9 /* BoardLayer.cpp */; };
+		CE1B9A111D3A7B41007AB3E9 /* BoardLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A0E1D3A7B41007AB3E9 /* BoardLayer.cpp */; };
+		CEF95B461D39D704007DF7EB /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEF95B451D39D704007DF7EB /* GameController.framework */; };
+		CEF95B4D1D39E0C9007DF7EB /* obstacle.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF95B4C1D39E0C9007DF7EB /* obstacle.png */; };
+		CEF95B4E1D39E0C9007DF7EB /* obstacle.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF95B4C1D39E0C9007DF7EB /* obstacle.png */; };
 		D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620B132DFF330009C878 /* OpenAL.framework */; };
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 		D44C6210132DFF4E0009C878 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620F132DFF4E0009C878 /* AudioToolbox.framework */; };
@@ -155,8 +181,6 @@
 		46880B7A19C43A67006E1F66 /* HelloWorld.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HelloWorld.png; sourceTree = "<group>"; };
 		46880B8419C43A87006E1F66 /* AppDelegate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate.cpp; sourceTree = "<group>"; };
 		46880B8519C43A87006E1F66 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelloWorldScene.cpp; sourceTree = "<group>"; };
-		46880B8719C43A87006E1F66 /* HelloWorldScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelloWorldScene.h; sourceTree = "<group>"; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		503AE0FA17EB989F00D1A890 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ios/AppController.h; sourceTree = SOURCE_ROOT; };
@@ -213,6 +237,32 @@
 		BF170DB012928DE900B8313A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		BF170DB412928DE900B8313A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		BF1C47EA1293683800B63C5D /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		CE1489401D292A560010E6B9 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
+		CE1489421D292A5D0010E6B9 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
+		CE1489441D292EDB0010E6B9 /* btn_freecell_act.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_freecell_act.png; path = res/btn_freecell_act.png; sourceTree = "<group>"; };
+		CE1489451D292EDB0010E6B9 /* btn_freecell_nor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = btn_freecell_nor.png; path = res/btn_freecell_nor.png; sourceTree = "<group>"; };
+		CE1B99E51D3A6C2A007AB3E9 /* CardSprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CardSprite.cpp; sourceTree = "<group>"; };
+		CE1B99E61D3A6C2A007AB3E9 /* CardSprite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardSprite.h; sourceTree = "<group>"; };
+		CE1B99E71D3A6C2A007AB3E9 /* Common.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Common.cpp; sourceTree = "<group>"; };
+		CE1B99E81D3A6C2A007AB3E9 /* Common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		CE1B99E91D3A6C2A007AB3E9 /* GameData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GameData.cpp; sourceTree = "<group>"; };
+		CE1B99EA1D3A6C2A007AB3E9 /* GameData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameData.h; sourceTree = "<group>"; };
+		CE1B99EB1D3A6C2A007AB3E9 /* WinningDeal.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WinningDeal.cpp; sourceTree = "<group>"; };
+		CE1B99EC1D3A6C2A007AB3E9 /* WinningDeal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinningDeal.h; sourceTree = "<group>"; };
+		CE1B99F91D3A76F3007AB3E9 /* LoadLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = LoadLayer.cpp; sourceTree = "<group>"; };
+		CE1B99FA1D3A76F3007AB3E9 /* LoadLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadLayer.h; sourceTree = "<group>"; };
+		CE1B99FB1D3A76F3007AB3E9 /* MenuLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MenuLayer.cpp; sourceTree = "<group>"; };
+		CE1B99FC1D3A76F3007AB3E9 /* MenuLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuLayer.h; sourceTree = "<group>"; };
+		CE1B9A021D3A772A007AB3E9 /* Card.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Card.cpp; sourceTree = "<group>"; };
+		CE1B9A031D3A772A007AB3E9 /* Card.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Card.h; sourceTree = "<group>"; };
+		CE1B9A041D3A772A007AB3E9 /* Deck.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Deck.cpp; sourceTree = "<group>"; };
+		CE1B9A051D3A772A007AB3E9 /* Deck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Deck.h; sourceTree = "<group>"; };
+		CE1B9A061D3A772A007AB3E9 /* Move.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Move.cpp; sourceTree = "<group>"; };
+		CE1B9A071D3A772A007AB3E9 /* Move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = "<group>"; };
+		CE1B9A0E1D3A7B41007AB3E9 /* BoardLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoardLayer.cpp; sourceTree = "<group>"; };
+		CE1B9A0F1D3A7B41007AB3E9 /* BoardLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardLayer.h; sourceTree = "<group>"; };
+		CEF95B451D39D704007DF7EB /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.2.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
+		CEF95B4C1D39E0C9007DF7EB /* obstacle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = obstacle.png; sourceTree = "<group>"; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
 		D44C620D132DFF430009C878 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		D44C620F132DFF4E0009C878 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -226,6 +276,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE1489431D292A5D0010E6B9 /* GameController.framework in Frameworks */,
+				CE1489411D292A560010E6B9 /* GameKit.framework in Frameworks */,
 				ED545A7C1B68A1F400C3958E /* libiconv.dylib in Frameworks */,
 				52B47A471A53D09C004E4C60 /* Security.framework in Frameworks */,
 				1AC6FB30180E99EB004C840B /* libcocos2d iOS.a in Frameworks */,
@@ -265,6 +317,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEF95B461D39D704007DF7EB /* GameController.framework in Frameworks */,
 				9ED42A821BA8C57B00C25D7A /* TVMLKit.framework in Frameworks */,
 				9ED42A831BA8C57B00C25D7A /* TVServices.framework in Frameworks */,
 				9EF9A8E71BA89A8200102D0A /* libcocos2d tvOS.a in Frameworks */,
@@ -338,6 +391,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CEF95B451D39D704007DF7EB /* GameController.framework */,
+				CE1489421D292A5D0010E6B9 /* GameController.framework */,
+				CE1489401D292A560010E6B9 /* GameKit.framework */,
 				9ED42A801BA8C57B00C25D7A /* TVMLKit.framework */,
 				9ED42A811BA8C57B00C25D7A /* TVServices.framework */,
 				9EF9A8E51BA89A7700102D0A /* libiconv.tbd */,
@@ -377,11 +433,14 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				CEF95B4C1D39E0C9007DF7EB /* obstacle.png */,
 				521A8EA819F11F5000D177D7 /* fonts */,
 				3EACC98E19EE6D4300EB3C5E /* res */,
 				46880B7619C43A67006E1F66 /* CloseNormal.png */,
 				46880B7719C43A67006E1F66 /* CloseSelected.png */,
 				46880B7A19C43A67006E1F66 /* HelloWorld.png */,
+				CE1489441D292EDB0010E6B9 /* btn_freecell_act.png */,
+				CE1489451D292EDB0010E6B9 /* btn_freecell_nor.png */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -390,10 +449,11 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CE1B9A011D3A772A007AB3E9 /* engine */,
+				CE1B99E41D3A6C2A007AB3E9 /* common */,
+				CEAA64971D3B380A00F54E80 /* layer */,
 				46880B8419C43A87006E1F66 /* AppDelegate.cpp */,
 				46880B8519C43A87006E1F66 /* AppDelegate.h */,
-				46880B8619C43A87006E1F66 /* HelloWorldScene.cpp */,
-				46880B8719C43A87006E1F66 /* HelloWorldScene.h */,
 			);
 			name = Classes;
 			path = ../Classes;
@@ -454,6 +514,47 @@
 			);
 			name = tv;
 			path = tvapp_tv;
+			sourceTree = "<group>";
+		};
+		CE1B99E41D3A6C2A007AB3E9 /* common */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B99E51D3A6C2A007AB3E9 /* CardSprite.cpp */,
+				CE1B99E61D3A6C2A007AB3E9 /* CardSprite.h */,
+				CE1B99E71D3A6C2A007AB3E9 /* Common.cpp */,
+				CE1B99E81D3A6C2A007AB3E9 /* Common.h */,
+				CE1B99E91D3A6C2A007AB3E9 /* GameData.cpp */,
+				CE1B99EA1D3A6C2A007AB3E9 /* GameData.h */,
+				CE1B99EB1D3A6C2A007AB3E9 /* WinningDeal.cpp */,
+				CE1B99EC1D3A6C2A007AB3E9 /* WinningDeal.h */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		CE1B9A011D3A772A007AB3E9 /* engine */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B9A021D3A772A007AB3E9 /* Card.cpp */,
+				CE1B9A031D3A772A007AB3E9 /* Card.h */,
+				CE1B9A041D3A772A007AB3E9 /* Deck.cpp */,
+				CE1B9A051D3A772A007AB3E9 /* Deck.h */,
+				CE1B9A061D3A772A007AB3E9 /* Move.cpp */,
+				CE1B9A071D3A772A007AB3E9 /* Move.h */,
+			);
+			path = engine;
+			sourceTree = "<group>";
+		};
+		CEAA64971D3B380A00F54E80 /* layer */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B9A0E1D3A7B41007AB3E9 /* BoardLayer.cpp */,
+				CE1B9A0F1D3A7B41007AB3E9 /* BoardLayer.h */,
+				CE1B99F91D3A76F3007AB3E9 /* LoadLayer.cpp */,
+				CE1B99FA1D3A76F3007AB3E9 /* LoadLayer.h */,
+				CE1B99FB1D3A76F3007AB3E9 /* MenuLayer.cpp */,
+				CE1B99FC1D3A76F3007AB3E9 /* MenuLayer.h */,
+			);
+			path = layer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -592,9 +693,12 @@
 				46880B7D19C43A67006E1F66 /* CloseSelected.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
+				CE1489471D292EDB0010E6B9 /* btn_freecell_nor.png in Resources */,
 				521A8E6519F0C34300D177D7 /* Default-736h@3x.png in Resources */,
 				521A8EA919F11F5000D177D7 /* fonts in Resources */,
+				CE1489461D292EDB0010E6B9 /* btn_freecell_act.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
+				CEF95B4D1D39E0C9007DF7EB /* obstacle.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
@@ -626,6 +730,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEF95B4E1D39E0C9007DF7EB /* obstacle.png in Resources */,
+				CE1489481D2930D30010E6B9 /* btn_freecell_act.png in Resources */,
+				CE1489491D2930D30010E6B9 /* btn_freecell_nor.png in Resources */,
 				9EE1087C1BA8A72800078FAA /* Info.plist in Resources */,
 				9EF9A8EE1BA89E6C00102D0A /* HelloWorld.png in Resources */,
 				9EF9A8EC1BA89E6C00102D0A /* CloseNormal.png in Resources */,
@@ -643,10 +750,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE1B9A101D3A7B41007AB3E9 /* BoardLayer.cpp in Sources */,
+				CE1B9A0A1D3A772A007AB3E9 /* Deck.cpp in Sources */,
+				CE1B99F31D3A6C2A007AB3E9 /* WinningDeal.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
-				46880B8A19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
+				CE1B99FF1D3A76F3007AB3E9 /* MenuLayer.cpp in Sources */,
+				CE1B9A0C1D3A772A007AB3E9 /* Move.cpp in Sources */,
+				CE1B99FD1D3A76F3007AB3E9 /* LoadLayer.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
+				CE1B99EF1D3A6C2A007AB3E9 /* Common.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				CE1B99F11D3A6C2A007AB3E9 /* GameData.cpp in Sources */,
+				CE1B99ED1D3A6C2A007AB3E9 /* CardSprite.cpp in Sources */,
+				CE1B9A081D3A772A007AB3E9 /* Card.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -657,7 +773,6 @@
 			files = (
 				46880B8919C43A87006E1F66 /* AppDelegate.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
-				46880B8B19C43A87006E1F66 /* HelloWorldScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -665,11 +780,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE1B9A111D3A7B41007AB3E9 /* BoardLayer.cpp in Sources */,
+				CE1B9A0B1D3A772A007AB3E9 /* Deck.cpp in Sources */,
+				CE1B99F21D3A6C2A007AB3E9 /* GameData.cpp in Sources */,
 				9EF9A8EA1BA89E2D00102D0A /* AppDelegate.cpp in Sources */,
+				CE1B9A001D3A76F3007AB3E9 /* MenuLayer.cpp in Sources */,
+				CE1B9A0D1D3A772A007AB3E9 /* Move.cpp in Sources */,
+				CE1B99FE1D3A76F3007AB3E9 /* LoadLayer.cpp in Sources */,
+				CE1B99EE1D3A6C2A007AB3E9 /* CardSprite.cpp in Sources */,
 				9EE108781BA8A46000078FAA /* RootViewController.mm in Sources */,
+				CE1B99F41D3A6C2A007AB3E9 /* WinningDeal.cpp in Sources */,
 				9EE108761BA8A43600078FAA /* AppController.mm in Sources */,
+				CE1B99F01D3A6C2A007AB3E9 /* Common.cpp in Sources */,
+				CE1B9A091D3A772A007AB3E9 /* Card.cpp in Sources */,
 				9EE108771BA8A45800078FAA /* main.m in Sources */,
-				9EF9A8EB1BA89E3100102D0A /* HelloWorldScene.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -833,7 +957,7 @@
 		9EF9A8CC1BA898F000102D0A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
@@ -881,14 +1005,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
 			};
 			name = Debug;
 		};
 		9EF9A8CD1BA898F000102D0A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
@@ -936,7 +1060,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 9.0;
+				TVOS_DEPLOYMENT_TARGET = 9.2;
 			};
 			name = Release;
 		};

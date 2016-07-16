@@ -113,5 +113,30 @@
     [super dealloc];
 }
 
+-(void)pressesBegan:(NSSet*)presses withEvent:(UIPressesEvent *)event {
+    
+    UIPress* p = [presses anyObject];
+    
+    if (p.type == UIPressTypeSelect)
+    {
+        cocos2d::String *s = cocos2d::String::create(cocos2d::Director::getInstance()->getRunningScene()->getName().c_str());
+        
+        cocos2d::Scene *ss = cocos2d::Scene::create();
+        if(cocos2d::Director::getInstance()->getRunningScene()){
+            [super pressesBegan:presses withEvent:event];
+        }
+    }
+}
 
+-(void)pressesEnded:(NSSet*)presses withEvent:(UIPressesEvent *)event {
+    
+    UIPress* p = [presses anyObject];
+    
+    if (p.type == UIPressTypeMenu)
+    {
+        if(cocos2d::Director::getInstance()->getRunningScene()->getName() == "menu"){
+            [super pressesEnded:presses withEvent:event];
+        }
+    }
+}
 @end

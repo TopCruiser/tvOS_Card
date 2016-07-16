@@ -6,15 +6,12 @@
 //  Copyright (c) 2015 Pink. All rights reserved.
 //
 
-#ifndef __cardgame__MenuLayer__
-#define __cardgame__MenuLayer__
-
 #include "Common.h"
 
 class MenuLayer : public cocos2d::Layer
 {
 public:
-    static cocos2d::Scene* scene();
+    static Scene* scene();
     
     virtual bool init();
     virtual void onEnterTransitionDidFinish();
@@ -24,10 +21,6 @@ public:
     void onFortyThieves(Ref* sender);
     void onSpiderSolitaire(Ref* sender);
     
-    virtual bool onTouchBegan(Touch *touch, Event *unused_event);
-    virtual void onTouchMoved(Touch *touch, Event *unused_event);
-    virtual void onTouchEnded(Touch *touch, Event *unused_event);
-    
 private:
     void updateLayoutWithPortrait();
     void updateLayoutWithLandscape();
@@ -36,10 +29,7 @@ private:
     Sprite* _background;
     Sprite* _title;
     Menu* _menu;
-    MenuItem* btnSolitaire;
     
 public:
     CREATE_FUNC(MenuLayer);
 };
-
-#endif

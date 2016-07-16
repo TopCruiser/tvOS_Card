@@ -19,7 +19,7 @@ enum MENU_TAG {
     TAG_MAX
 };
 
-cocos2d::Scene* MenuLayer::scene()
+Scene* MenuLayer::scene()
 {
     Scene* scene = cocos2d::Scene::create();
     MenuLayer* layer = MenuLayer::create();
@@ -41,18 +41,18 @@ bool MenuLayer::init()
     _title = Sprite::create();
     addChild(_title);
     
-    btnSolitaire = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_solitaire_nor").c_str()),
-                                                   Sprite::create(getNameWithResolution("btn_solitaire_act").c_str()),
-                                                    CC_CALLBACK_1(MenuLayer::onSolitaire, this));
+    MenuItem* btnSolitaire = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_solitaire_nor").c_str()),
+                                                        Sprite::create(getNameWithResolution("btn_solitaire_act").c_str()),
+                                                        this, menu_selector(MenuLayer::onSolitaire));
     MenuItem* btnForty = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_fortythieves_nor").c_str()),
                                                     Sprite::create(getNameWithResolution("btn_fortythieves_act").c_str()),
-                                                    CC_CALLBACK_1(MenuLayer::onFortyThieves, this));
+                                                    this, menu_selector(MenuLayer::onFortyThieves));
     MenuItem* btnFreecell = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
-                                                    Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
-                                                    CC_CALLBACK_1(MenuLayer::onFreeCell, this));
+                                                       Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
+                                                       this, menu_selector(MenuLayer::onFreeCell));
     MenuItem* btnSpider = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_spider_nor").c_str()),
                                                      Sprite::create(getNameWithResolution("btn_spider_act").c_str()),
-                                                    CC_CALLBACK_1(MenuLayer::onSpiderSolitaire, this));
+                                                     this, menu_selector(MenuLayer::onSpiderSolitaire));
     
     btnSolitaire->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnForty->setAnchorPoint(Vec2(0.5f, 0.5f));
@@ -73,40 +73,15 @@ bool MenuLayer::init()
     
     addChild(_menu);
     
-    EventListenerTouchOneByOne *listener = EventListenerTouchOneByOne::create();
-    listener->setSwallowTouches( true );
-    
-    listener->onTouchBegan = CC_CALLBACK_2( MenuLayer::onTouchBegan, this );
-    listener->onTouchMoved = CC_CALLBACK_2( MenuLayer::onTouchMoved, this );
-    listener->onTouchEnded = CC_CALLBACK_2( MenuLayer::onTouchEnded, this );
-    listener->onTouchCancelled = CC_CALLBACK_2( MenuLayer::onTouchCancelled, this );
-    Director::getInstance( )->getEventDispatcher( )->addEventListenerWithSceneGraphPriority( listener, this );
-    
     return true;
-}
-
-bool MenuLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
-{
-    btnSolitaire->setCallback(CC_CALLBACK_1(MenuLayer::onSolitaire, this));
-    return true;
-}
-
-void MenuLayer::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
-{
-    
-}
-
-void MenuLayer::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)
-{
-    
 }
 
 void MenuLayer::onEnterTransitionDidFinish()
 {
-//    if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
-//        updateLayoutWithPortrait();
-//    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
-    updateLayoutWithLandscape();
+    if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
+        updateLayoutWithPortrait();
+    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
+        updateLayoutWithLandscape();
     
     AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Home Screen", 1);
 }
@@ -126,7 +101,7 @@ void MenuLayer::updateLayoutWithPortrait()
     
     for(int i = 0; i < TAG_MAX; i++)
     {
-        Point pos = Vec2(0, 0);
+        Vec2oint pos = CCPointZero;
         switch (i) {
             case TAG_SOLITAIRE:
                 pos.x = getSizeWithDevice(0);
@@ -171,7 +146,7 @@ void MenuLayer::updateLayoutWithLandscape()
     
     for(int i = 0; i < TAG_MAX; i++)
     {
-        Point pos = Vec2(0, 0);
+        Point pos = CCPointZero;
         switch (i) {
             case TAG_SOLITAIRE:
                 pos.x = -getSizeWithDevice(230);
@@ -199,7 +174,6 @@ void MenuLayer::updateLayoutWithLandscape()
     
     _menu->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     _menu->setVisible(true);
-    _menu->setEnabled(true);
 }
 
 void MenuLayer::onSolitaire(Ref* sender)
