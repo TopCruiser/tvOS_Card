@@ -112,6 +112,22 @@
 		CE1B9A0D1D3A772A007AB3E9 /* Move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A061D3A772A007AB3E9 /* Move.cpp */; };
 		CE1B9A101D3A7B41007AB3E9 /* BoardLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A0E1D3A7B41007AB3E9 /* BoardLayer.cpp */; };
 		CE1B9A111D3A7B41007AB3E9 /* BoardLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A0E1D3A7B41007AB3E9 /* BoardLayer.cpp */; };
+		CE1B9A141D3A8078007AB3E9 /* SettingLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A121D3A8078007AB3E9 /* SettingLayer.cpp */; };
+		CE1B9A151D3A8078007AB3E9 /* SettingLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A121D3A8078007AB3E9 /* SettingLayer.cpp */; };
+		CE1B9A251D3A8171007AB3E9 /* BackgroundLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A171D3A8171007AB3E9 /* BackgroundLayer.cpp */; };
+		CE1B9A261D3A8171007AB3E9 /* BackgroundLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A171D3A8171007AB3E9 /* BackgroundLayer.cpp */; };
+		CE1B9A271D3A8171007AB3E9 /* CardBackLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A191D3A8171007AB3E9 /* CardBackLayer.cpp */; };
+		CE1B9A281D3A8171007AB3E9 /* CardBackLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A191D3A8171007AB3E9 /* CardBackLayer.cpp */; };
+		CE1B9A291D3A8171007AB3E9 /* CardFaceLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A1B1D3A8171007AB3E9 /* CardFaceLayer.cpp */; };
+		CE1B9A2A1D3A8171007AB3E9 /* CardFaceLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A1B1D3A8171007AB3E9 /* CardFaceLayer.cpp */; };
+		CE1B9A2B1D3A8171007AB3E9 /* HelpLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A1D1D3A8171007AB3E9 /* HelpLayer.cpp */; };
+		CE1B9A2C1D3A8171007AB3E9 /* HelpLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A1D1D3A8171007AB3E9 /* HelpLayer.cpp */; };
+		CE1B9A2D1D3A8171007AB3E9 /* ImagePicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A1F1D3A8171007AB3E9 /* ImagePicker.cpp */; };
+		CE1B9A2E1D3A8171007AB3E9 /* ImagePicker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A1F1D3A8171007AB3E9 /* ImagePicker.cpp */; };
+		CE1B9A2F1D3A8171007AB3E9 /* OrientationLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A211D3A8171007AB3E9 /* OrientationLayer.cpp */; };
+		CE1B9A301D3A8171007AB3E9 /* OrientationLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A211D3A8171007AB3E9 /* OrientationLayer.cpp */; };
+		CE1B9A311D3A8171007AB3E9 /* StatisticsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A231D3A8171007AB3E9 /* StatisticsLayer.cpp */; };
+		CE1B9A321D3A8171007AB3E9 /* StatisticsLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A231D3A8171007AB3E9 /* StatisticsLayer.cpp */; };
 		CEF95B461D39D704007DF7EB /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEF95B451D39D704007DF7EB /* GameController.framework */; };
 		CEF95B4D1D39E0C9007DF7EB /* obstacle.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF95B4C1D39E0C9007DF7EB /* obstacle.png */; };
 		CEF95B4E1D39E0C9007DF7EB /* obstacle.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF95B4C1D39E0C9007DF7EB /* obstacle.png */; };
@@ -261,6 +277,22 @@
 		CE1B9A071D3A772A007AB3E9 /* Move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = "<group>"; };
 		CE1B9A0E1D3A7B41007AB3E9 /* BoardLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoardLayer.cpp; sourceTree = "<group>"; };
 		CE1B9A0F1D3A7B41007AB3E9 /* BoardLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoardLayer.h; sourceTree = "<group>"; };
+		CE1B9A121D3A8078007AB3E9 /* SettingLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SettingLayer.cpp; sourceTree = "<group>"; };
+		CE1B9A131D3A8078007AB3E9 /* SettingLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingLayer.h; sourceTree = "<group>"; };
+		CE1B9A171D3A8171007AB3E9 /* BackgroundLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BackgroundLayer.cpp; sourceTree = "<group>"; };
+		CE1B9A181D3A8171007AB3E9 /* BackgroundLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackgroundLayer.h; sourceTree = "<group>"; };
+		CE1B9A191D3A8171007AB3E9 /* CardBackLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CardBackLayer.cpp; sourceTree = "<group>"; };
+		CE1B9A1A1D3A8171007AB3E9 /* CardBackLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardBackLayer.h; sourceTree = "<group>"; };
+		CE1B9A1B1D3A8171007AB3E9 /* CardFaceLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CardFaceLayer.cpp; sourceTree = "<group>"; };
+		CE1B9A1C1D3A8171007AB3E9 /* CardFaceLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardFaceLayer.h; sourceTree = "<group>"; };
+		CE1B9A1D1D3A8171007AB3E9 /* HelpLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HelpLayer.cpp; sourceTree = "<group>"; };
+		CE1B9A1E1D3A8171007AB3E9 /* HelpLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpLayer.h; sourceTree = "<group>"; };
+		CE1B9A1F1D3A8171007AB3E9 /* ImagePicker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ImagePicker.cpp; sourceTree = "<group>"; };
+		CE1B9A201D3A8171007AB3E9 /* ImagePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePicker.h; sourceTree = "<group>"; };
+		CE1B9A211D3A8171007AB3E9 /* OrientationLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = OrientationLayer.cpp; sourceTree = "<group>"; };
+		CE1B9A221D3A8171007AB3E9 /* OrientationLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrientationLayer.h; sourceTree = "<group>"; };
+		CE1B9A231D3A8171007AB3E9 /* StatisticsLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StatisticsLayer.cpp; sourceTree = "<group>"; };
+		CE1B9A241D3A8171007AB3E9 /* StatisticsLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatisticsLayer.h; sourceTree = "<group>"; };
 		CEF95B451D39D704007DF7EB /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.2.sdk/System/Library/Frameworks/GameController.framework; sourceTree = DEVELOPER_DIR; };
 		CEF95B4C1D39E0C9007DF7EB /* obstacle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = obstacle.png; sourceTree = "<group>"; };
 		D44C620B132DFF330009C878 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -449,6 +481,7 @@
 		46880B8319C43A87006E1F66 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				CE1B9A161D3A8171007AB3E9 /* setting */,
 				CE1B9A011D3A772A007AB3E9 /* engine */,
 				CE1B99E41D3A6C2A007AB3E9 /* common */,
 				CEAA64971D3B380A00F54E80 /* layer */,
@@ -544,9 +577,32 @@
 			path = engine;
 			sourceTree = "<group>";
 		};
+		CE1B9A161D3A8171007AB3E9 /* setting */ = {
+			isa = PBXGroup;
+			children = (
+				CE1B9A171D3A8171007AB3E9 /* BackgroundLayer.cpp */,
+				CE1B9A181D3A8171007AB3E9 /* BackgroundLayer.h */,
+				CE1B9A191D3A8171007AB3E9 /* CardBackLayer.cpp */,
+				CE1B9A1A1D3A8171007AB3E9 /* CardBackLayer.h */,
+				CE1B9A1B1D3A8171007AB3E9 /* CardFaceLayer.cpp */,
+				CE1B9A1C1D3A8171007AB3E9 /* CardFaceLayer.h */,
+				CE1B9A1D1D3A8171007AB3E9 /* HelpLayer.cpp */,
+				CE1B9A1E1D3A8171007AB3E9 /* HelpLayer.h */,
+				CE1B9A1F1D3A8171007AB3E9 /* ImagePicker.cpp */,
+				CE1B9A201D3A8171007AB3E9 /* ImagePicker.h */,
+				CE1B9A211D3A8171007AB3E9 /* OrientationLayer.cpp */,
+				CE1B9A221D3A8171007AB3E9 /* OrientationLayer.h */,
+				CE1B9A231D3A8171007AB3E9 /* StatisticsLayer.cpp */,
+				CE1B9A241D3A8171007AB3E9 /* StatisticsLayer.h */,
+			);
+			path = setting;
+			sourceTree = "<group>";
+		};
 		CEAA64971D3B380A00F54E80 /* layer */ = {
 			isa = PBXGroup;
 			children = (
+				CE1B9A121D3A8078007AB3E9 /* SettingLayer.cpp */,
+				CE1B9A131D3A8078007AB3E9 /* SettingLayer.h */,
 				CE1B9A0E1D3A7B41007AB3E9 /* BoardLayer.cpp */,
 				CE1B9A0F1D3A7B41007AB3E9 /* BoardLayer.h */,
 				CE1B99F91D3A76F3007AB3E9 /* LoadLayer.cpp */,
@@ -751,13 +807,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE1B9A101D3A7B41007AB3E9 /* BoardLayer.cpp in Sources */,
+				CE1B9A251D3A8171007AB3E9 /* BackgroundLayer.cpp in Sources */,
+				CE1B9A311D3A8171007AB3E9 /* StatisticsLayer.cpp in Sources */,
+				CE1B9A141D3A8078007AB3E9 /* SettingLayer.cpp in Sources */,
 				CE1B9A0A1D3A772A007AB3E9 /* Deck.cpp in Sources */,
+				CE1B9A2B1D3A8171007AB3E9 /* HelpLayer.cpp in Sources */,
 				CE1B99F31D3A6C2A007AB3E9 /* WinningDeal.cpp in Sources */,
 				46880B8819C43A87006E1F66 /* AppDelegate.cpp in Sources */,
+				CE1B9A2F1D3A8171007AB3E9 /* OrientationLayer.cpp in Sources */,
 				CE1B99FF1D3A76F3007AB3E9 /* MenuLayer.cpp in Sources */,
 				CE1B9A0C1D3A772A007AB3E9 /* Move.cpp in Sources */,
+				CE1B9A2D1D3A8171007AB3E9 /* ImagePicker.cpp in Sources */,
+				CE1B9A291D3A8171007AB3E9 /* CardFaceLayer.cpp in Sources */,
 				CE1B99FD1D3A76F3007AB3E9 /* LoadLayer.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
+				CE1B9A271D3A8171007AB3E9 /* CardBackLayer.cpp in Sources */,
 				CE1B99EF1D3A6C2A007AB3E9 /* Common.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				CE1B99F11D3A6C2A007AB3E9 /* GameData.cpp in Sources */,
@@ -781,13 +845,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE1B9A111D3A7B41007AB3E9 /* BoardLayer.cpp in Sources */,
+				CE1B9A261D3A8171007AB3E9 /* BackgroundLayer.cpp in Sources */,
+				CE1B9A321D3A8171007AB3E9 /* StatisticsLayer.cpp in Sources */,
+				CE1B9A151D3A8078007AB3E9 /* SettingLayer.cpp in Sources */,
 				CE1B9A0B1D3A772A007AB3E9 /* Deck.cpp in Sources */,
+				CE1B9A2C1D3A8171007AB3E9 /* HelpLayer.cpp in Sources */,
 				CE1B99F21D3A6C2A007AB3E9 /* GameData.cpp in Sources */,
 				9EF9A8EA1BA89E2D00102D0A /* AppDelegate.cpp in Sources */,
+				CE1B9A301D3A8171007AB3E9 /* OrientationLayer.cpp in Sources */,
 				CE1B9A001D3A76F3007AB3E9 /* MenuLayer.cpp in Sources */,
 				CE1B9A0D1D3A772A007AB3E9 /* Move.cpp in Sources */,
+				CE1B9A2E1D3A8171007AB3E9 /* ImagePicker.cpp in Sources */,
+				CE1B9A2A1D3A8171007AB3E9 /* CardFaceLayer.cpp in Sources */,
 				CE1B99FE1D3A76F3007AB3E9 /* LoadLayer.cpp in Sources */,
 				CE1B99EE1D3A6C2A007AB3E9 /* CardSprite.cpp in Sources */,
+				CE1B9A281D3A8171007AB3E9 /* CardBackLayer.cpp in Sources */,
 				9EE108781BA8A46000078FAA /* RootViewController.mm in Sources */,
 				CE1B99F41D3A6C2A007AB3E9 /* WinningDeal.cpp in Sources */,
 				9EE108761BA8A43600078FAA /* AppController.mm in Sources */,

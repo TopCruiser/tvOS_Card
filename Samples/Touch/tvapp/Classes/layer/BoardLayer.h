@@ -107,7 +107,7 @@ private:
     bool checkWin();
     
     void win();
-    void doWinAnimation();
+    void doWinAnimation(float dt);
     void didWinAnimation(Node* sender, Card* card);
     Point getTargetPositon(Point first, Point second, int i, int num);
     

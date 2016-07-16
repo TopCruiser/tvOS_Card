@@ -12,144 +12,144 @@
 #include "BoardLayer.h"
 #include "AppDelegate.h"
 
-CCScene* SettingLayer::scene()
+Scene* SettingLayer::scene()
 {
-    CCScene *scene = CCScene::create();
-    SettingLayer *layer = SettingLayer::create();
+    Scene *scene = Scene::create();
+    SettingLayer *layer = (SettingLayer*)SettingLayer::create();
     scene->addChild(layer);
     return scene;
 }
 
 bool SettingLayer::init()
 {
-    if(!CCLayer::init()) return false;
+    if(!Layer::init()) return false;
     
     return true;
 }
 
-void SettingLayer::init(CCLayer* parent)
+void SettingLayer::init(Layer* parent)
 {
     _parentLayer = parent;
     _isEnabled=true;
     
-    //_background = CCSprite::create(getNameWithDevice("settingback").c_str());
-    _background = CCSprite::create(getNameWithDeviceJpg("settingback").c_str());
-    _background->setAnchorPoint(ccp(0.5f, 0.5f));
+    //_background = Sprite::create(getNameWithDevice("settingback").c_str());
+    _background = Sprite::create(getNameWithDeviceJpg("settingback").c_str());
+    _background->setAnchorPoint(Vec2(0.5f, 0.5f));
     _background->setScale(getScaleWithDevice());
     _background->setVisible(false);
     addChild(_background);
     
-    _header = CCSprite::create(getNameWithDevice("setting_titlebar").c_str());
+    _header = Sprite::create(getNameWithDevice("setting_titlebar").c_str());
     _header->setScale(getScaleWithDevice());
-    _header->setAnchorPoint(ccp(0.5f, 0.0f));
+    _header->setAnchorPoint(Vec2(0.5f, 0.0f));
     addChild(_header);
     
-    _footer = CCSprite::create(getNameWithDevice("bg_taskbar").c_str());
+    _footer = Sprite::create(getNameWithDevice("bg_taskbar").c_str());
     _footer->setScale(getScaleWithDevice());
-    _footer->setAnchorPoint(ccp(0.5f, 0.0f));
-    _footer->setPosition(ccp(0.0f, 0.0f));
+    _footer->setAnchorPoint(Vec2(0.5f, 0.0f));
+    _footer->setPosition(Vec2(0.0f, 0.0f));
     addChild(_footer);
     
-    _buttonbackground = CCSprite::create(getNameWithResolution("setting_buttonback").c_str());
-    _buttonbackground->setAnchorPoint(ccp(0.5, 0.5));
+    _buttonbackground = Sprite::create(getNameWithResolution("setting_buttonback").c_str());
+    _buttonbackground->setAnchorPoint(Vec2(0.5, 0.5));
     _buttonbackground->setScale(getScaleWithDevice());
     addChild(_buttonbackground);
     
-    _title=CCSprite::create(getNameWithResolution("setting").c_str());
-    _title->setAnchorPoint(ccp(0.5f, 0.5f));
+    _title=Sprite::create(getNameWithResolution("setting").c_str());
+    _title->setAnchorPoint(Vec2(0.5f, 0.5f));
     _title->setScale(getScaleWithDevice());
     addChild(_title);
         
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     
-    tableView=CCTableView::create(this, CCSizeMake(winSize.width, winSize.height-getSizeWithDevice(190.0f)));
+    tableView=TableView::create(this, Size(winSize.width, winSize.height-getSizeWithDevice(190.0f)));
     
-    tableView->setDirection(kCCScrollViewDirectionVertical);
-    //tableView->setPosition(ccp(-525, -275));
-    tableView->setAnchorPoint(ccp(0, 0));
-    tableView->setPosition(ccp(0.0f, getSizeWithDevice(95.0f)));
+    tableView->setDirection(cocos2d::extension::ScrollView::Direction::VERTICAL);
+    //tableView->setPosition(Vec2(-525, -275));
+    tableView->setAnchorPoint(Vec2(0, 0));
+    tableView->setPosition(Vec2(0.0f, getSizeWithDevice(95.0f)));
     
     
     tableView->setDelegate(this);
-    tableView->setVerticalFillOrder(kCCTableViewFillTopDown);
+    tableView->setVerticalFillOrder(cocos2d::extension::TableView::VerticalFillOrder::TOP_DOWN);
     
     this->addChild(tableView,1);
     tableView->reloadData();
     
-    btnDone = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_back_nor").c_str()),
-                                       CCSprite::create(getNameWithResolution("btn_back_act").c_str()),
+    btnDone = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_back_nor").c_str()),
+                                       Sprite::create(getNameWithResolution("btn_back_act").c_str()),
                                        this, menu_selector(SettingLayer::onDone));
     
-    btnDone->setAnchorPoint(ccp(0.5f, 0.0f));
+    btnDone->setAnchorPoint(Vec2(0.5f, 0.0f));
     btnDone->setScale(getScaleWithDevice());
     
-    CCMenu* _menu = CCMenu::create();
+    Menu* _menu = Menu::create();
     _menu->addChild(btnDone);
     
-    _menu->setPosition(ccp(0.0f, 0.0f));
+    _menu->setPosition(Vec2(0.0f, 0.0f));
     addChild(_menu);
 }
 
 void SettingLayer::updateLayoutWithPortrait(){
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     _background->setRotation(0.0f);
-    _background->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+    _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     _background->setVisible(true);
     
-    _header->setPosition(ccp(winSize.width/2.0f, winSize.height-getSizeWithDevice(117)));
-    _footer->setPosition(ccp(winSize.width/2.0f, 0));
+    _header->setPosition(Vec2(winSize.width/2.0f, winSize.height-getSizeWithDevice(117)));
+    _footer->setPosition(Vec2(winSize.width/2.0f, 0));
     
-    _title->setPosition(ccp(winSize.width/2, winSize.height-getSizeWithDevice(50)));
+    _title->setPosition(Vec2(winSize.width/2, winSize.height-getSizeWithDevice(50)));
     
-    tableView->setPosition(ccp(0, getSizeWithDevice(95.0f)));
+    tableView->setPosition(Vec2(0, getSizeWithDevice(95.0f)));
     
     tableView->setViewSize( CCSizeMake(winSize.width, winSize.height-getSizeWithDevice(190.0f)));
     tableView->reloadData();
     
-    _buttonbackground->setPosition(ccp(winSize.width/2.0f,  getSizeWithDevice(42.0f)));
-    btnDone->setPosition(ccp(winSize.width/2.0f,  getSizeWithDevice(20.0f)));
+    _buttonbackground->setPosition(Vec2(winSize.width/2.0f,  getSizeWithDevice(42.0f)));
+    btnDone->setPosition(Vec2(winSize.width/2.0f,  getSizeWithDevice(20.0f)));
     
-    if(_orientationLayer != NULL)
-    {
-        _orientationLayer->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
-        //_orientationLayer->setVisible(true);
-    }
+//    if(_orientationLayer != NULL)
+//    {
+//        _orientationLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
+//        //_orientationLayer->setVisible(true);
+//    }comment715
     
     //if(_helpLayer != NULL)
     //{
-    //    _helpLayer->setPosition(ccp(0.0f, 0.0f));
+    //    _helpLayer->setPosition(Vec2(0.0f, 0.0f));
     //    _helpLayer->updateLayoutWithPortrait();
     //}
     
 }
 
 void SettingLayer::updateLayoutWithLandscape(){
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     _background->setRotation(90.0f);
-    _background->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+    _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     _background->setVisible(true);
     
-    _header->setPosition(ccp(winSize.width/2.0f, winSize.height - getSizeWithDevice(117)));
-    _footer->setPosition(ccp(winSize.width/2.0f, 0));
+    _header->setPosition(Vec2(winSize.width/2.0f, winSize.height - getSizeWithDevice(117)));
+    _footer->setPosition(Vec2(winSize.width/2.0f, 0));
                          
-    _title->setPosition(ccp(winSize.width/2, winSize.height-getSizeWithDevice(50)));
+    _title->setPosition(Vec2(winSize.width/2, winSize.height-getSizeWithDevice(50)));
     
-    tableView->setPosition(ccp(0, getSizeWithDevice(95.0f)));
+    tableView->setPosition(Vec2(0, getSizeWithDevice(95.0f)));
     tableView->setViewSize( CCSizeMake(winSize.width, winSize.height-getSizeWithDevice(190.0f)));
     tableView->reloadData();
     
-    _buttonbackground->setPosition(ccp(winSize.width/2.0f,  getSizeWithDevice(42.0f)));
-    btnDone->setPosition(ccp(winSize.width/2.0f,  getSizeWithDevice(20.0f)));
+    _buttonbackground->setPosition(Vec2(winSize.width/2.0f,  getSizeWithDevice(42.0f)));
+    btnDone->setPosition(Vec2(winSize.width/2.0f,  getSizeWithDevice(20.0f)));
     
-    if(_orientationLayer != NULL)
-    {
-        _orientationLayer->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
-        //_orientationLayer->setVisible(true);
-    }
+//    if(_orientationLayer != NULL)
+//    {
+//        _orientationLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
+//        //_orientationLayer->setVisible(true);
+//    }comment715
     
     //if(_helpLayer != NULL)
     //{
-    //    _helpLayer->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+    //    _helpLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     //    _helpLayer->updateLayoutWithLandscape();
     //}
     
@@ -166,53 +166,53 @@ void SettingLayer::onDone(CCObject* sender)
     BoardLayer::getInstance()->setSetting(false);
     ((GameLayer*)_parentLayer)->hideSettingLayer();
     
-    AppDelegate::get()->sendMessageToNative(MSG_ADMOB_BANNER, "GoogleMobileAds", SHOW_ADMOB);
+    //AppDelegate::get()->sendMessageToNative(MSG_ADMOB_BANNER, "GoogleMobileAds", SHOW_ADMOB);
 }
 
 //The number of cell
-unsigned int SettingLayer::numberOfCellsInTableView(CCTableView *table)
+ssize_t SettingLayer::numberOfCellsInTableView(TableView *table)
 {
     return 17;
 }
 
 //Generate cell
-CCTableViewCell* SettingLayer::tableCellAtIndex(CCTableView *table, unsigned int idx)
+TableViewCell* SettingLayer::tableCellAtIndex(TableView *table, unsigned int idx)
 {
-    CCTableViewCell *cell = table->dequeueCell();
+    TableViewCell *cell = table->dequeueCell();
     
     //if(!cell)
     //{
         //CCLog("if no cell %d", idx);
-        cell = new CCTableViewCell();
+        cell = new TableViewCell();
         cell->autorelease();
     
     
-        CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-        CCSprite* titleSprite;
-        titleSprite= CCSprite::create();
+        Size winSize = Director::getInstance()->getWinSize();
+        Sprite* titleSprite;
+        titleSprite= Sprite::create();
       
         titleSprite->setAnchorPoint(CCPointZero);
-        titleSprite->setPosition(ccp(winSize.width/2, getSizeWithDevice(20)));
+        titleSprite->setPosition(Vec2(winSize.width/2, getSizeWithDevice(20)));
         titleSprite->setTag(123);
     
         CCLabelTTF* _cellLabel = CCLabelTTF::create("", "ClarendonBT-Roman", getSizeWithDevice(30));
     
         _cellLabel->setColor(ccc3(255, 255, 255));
         _cellLabel->setAnchorPoint(CCPointZero);
-        _cellLabel->setPosition(ccp(getSizeWithDevice(100),0));
+        _cellLabel->setPosition(Vec2(getSizeWithDevice(100),0));
     
     
     
         float iconX=winSize.width-getSizeWithDevice(142.0f);
     
-    CCSprite* _iconSprite = CCSprite::create(getNameWithResolution("btn_go").c_str());
+    Sprite* _iconSprite = Sprite::create(getNameWithResolution("btn_go").c_str());
     _iconSprite->setAnchorPoint(CCPointZero);
-    _iconSprite->setPosition(ccp(iconX, 0));
+    _iconSprite->setPosition(Vec2(iconX, 0));
     _iconSprite->setTag(456);
     
     switch (idx) {
         case 0://Controlsbar
-            titleSprite->setPosition(ccp(winSize.width/2, getSizeWithDevice(28)));
+            titleSprite->setPosition(Vec2(winSize.width/2, getSizeWithDevice(28)));
             titleSprite->initWithFile(getNameWithDevice("setting_controlsbar").c_str());
             cell->addChild(titleSprite);
             break;
@@ -225,7 +225,7 @@ CCTableViewCell* SettingLayer::tableCellAtIndex(CCTableView *table, unsigned int
             
         case 2:
             _cellLabel->setString("Sound Effect");
-            _iconSprite->setPosition(ccp(iconX + getSizeWithDevice(20), getSizeWithDevice(20)));
+            _iconSprite->setPosition(Vec2(iconX + getSizeWithDevice(20), getSizeWithDevice(20)));
             
             //Sound
             if(GameData::getInstance()->isSoundEnabled())
@@ -239,7 +239,7 @@ CCTableViewCell* SettingLayer::tableCellAtIndex(CCTableView *table, unsigned int
             
         case 3:
             _cellLabel->setString("Background Music");
-            _iconSprite->setPosition(ccp(iconX + getSizeWithDevice(20), getSizeWithDevice(20)));
+            _iconSprite->setPosition(Vec2(iconX + getSizeWithDevice(20), getSizeWithDevice(20)));
             
             if(GameData::getInstance()->isEffectEnabled())
                 _iconSprite ->initWithFile(getNameWithResolution("setting_check_on").c_str());
@@ -252,7 +252,7 @@ CCTableViewCell* SettingLayer::tableCellAtIndex(CCTableView *table, unsigned int
             
         case 4:
             _cellLabel->setString("Time/Moves");
-            _iconSprite->setPosition(ccp(iconX + getSizeWithDevice(20), getSizeWithDevice(20)));
+            _iconSprite->setPosition(Vec2(iconX + getSizeWithDevice(20), getSizeWithDevice(20)));
             
             if(GameData::getInstance()->getTimeMove())
                 _iconSprite ->initWithFile(getNameWithResolution("setting_check_on").c_str());
@@ -265,7 +265,7 @@ CCTableViewCell* SettingLayer::tableCellAtIndex(CCTableView *table, unsigned int
             
         case 5:
             _cellLabel->setString("Tap To Move");
-            _iconSprite->setPosition(ccp(iconX + getSizeWithDevice(20), getSizeWithDevice(20)));
+            _iconSprite->setPosition(Vec2(iconX + getSizeWithDevice(20), getSizeWithDevice(20)));
             
             if(GameData::getInstance()->isTapMove())
                 _iconSprite ->initWithFile(getNameWithResolution("setting_check_on").c_str());
@@ -278,7 +278,7 @@ CCTableViewCell* SettingLayer::tableCellAtIndex(CCTableView *table, unsigned int
             
         case 6:
             _cellLabel->setString("Right Handed");
-            _iconSprite->setPosition(ccp(iconX + getSizeWithDevice(20), getSizeWithDevice(20)));
+            _iconSprite->setPosition(Vec2(iconX + getSizeWithDevice(20), getSizeWithDevice(20)));
             
             if(GameData::getInstance()->isRightHanded())
                 _iconSprite ->initWithFile(getNameWithResolution("setting_check_on").c_str());
@@ -300,14 +300,14 @@ CCTableViewCell* SettingLayer::tableCellAtIndex(CCTableView *table, unsigned int
         case 10:
             ////////////////////////////
         {
-            _iconSprite->setPosition(ccp(iconX, getSizeWithDevice(20)));
+            _iconSprite->setPosition(Vec2(iconX, getSizeWithDevice(20)));
             
             CCString* nameString;
-            CCSprite* selectedSprite =CCSprite::create();
+            Sprite* selectedSprite =Sprite::create();
             
             if (idx == 8) {
                 nameString=CCString::createWithFormat("spade%d_13",GameData::getInstance()->getCardFaceIndex()+1);
-                selectedSprite->initWithFile(getNameWithResolution(nameString->m_sString).c_str());
+                selectedSprite->initWithFile(getNameWithResolution(nameString->_string).c_str());
                 
                 _cellLabel->setString("Card Faces");
             }
@@ -318,7 +318,7 @@ CCTableViewCell* SettingLayer::tableCellAtIndex(CCTableView *table, unsigned int
                 else
                     nameString=CCString::createWithFormat("card%d",GameData::getInstance()->getCardBackIndex()+1);
                 
-                selectedSprite->initWithFile(getNameWithResolution(nameString->m_sString).c_str());
+                selectedSprite->initWithFile(getNameWithResolution(nameString->_string).c_str());
                 _cellLabel->setString("Card Backs");
             }else {
                 //Background
@@ -326,7 +326,7 @@ CCTableViewCell* SettingLayer::tableCellAtIndex(CCTableView *table, unsigned int
                 {
                     nameString=CCString::createWithFormat("background0%d",GameData::getInstance()->getBackgroundIndex()+1);
                     //selectedSprite->initWithFile(getNameWithDevice(nameString->m_sString).c_str());
-                    selectedSprite->initWithFile(getNameWithDeviceIpad(nameString->m_sString).c_str());//added by amr
+                    selectedSprite->initWithFile(getNameWithDeviceIpad(nameString->_string).c_str());//added by amr
                 }
                 else{
                     selectedSprite->initWithFile(getNameWithResolution("native_gallery").c_str());
@@ -335,7 +335,7 @@ CCTableViewCell* SettingLayer::tableCellAtIndex(CCTableView *table, unsigned int
                 _cellLabel->setString("Backgrounds");
             }
             
-            CCSize bgSize= selectedSprite->getContentSize();
+            Size bgSize= selectedSprite->getContentSize();
             
             float scaleX=getSizeWithDevice(57.0f)/bgSize.width;
             float scaleY=getSizeWithDevice(80.0f)/bgSize.height;
@@ -344,10 +344,10 @@ CCTableViewCell* SettingLayer::tableCellAtIndex(CCTableView *table, unsigned int
             selectedSprite->setContentSize(CCSizeMake(getSizeWithDevice(57.0f), getSizeWithDevice(80.0f)));
             
             selectedSprite->setAnchorPoint(CCPointZero);
-            selectedSprite->setPosition(ccp(getSizeWithDevice(100.0f),getSizeWithDevice(5.0f)));
+            selectedSprite->setPosition(Vec2(getSizeWithDevice(100.0f),getSizeWithDevice(5.0f)));
             selectedSprite->setTag(789);
             
-            _cellLabel->setPosition(ccp(getSizeWithDevice(165), getSizeWithDevice(30)));
+            _cellLabel->setPosition(Vec2(getSizeWithDevice(165), getSizeWithDevice(30)));
                                     
             cell->addChild(selectedSprite);
             cell->addChild(_cellLabel);
@@ -407,7 +407,7 @@ CCTableViewCell* SettingLayer::tableCellAtIndex(CCTableView *table, unsigned int
     //    CCLog("else  %d", idx);
         //Create and would not need to re create, or you'll find out the picture with the words wrong
     //    CCTexture2D *aTexture=CCTextureCache::sharedTextureCache()->addImage(getNameWithResolution(nameString->m_sString).c_str());
-    //    CCSprite *pSprite=(CCSprite *)cell->getChildByTag(123);
+    //    Sprite *pSprite=(Sprite *)cell->getChildByTag(123);
     //    pSprite->setTexture(aTexture);
     //}
      
@@ -416,32 +416,32 @@ CCTableViewCell* SettingLayer::tableCellAtIndex(CCTableView *table, unsigned int
 }
 
 
-//CCSize SettingLayer::cellSizeForTable(CCTableView *table)
+//Size SettingLayer::cellSizeForTable(CCTableView *table)
 //{
-//    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-//    return CCSizeMake(winSize.width-getSizeWithDevice(250.0f), getSizeWithDevice(80.0f));
-//    //return CCSizeMake(605, 105);
+//    Size winSize = Director::getInstance()->getWinSize();
+//    return SizeMake(winSize.width-getSizeWithDevice(250.0f), getSizeWithDevice(80.0f));
+//    //return SizeMake(605, 105);
 //}
 
-CCSize SettingLayer::tableCellSizeForIndex(CCTableView *table, unsigned int idx)
+Size SettingLayer::tableCellSizeForIndex(TableView *table, unsigned int idx)
 {
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     if(idx>7 && idx<11) return CCSizeMake(getSizeWithDevice(250.0f), getSizeWithDevice(120.0f));
     else if(idx== 0) return CCSizeMake(winSize.width-getSizeWithDevice(250.0f), getSizeWithDevice(50.0f));
     else return CCSizeMake(winSize.width-getSizeWithDevice(250.0f), getSizeWithDevice(80.0f));
 }
 
-void SettingLayer::tableCellHighlight(CCTableView *table, CCTableViewCell *cell)
+void SettingLayer::tableCellHighlight(TableView *table, TableViewCell *cell)
 {
     
 }
 
-void SettingLayer::tableCellUnhighlight(CCTableView *table, CCTableViewCell *cell)
+void SettingLayer::tableCellUnhighlight(TableView *table, TableViewCell *cell)
 {
     
 }
 
-void SettingLayer::tableCellTouched(CCTableView *table, CCTableViewCell *cell)
+void SettingLayer::tableCellTouched(TableView *table, TableViewCell *cell)
 {
     if(BoardLayer::getInstance()==NULL) return;
     if(!BoardLayer::getInstance()->getSetting()) return;
@@ -455,8 +455,8 @@ void SettingLayer::tableCellTouched(CCTableView *table, CCTableViewCell *cell)
     
     GameData::getInstance()->playSoundEffect();
     
-    CCSprite* _iconSprite=(CCSprite *)cell->getChildByTag(456);
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Sprite* _iconSprite=(Sprite*)cell->getChildByTag(456);
+    Size winSize = Director::getInstance()->getWinSize();
     float iconX=winSize.width-getSizeWithDevice(142.0f);
     
     switch (idx) {
@@ -464,11 +464,11 @@ void SettingLayer::tableCellTouched(CCTableView *table, CCTableViewCell *cell)
             //Orientation
             _isEnabled=false;
             
-            _orientationLayer = OrientationLayer::create();
-            _orientationLayer->init(this);
-            _orientationLayer->setAnchorPoint(ccp(0.5f, 0.5f));
-            _orientationLayer->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
-            addChild(_orientationLayer, 2);
+//            _orientationLayer = OrientationLayer::create();
+//            _orientationLayer->init(this);
+//            _orientationLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
+//            _orientationLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
+//            addChild(_orientationLayer, 2);comment715
         break;
         
         case 2:
@@ -480,7 +480,7 @@ void SettingLayer::tableCellTouched(CCTableView *table, CCTableViewCell *cell)
             if(isSound) _iconSprite ->initWithFile(getNameWithResolution("setting_check_on").c_str());
             else _iconSprite->initWithFile(getNameWithResolution("setting_check_off").c_str());
             
-            _iconSprite->setPosition(ccp(iconX+_iconSprite->getContentSize().width/2, _iconSprite->getContentSize().height/2));
+            _iconSprite->setPosition(Vec2(iconX+_iconSprite->getContentSize().width/2, _iconSprite->getContentSize().height/2));
         }
         break;
             
@@ -499,7 +499,7 @@ void SettingLayer::tableCellTouched(CCTableView *table, CCTableViewCell *cell)
                 _iconSprite ->initWithFile(getNameWithResolution("setting_check_off").c_str());
             }
             
-            _iconSprite->setPosition(ccp(iconX+_iconSprite->getContentSize().width/2, _iconSprite->getContentSize().height/2));
+            _iconSprite->setPosition(Vec2(iconX+_iconSprite->getContentSize().width/2, _iconSprite->getContentSize().height/2));
         }
         break;
             
@@ -523,7 +523,7 @@ void SettingLayer::tableCellTouched(CCTableView *table, CCTableViewCell *cell)
                 _iconSprite ->initWithFile(getNameWithResolution("setting_check_off").c_str());
             }
             
-            _iconSprite->setPosition(ccp(iconX+_iconSprite->getContentSize().width/2, _iconSprite->getContentSize().height/2));
+            _iconSprite->setPosition(Vec2(iconX+_iconSprite->getContentSize().width/2, _iconSprite->getContentSize().height/2));
         }
         break;
         
@@ -540,7 +540,7 @@ void SettingLayer::tableCellTouched(CCTableView *table, CCTableViewCell *cell)
                 _iconSprite ->initWithFile(getNameWithResolution("setting_check_off").c_str());
             }
             
-            _iconSprite->setPosition(ccp(iconX+_iconSprite->getContentSize().width/2, _iconSprite->getContentSize().height/2));
+            _iconSprite->setPosition(Vec2(iconX+_iconSprite->getContentSize().width/2, _iconSprite->getContentSize().height/2));
             
         }
             break;
@@ -557,7 +557,7 @@ void SettingLayer::tableCellTouched(CCTableView *table, CCTableViewCell *cell)
             else{
                 _iconSprite ->initWithFile(getNameWithResolution("setting_check_off").c_str());
             }
-            _iconSprite->setPosition(ccp(iconX+_iconSprite->getContentSize().width/2, _iconSprite->getContentSize().height/2));
+            _iconSprite->setPosition(Vec2(iconX+_iconSprite->getContentSize().width/2, _iconSprite->getContentSize().height/2));
         }
             break;
             
@@ -596,14 +596,14 @@ void SettingLayer::tableCellTouched(CCTableView *table, CCTableViewCell *cell)
         case 13:
         {
             //Tell a Friend
-            AppDelegate::get()->sendMessageToNative(MSG_TELL_A_FRIEND, "Tell a Friend", 1);
+            //AppDelegate::get()->sendMessageToNative(MSG_TELL_A_FRIEND, "Tell a Friend", 1);comment715
         }
             break;
             
         case 14:
         {
             //Feedback Email
-            AppDelegate::get()->sendMessageToNative(MSG_FEEDBACK_EMAIL, "Feedback Email", 1);
+            //AppDelegate::get()->sendMessageToNative(MSG_FEEDBACK_EMAIL, "Feedback Email", 1);//comment715
             
         }
             break;
@@ -611,7 +611,7 @@ void SettingLayer::tableCellTouched(CCTableView *table, CCTableViewCell *cell)
         case 15:
         {
             //Feedback Email
-            AppDelegate::get()->sendMessageToNative(MSG_RESTORE_REQUEST, "Restore", 1);
+            //AppDelegate::get()->sendMessageToNative(MSG_RESTORE_REQUEST, "Restore", 1);comment715
             
         }
             break;
@@ -630,18 +630,18 @@ void SettingLayer::tableCellTouched(CCTableView *table, CCTableViewCell *cell)
     
 }
 
-void SettingLayer::scrollViewDidScroll(cocos2d::extension::CCScrollView *view)
+void SettingLayer::scrollViewDidScroll(cocos2d::extension::ScrollView *view)
 {
 }
 
-void SettingLayer::scrollViewDidZoom(cocos2d::extension::CCScrollView *view)
+void SettingLayer::scrollViewDidZoom(cocos2d::extension::ScrollView *view)
 {
 }
 
 void SettingLayer::didFinishCell()
 {
     _isEnabled=true;
-    _orientationLayer=NULL;    
+    //_orientationLayer=NULL;comment715
     tableView->reloadData();
 }
 

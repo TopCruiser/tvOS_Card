@@ -92,12 +92,12 @@ void BoardLayer::init(CCLayer* parent)
     _startedGameFlag = false;
     _actuallyCardMoved = false;
     
-    cards = new CCArray;
-    playCells = new CCArray;
-    freeCells = new CCArray;
-    goalCells = new CCArray;
-    moves = new CCArray;
-    //replayCards = new CCArray;
+    cards = new __Array;
+    playCells = new __Array;
+    freeCells = new __Array;
+    goalCells = new __Array;
+    moves = new __Array;
+    //replayCards = new __Array;
     
     _dealer = NULL;
     _dealTo = NULL;
@@ -231,13 +231,13 @@ void BoardLayer::replayGame()
 }
 void BoardLayer::startNewGame()
 {
-    if(!GameData::getInstance()->isRemoveAds())
-    {
-        if(GameData::getInstance()->isMenuLayer())
-            AppDelegate::get()->sendMessageToNative(MSG_SHOW_CHARTBOOST, "Game Start", 1);
-        else
-            AppDelegate::get()->sendMessageToNative(MSG_SHOW_CHARTBOOST, "New Game", 1);
-    }
+//    if(!GameData::getInstance()->isRemoveAds())
+//    {
+//        if(GameData::getInstance()->isMenuLayer())
+//            AppDelegate::get()->sendMessageToNative(MSG_SHOW_CHARTBOOST, "Game Start", 1);
+//        else
+//            AppDelegate::get()->sendMessageToNative(MSG_SHOW_CHARTBOOST, "New Game", 1);
+//    }comment 715
     
     GameData::getInstance()->setMenuLayer(false);
     
@@ -561,14 +561,14 @@ void BoardLayer::updateLayoutWithPortrait()
 {
     Size winSize = Director::getInstance()->getWinSize();
     
-    _scoreLabel->setAnchorPoint(ccp(0.0f, 1.0f));
-    _scoreLabel->setPosition(ccp(winSize.width/2.0f - getSizeWithDevice(270.0f), winSize.height - getSizeWithDevice(30.0f)));
+    _scoreLabel->setAnchorPoint(Vec2(0.0f, 1.0f));
+    _scoreLabel->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(270.0f), winSize.height - getSizeWithDevice(30.0f)));
     
-    _moveLabel->setAnchorPoint(ccp(0.0f, 1.0f));
-    _moveLabel->setPosition(ccp(winSize.width/2.0f - getSizeWithDevice(75.0f), winSize.height - getSizeWithDevice(30.0f)));
+    _moveLabel->setAnchorPoint(Vec2(0.0f, 1.0f));
+    _moveLabel->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(75.0f), winSize.height - getSizeWithDevice(30.0f)));
     
-    _timeLabel->setAnchorPoint(ccp(0.0f, 1.0f));
-    _timeLabel->setPosition(ccp(winSize.width/2.0f + getSizeWithDevice(120.0f), winSize.height - getSizeWithDevice(30.0f)));
+    _timeLabel->setAnchorPoint(Vec2(0.0f, 1.0f));
+    _timeLabel->setPosition(Vec2(winSize.width/2.0f + getSizeWithDevice(120.0f), winSize.height - getSizeWithDevice(30.0f)));
     
     updateCardSizeWithPortrait();
     updatePlayCellsWithPortrait();
@@ -580,7 +580,7 @@ void BoardLayer::updateLayoutWithPortrait()
     
     if(_congratulationLayer != NULL)
     {
-        _congratulationLayer->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+        _congratulationLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
         _congratulationLayer->setVisible(true);
     }
 }
@@ -589,14 +589,14 @@ void BoardLayer::updateLayoutWithLandscape()
 {
     Size winSize = Director::getInstance()->getWinSize();
     
-    _scoreLabel->setAnchorPoint(ccp(0.0f, 0.0f));
-    _scoreLabel->setPosition(ccp(winSize.width/2.0f - getSizeWithDevice(220.0f), getSizeWithDevice(35.0f)));
+    _scoreLabel->setAnchorPoint(Vec2(0.0f, 0.0f));
+    _scoreLabel->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(220.0f), getSizeWithDevice(35.0f)));
     
-    _moveLabel->setAnchorPoint(ccp(0.0f, 0.0f));
-    _moveLabel->setPosition(ccp(winSize.width/2.0f - getSizeWithDevice(75.0f), getSizeWithDevice(35.0f)));
+    _moveLabel->setAnchorPoint(Vec2(0.0f, 0.0f));
+    _moveLabel->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(75.0f), getSizeWithDevice(35.0f)));
     
-    _timeLabel->setAnchorPoint(ccp(0.0f, 0.0f));
-    _timeLabel->setPosition(ccp(winSize.width/2.0f + getSizeWithDevice(70.0f), getSizeWithDevice(35.0f)));
+    _timeLabel->setAnchorPoint(Vec2(0.0f, 0.0f));
+    _timeLabel->setPosition(Vec2(winSize.width/2.0f + getSizeWithDevice(70.0f), getSizeWithDevice(35.0f)));
     
     updateCardSizeWithLandscape();
     updatePlayCellsWithLandscape();
@@ -608,7 +608,7 @@ void BoardLayer::updateLayoutWithLandscape()
     
     if(_congratulationLayer != NULL)
     {
-        _congratulationLayer->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+        _congratulationLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
         _congratulationLayer->setVisible(true);
     }
 }
@@ -1474,7 +1474,7 @@ void BoardLayer::calculateDragableCards()
     
     _gameFirstStarted = true;
     
-    setTouchMode(kCCTouchesOneByOne);
+    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
     setTouchEnabled(true);
 }
 
@@ -1486,7 +1486,7 @@ int BoardLayer::movableStackLimit(bool isTargetEmptyPlayCell)
         return 104;
 }
 
-int BoardLayer::countEmpty(CCArray* decks)
+int BoardLayer::countEmpty(__Array* decks)
 {
     int result = 0;
     for(int i = 0; i < decks->count(); i++)
@@ -2044,13 +2044,13 @@ void BoardLayer::doStackMove1(Card* card)
         Deck* deck = (Deck*) playCells->getObjectAtIndex(i);
         if(!deck->hasCards())
         {
-            CCMessageBox("You can't deal new cards while there is empty space", "Spider Solitaire");
+            MessageBox("You can't deal new cards while there is empty space", "Spider Solitaire");
             return;
         }
     }
     
     int index = 0;
-    for(int i = _dealer->cards->count() - 1; ; i--)
+    for(long i = _dealer->cards->count() - 1; ; i--)
     {
         if(index >= 10)
             break;
@@ -2073,7 +2073,7 @@ bool BoardLayer::doDealToMove(Deck* deck)// dealer reset
     if(deck->getType() == DECK_DEALER && !deck->hasCards())
     {
         Move* move = Move::stack(_dealTo, deck);
-        for(int i = _dealTo->cards->count() - 1; i >= 0; i--)
+        for(long i = _dealTo->cards->count() - 1; i >= 0; i--)
             move->cards->addObject((Card*)_dealTo->cards->getObjectAtIndex(i));
         doMove(move);
         return true;
@@ -2565,51 +2565,51 @@ void BoardLayer::win()
     submitAchieve();
     
     ////added by amr
-    switch (GameData::getInstance()->getGameType()) {
-        case TYPE_SOLITAIRE:
-        {
-            if(GameData::getInstance()->isDrawFlag()){
-                AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Solitaire Draw 3 Win Screen", 1);
-            }else{
-                AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Solitaire Draw 1 Win Screen", 1);
-            }
-            
-            AppDelegate::get()->sendMessageToNative(MSG_ASKINGPOINT, "Solitaire Win", 1);//added by amr
-        }
-            break;
-            
-        case TYPE_FREECELL:
-        {
-            AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Freecell Win Screen", 1);
-            AppDelegate::get()->sendMessageToNative(MSG_ASKINGPOINT, "FreeCell Win", 1);//added by amr
-        }
-            break;
-            
-        case TYPE_FORTY_THIEVES:
-        {
-            AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Forty Thieves Win Screen", 1);
-            AppDelegate::get()->sendMessageToNative(MSG_ASKINGPOINT, "Forty Thieves Win", 1);//added by amr
-        }
-            break;
-            
-        case TYPE_SPIDER:
-        {
-            if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EASY){
-                AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Spider Solitaire 1 Suit Win Screen", 1);
-            }
-            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_NORMAL){
-                AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Spider Solitaire 2 Suit Win Screen", 1);
-            }
-            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EXPERT){
-                AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Spider Solitaire 3 Suit Win Screen", 1);
-            }
-            else{
-                AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Spider Solitaire 4 Suit Win Screen", 1);
-            }
-            AppDelegate::get()->sendMessageToNative(MSG_ASKINGPOINT, "Spider Solitaire Win", 1);//added by amr
-        }
-            break;
-    }
+//    switch (GameData::getInstance()->getGameType()) {
+//        case TYPE_SOLITAIRE:
+//        {
+//            if(GameData::getInstance()->isDrawFlag()){
+//                AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Solitaire Draw 3 Win Screen", 1);
+//            }else{
+//                AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Solitaire Draw 1 Win Screen", 1);
+//            }
+//            
+//            AppDelegate::get()->sendMessageToNative(MSG_ASKINGPOINT, "Solitaire Win", 1);//added by amr
+//        }
+//            break;
+//            
+//        case TYPE_FREECELL:
+//        {
+//            AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Freecell Win Screen", 1);
+//            AppDelegate::get()->sendMessageToNative(MSG_ASKINGPOINT, "FreeCell Win", 1);//added by amr
+//        }
+//            break;
+//            
+//        case TYPE_FORTY_THIEVES:
+//        {
+//            AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Forty Thieves Win Screen", 1);
+//            AppDelegate::get()->sendMessageToNative(MSG_ASKINGPOINT, "Forty Thieves Win", 1);//added by amr
+//        }
+//            break;
+//            
+//        case TYPE_SPIDER:
+//        {
+//            if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EASY){
+//                AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Spider Solitaire 1 Suit Win Screen", 1);
+//            }
+//            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_NORMAL){
+//                AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Spider Solitaire 2 Suit Win Screen", 1);
+//            }
+//            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EXPERT){
+//                AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Spider Solitaire 3 Suit Win Screen", 1);
+//            }
+//            else{
+//                AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Spider Solitaire 4 Suit Win Screen", 1);
+//            }
+//            AppDelegate::get()->sendMessageToNative(MSG_ASKINGPOINT, "Spider Solitaire Win", 1);//added by amr
+//        }
+//            break;
+//    }
     ////added by amr
     
     //AppDelegate::get()->sendMessageToNative(MSG_APPIRATER, getGameString().c_str(), 1);
@@ -2622,8 +2622,8 @@ void BoardLayer::win()
     float length = winSize.width < winSize.height ? winSize.width : winSize.height;
     length = length/2.0f - getSizeWithDevice(90.0f);
     
-    int num = cards->count() / 6 ;
-    CCPoint targetPosition;
+    long num = cards->count() / 6 ;
+    Point targetPosition;
     
     //GameData::getInstance()->setDoingAction(true);
     
@@ -2634,24 +2634,24 @@ void BoardLayer::win()
         
         switch (i/num) {//root(3)/2=0.8686
             case 0:
-                targetPosition = getTargetPositon(ccp(-length/2, 0.8686*length), ccp(length/2, 0.8686*length), i% num, num);
+                targetPosition = getTargetPositon(Vec2(-length/2, 0.8686*length), Vec2(length/2, 0.8686*length), i% num, num);
                 break;
             case 1:
-                targetPosition = getTargetPositon(ccp(length/2, 0.8686*length), ccp(length, 0), i % num, num);
+                targetPosition = getTargetPositon(Vec2(length/2, 0.8686*length), Vec2(length, 0), i % num, num);
                 break;
             case 2:
-                targetPosition = getTargetPositon(ccp(length, 0), ccp(length/2, -0.8686*length), i % num, num);
+                targetPosition = getTargetPositon(Vec2(length, 0), Vec2(length/2, -0.8686*length), i % num, num);
                 break;
             case 3:
-                targetPosition = getTargetPositon(ccp(length/2, -0.8686*length), ccp(-length/2, -0.8686*length), i % num, num);
+                targetPosition = getTargetPositon(Vec2(length/2, -0.8686*length), Vec2(-length/2, -0.8686*length), i % num, num);
                 break;
             
             case 4:
-                targetPosition = getTargetPositon(ccp(-length/2, -0.8686*length), ccp(-length, 0), i % num, num);
+                targetPosition = getTargetPositon(Vec2(-length/2, -0.8686*length), Vec2(-length, 0), i % num, num);
                 break;
                 
             case 5:
-                targetPosition = getTargetPositon(ccp(-length, 0), ccp(-length/2, 0.8686*length), i % num, num);
+                targetPosition = getTargetPositon(Vec2(-length, 0), Vec2(-length/2, 0.8686*length), i % num, num);
                 break;
                 
             default:
@@ -2663,8 +2663,8 @@ void BoardLayer::win()
         card->getSprite()->stopAllActions();
         
         if(GameData::getInstance()->getGameType() != TYPE_SOLITAIRE){
-            CCMoveTo* action = CCMoveTo::create(0.25f, targetPosition);
-            card->getSprite()->runAction(CCSequence::create(action, CCCallFuncND::create(this, callfuncND_selector(BoardLayer::didWinAnimation), card), NULL));
+            MoveTo* action = MoveTo::create(0.25f, targetPosition);
+            card->getSprite()->runAction(Sequence::create(action, CC_CALLBACK_2(BoardLayer::didWinAnimation, this, card), NULL));
         }
         else{
             card->getSprite()->setPosition(targetPosition);
@@ -2674,7 +2674,7 @@ void BoardLayer::win()
     
 }
 
-CCPoint BoardLayer::getTargetPositon(CCPoint first, CCPoint second, int i, int num)
+Point BoardLayer::getTargetPositon(Point first, Point second, int i, int num)
 {
     float x1, y1, x2, y2, x, y;
     x1=first.x;
@@ -2687,7 +2687,7 @@ CCPoint BoardLayer::getTargetPositon(CCPoint first, CCPoint second, int i, int n
     
     Size winSize = Director::getInstance()->getWinSize();
     
-    return ccp(winSize.width/2.0f+x, winSize.height/2.0f+y);
+    return Vec2(winSize.width/2.0f+x, winSize.height/2.0f+y);
 }
 
 void BoardLayer::didWinAnimation(CCNode* sender, Card* card)
@@ -2700,7 +2700,7 @@ void BoardLayer::didWinAnimation(CCNode* sender, Card* card)
     
 }
 
-void BoardLayer::doWinAnimation()
+void BoardLayer::doWinAnimation(float dt)
 {
     if(_winAnimationCount==50){
         unschedule(schedule_selector(BoardLayer::doWinAnimation));
@@ -2714,18 +2714,18 @@ void BoardLayer::doWinAnimation()
         for(int i=0; i<cards->count();i++)
         {
             Card* card=(Card*) cards->getObjectAtIndex(i);
-            card->getSprite()->setPosition(ccp(-getSizeWithDevice(100.0f),-getSizeWithDevice(100.0f)));
+            card->getSprite()->setPosition(Vec2(-getSizeWithDevice(100.0f),-getSizeWithDevice(100.0f)));
         }
         cards->removeAllObjects();
         
         Size winSize = Director::getInstance()->getWinSize();
         _congratulationLayer = CongratulationLayer::create();
         _congratulationLayer->init(this);
-        _congratulationLayer->setAnchorPoint(ccp(0.5f, 0.5f));
-        _congratulationLayer->setPosition(ccp(0.0f, 0.0f));
+        _congratulationLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
+        _congratulationLayer->setPosition(Vec2(0.0f, 0.0f));
         addChild(_congratulationLayer, 3);
         
-        CCMoveTo* action = CCMoveTo::create(0.3f, ccp(winSize.width/2.0f,winSize.height/2.0f));
+        CCMoveTo* action = CCMoveTo::create(0.3f, Vec2(winSize.width/2.0f,winSize.height/2.0f));
         CCEaseIn *_easein = CCEaseIn::create(action,0.3f);
         CCSequence *_sequence  =  CCSequence::create( _easein, NULL ,NULL);
         
@@ -2985,56 +2985,56 @@ void BoardLayer::submitScore(){
     std::string winStr = getGameString() + "Wins";
     int totalWins = GameData::getInstance()->getInt(winStr, 0);
     
-    switch (GameData::getInstance()->getGameType()) {
-        case TYPE_SOLITAIRE:
-        {
-            if(GameData::getInstance()->isDrawFlag()){
-                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.sDraw3Score", getScore());
-                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.sDraw3Wins", totalWins);
-                
-            }else{
-                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.sDraw1Score", getScore());
-                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.sDraw1Wins", totalWins);
-                
-            }
-            
-            if(GameData::getInstance()->isVegasMode()){
-                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.sVegasStyleScore", getScore());                
-                
-            }
-            
-        }
-            break;
-            
-        case TYPE_FREECELL:
-            app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.FCHighScores", getScore());
-            app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.FCTotalWins", totalWins);
-            break;
-            
-        case TYPE_FORTY_THIEVES:
-            app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.FTHighScores", getScore());
-            app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.FTTotalWins", totalWins);
-            break;
-            
-        case TYPE_SPIDER:
-            if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EASY){
-                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.ss1suitscore", getScore());
-                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.ss1suitwins", totalWins);
-            }
-            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_NORMAL){
-                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.ss2suitscore", getScore());
-                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.ss2suitwins", totalWins);
-            }
-            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EXPERT){
-                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.ss3suitscore", getScore());
-                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.ss3suitwins", totalWins);
-            }
-            else{
-                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.ss4suitscore", getScore());
-                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.ss4suitwins", totalWins);
-            }
-            break;
-    }
+//    switch (GameData::getInstance()->getGameType()) {
+//        case TYPE_SOLITAIRE:
+//        {
+//            if(GameData::getInstance()->isDrawFlag()){
+//                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.sDraw3Score", getScore());
+//                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.sDraw3Wins", totalWins);
+//                
+//            }else{
+//                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.sDraw1Score", getScore());
+//                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.sDraw1Wins", totalWins);
+//                
+//            }
+//            
+//            if(GameData::getInstance()->isVegasMode()){
+//                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.sVegasStyleScore", getScore());                
+//                
+//            }
+//            
+//        }
+//            break;
+//            
+//        case TYPE_FREECELL:
+//            app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.FCHighScores", getScore());
+//            app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.FCTotalWins", totalWins);
+//            break;
+//            
+//        case TYPE_FORTY_THIEVES:
+//            app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.FTHighScores", getScore());
+//            app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.FTTotalWins", totalWins);
+//            break;
+//            
+//        case TYPE_SPIDER:
+//            if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EASY){
+//                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.ss1suitscore", getScore());
+//                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.ss1suitwins", totalWins);
+//            }
+//            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_NORMAL){
+//                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.ss2suitscore", getScore());
+//                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.ss2suitwins", totalWins);
+//            }
+//            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EXPERT){
+//                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.ss3suitscore", getScore());
+//                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.ss3suitwins", totalWins);
+//            }
+//            else{
+//                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.ss4suitscore", getScore());
+//                app->sendMessageToNative(MSG_SUBMIT_SCORE, "com.cobraclip.cardgames.ss4suitwins", totalWins);
+//            }
+//            break;
+//    }
 }
 
 void BoardLayer::submitAchieve(){
@@ -3065,219 +3065,219 @@ void BoardLayer::submitAchieve(){
     std::string selectFreecellStr = getGameString() + "selectFreecell";
     int selectFreecellCount = GameData::getInstance()->getInt(selectFreecellStr, 0);
     
-    switch (GameData::getInstance()->getGameType()) {
-        case TYPE_SOLITAIRE:
-        {
-            if(GameData::getInstance()->isDrawFlag()){
-                //Percent value
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWindraw3game.ach", 100);
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWin50draw3game.ach", 2*totalWins);
-                
-                app->sendMessageToNative(MSG_RANK_ACHIEVE, "com.cobraclip.cardgames.sDraw3Score", TYPE_SOLITAIRE);
-                
-            }else{
-                
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWindraw1game.ach", 100);
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWin100draw1game.ach", totalWins);
-            }
-            
-            if(GameData::getInstance()->isVegasMode()){
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sPlayVegas.ach", 100);
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sVegasScore.ach", totalVegasScore/10);
-            }
-            
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sPlay1000Games.ach", totalGameCount/10);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sPlay5000Games.ach", totalGameCount/50);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sPlay10000Games.ach", totalGameCount/100);
-            
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWin5gameswithoutUndo.ach", withoutUndoCount*20);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWin10gameswithoutHints.ach", withoutHintCount*10);
-            
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWin500games.ach", totalWins/5);
-            
-            if(_totalMoveCount < 96)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWinaGameIn95Moves.ach", 100);
-            
-            if(_totalMoveCount < 106)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWinaGameIn105Moves.ach", 100);
-            
-            if(_stageTime < 121)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWinaGamein2Min.ach", 100);
-            
-            if(_stageTime < 181)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWinaGamein3Min.ach", 100);
-            
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sScore5000over.ach", totalScore/50);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sScore7000over.ach", totalScore/70);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sScore10000Over.ach", totalScore/100);
-            
-            if(longWinStreakCount>1)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWin2InARow.ach", 100);
-            if(longWinStreakCount>2)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWin3GamesInARow.ach", 100);
-            
-            if(_solitaireAllAces)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sMoveAllAces.ach", 100);
-            
-            //app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sTop10ScoreWiningDeal.ach", topScoreCount * 10);
-            
-            if(_solitaireAllFace == 2)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sPlaceallCardsTableaus.ach", 100);
-            
-        }
-            break;
-            
-        case TYPE_FREECELL:
-        {
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWinAGame.ach", 100);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWin100Games.ach", totalWins);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWin500Games.ach", totalWins/5);
-            
-            if(longWinStreakCount>1)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWin2gamesInARow.ach", 100);
-            if(longWinStreakCount>2)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWin3gamesInARow.ach", 100);
-            
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWin5GamesNoneUndo.ach", withoutUndoCount*20);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWin10GamesNoneHint.ach", withoutHintCount*10);
-            
-            if(_totalMoveCount < 86)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWinAGameIn85Move.ach", 100);
-            
-            if(_totalMoveCount < 101)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWinAGameIn100Move.ach", 100);
-            
-            if(_stageTime < 121)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWinAGameIn2Min.ach", 100);
-            
-            if(_stageTime < 61)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWinAGameIn1Min.ach", 100);
-            
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fPlay1000Games.ach", totalGameCount/10);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fPlay5000Games.ach", totalGameCount/50);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fPlay10000Games.ach", totalGameCount/100);
-            
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fPlay100selectedgames.ach", selectFreecellCount);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fPlay1000selectedgames.ach", selectFreecellCount/10);
-            
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fScore1000.ach", totalScore/100);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fScore20000Over.ach", totalScore/200);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fScore20000Over.ach", totalScore/300);
-            
-            switch (_freecellUseCount) {
-                case 0:
-                    app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fUseNoFreeCell.ach", 100);
-                    break;
-                    
-                case 1:
-                    app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fUseOnly1FreeCell.ach", 100);
-                    break;
-                    
-                case 2:
-                    app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fUseOnly2FreeCell.ach", 100);
-                    break;
-                case 3:
-                    app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fUseOnly3FreeCell.ach", 100);
-                    break;
-                    
-                default:
-                    break;
-            }
-            
-            //app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fTop5ScoreWiningDeal.ach", topScoreCount * 20);
-            app->sendMessageToNative(MSG_RANK_ACHIEVE, "com.cobraclip.cardgames.FCHighScores", TYPE_FREECELL);
-            
-            if(_freecellOneCard)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fFinishOneCardAtATime.ach", 100);
-            
-            if(_freecellOnlyKing)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWinMovingOnlyKings.ach", 100);
-            
-            int gameNumber = GameData::getInstance()->getSelectedGame();
-            
-            switch (gameNumber) {
-                case 164:
-                case 7058:
-                case 15196:
-                case 27835:
-                case 31316:
-                    app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fEasyRoute.ach", 100);
-                    break;
-                    
-                case 169:
-                case 4368:
-                case 7700:
-                case 21278:
-                case 31945:
-                    app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fNotSoSimple.ach", 100);
-                    break;
-                    
-                case 454:
-                case 661:
-                case 718:
-                case 1941:
-                case 6182:
-                    app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fAmbitiousOne.ach", 100);
-                    break;
-                 
-                case 11982:
-                case 146692:
-                    app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fMissionImposs.ach", 100);
-                    break;
-                    
-                default:
-                    break;
-            }
-            
-            
-        }
-            break;
-            
-        case TYPE_FORTY_THIEVES:
-            break;
-            
-        case TYPE_SPIDER:
-        {
-            if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EASY){
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin1SuitGame.ach", 100);
-            }
-            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_NORMAL){
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin2SuitGame.ach", 100);
-            }
-            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EXPERT){
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin3SuitGame.ach", 100);
-            }
-            else{
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin4SuitGame.ach", 100);
-            }
-            
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin100games.ach", totalWins);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin500games.ach", totalWins/5);
-            
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssPlay1000Games.ach", totalGameCount/10);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssPlay5000Games.ach", totalGameCount/50);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssPlay10000Games.ach", totalGameCount/100);
-            
-            if(longWinStreakCount>7)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin8GamesInARow.ach", 100);
-            
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin5GamesNoneUndo.ach", withoutUndoCount*20);
-            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin10GamesNoneHints.ach", withoutHintCount*10);
-            
-            std::string suit1prevGameResult = "Suit1prevGameResult";
-            std::string suit2prevGameResult = "Suit2prevGameResult";
-            std::string suit3prevGameResult = "Suit3prevGameResult";
-            std::string suit4prevGameResult = "Suit4prevGameResult";
-            
-            int suit1prevWin = GameData::getInstance()->getInt(suit1prevGameResult, 0);
-            int suit2prevWin = GameData::getInstance()->getInt(suit2prevGameResult, 0);
-            int suit3prevWin = GameData::getInstance()->getInt(suit3prevGameResult, 0);
-            int suit4prevWin = GameData::getInstance()->getInt(suit4prevGameResult, 0);
-            
-            if(suit1prevWin ==1 && suit2prevWin ==1 && suit3prevWin ==1 && suit4prevWin ==1)
-                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssGrandSlam.ach", 100);
-            
-        }
-            break;
-    }
+//    switch (GameData::getInstance()->getGameType()) {
+//        case TYPE_SOLITAIRE:
+//        {
+//            if(GameData::getInstance()->isDrawFlag()){
+//                //Percent value
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWindraw3game.ach", 100);
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWin50draw3game.ach", 2*totalWins);
+//                
+//                app->sendMessageToNative(MSG_RANK_ACHIEVE, "com.cobraclip.cardgames.sDraw3Score", TYPE_SOLITAIRE);
+//                
+//            }else{
+//                
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWindraw1game.ach", 100);
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWin100draw1game.ach", totalWins);
+//            }
+//            
+//            if(GameData::getInstance()->isVegasMode()){
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sPlayVegas.ach", 100);
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sVegasScore.ach", totalVegasScore/10);
+//            }
+//            
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sPlay1000Games.ach", totalGameCount/10);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sPlay5000Games.ach", totalGameCount/50);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sPlay10000Games.ach", totalGameCount/100);
+//            
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWin5gameswithoutUndo.ach", withoutUndoCount*20);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWin10gameswithoutHints.ach", withoutHintCount*10);
+//            
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWin500games.ach", totalWins/5);
+//            
+//            if(_totalMoveCount < 96)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWinaGameIn95Moves.ach", 100);
+//            
+//            if(_totalMoveCount < 106)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWinaGameIn105Moves.ach", 100);
+//            
+//            if(_stageTime < 121)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWinaGamein2Min.ach", 100);
+//            
+//            if(_stageTime < 181)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWinaGamein3Min.ach", 100);
+//            
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sScore5000over.ach", totalScore/50);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sScore7000over.ach", totalScore/70);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sScore10000Over.ach", totalScore/100);
+//            
+//            if(longWinStreakCount>1)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWin2InARow.ach", 100);
+//            if(longWinStreakCount>2)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sWin3GamesInARow.ach", 100);
+//            
+//            if(_solitaireAllAces)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sMoveAllAces.ach", 100);
+//            
+//            //app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sTop10ScoreWiningDeal.ach", topScoreCount * 10);
+//            
+//            if(_solitaireAllFace == 2)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.sPlaceallCardsTableaus.ach", 100);
+//            
+//        }
+//            break;
+//            
+//        case TYPE_FREECELL:
+//        {
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWinAGame.ach", 100);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWin100Games.ach", totalWins);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWin500Games.ach", totalWins/5);
+//            
+//            if(longWinStreakCount>1)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWin2gamesInARow.ach", 100);
+//            if(longWinStreakCount>2)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWin3gamesInARow.ach", 100);
+//            
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWin5GamesNoneUndo.ach", withoutUndoCount*20);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWin10GamesNoneHint.ach", withoutHintCount*10);
+//            
+//            if(_totalMoveCount < 86)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWinAGameIn85Move.ach", 100);
+//            
+//            if(_totalMoveCount < 101)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWinAGameIn100Move.ach", 100);
+//            
+//            if(_stageTime < 121)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWinAGameIn2Min.ach", 100);
+//            
+//            if(_stageTime < 61)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWinAGameIn1Min.ach", 100);
+//            
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fPlay1000Games.ach", totalGameCount/10);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fPlay5000Games.ach", totalGameCount/50);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fPlay10000Games.ach", totalGameCount/100);
+//            
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fPlay100selectedgames.ach", selectFreecellCount);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fPlay1000selectedgames.ach", selectFreecellCount/10);
+//            
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fScore1000.ach", totalScore/100);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fScore20000Over.ach", totalScore/200);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fScore20000Over.ach", totalScore/300);
+//            
+//            switch (_freecellUseCount) {
+//                case 0:
+//                    app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fUseNoFreeCell.ach", 100);
+//                    break;
+//                    
+//                case 1:
+//                    app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fUseOnly1FreeCell.ach", 100);
+//                    break;
+//                    
+//                case 2:
+//                    app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fUseOnly2FreeCell.ach", 100);
+//                    break;
+//                case 3:
+//                    app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fUseOnly3FreeCell.ach", 100);
+//                    break;
+//                    
+//                default:
+//                    break;
+//            }
+//            
+//            //app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fTop5ScoreWiningDeal.ach", topScoreCount * 20);
+//            app->sendMessageToNative(MSG_RANK_ACHIEVE, "com.cobraclip.cardgames.FCHighScores", TYPE_FREECELL);
+//            
+//            if(_freecellOneCard)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fFinishOneCardAtATime.ach", 100);
+//            
+//            if(_freecellOnlyKing)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fWinMovingOnlyKings.ach", 100);
+//            
+//            int gameNumber = GameData::getInstance()->getSelectedGame();
+//            
+//            switch (gameNumber) {
+//                case 164:
+//                case 7058:
+//                case 15196:
+//                case 27835:
+//                case 31316:
+//                    app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fEasyRoute.ach", 100);
+//                    break;
+//                    
+//                case 169:
+//                case 4368:
+//                case 7700:
+//                case 21278:
+//                case 31945:
+//                    app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fNotSoSimple.ach", 100);
+//                    break;
+//                    
+//                case 454:
+//                case 661:
+//                case 718:
+//                case 1941:
+//                case 6182:
+//                    app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fAmbitiousOne.ach", 100);
+//                    break;
+//                 
+//                case 11982:
+//                case 146692:
+//                    app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.fMissionImposs.ach", 100);
+//                    break;
+//                    
+//                default:
+//                    break;
+//            }
+//            
+//            
+//        }
+//            break;
+//            
+//        case TYPE_FORTY_THIEVES:
+//            break;
+//            
+//        case TYPE_SPIDER:
+//        {
+//            if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EASY){
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin1SuitGame.ach", 100);
+//            }
+//            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_NORMAL){
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin2SuitGame.ach", 100);
+//            }
+//            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EXPERT){
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin3SuitGame.ach", 100);
+//            }
+//            else{
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin4SuitGame.ach", 100);
+//            }
+//            
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin100games.ach", totalWins);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin500games.ach", totalWins/5);
+//            
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssPlay1000Games.ach", totalGameCount/10);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssPlay5000Games.ach", totalGameCount/50);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssPlay10000Games.ach", totalGameCount/100);
+//            
+//            if(longWinStreakCount>7)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin8GamesInARow.ach", 100);
+//            
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin5GamesNoneUndo.ach", withoutUndoCount*20);
+//            app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssWin10GamesNoneHints.ach", withoutHintCount*10);
+//            
+//            std::string suit1prevGameResult = "Suit1prevGameResult";
+//            std::string suit2prevGameResult = "Suit2prevGameResult";
+//            std::string suit3prevGameResult = "Suit3prevGameResult";
+//            std::string suit4prevGameResult = "Suit4prevGameResult";
+//            
+//            int suit1prevWin = GameData::getInstance()->getInt(suit1prevGameResult, 0);
+//            int suit2prevWin = GameData::getInstance()->getInt(suit2prevGameResult, 0);
+//            int suit3prevWin = GameData::getInstance()->getInt(suit3prevGameResult, 0);
+//            int suit4prevWin = GameData::getInstance()->getInt(suit4prevGameResult, 0);
+//            
+//            if(suit1prevWin ==1 && suit2prevWin ==1 && suit3prevWin ==1 && suit4prevWin ==1)
+//                app->sendMessageToNative(MSG_SUBMIT_ACHIEVE, "com.cobraclip.cardgames.ssGrandSlam.ach", 100);
+//            
+//        }
+//            break;
+//    }comment715
 }
