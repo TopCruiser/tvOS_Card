@@ -109,7 +109,7 @@ void BoardLayer::init(CCLayer* parent)
     initLayout();
     
     if(GameData::getInstance()->isEffectEnabled()){
-        SimpleAudioEngine::sharedEngine()->playBackgroundMusic("bgm.mp3", true);
+        //SimpleAudioEngine::sharedEngine()->playBackgroundMusic("bgm.mp3", true); comment715
     }
     GameData::getInstance()->setSelectedGame(0);//in freecell
     GameData::getInstance()->setNewGame(0);//random dealer
@@ -1164,8 +1164,7 @@ void BoardLayer::drawDealer(float dt)
 {
     //static int count = 0;
     if(GameData::getInstance()->isSoundEnabled()){
-        //SimpleAudioEngine::sharedEngine()->playEffect("card_shuffle.mp3");//freecell
-        SimpleAudioEngine::sharedEngine()->playEffect("deal.wav");//freecell
+        //SimpleAudioEngine::sharedEngine()->playEffect("deal.wav");//freecell comment715
     }
     
     if(_dealer->cards->count() > 0)
@@ -1186,8 +1185,7 @@ void BoardLayer::addCardsToPlayCell(float dt)
     //static int stack = 0;
     //static int index = 0;
     if(GameData::getInstance()->isSoundEnabled()){
-        //SimpleAudioEngine::sharedEngine()->playEffect("card_shuffle.mp3");
-        SimpleAudioEngine::sharedEngine()->playEffect("deal.wav");//solitaire,spider,forty thieves sounds
+        //SimpleAudioEngine::sharedEngine()->playEffect("deal.wav");//solitaire,spider,forty thieves sounds comment715
     }
     
     if(_dealer->cards->count() > 0)
@@ -1617,7 +1615,7 @@ Card* BoardLayer::getSelectedCard(Point touchPoint)
         if(sprite->boundingBox().containsPoint(touchPoint))
         {
             if(GameData::getInstance()->isSoundEnabled()){
-                SimpleAudioEngine::sharedEngine()->playEffect("card_shuffle");
+                //SimpleAudioEngine::sharedEngine()->playEffect("card_shuffle"); comment715
             }
             result = card;
             return result;
@@ -1886,7 +1884,7 @@ bool BoardLayer::CardDrag(Card* card, Deck* targetDeck)
 void BoardLayer::doMove(Move* move)
 {
     if(GameData::getInstance()->isSoundEnabled()){
-        SimpleAudioEngine::sharedEngine()->playEffect("card_tick.mp3");
+        //SimpleAudioEngine::sharedEngine()->playEffect("card_tick.mp3"); comment715
     }
     
     if(!_startedGameFlag)
@@ -2707,7 +2705,7 @@ void BoardLayer::doWinAnimation(float dt)
         _winAnimationCount = 0;
         
         if(GameData::getInstance()->isSoundEnabled()){
-            SimpleAudioEngine::sharedEngine()->playEffect("congratulation.mp3");
+            //SimpleAudioEngine::sharedEngine()->playEffect("congratulation.mp3"); comment715
         }
         
         //Do you want Replay? Show Dialog!
@@ -2736,7 +2734,7 @@ void BoardLayer::doWinAnimation(float dt)
     else
     {
         if(GameData::getInstance()->isSoundEnabled()){
-            SimpleAudioEngine::sharedEngine()->playEffect("card_shuffle.mp3");
+            //SimpleAudioEngine::sharedEngine()->playEffect("card_shuffle.mp3"); comment715
         }
         
         _winAnimationCount++;

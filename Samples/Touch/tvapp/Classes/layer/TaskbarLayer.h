@@ -16,13 +16,13 @@
 #include "SpiderOptionLayer.h"
 #include "SolitaireOptionLayer.h"
 
-class TaskbarLayer : public cocos2d::CCLayer
+class TaskbarLayer : public cocos2d::Layer
 {
 public:
-    static cocos2d::CCScene* scene();
+    static cocos2d::Scene* scene();
     
     virtual bool init();
-    virtual void init(CCLayer* parent);
+    virtual void init(Layer* parent);
     
     void updateLayoutWithPortrait();
     void updateLayoutWithLandscape();
@@ -42,19 +42,19 @@ public:
     void removeStoreButton();
     
 private:
-    CCMenuItem* createItem(const char* szNormalSpritePath, const char* szActiveSpritePath, const char* szTitle,
+    MenuItem* createItem(const char* szNormalSpritePath, const char* szActiveSpritePath, const char* szTitle,
                            float width, float height, CCObject* target, SEL_MenuHandler selector);
 private:
-    CCLayer* _parentLayer;
-    CCSprite* _background;
-    CCMenu* _menu;
-    CCMenuItem* _settingItem;
-    CCMenuItem* _centerItem;
-    CCMenuItem* _storeItem = NULL;
-    CCMenuItem* _menuItem;
-    CCMenuItem* _playItem;
-    CCMenuItem* _undoItem;
-    CCMenuItem* _hintItem;
+    Layer* _parentLayer;
+    Sprite* _background;
+    Menu* _menu;
+    MenuItem* _settingItem;
+    MenuItem* _centerItem;
+    MenuItem* _storeItem = NULL;
+    MenuItem* _menuItem;
+    MenuItem* _playItem;
+    MenuItem* _undoItem;
+    MenuItem* _hintItem;
     NewGameLayer* _newGameLayer;
     ExitLayer* _exitLayer;
     int _exitKind;

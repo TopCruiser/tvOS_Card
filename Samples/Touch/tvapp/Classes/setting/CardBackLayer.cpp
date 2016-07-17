@@ -91,7 +91,7 @@ void CardBackLayer::init(Layer* parent)
 //    _selectedCardBack->setScale(getScaleWithDevice());
     //addChild(_selectedCardBack,3);
     _selectedCardBack = MenuItemSprite::create(Sprite::create(getNameWithResolution("selected_cardback").c_str()),
-                                                 Sprite::create(getNameWithResolution("selected_cardback").c_str()),this,NULL);
+                                                 Sprite::create(getNameWithResolution("selected_cardback").c_str()),this);
     _selectedCardBack->setAnchorPoint(Vec2(0.5f, 0.5f));
     _selectedCardBack->setScale(getScaleWithDevice());
     
@@ -335,10 +335,10 @@ void CardBackLayer::init(Layer* parent)
     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
     /////size of the viewable part of scrollview
     if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
-        _ScrollView = CCScrollView::create(Vec2(winSize.width, winSize.height/1.75f), _menu);
+        _ScrollView = ScrollView::create(Size(winSize.width, winSize.height/1.75f), _menu);
     else
-        _ScrollView = CCScrollView::create(Vec2(winSize.width, winSize.height/1.45f), _menu);
-    _ScrollView->setDirection(kCCScrollViewDirectionVertical);
+        _ScrollView = ScrollView::create(Size(winSize.width, winSize.height/1.45f), _menu);
+    _ScrollView->setDirection(cocos2d::extension::ScrollView::Direction::VERTICAL);
     _ScrollView->setAnchorPoint(CCPointZero);
     _ScrollView->setPosition(CCPointZero);
     addChild(_ScrollView);
@@ -346,18 +346,18 @@ void CardBackLayer::init(Layer* parent)
     if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
     {
         /////size of the viewable part of scrollview
-        _ScrollView->setViewSize(Vec2(winSize.width, winSize.height/1.75f));
+        _ScrollView->setViewSize(Size(winSize.width, winSize.height/1.75f));
         ////size of the whole content (the big rectangle that we scroll in)
-        _ScrollView->setContentSize(Vec2(winSize.width/2,winSize.height*1.5));
+        _ScrollView->setContentSize(Size(winSize.width/2,winSize.height*1.5));
         //position it so that the top most is visible initially,
         _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*0.95));
     }
     else//portrait
     {
         /////size of the viewable part of scrollview
-        _ScrollView->setViewSize(Vec2(winSize.width, winSize.height/1.45f));
+        _ScrollView->setViewSize(Size(winSize.width, winSize.height/1.45f));
         ////size of the whole content (the big rectangle that we scroll in)
-        _ScrollView->setContentSize(Vec2(winSize.width/2,winSize.height*2.1));
+        _ScrollView->setContentSize(Size(winSize.width/2,winSize.height*2.1));
         //position it so that the top most is visible initially,
         //_ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*2));
         _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*1.4));
@@ -575,9 +575,9 @@ void CardBackLayer::updateLayoutWithPortrait()
     _menu->setVisible(true);
     
     /////size of the viewable part of scrollview
-    _ScrollView->setViewSize(Vec2(winSize.width, winSize.height/1.45f));
+    _ScrollView->setViewSize(Size(winSize.width, winSize.height/1.45f));
     ////size of the whole content (the big rectangle that we scroll in)
-    _ScrollView->setContentSize(Vec2(winSize.width/2,winSize.height*2.1));
+    _ScrollView->setContentSize(Size(winSize.width/2,winSize.height*2.1));
     //position it so that the top most is visible initially,
     //_ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*2));
     _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*1.4));
@@ -795,9 +795,9 @@ void CardBackLayer::updateLayoutWithLandscape()
     _menu->setVisible(true);
     
     /////size of the viewable part of scrollview
-    _ScrollView->setViewSize(Vec2(winSize.width, winSize.height/1.75f));
+    _ScrollView->setViewSize(Size(winSize.width, winSize.height/1.75f));
     ////size of the whole content (the big rectangle that we scroll in)
-    _ScrollView->setContentSize(Vec2(winSize.width/2,winSize.height*1.5));
+    _ScrollView->setContentSize(Size(winSize.width/2,winSize.height*1.5));
     //position it so that the top most is visible initially,
     _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*0.95));
 }

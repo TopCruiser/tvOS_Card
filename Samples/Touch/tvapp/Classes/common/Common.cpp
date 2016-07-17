@@ -38,6 +38,8 @@ std::string getNameWithDeviceJpg(std::string name)
         newName = name + "_ipad.jpg";
     else if(winSize.height == 2048 || winSize.width == 2048)
         newName = name + "_ipadhd.jpg";
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_TVOS
+    newName = name + "_ipadhd.jpg";
 #else
     newName = "";
 #endif
@@ -49,7 +51,7 @@ std::string getNameWithDevice(std::string name)
     std::string newName;
     
 #ifdef _MAC_OS_
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     if(winSize.height == 480 || winSize.height == 568 ||
        winSize.width == 480 || winSize.width == 568)
         newName = name + "_iphone.png";
@@ -60,6 +62,8 @@ std::string getNameWithDevice(std::string name)
         newName = name + "_ipad.png";
     else if(winSize.height == 2048 || winSize.width == 2048)
         newName = name + "_ipadhd.png";
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_TVOS
+    newName = name + "_ipadhd.png";
 #else
     newName = "";
 #endif
@@ -81,6 +85,8 @@ std::string getNameWithResolution(std::string name)
         newName = name + "_hd.png";
     else if(winSize.height == 2048 || winSize.width == 2048)
         newName = name + "_ipadhd.png";
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_TVOS
+    newName = name + "_ipadhd.png";
 #else
     newName = "";
 #endif
@@ -91,7 +97,22 @@ float getScaleWithDeviceiPad()
 {
     float scale = 1.0f;
     
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
+    float scaleX = winSize.width / 1536;
+    float scaleY = winSize.height / 2048;
+    if(scaleY < scaleX)
+        scale = scaleY;
+    else
+        scale = scaleX;
+    
+    return scale;
+}
+
+float getScaleWithDeviceAppleTV()
+{
+    float scale = 1.0f;
+    
+    Size winSize = Director::getInstance()->getWinSize();
     float scaleX = winSize.width / 1536;
     float scaleY = winSize.height / 2048;
     if(scaleY < scaleX)
@@ -108,9 +129,9 @@ float getScaleWithDevice()
     
 #ifdef _MAC_OS_
 #else
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-    float scaleX = winSize.width / 1536;
-    float scaleY = winSize.height / 2048;
+    Size winSize = Director::getInstance()->getWinSize();
+    float scaleX = winSize.width / 1920;
+    float scaleY = winSize.height / 1080;
     if(scaleY < scaleX)
         scale = scaleY;
     else

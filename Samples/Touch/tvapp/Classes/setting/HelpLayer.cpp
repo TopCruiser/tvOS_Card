@@ -13,7 +13,7 @@
 Scene* HelpLayer::scene()
 {
     Scene *scene = Scene::create();
-    HelpLayer *layer = HelpLayer::create();
+    HelpLayer *layer = (HelpLayer*)HelpLayer::create();
     scene->addChild(layer);
     return scene;
 }
@@ -53,12 +53,12 @@ void HelpLayer::init(Layer* parent)
     _titlebar->setScale(getScaleWithDevice());
     addChild(_titlebar);
     
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-    tableView=CCTableView::create(this, CCSizeMake(winSize.width-getSizeWithDevice(120.0f), winSize.height-getSizeWithDevice(190.0f)));
-    tableView->setDirection(kCCScrollViewDirectionVertical);
+    Size winSize = Director::getInstance()->getWinSize();
+    tableView=TableView::create(this, Size(winSize.width-getSizeWithDevice(120.0f), winSize.height-getSizeWithDevice(190.0f)));
+    tableView->setDirection(cocos2d::extension::ScrollView::Direction::VERTICAL);
     tableView->setAnchorPoint(Vec2(0, 0));
     tableView->setDelegate(this);
-    tableView->setVerticalFillOrder(kCCTableViewFillTopDown);
+    tableView->setVerticalFillOrder(cocos2d::extension::TableView::VerticalFillOrder::TOP_DOWN);
     
     this->addChild(tableView,1);
     tableView->reloadData();
@@ -68,14 +68,14 @@ void HelpLayer::init(Layer* parent)
     _backBackground->setScale(getScaleWithDevice());
     addChild(_backBackground);
     
-    btnDone = CCMenuItemSprite::create(Sprite::create(getNameWithResolution("btn_back_nor").c_str()),
+    btnDone = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_back_nor").c_str()),
                                        Sprite::create(getNameWithResolution("btn_back_act").c_str()),
                                        this, menu_selector(HelpLayer::onDone));
     
     btnDone->setAnchorPoint(Vec2(0.5f, 0.0f));
     btnDone->setScale(getScaleWithDevice());
     
-    CCMenu* _menu = CCMenu::create();
+    Menu* _menu = Menu::create();
     _menu->addChild(btnDone);
         
     _menu->setPosition(Vec2(0.0f, 0.0f));
@@ -88,7 +88,7 @@ void HelpLayer::init(Layer* parent)
 }
 
 void HelpLayer::updateLayoutWithPortrait(){
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     _background->setRotation(0.0f);
     _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     _background->setVisible(true);
@@ -99,7 +99,7 @@ void HelpLayer::updateLayoutWithPortrait(){
     _titlebar->setPosition(Vec2(winSize.width/2, winSize.height-getSizeWithDevice(50)));
     tableView->setPosition(Vec2(getSizeWithDevice(60.0f), getSizeWithDevice(95.0f)));
     
-    tableView->setViewSize( CCSizeMake(winSize.width-getSizeWithDevice(120.0f), winSize.height-getSizeWithDevice(190.0f)));
+    tableView->setViewSize( Size(winSize.width-getSizeWithDevice(120.0f), winSize.height-getSizeWithDevice(190.0f)));
     tableView->reloadData();
     
     _backBackground->setPosition(Vec2(winSize.width/2.0f, getSizeWithDevice(42)));
@@ -108,7 +108,7 @@ void HelpLayer::updateLayoutWithPortrait(){
 }
 
 void HelpLayer::updateLayoutWithLandscape(){
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     _background->setRotation(90.0f);
     _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     _background->setVisible(true);
@@ -119,7 +119,7 @@ void HelpLayer::updateLayoutWithLandscape(){
     _titlebar->setPosition(Vec2(winSize.width/2, winSize.height-getSizeWithDevice(50)));
     
     tableView->setPosition(Vec2(getSizeWithDevice(60.0f), getSizeWithDevice(95.0f)));
-    tableView->setViewSize( CCSizeMake(winSize.width-getSizeWithDevice(120.0f), winSize.height-getSizeWithDevice(190.0f)));
+    tableView->setViewSize( Size(winSize.width-getSizeWithDevice(120.0f), winSize.height-getSizeWithDevice(190.0f)));
     tableView->reloadData();
     
     _backBackground->setPosition(Vec2(winSize.width/2.0f, getSizeWithDevice(42)));
@@ -127,7 +127,7 @@ void HelpLayer::updateLayoutWithLandscape(){
     
 }
 
-void HelpLayer::onDone(CCObject* sender)
+void HelpLayer::onDone(Ref* sender)
 {
     GameData::getInstance()->playSoundEffect();
     
@@ -136,37 +136,37 @@ void HelpLayer::onDone(CCObject* sender)
 }
 
 //The number of cell
-unsigned int HelpLayer::numberOfCellsInTableView(CCTableView *table)
+ssize_t HelpLayer::numberOfCellsInTableView(TableView *table)
 {
     return 8;
 }
 
 //Generate cell
-CCTableViewCell* HelpLayer::tableCellAtIndex(CCTableView *table, unsigned int idx)
+TableViewCell* HelpLayer::tableCellAtIndex(TableView *table, unsigned int idx)
 {
     //CCString *nameString=CCString::createWithFormat("cell_%d.png",idx);
     
-    CCTableViewCell *cell = table->dequeueCell();
+    TableViewCell *cell = table->dequeueCell();
     
     //if(!cell)
     //{
     //CCLog("if no cell %d", idx);
-    cell = new CCTableViewCell();
+    cell = new TableViewCell();
     cell->autorelease();
     
     Sprite* titleSprite = Sprite::create();
-    titleSprite->setAnchorPoint(CCPointZero);
+    titleSprite->setAnchorPoint(Vec2(0, 0));
     titleSprite->setPosition(Vec2(0,0));
     
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-    CCSize textSize;
+    Size winSize = Director::getInstance()->getWinSize();
+    Size textSize;
     if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
     {
-        if(idx == 1) textSize = CCSizeMake(winSize.width-getSizeWithDevice(120), getSizeWithDevice(1300));
-        else textSize = CCSizeMake(winSize.width-getSizeWithDevice(120), getSizeWithDevice(900));
+        if(idx == 1) textSize = Size(winSize.width-getSizeWithDevice(120), getSizeWithDevice(1300));
+        else textSize = Size(winSize.width-getSizeWithDevice(120), getSizeWithDevice(900));
     }
     else
-        textSize = CCSizeMake(winSize.width-getSizeWithDevice(120), getSizeWithDevice(700));
+        textSize = Size(winSize.width-getSizeWithDevice(120), getSizeWithDevice(700));
     
     CCLabelTTF* _cellLabel = CCLabelTTF::create("", "Thonburi", getSizeWithDevice(25), textSize, kCCTextAlignmentLeft);
     
@@ -183,7 +183,7 @@ CCTableViewCell* HelpLayer::tableCellAtIndex(CCTableView *table, unsigned int id
     if(idx == 1){
         //_cellLabel->setString("The game begins gging it or by clicking it.");
         
-        //_cellLabel->initWithString("The game begins gging it or by clicking it. The game begins gging it or by clicking it. The game begins gging it or by clicking it.", "Thonburi", getSizeWithDevice(30), CCSizeMake(getSizeWithDevice(200), getSizeWithDevice(80)), kCCTextAlignmentLeft, kCCVerticalTextAlignmentCenter);
+        //_cellLabel->initWithString("The game begins gging it or by clicking it. The game begins gging it or by clicking it. The game begins gging it or by clicking it.", "Thonburi", getSizeWithDevice(30), Size(getSizeWithDevice(200), getSizeWithDevice(80)), kCCTextAlignmentLeft, kCCVerticalTextAlignmentCenter);
         
         _cellLabel->setString("The game begins with 28 cards arranged into seven columns.\nThe first column contains one card, the second has two cards, and so on. The top card in each column is face up, the rest are face down. \nFour Home stacks are positioned at the upper-right corner. This is where you build the piles needed to win. \n\nEach Home stack must start with an ace. If you  don't have any, you'll have to move cards between columns until you uncover one. \nYou can't move cards between columns at random, however. \nColumns must be built in descending order, from king to ace. So you can place a 10 on a jack, but not on a 3. \n\nAs an added twist, cards in columns must also alternate red and black. \nYou aren't limited to moving single cards. You can also move sequentially organized runs of cards between columns. Just click the deepest card in the run and drag them all to another column. \n\nIf you run out of moves, you'll have to draw more cards by clicking the deck in the upper-right corner. If the deck runs out, click its outline on the table to reshuffle it. \nYou can move a card to the Home stack either by dragging it or by clicking it.");
         cell->addChild(_cellLabel);
@@ -233,47 +233,47 @@ CCTableViewCell* HelpLayer::tableCellAtIndex(CCTableView *table, unsigned int id
 
 //CCSize HelpLayer::cellSizeForTable(CCTableView *table)
 //{
-//    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-//    return CCSizeMake(winSize.width-getSizeWithDevice(250.0f), getSizeWithDevice(500.0f));//40
+//    CCSize winSize = Director::getInstance()->getWinSize();
+//    return Size(winSize.width-getSizeWithDevice(250.0f), getSizeWithDevice(500.0f));//40
 //}
 
-CCSize HelpLayer::tableCellSizeForIndex(CCTableView *table, unsigned int idx)
+Size HelpLayer::tableCellSizeForIndex(TableView *table, unsigned int idx)
 {
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     
-    if(idx%2 == 0)  return CCSizeMake(winSize.width-getSizeWithDevice(120), getSizeWithDevice(80));
+    if(idx%2 == 0)  return Size(winSize.width-getSizeWithDevice(120), getSizeWithDevice(80));
     else {
         if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
         {
-            if(idx == 1) return CCSizeMake(winSize.width-getSizeWithDevice(120), getSizeWithDevice(1300));
-            else return CCSizeMake(winSize.width-getSizeWithDevice(120), getSizeWithDevice(900));
+            if(idx == 1) return Size(winSize.width-getSizeWithDevice(120), getSizeWithDevice(1300));
+            else return Size(winSize.width-getSizeWithDevice(120), getSizeWithDevice(900));
         }
             
         
         
-        return CCSizeMake(winSize.width-getSizeWithDevice(120), getSizeWithDevice(700));
+        return Size(winSize.width-getSizeWithDevice(120), getSizeWithDevice(700));
     }
     
 }
 
-void HelpLayer::tableCellHighlight(CCTableView *table, CCTableViewCell *cell)
+void HelpLayer::tableCellHighlight(TableView *table, TableViewCell *cell)
 {
     
 }
 
-void HelpLayer::tableCellUnhighlight(CCTableView *table, CCTableViewCell *cell)
+void HelpLayer::tableCellUnhighlight(TableView *table, TableViewCell *cell)
 {
     
 }
 
-void HelpLayer::tableCellTouched(CCTableView *table, CCTableViewCell *cell)
+void HelpLayer::tableCellTouched(TableView *table, TableViewCell *cell)
 {
 }
 
-void HelpLayer::scrollViewDidScroll(cocos2d::extension::CCScrollView *view)
+void HelpLayer::scrollViewDidScroll(cocos2d::extension::ScrollView *view)
 {
 }
 
-void HelpLayer::scrollViewDidZoom(cocos2d::extension::CCScrollView *view)
+void HelpLayer::scrollViewDidZoom(cocos2d::extension::ScrollView *view)
 {
 }

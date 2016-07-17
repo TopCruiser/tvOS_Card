@@ -78,12 +78,12 @@ bool MenuLayer::init()
 
 void MenuLayer::onEnterTransitionDidFinish()
 {
-    if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
-        updateLayoutWithPortrait();
-    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
-        updateLayoutWithLandscape();
+    //if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
+        //updateLayoutWithPortrait();
+//    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)comment716
+          updateLayoutWithLandscape();
     
-    AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Home Screen", 1);
+    //AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Home Screen", 1);comment715
 }
 
 void MenuLayer::updateLayoutWithPortrait()
@@ -101,7 +101,7 @@ void MenuLayer::updateLayoutWithPortrait()
     
     for(int i = 0; i < TAG_MAX; i++)
     {
-        Vec2oint pos = CCPointZero;
+        Point pos = Vec2(0, 0);
         switch (i) {
             case TAG_SOLITAIRE:
                 pos.x = getSizeWithDevice(0);

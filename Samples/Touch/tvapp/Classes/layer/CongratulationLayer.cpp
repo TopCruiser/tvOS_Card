@@ -141,34 +141,34 @@ void CongratulationLayer::init(CCLayer* parent)
     
     
     //AppDelegate::get()->sendMessageToNative(MSG_SHOW_REWARDEDVIDEO, "Chartboost Rewarded Video", 1);
-    if(!GameData::getInstance()->isRemoveAds())
-        AppDelegate::get()->sendMessageToNative(MSG_ADCOLONY_VIDEO, "AdColony Video", 1);
-    
-    //Appirater
-    AppDelegate::get()->sendMessageToNative(MSG_APPIRATER, "Appirater", 1);
+//    if(!GameData::getInstance()->isRemoveAds())
+//        AppDelegate::get()->sendMessageToNative(MSG_ADCOLONY_VIDEO, "AdColony Video", 1);
+//    
+//    //Appirater
+//    AppDelegate::get()->sendMessageToNative(MSG_APPIRATER, "Appirater", 1);comment715
     
 }
 
 
 void CongratulationLayer::onFacebook(CCObject* sender)
 {
-    AppDelegate::get()->sendMessageToNative(MSG_SHOW_FACEBOOK, getMessage().c_str(), 1);
+    //AppDelegate::get()->sendMessageToNative(MSG_SHOW_FACEBOOK, getMessage().c_str(), 1);comment715
 }
 
 void CongratulationLayer::onTwitter(CCObject* sender)
 {
-    AppDelegate::get()->sendMessageToNative(MSG_SHOW_TWITTER, getMessage().c_str(), 1);
+    //AppDelegate::get()->sendMessageToNative(MSG_SHOW_TWITTER, getMessage().c_str(), 1);comment715
 }
 
 void CongratulationLayer::onChat(CCObject* sender)
 {
     //SMS
-    AppDelegate::get()->sendMessageToNative(MSG_SMS, getMessage().c_str(), 1);
+    //AppDelegate::get()->sendMessageToNative(MSG_SMS, getMessage().c_str(), 1);//comment715
 }
 
 void CongratulationLayer::onMail(CCObject* sender)
 {
-    AppDelegate::get()->sendMessageToNative(MSG_EMAIL, getMessage().c_str(), 1);
+    //AppDelegate::get()->sendMessageToNative(MSG_EMAIL, getMessage().c_str(), 1);comment715
 }
 
 std::string CongratulationLayer::getMessage(){
@@ -206,46 +206,46 @@ void CongratulationLayer::onGameCenter(CCObject* sender)
 {
     AppDelegate* app = AppDelegate::get();
     
-    switch (GameData::getInstance()->getGameType()) {
-        case TYPE_SOLITAIRE:
-        {
-            if(GameData::getInstance()->isDrawFlag()){
-                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sDraw3Wins", 1);
-            }else{
-                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sDraw1Wins", 1);
-            }
-        }
-            break;
-            
-        case TYPE_FREECELL:
-        {
-            app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.FCTotalWins", 1);
-        }
-            break;
-            
-        case TYPE_FORTY_THIEVES:
-        {
-            app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.FTTotalWins", 1);
-        }
-            break;
-            
-        case TYPE_SPIDER:
-        {
-            if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EASY){
-                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss1suitwins", 1);
-            }
-            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_NORMAL){
-                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss2suitwins", 1);
-            }
-            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EXPERT){
-                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss3suitwins", 1);
-            }
-            else{
-                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss4suitwins", 1);
-            }
-        }
-            break;
-    }
+//    switch (GameData::getInstance()->getGameType()) {
+//        case TYPE_SOLITAIRE:
+//        {
+//            if(GameData::getInstance()->isDrawFlag()){
+//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sDraw3Wins", 1);
+//            }else{
+//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sDraw1Wins", 1);
+//            }
+//        }
+//            break;
+//            
+//        case TYPE_FREECELL:
+//        {
+//            app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.FCTotalWins", 1);
+//        }
+//            break;
+//            
+//        case TYPE_FORTY_THIEVES:
+//        {
+//            app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.FTTotalWins", 1);
+//        }
+//            break;
+//            
+//        case TYPE_SPIDER:
+//        {
+//            if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EASY){
+//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss1suitwins", 1);
+//            }
+//            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_NORMAL){
+//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss2suitwins", 1);
+//            }
+//            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EXPERT){
+//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss3suitwins", 1);
+//            }
+//            else{
+//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss4suitwins", 1);
+//            }
+//        }
+//            break;
+//    }comment715
 }
 
 void CongratulationLayer::onReplay(CCObject* sender)

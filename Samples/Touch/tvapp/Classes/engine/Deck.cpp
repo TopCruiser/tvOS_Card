@@ -338,7 +338,7 @@ void Deck::doneAnimation(Node* sender, Card* card)
         //goalSprite->runAction(fadeOut);
         
         if(GameData::getInstance()->isSoundEnabled()){
-            SimpleAudioEngine::getInstance()->playEffect("goal.mp3");
+            //SimpleAudioEngine::getInstance()->playEffect("goal.mp3"); comment715
         }
         
         String *nameString = String::createWithFormat("particle_%d.png", card->getSuit());

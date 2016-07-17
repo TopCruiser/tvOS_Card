@@ -19,9 +19,9 @@ enum LAYER_ORDER {
     BACKGROUND_NATIVE = 7
 };
 
-cocos2d::CCScene* GameLayer::scene()
+cocos2d::Scene* GameLayer::scene()
 {
-    CCScene* scene = cocos2d::CCScene::create();
+    Scene* scene = cocos2d::Scene::create();
     GameLayer* layer = GameLayer::create();
     scene->addChild(layer);
     return scene;
@@ -29,20 +29,20 @@ cocos2d::CCScene* GameLayer::scene()
 
 bool GameLayer::init()
 {
-    if(!CCLayer::init())	
+    if(!Layer::init())
         return false;
     
     _isFirstLunch = true;
     _isShowTaskbar = false;       
     
-    _background = CCSprite::create();
-    _background->setAnchorPoint(ccp(0.5f, 0.5f));
+    _background = Sprite::create();
+    _background->setAnchorPoint(Vec2(0.5f, 0.5f));
     _background->setScale(getScaleWithDevice());
     _background->setVisible(false);
     addChild(_background, ORDER_BACKGROUND);
     
-    _blankBanner = CCSprite::create();
-    _blankBanner->setAnchorPoint(ccp(0.5f, 0.5f));
+    _blankBanner = Sprite::create();
+    _blankBanner->setAnchorPoint(Vec2(0.5f, 0.5f));
     _blankBanner->setScale(getScaleWithDevice());
     _blankBanner->setContentSize(getContentSize());
     _blankBanner->setVisible(false);
@@ -56,54 +56,54 @@ bool GameLayer::init()
     else {
         setBackground(0);
         ImagePicker::getInstance()->setDelegate(this);
-        AppDelegate::get()->sendMessageToNative(MSG_NATIVE_BACKGROUND, "Set Native Background", 1);
+        //AppDelegate::get()->sendMessageToNative(MSG_NATIVE_BACKGROUND, "Set Native Background", 1);comment715
     }
     
     _taskbarLayer = TaskbarLayer::create();
     _taskbarLayer->init(this);
-    _taskbarLayer->setAnchorPoint(ccp(0.5f, 0.0f));
+    _taskbarLayer->setAnchorPoint(Vec2(0.5f, 0.0f));
     _taskbarLayer->setVisible(false);
     addChild(_taskbarLayer, ORDER_TASKBAR);
     
     
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-    _settingLayer = SettingLayer::create();
+    Size winSize = Director::getInstance()->getWinSize();
+    _settingLayer = (SettingLayer*)SettingLayer::create();
     _settingLayer->init(this);
-    _settingLayer->setAnchorPoint(ccp(0.5f, 0.0f));
+    _settingLayer->setAnchorPoint(Vec2(0.5f, 0.0f));
     _settingLayer->setVisible(false);
-    _settingLayer->setPosition(ccp(-winSize.width, 0));
+    _settingLayer->setPosition(Vec2(-winSize.width, 0));
     addChild(_settingLayer, ORDER_OPTION);
     
     _cardBackLayer = CardBackLayer::create();
     _cardBackLayer->init(this);
-    _cardBackLayer->setAnchorPoint(ccp(0.5f, 0.0f));
+    _cardBackLayer->setAnchorPoint(Vec2(0.5f, 0.0f));
     _cardBackLayer->setVisible(false);
     addChild(_cardBackLayer, ORDER_SET);
     
     _backgroundLayer = BackgroundLayer::create();
     _backgroundLayer->init(this);
-    _backgroundLayer->setAnchorPoint(ccp(0.5f, 0.0f));
+    _backgroundLayer->setAnchorPoint(Vec2(0.5f, 0.0f));
     _backgroundLayer->setVisible(false);
     addChild(_backgroundLayer, ORDER_SET);
     
     _cardFaceLayer = CardFaceLayer::create();
     _cardFaceLayer->init(this);
-    _cardFaceLayer->setAnchorPoint(ccp(0.5f, 0.0f));
+    _cardFaceLayer->setAnchorPoint(Vec2(0.5f, 0.0f));
     _cardFaceLayer->setVisible(false);
     addChild(_cardFaceLayer, ORDER_SET);
     
-    _statisticsLayer = StatisticsLayer::create();
+    _statisticsLayer = (StatisticsLayer*)StatisticsLayer::create();
     _statisticsLayer->init(this);
-    _statisticsLayer->setAnchorPoint(ccp(0.5f, 0.0f));
+    _statisticsLayer->setAnchorPoint(Vec2(0.5f, 0.0f));
     _statisticsLayer->setVisible(false);
-    _statisticsLayer->setPosition(ccp(winSize.width*2,0));
+    _statisticsLayer->setPosition(Vec2(winSize.width*2,0));
     addChild(_statisticsLayer, ORDER_SET);
     
-    _helpLayer = HelpLayer::create();
+    _helpLayer = (HelpLayer*)HelpLayer::create();
     _helpLayer->init(this);
-    _helpLayer->setAnchorPoint(ccp(0.5, 0.5));
+    _helpLayer->setAnchorPoint(Vec2(0.5, 0.5));
     _helpLayer->setVisible(false);
-    _helpLayer->setPosition(ccp(winSize.width*2,0));
+    _helpLayer->setPosition(Vec2(winSize.width*2,0));
     
     addChild(_helpLayer, ORDER_SET);
     
@@ -112,9 +112,9 @@ bool GameLayer::init()
 
 void GameLayer::onEnterTransitionDidFinish()
 {
-    if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
-        updateLayoutWithPortrait();
-    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
+    //if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
+        //updateLayoutWithPortrait();
+//    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)comment715
         updateLayoutWithLandscape();
     
     if(_isFirstLunch)
@@ -150,8 +150,8 @@ void GameLayer::showBoardLayerWithSolitaire()
     _boardLayer->setCells(0);
     _boardLayer->setSuits(4);
     _boardLayer->setStacks(7);
-    _boardLayer->setAnchorPoint(ccp(0.5f, 0.5f));
-    _boardLayer->setPosition(ccp(0.0f, 0.0f));
+    _boardLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
+    _boardLayer->setPosition(Vec2(0.0f, 0.0f));
     addChild(_boardLayer, ORDER_BOARD);
     
     _boardLayer->startNewGame();
@@ -164,8 +164,8 @@ void GameLayer::showBoardLayerWithFreecell()
     _boardLayer->setCells(4);
     _boardLayer->setSuits(4);
     _boardLayer->setStacks(8);
-    _boardLayer->setAnchorPoint(ccp(0.5f, 0.5f));
-    _boardLayer->setPosition(ccp(0.0f, 0.0f));
+    _boardLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
+    _boardLayer->setPosition(Vec2(0.0f, 0.0f));
     addChild(_boardLayer, ORDER_BOARD);
     
     _boardLayer->startNewGame();
@@ -178,8 +178,8 @@ void GameLayer::showBoardLayerWithFortythieves()
     _boardLayer->setCells(0);
     _boardLayer->setSuits(8);
     _boardLayer->setStacks(10);
-    _boardLayer->setAnchorPoint(ccp(0.5f, 0.5f));
-    _boardLayer->setPosition(ccp(0.0f, 0.0f));
+    _boardLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
+    _boardLayer->setPosition(Vec2(0.0f, 0.0f));
     addChild(_boardLayer, ORDER_BOARD);
     
     _boardLayer->startNewGame();
@@ -212,8 +212,8 @@ void GameLayer::showBoardLayerWithSpider()
     }
     
     _boardLayer->setStacks(10);
-    _boardLayer->setAnchorPoint(ccp(0.5f, 0.5f));
-    _boardLayer->setPosition(ccp(0.0f, 0.0f));
+    _boardLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
+    _boardLayer->setPosition(Vec2(0.0f, 0.0f));
     addChild(_boardLayer, ORDER_BOARD);
     
     _boardLayer->startNewGame();    
@@ -226,8 +226,8 @@ void GameLayer::showTaskbar()
     
     _isShowTaskbar = !_isShowTaskbar;
     
-    CCPoint position = ccp(0.0f, 0.0f);
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Point position = Vec2(0.0f, 0.0f);
+    Size winSize = Director::getInstance()->getWinSize();
     
     int bannerHeight = GameData::getInstance()->getBannerHeight();
     
@@ -235,27 +235,27 @@ void GameLayer::showTaskbar()
         
         _boardLayer->setInstance(_boardLayer);
         
-        position = ccp(winSize.width/2.0f, bannerHeight);
-        _blankBanner->setPosition(ccp(winSize.width/2, -_blankBanner->getContentSize().height/2+ bannerHeight));
+        position = Vec2(winSize.width/2.0f, bannerHeight);
+        _blankBanner->setPosition(Vec2(winSize.width/2, -_blankBanner->getContentSize().height/2+ bannerHeight));
         
         //CCLog("%f", _blankBanner->getContentSize().height);
     }
     else{
-        //position = ccp(winSize.width/2.0f, -_taskbarLayer->getContentSize().height + bannerHeight);
-        position = ccp(winSize.width/2.0f, -_taskbarLayer->getContentSize().height);
-        _blankBanner->setPosition(ccp(winSize.width/2, -_blankBanner->getContentSize().height));
+        //position = Vec2(winSize.width/2.0f, -_taskbarLayer->getContentSize().height + bannerHeight);
+        position = Vec2(winSize.width/2.0f, -_taskbarLayer->getContentSize().height);
+        _blankBanner->setPosition(Vec2(winSize.width/2, -_blankBanner->getContentSize().height));
     }
     
     /*
     if(_isShowTaskbar){
      
-        position = ccp(_taskbarLayer->getPositionX(), _taskbarLayer->getPositionY() + _taskbarLayer->getContentSize().height);
+        position = Vec2(_taskbarLayer->getPositionX(), _taskbarLayer->getPositionY() + _taskbarLayer->getContentSize().height);
     }
     else
-        position = ccp(_taskbarLayer->getPositionX(), _taskbarLayer->getPositionY() - _taskbarLayer->getContentSize().height);
+        position = Vec2(_taskbarLayer->getPositionX(), _taskbarLayer->getPositionY() - _taskbarLayer->getContentSize().height);
     */
     
-    CCAction* action = CCMoveTo::create(0.2f, position);
+    Action* action = MoveTo::create(0.2f, position);
     _taskbarLayer->runAction(action);
 }
 
@@ -264,26 +264,26 @@ void GameLayer::upTaskbar(int bannerHeight)
     if(_taskbarLayer == NULL)
         return;
     
-    CCPoint position = ccp(0.0f, 0.0f);
-    position = ccp(_taskbarLayer->getPositionX(), _taskbarLayer->getPositionY() + bannerHeight);
+    Point position = Vec2(0.0f, 0.0f);
+    position = Vec2(_taskbarLayer->getPositionX(), _taskbarLayer->getPositionY() + bannerHeight);
     
-    _blankBanner->setPosition(ccp(_blankBanner->getPositionX(), _blankBanner->getPositionY()+bannerHeight));
+    _blankBanner->setPosition(Vec2(_blankBanner->getPositionX(), _blankBanner->getPositionY()+bannerHeight));
     
     _taskbarLayer->setPosition(position);
 }
 
 void GameLayer::updateLayoutWithPortrait()
 {
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
 
     _background->setRotation(0.0f);
-    _background->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+    _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     _background->setVisible(true);
     
     //added by KHJ 04/14/2015
     if(GameData::getInstance()->getBackgroundIndex() == BACKGROUND_NATIVE)
     {
-        CCSize bgSize= _background->getContentSize();
+        Size bgSize= _background->getContentSize();
         
         float scaleX=winSize.width/bgSize.width;
         float scaleY=winSize.height/bgSize.height;
@@ -296,13 +296,13 @@ void GameLayer::updateLayoutWithPortrait()
     
     if(_solitaireOptionLayer != NULL)
     {
-        _solitaireOptionLayer->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+        _solitaireOptionLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
         _solitaireOptionLayer->setVisible(true);
     }
     
     if(_spiderOptionLayer != NULL)
     {
-        _spiderOptionLayer->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+        _spiderOptionLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
         _spiderOptionLayer->setVisible(true);
     }
     
@@ -316,11 +316,11 @@ void GameLayer::updateLayoutWithPortrait()
         
         if(_isShowTaskbar){
             _taskbarLayer->setPosition(winSize.width/2.0f, bannerHeight);
-            _blankBanner->setPosition(ccp(winSize.width/2, -_blankBanner->getContentSize().height/2+bannerHeight));
+            _blankBanner->setPosition(Vec2(winSize.width/2, -_blankBanner->getContentSize().height/2+bannerHeight));
         }
         else{
             _taskbarLayer->setPosition(winSize.width/2.0f, -_taskbarLayer->getContentSize().height);
-            _blankBanner->setPosition(ccp(winSize.width/2, -_blankBanner->getContentSize().height));
+            _blankBanner->setPosition(Vec2(winSize.width/2, -_blankBanner->getContentSize().height));
         }
         
         _taskbarLayer->updateLayoutWithPortrait();
@@ -355,17 +355,17 @@ void GameLayer::updateLayoutWithPortrait()
 
 void GameLayer::updateLayoutWithLandscape()
 {
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     
     _background->setRotation(90.0f);
-    _background->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+    _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     _background->setVisible(true);
     
     //added by KHJ 04/14/2015
     if(GameData::getInstance()->getBackgroundIndex() == BACKGROUND_NATIVE)
     {
         _background->setRotation(0.0f);
-        CCSize bgSize= _background->getContentSize();
+        Size bgSize= _background->getContentSize();
         
         float scaleX=winSize.width/bgSize.width;
         float scaleY=winSize.height/bgSize.height;
@@ -377,10 +377,10 @@ void GameLayer::updateLayoutWithLandscape()
     //
     
     if(_solitaireOptionLayer != NULL)
-        _solitaireOptionLayer->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+        _solitaireOptionLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     
     if(_spiderOptionLayer != NULL)
-        _spiderOptionLayer->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+        _spiderOptionLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
 
     if(_boardLayer != NULL)
         _boardLayer->updateLayoutWithLandscape();
@@ -392,11 +392,11 @@ void GameLayer::updateLayoutWithLandscape()
         
         if(_isShowTaskbar){
             _taskbarLayer->setPosition(winSize.width/2.0f, bannerHeight);
-            _blankBanner->setPosition(ccp(winSize.width/2, -_blankBanner->getContentSize().height/2+bannerHeight));
+            _blankBanner->setPosition(Vec2(winSize.width/2, -_blankBanner->getContentSize().height/2+bannerHeight));
         }
         else{
             _taskbarLayer->setPosition(winSize.width/2.0f, -_taskbarLayer->getContentSize().height);
-            _blankBanner->setPosition(ccp(winSize.width/2, -_blankBanner->getContentSize().height));
+            _blankBanner->setPosition(Vec2(winSize.width/2, -_blankBanner->getContentSize().height));
         }
         _taskbarLayer->updateLayoutWithLandscape();
         _taskbarLayer->setVisible(true);
@@ -429,23 +429,23 @@ void GameLayer::updateLayoutWithLandscape()
 
 void GameLayer::showSolitaireOptionLayer()
 {
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     
     _solitaireOptionLayer = SolitaireOptionLayer::create();
     _solitaireOptionLayer->init(this);
-    _solitaireOptionLayer->setAnchorPoint(ccp(0.5f, 0.5f));
-    _solitaireOptionLayer->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+    _solitaireOptionLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
+    _solitaireOptionLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     addChild(_solitaireOptionLayer, ORDER_OPTION);
 }
 
 void GameLayer::showSpiderOptionLayer()
 {
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     
     _spiderOptionLayer = SpiderOptionLayer::create();
     _spiderOptionLayer->init(this);
-    _spiderOptionLayer->setAnchorPoint(ccp(0.5f, 0.5f));
-    _spiderOptionLayer->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+    _spiderOptionLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
+    _spiderOptionLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     addChild(_spiderOptionLayer, ORDER_OPTION);
 }
 
@@ -454,10 +454,10 @@ void GameLayer::showSettingLayer()
     GameData::getInstance()->setDoingAction(true);
     
     _settingLayer->setVisible(true);
-    CCMoveTo* action = CCMoveTo::create(0.3f, ccp(0,0));
-    CCEaseIn *_easein = CCEaseIn::create(action,0.3f);
-    CCSequence *_sequence  =  CCSequence::create(_easein, CCCallFuncND::create(this, callfuncND_selector(GameLayer::doneSettingAnimation), NULL), NULL);
-    
+    MoveTo* action = MoveTo::create(0.3f, Vec2(0,0));
+    EaseIn *_easein = EaseIn::create(action,0.3f);
+    //Sequence *_sequence  =  Sequence::create(_easein, CCCallFuncND::create(this, callfuncND_selector(GameLayer::doneSettingAnimation), NULL), NULL);
+    Sequence *_sequence  =  Sequence::create(_easein, CC_CALLBACK_0(GameLayer::doneSettingAnimation, NULL), NULL);
     _settingLayer->runAction(_sequence);
 }
 
@@ -465,15 +465,15 @@ void GameLayer::hideSettingLayer()
 {
     GameData::getInstance()->setDoingAction(true);
     
-    CCSize winSize= CCDirector::sharedDirector()->getWinSize();
+    Size winSize= Director::getInstance()->getWinSize();
     float disappear;
     disappear = winSize.width > winSize.height ? winSize.width : winSize.height;
     
-    //CCMoveTo* action = CCMoveTo::create(0.3f, ccp(-disappear,0));
-    CCMoveTo* action = CCMoveTo::create(0.3f, ccp(-1.25 * disappear,0));
-    CCEaseIn *_easein = CCEaseIn::create(action,0.3f);
-    CCSequence *_sequence  =  CCSequence::create( _easein, CCCallFuncND::create(this, callfuncND_selector(GameLayer::doneSettingAnimation), NULL), NULL);
-    
+    //CCMoveTo* action = CCMoveTo::create(0.3f, Vec2(-disappear,0));
+    MoveTo* action = MoveTo::create(0.3f, Vec2(-1.25 * disappear,0));
+    EaseIn *_easein = EaseIn::create(action,0.3f);
+    //CCSequence *_sequence  =  CCSequence::create( _easein, CCCallFuncND::create(this, callfuncND_selector(GameLayer::doneSettingAnimation), NULL), NULL);
+    Sequence *_sequence  =  Sequence::create(_easein, CC_CALLBACK_0(GameLayer::doneSettingAnimation, NULL), NULL);
     _settingLayer->runAction(_sequence);
 }
 
@@ -500,9 +500,9 @@ void GameLayer::showStatisticsLayer(){
     _statisticsLayer->getTableView()->reloadData();
     
     _statisticsLayer->setVisible(true);
-    CCMoveTo* action = CCMoveTo::create(0.3f, ccp(0,0));
-    CCEaseIn *_easein = CCEaseIn::create(action,0.3f);
-    CCSequence *_sequence  =  CCSequence::create(_easein, CCCallFuncND::create(this, callfuncND_selector(GameLayer::doneSettingAnimation), NULL), NULL);
+    MoveTo* action = MoveTo::create(0.3f, Vec2(0,0));
+    EaseIn *_easein = EaseIn::create(action,0.3f);
+    Sequence *_sequence  =  Sequence::create(_easein, CC_CALLBACK_0(GameLayer::doneSettingAnimation, NULL), NULL);
     
     _statisticsLayer->runAction(_sequence);
 }
@@ -511,13 +511,13 @@ void GameLayer::hideStatisticsLayer()
 {
     GameData::getInstance()->setDoingAction(true);
     
-    CCSize winSize= CCDirector::sharedDirector()->getWinSize();
+    Size winSize= Director::getInstance()->getWinSize();
     float disappear;
     disappear = winSize.width > winSize.height ? winSize.width : winSize.height;
     
-    CCMoveTo* action = CCMoveTo::create(0.3f, ccp(disappear,0));
-    CCEaseIn *_easein = CCEaseIn::create(action,0.3f);
-    CCSequence *_sequence  =  CCSequence::create( _easein, CCCallFuncND::create(this, callfuncND_selector(GameLayer::doneSettingAnimation), NULL), NULL);
+    MoveTo* action = MoveTo::create(0.3f, Vec2(disappear,0));
+    EaseIn *_easein = EaseIn::create(action,0.3f);
+    Sequence *_sequence  =  Sequence::create(_easein, CC_CALLBACK_0(GameLayer::doneSettingAnimation, NULL), NULL);
     
     _statisticsLayer->runAction(_sequence);
 }
@@ -527,9 +527,9 @@ void GameLayer::showHelpLayer(){
     GameData::getInstance()->setDoingAction(true);
     
     _helpLayer->setVisible(true);
-    CCMoveTo* action = CCMoveTo::create(0.3f, ccp(0,0));
-    CCEaseIn *_easein = CCEaseIn::create(action,0.3f);
-    CCSequence *_sequence  =  CCSequence::create(_easein, CCCallFuncND::create(this, callfuncND_selector(GameLayer::doneSettingAnimation), NULL), NULL);
+    MoveTo* action = MoveTo::create(0.3f, Vec2(0,0));
+    EaseIn *_easein = EaseIn::create(action,0.3f);
+    Sequence *_sequence  =  Sequence::create(_easein, CC_CALLBACK_0(GameLayer::doneSettingAnimation, NULL), NULL);
     
     _helpLayer->runAction(_sequence);    
 }
@@ -538,13 +538,13 @@ void GameLayer::hideHelpLayer()
 {
     GameData::getInstance()->setDoingAction(true);
     
-    CCSize winSize= CCDirector::sharedDirector()->getWinSize();
+    CCSize winSize= Director::getInstance()->getWinSize();
     float disappear;
     disappear = winSize.width > winSize.height ? winSize.width : winSize.height;
     
-    CCMoveTo* action = CCMoveTo::create(0.3f, ccp(disappear,0));
+    CCMoveTo* action = CCMoveTo::create(0.3f, Vec2(disappear,0));
     CCEaseIn *_easein = CCEaseIn::create(action,0.3f);
-    CCSequence *_sequence  =  CCSequence::create( _easein, CCCallFuncND::create(this, callfuncND_selector(GameLayer::doneSettingAnimation), NULL), NULL);
+    Sequence *_sequence  =  Sequence::create(_easein, CC_CALLBACK_0(GameLayer::doneSettingAnimation, NULL), NULL);
     
     _helpLayer->runAction(_sequence);
 }
@@ -559,15 +559,15 @@ void GameLayer::setBackground(int backgroundIndex){
     ////_background->setScale(getScaleWithDevice());
     if (backgroundIndex+1 == 8) //added by amr
     {
-        _background->initWithFile(getNameWithDevice(nameString->m_sString).c_str());
+        _background->initWithFile(getNameWithDevice(nameString->_string).c_str());
     }
     else
     {
-        _background->initWithFile(getNameWithDeviceIpad(nameString->m_sString).c_str()); //added by amr
+        _background->initWithFile(getNameWithDeviceIpad(nameString->_string).c_str()); //added by amr
     }
     
     //////added by amr
-    CCSize wSize = CCDirector::sharedDirector()->getWinSize();
+    CCSize wSize = Director::getInstance()->getWinSize();
     float scaleX=0;
     float scaleY=0;
     if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
@@ -594,17 +594,17 @@ void GameLayer::setBackground(int backgroundIndex){
     else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
         _background->setRotation(90.0f);
     
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-    _background->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+    CCSize winSize = Director::getInstance()->getWinSize();
+    _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     
 }
 
-void GameLayer::setBackground(CCTexture2D* result){
+void GameLayer::setBackground(Texture2D* result){
     
     //_background->initWithTexture(result);
     _background->setRotation(0.0f);
     _background->setTexture(result);
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    CCSize winSize = Director::getInstance()->getWinSize();
     CCSize bgSize= _background->getContentSize();
     
     float scaleX=winSize.width/bgSize.width;

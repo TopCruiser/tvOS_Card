@@ -15,9 +15,10 @@
 #include "cocos2d.h"
 #include "cocos-ext.h"
 USING_NS_CC_EXT;//Cocos2dx defined macros
+
 using namespace cocos2d;
 
-class SettingLayer : public cocos2d::Layer, public cocos2d::extension::TableViewDelegate,cocos2d::extension::TableViewDataSource
+class SettingLayer : public cocos2d::Layer, public cocos2d::extension::TableViewDelegate, cocos2d::extension::TableViewDataSource
 {
 public:
     static cocos2d::Scene* scene();
@@ -32,26 +33,22 @@ public:
     
 public:
     
-    //CCTableViewDelegate inherits from CCScrollViewDelegate
-    virtual void scrollViewDidScroll(cocos2d::extension::ScrollView* view);
-    virtual void scrollViewDidZoom(cocos2d::extension::ScrollView* view);
-    
     //Click on any cell
     virtual void tableCellTouched(cocos2d::extension::TableView* table, cocos2d::extension::TableViewCell* cell);
     //Each cell size
     //virtual cocos2d::CCSize cellSizeForTable(cocos2d::extension::CCTableView *table);
-    virtual Size tableCellSizeForIndex(TableView *table, unsigned int idx);
+    virtual Size tableCellSizeForIndex(TableView *table, ssize_t idx);
     
     //Generate cell
-    virtual cocos2d::extension::TableViewCell* tableCellAtIndex(cocos2d::extension::TableView *table, unsigned int idx);
+    virtual TableViewCell* tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx);
     //The number of cell
     virtual ssize_t numberOfCellsInTableView(cocos2d::extension::TableView *table);
     
-    //Pressed down, is highlighted, where you can set the bright state
-    virtual void tableCellHighlight(cocos2d::extension::TableView* table, cocos2d::extension::TableViewCell* cell);
+    virtual void tableCellHighlight(TableView* table, TableViewCell* cell);
+    virtual void tableCellUnhighlight(TableView* table, TableViewCell* cell);
+    virtual void tableCellWillRecycle(TableView* table, TableViewCell* cell);
     
-    //Release time, cancel the bright state
-    virtual void tableCellUnhighlight(cocos2d::extension::TableView* table, cocos2d::extension::TableViewCell* cell);
+    //virtual Size cellSizeForTable(TableView *table);
     
     void scrollBar(cocos2d::extension::TableView* table);
     
@@ -74,5 +71,7 @@ private:
     //HelpLayer* _helpLayer = NULL;
     
     bool _isEnabled;
+public:
+    CREATE_FUNC(SettingLayer);
 };
 #endif

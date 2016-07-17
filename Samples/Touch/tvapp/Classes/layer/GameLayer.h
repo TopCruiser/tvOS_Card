@@ -25,15 +25,15 @@
 ///////
 #include "ImagePicker.h"
 
-class GameLayer : public cocos2d::CCLayer, ImagePickerDelegate
+class GameLayer : public cocos2d::Layer, ImagePickerDelegate
 {
 public:
-    static cocos2d::CCScene* scene();
+    static cocos2d::Scene* scene();
    
     virtual bool init();
     virtual void onEnterTransitionDidFinish();
     
-    virtual void didFinishPickingWithResult(cocos2d::CCTexture2D* result);//for getnativeBackground
+    virtual void didFinishPickingWithResult(cocos2d::Texture2D* result);//for getnativeBackground
     
     void showBoardLayerWithSolitaire();
     void showBoardLayerWithFreecell();
@@ -60,7 +60,7 @@ public:
     void updateLayoutWithLandscape();
     SettingLayer* getSettingLayer();
     void setBackground(int backgroundIndex);
-    void setBackground(CCTexture2D* result);
+    void setBackground(Texture2D* result);
     
     void showSolitaireOptionLayer();
     void showSpiderOptionLayer();
@@ -72,8 +72,8 @@ private:
     void doneSettingAnimation();
     
 private:    
-    CCSprite* _background = NULL;
-    CCSprite* _blankBanner = NULL;
+    Sprite* _background = NULL;
+    Sprite* _blankBanner = NULL;
     
     SolitaireOptionLayer* _solitaireOptionLayer = NULL;
     SpiderOptionLayer* _spiderOptionLayer = NULL;

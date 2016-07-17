@@ -150,7 +150,7 @@ void NewGameLayer::onSelectDeal(CCObject* sender)
     GameData::getInstance()->playSoundEffect();
     
     int i = arc4random() % 1000001;
-    AppDelegate::get()->sendMessageToNative(MSG_SELECTFREECELL, "SelectFreecell", i);
+    //AppDelegate::get()->sendMessageToNative(MSG_SELECTFREECELL, "SelectFreecell", i);comment715
     
     ((TaskbarLayer*)_parentLayer)->didNewGame();    
 }

@@ -202,7 +202,7 @@ void TaskbarLayer::onSetting(CCObject* sender)
         
         ((GameLayer*)_parentLayer)->upTaskbar(-GameData::getInstance()->getBannerHeight());
         GameData::getInstance()->setBannerHeight(0);
-        AppDelegate::get()->sendMessageToNative(MSG_ADMOB_BANNER, "GoogleMobileAds", REMOVE_ADMOB);
+        //AppDelegate::get()->sendMessageToNative(MSG_ADMOB_BANNER, "GoogleMobileAds", REMOVE_ADMOB);comment715
     }
     //////////////
     
@@ -227,45 +227,45 @@ void TaskbarLayer::onCenter(CCObject* sender)
     
     
     
-    switch (GameData::getInstance()->getGameType()) {
-        case TYPE_SOLITAIRE:
-        {
-            if(GameData::getInstance()->isVegasMode())
-                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sVegasStyleScore", 1);
-            else{
-                if(GameData::getInstance()->isDrawFlag()){
-                    app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sDraw3Score", 1);
-                }else{
-                    app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sDraw1Score", 1);
-                }
-            }
-            
-        }
-            break;
-            
-        case TYPE_FREECELL:
-            app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.FCHighScores", 1);
-            break;
-            
-        case TYPE_FORTY_THIEVES:
-            app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.FTHighScores", 1);
-            break;
-            
-        case TYPE_SPIDER:
-            if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EASY){
-                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss1suitscore", 1);
-            }
-            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_NORMAL){
-                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss2suitscore", 1);
-            }
-            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EXPERT){
-                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss3suitscore", 1);
-            }
-            else{
-                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss4suitscore", 1);
-            }
-            break;
-    }
+//    switch (GameData::getInstance()->getGameType()) {
+//        case TYPE_SOLITAIRE:
+//        {
+//            if(GameData::getInstance()->isVegasMode())
+//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sVegasStyleScore", 1);
+//            else{
+//                if(GameData::getInstance()->isDrawFlag()){
+//                    app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sDraw3Score", 1);
+//                }else{
+//                    app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sDraw1Score", 1);
+//                }
+//            }
+//            
+//        }
+//            break;
+//            
+//        case TYPE_FREECELL:
+//            app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.FCHighScores", 1);
+//            break;
+//            
+//        case TYPE_FORTY_THIEVES:
+//            app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.FTHighScores", 1);
+//            break;
+//            
+//        case TYPE_SPIDER:
+//            if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EASY){
+//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss1suitscore", 1);
+//            }
+//            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_NORMAL){
+//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss2suitscore", 1);
+//            }
+//            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EXPERT){
+//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss3suitscore", 1);
+//            }
+//            else{
+//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss4suitscore", 1);
+//            }
+//            break;
+//    }comment715
     
 }
 
@@ -275,7 +275,7 @@ void TaskbarLayer::onStore(CCObject* sender)
     
     GameData::getInstance()->playSoundEffect();
     
-    AppDelegate::get()->sendMessageToNative(MSG_REMOVE_ADS, "com.cobraclip.removeads", 1);
+    //AppDelegate::get()->sendMessageToNative(MSG_REMOVE_ADS, "com.cobraclip.removeads", 1);comment715
     
     /*
     if(GameData::getInstance()->getBannerHeight()>0){
@@ -284,7 +284,7 @@ void TaskbarLayer::onStore(CCObject* sender)
         GameData::getInstance()->setBannerHeight(0);
         AppDelegate::get()->sendMessageToNative(MSG_ADMOB_BANNER, "GoogleMobileAds", 0);
     }
-    */
+    *///comment715
 }
 
 void TaskbarLayer::onMenu(CCObject* sender)
@@ -448,7 +448,7 @@ void TaskbarLayer::onUndo(CCObject* sender)
     if(BoardLayer::getInstance()->getSetting()) return;
     
     if(GameData::getInstance()->isSoundEnabled()){
-        SimpleAudioEngine::sharedEngine()->playEffect("sparkle.wav");
+        //SimpleAudioEngine::sharedEngine()->playEffect("sparkle.wav");
     }
     BoardLayer::getInstance()->undo();
 }

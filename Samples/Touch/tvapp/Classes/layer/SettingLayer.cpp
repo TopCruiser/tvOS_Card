@@ -61,7 +61,7 @@ void SettingLayer::init(Layer* parent)
     addChild(_title);
         
     Size winSize = Director::getInstance()->getWinSize();
-    
+
     tableView=TableView::create(this, Size(winSize.width, winSize.height-getSizeWithDevice(190.0f)));
     
     tableView->setDirection(cocos2d::extension::ScrollView::Direction::VERTICAL);
@@ -73,7 +73,7 @@ void SettingLayer::init(Layer* parent)
     tableView->setDelegate(this);
     tableView->setVerticalFillOrder(cocos2d::extension::TableView::VerticalFillOrder::TOP_DOWN);
     
-    this->addChild(tableView,1);
+    this->addChild(tableView, 1);
     tableView->reloadData();
     
     btnDone = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_back_nor").c_str()),
@@ -103,7 +103,7 @@ void SettingLayer::updateLayoutWithPortrait(){
     
     tableView->setPosition(Vec2(0, getSizeWithDevice(95.0f)));
     
-    tableView->setViewSize( CCSizeMake(winSize.width, winSize.height-getSizeWithDevice(190.0f)));
+    tableView->setViewSize( Size(winSize.width, winSize.height-getSizeWithDevice(190.0f)));
     tableView->reloadData();
     
     _buttonbackground->setPosition(Vec2(winSize.width/2.0f,  getSizeWithDevice(42.0f)));
@@ -135,7 +135,7 @@ void SettingLayer::updateLayoutWithLandscape(){
     _title->setPosition(Vec2(winSize.width/2, winSize.height-getSizeWithDevice(50)));
     
     tableView->setPosition(Vec2(0, getSizeWithDevice(95.0f)));
-    tableView->setViewSize( CCSizeMake(winSize.width, winSize.height-getSizeWithDevice(190.0f)));
+    tableView->setViewSize( Size(winSize.width, winSize.height-getSizeWithDevice(190.0f)));
     tableView->reloadData();
     
     _buttonbackground->setPosition(Vec2(winSize.width/2.0f,  getSizeWithDevice(42.0f)));
@@ -176,7 +176,7 @@ ssize_t SettingLayer::numberOfCellsInTableView(TableView *table)
 }
 
 //Generate cell
-TableViewCell* SettingLayer::tableCellAtIndex(TableView *table, unsigned int idx)
+TableViewCell* SettingLayer::tableCellAtIndex(TableView *table, ssize_t idx)
 {
     TableViewCell *cell = table->dequeueCell();
     
@@ -191,14 +191,14 @@ TableViewCell* SettingLayer::tableCellAtIndex(TableView *table, unsigned int idx
         Sprite* titleSprite;
         titleSprite= Sprite::create();
       
-        titleSprite->setAnchorPoint(CCPointZero);
+        titleSprite->setAnchorPoint(Vec2(0, 0));
         titleSprite->setPosition(Vec2(winSize.width/2, getSizeWithDevice(20)));
         titleSprite->setTag(123);
     
         CCLabelTTF* _cellLabel = CCLabelTTF::create("", "ClarendonBT-Roman", getSizeWithDevice(30));
     
         _cellLabel->setColor(ccc3(255, 255, 255));
-        _cellLabel->setAnchorPoint(CCPointZero);
+        _cellLabel->setAnchorPoint(Vec2(0, 0));
         _cellLabel->setPosition(Vec2(getSizeWithDevice(100),0));
     
     
@@ -206,7 +206,7 @@ TableViewCell* SettingLayer::tableCellAtIndex(TableView *table, unsigned int idx
         float iconX=winSize.width-getSizeWithDevice(142.0f);
     
     Sprite* _iconSprite = Sprite::create(getNameWithResolution("btn_go").c_str());
-    _iconSprite->setAnchorPoint(CCPointZero);
+    _iconSprite->setAnchorPoint(Vec2(0, 0));
     _iconSprite->setPosition(Vec2(iconX, 0));
     _iconSprite->setTag(456);
     
@@ -302,11 +302,11 @@ TableViewCell* SettingLayer::tableCellAtIndex(TableView *table, unsigned int idx
         {
             _iconSprite->setPosition(Vec2(iconX, getSizeWithDevice(20)));
             
-            CCString* nameString;
+            __String* nameString;
             Sprite* selectedSprite =Sprite::create();
             
             if (idx == 8) {
-                nameString=CCString::createWithFormat("spade%d_13",GameData::getInstance()->getCardFaceIndex()+1);
+                nameString=__String::createWithFormat("spade%d_13",GameData::getInstance()->getCardFaceIndex()+1);
                 selectedSprite->initWithFile(getNameWithResolution(nameString->_string).c_str());
                 
                 _cellLabel->setString("Card Faces");
@@ -314,9 +314,9 @@ TableViewCell* SettingLayer::tableCellAtIndex(TableView *table, unsigned int idx
             else if(idx == 9){
                 //Card Back
                 if(GameData::getInstance()->getCardBackIndex()<9)
-                    nameString=CCString::createWithFormat("card0%d",GameData::getInstance()->getCardBackIndex()+1);
+                    nameString=__String::createWithFormat("card0%d",GameData::getInstance()->getCardBackIndex()+1);
                 else
-                    nameString=CCString::createWithFormat("card%d",GameData::getInstance()->getCardBackIndex()+1);
+                    nameString=__String::createWithFormat("card%d",GameData::getInstance()->getCardBackIndex()+1);
                 
                 selectedSprite->initWithFile(getNameWithResolution(nameString->_string).c_str());
                 _cellLabel->setString("Card Backs");
@@ -324,7 +324,7 @@ TableViewCell* SettingLayer::tableCellAtIndex(TableView *table, unsigned int idx
                 //Background
                 if(GameData::getInstance()->getBackgroundIndex()<7)
                 {
-                    nameString=CCString::createWithFormat("background0%d",GameData::getInstance()->getBackgroundIndex()+1);
+                    nameString=__String::createWithFormat("background0%d",GameData::getInstance()->getBackgroundIndex()+1);
                     //selectedSprite->initWithFile(getNameWithDevice(nameString->m_sString).c_str());
                     selectedSprite->initWithFile(getNameWithDeviceIpad(nameString->_string).c_str());//added by amr
                 }
@@ -340,10 +340,10 @@ TableViewCell* SettingLayer::tableCellAtIndex(TableView *table, unsigned int idx
             float scaleX=getSizeWithDevice(57.0f)/bgSize.width;
             float scaleY=getSizeWithDevice(80.0f)/bgSize.height;
             
-            selectedSprite->cocos2d::CCNode::setScale(scaleX, scaleY);
-            selectedSprite->setContentSize(CCSizeMake(getSizeWithDevice(57.0f), getSizeWithDevice(80.0f)));
+            selectedSprite->cocos2d::Node::setScale(scaleX, scaleY);
+            selectedSprite->setContentSize(Size(getSizeWithDevice(57.0f), getSizeWithDevice(80.0f)));
             
-            selectedSprite->setAnchorPoint(CCPointZero);
+            selectedSprite->setAnchorPoint(Vec2(0, 0));
             selectedSprite->setPosition(Vec2(getSizeWithDevice(100.0f),getSizeWithDevice(5.0f)));
             selectedSprite->setTag(789);
             
@@ -415,30 +415,12 @@ TableViewCell* SettingLayer::tableCellAtIndex(TableView *table, unsigned int idx
     
 }
 
-
-//Size SettingLayer::cellSizeForTable(CCTableView *table)
-//{
-//    Size winSize = Director::getInstance()->getWinSize();
-//    return SizeMake(winSize.width-getSizeWithDevice(250.0f), getSizeWithDevice(80.0f));
-//    //return SizeMake(605, 105);
-//}
-
-Size SettingLayer::tableCellSizeForIndex(TableView *table, unsigned int idx)
+Size SettingLayer::tableCellSizeForIndex(TableView *table, ssize_t idx)
 {
     Size winSize = Director::getInstance()->getWinSize();
-    if(idx>7 && idx<11) return CCSizeMake(getSizeWithDevice(250.0f), getSizeWithDevice(120.0f));
-    else if(idx== 0) return CCSizeMake(winSize.width-getSizeWithDevice(250.0f), getSizeWithDevice(50.0f));
-    else return CCSizeMake(winSize.width-getSizeWithDevice(250.0f), getSizeWithDevice(80.0f));
-}
-
-void SettingLayer::tableCellHighlight(TableView *table, TableViewCell *cell)
-{
-    
-}
-
-void SettingLayer::tableCellUnhighlight(TableView *table, TableViewCell *cell)
-{
-    
+    if(idx>7 && idx<11) return Size(getSizeWithDevice(250.0f), getSizeWithDevice(120.0f));
+    else if(idx== 0) return Size(winSize.width-getSizeWithDevice(250.0f), getSizeWithDevice(50.0f));
+    else return Size(winSize.width-getSizeWithDevice(250.0f), getSizeWithDevice(80.0f));
 }
 
 void SettingLayer::tableCellTouched(TableView *table, TableViewCell *cell)
@@ -447,10 +429,10 @@ void SettingLayer::tableCellTouched(TableView *table, TableViewCell *cell)
     if(!BoardLayer::getInstance()->getSetting()) return;
     if(!_isEnabled) return;
     
-    int idx = cell->getIdx();
+    long idx = cell->getIdx();
     if(idx == 0 || idx == 7 || idx == 11) return;
     
-    CCBlink *blink_ = CCBlink::create(0.1f, 1);
+    Blink *blink_ = Blink::create(0.1f, 1);
     cell->runAction(blink_);
     
     GameData::getInstance()->playSoundEffect();
@@ -491,11 +473,11 @@ void SettingLayer::tableCellTouched(TableView *table, TableViewCell *cell)
             GameData::getInstance()->setEffectEnabled(isEffect);
             
             if(isEffect){
-                SimpleAudioEngine::sharedEngine()->playBackgroundMusic("bgm.mp3", true);
+                //SimpleAudioEngine::sharedEngine()->playBackgroundMusic("bgm.mp3", true); comment715
                 _iconSprite ->initWithFile(getNameWithResolution("setting_check_on").c_str());
             }
             else{
-                SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+                //SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(); comment715
                 _iconSprite ->initWithFile(getNameWithResolution("setting_check_off").c_str());
             }
             
@@ -630,14 +612,6 @@ void SettingLayer::tableCellTouched(TableView *table, TableViewCell *cell)
     
 }
 
-void SettingLayer::scrollViewDidScroll(cocos2d::extension::ScrollView *view)
-{
-}
-
-void SettingLayer::scrollViewDidZoom(cocos2d::extension::ScrollView *view)
-{
-}
-
 void SettingLayer::didFinishCell()
 {
     _isEnabled=true;
@@ -654,3 +628,19 @@ void SettingLayer:: setEnabled(bool isEnabled)
 {
     _isEnabled=isEnabled;
 }
+
+void SettingLayer::tableCellHighlight(TableView* table, TableViewCell* cell)
+{
+    
+}
+void SettingLayer::tableCellUnhighlight(TableView* table, TableViewCell* cell)
+{
+    
+}
+void SettingLayer::tableCellWillRecycle(TableView* table, TableViewCell* cell)
+{
+    
+}
+
+//Size SettingLayer::cellSizeForTable(TableView *table){return Size(100, 100);}
+
