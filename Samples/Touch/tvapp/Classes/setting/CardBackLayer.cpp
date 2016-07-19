@@ -85,11 +85,12 @@ void CardBackLayer::init(Layer* parent)
     
     _title = Sprite::create();
     addChild(_title);
-    
-    _selectedCardBack = MenuItemSprite::create(Sprite::create(getNameWithResolution("selected_cardback").c_str()),
-                                                 Sprite::create(getNameWithResolution("selected_cardback").c_str()),this);
-    _selectedCardBack->setAnchorPoint(Vec2(0.5f, 0.5f));
-    _selectedCardBack->setScale(getScaleWithDevice());
+//    
+//    _selectedCardBack = MenuItemSprite::create(Sprite::create(getNameWithResolution("selected_cardback").c_str()),
+//                                                 Sprite::create(getNameWithResolution("selected_cardback").c_str()),this);
+//    _selectedCardBack->setAnchorPoint(Vec2(0.5f, 0.5f));
+//    _selectedCardBack->setScale(getScaleWithDevice());
+//    _menu->addChild(_selectedCardBack, 3);
     
     btnCard01 = MenuItemSprite::create(Sprite::create(getNameWithResolution("card01").c_str()),
                                                         Sprite::create(getNameWithResolution("card01").c_str()),
@@ -324,7 +325,7 @@ void CardBackLayer::init(Layer* parent)
     _menu->addChild(btnCard32, 1, TAG_CARD32);
     
     _menu->setVisible(false);
-    _menu->addChild(_selectedCardBack,3);
+    //_menu->addChild(_selectedCardBack,3);
     //addChild(_menu);
     
     Size winSize = Director::getInstance()->getWinSize();
