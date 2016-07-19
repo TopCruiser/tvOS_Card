@@ -73,6 +73,29 @@ bool MenuLayer::init()
     
     addChild(_menu);
     
+#if defined(CC_TARGET_OS_IPHONE) || defined(CC_TARGET_OS_APPLETV)
+    Controller::startDiscoveryController();
+#endif
+    
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->setSwallowTouches(true);
+    
+    listener->onTouchBegan = CC_CALLBACK_2(MenuLayer::handleTouchBegan, this);
+    
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+    _touchListener = listener;
+    
+    scheduleUpdate();
+    
+    return true;
+}
+
+bool MenuLayer::handleTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+{
+    Vec2 location = convertToNodeSpace(touch->getLocation());
+    
+    log("touch begin: %f, %f", location.x, location.y);
+    
     return true;
 }
 
@@ -146,11 +169,13 @@ void MenuLayer::updateLayoutWithLandscape()
     
     for(int i = 0; i < TAG_MAX; i++)
     {
-        Point pos = CCPointZero;
+        Point pos = Vec2(0, 0);
         switch (i) {
             case TAG_SOLITAIRE:
-                pos.x = -getSizeWithDevice(230);
-                pos.y = -getSizeWithDevice(20);
+//                pos.x = -getSizeWithDevice(230);
+//                pos.y = -getSizeWithDevice(20);
+                pos.x = 0;
+                pos.y = 0;
                 break;
             case TAG_FORTY_THIEVES:
                 pos.x = -getSizeWithDevice(230);
@@ -174,6 +199,14 @@ void MenuLayer::updateLayoutWithLandscape()
     
     _menu->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     _menu->setVisible(true);
+}
+
+bool MenuLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    Vec2 location = convertToNodeSpace(touch->getLocation());
+    
+    log("touch begin: %f, %f", location.x, location.y);
+    return false;
 }
 
 void MenuLayer::onSolitaire(Ref* sender)

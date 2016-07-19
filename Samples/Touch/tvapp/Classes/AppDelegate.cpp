@@ -1,6 +1,6 @@
 #include "AppDelegate.h"
 #include "LoadLayer.h"
-//#include "GameData.h"
+#include "GameData.h"
 
 USING_NS_CC;
 
@@ -56,17 +56,16 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     
 //    SimpleAudioEngine::sharedEngine()->preloadEffect("card_shuffle.mp3");
-//    //SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic("bgm.mp3");
-//    
-//    GameData::getInstance()->setCustomOrientation(0);
-//    GameData::getInstance()->setSoundEnabled(true);
-//    GameData::getInstance()->setEffectEnabled(false);
-//    GameData::getInstance()->setTimeMove(true);
-//    
-//    GameData::getInstance()->setRightHanded(false);
-//    GameData::getInstance()->setTapMove(true);
-//    GameData::getInstance()->setDoingAction(false);
-//    //GameData::getInstance()->setBackgroundIndex(0);
+    
+    GameData::getInstance()->setCustomOrientation(0);
+    GameData::getInstance()->setSoundEnabled(true);
+    GameData::getInstance()->setEffectEnabled(false);
+    GameData::getInstance()->setTimeMove(true);
+    
+    GameData::getInstance()->setRightHanded(false);
+    GameData::getInstance()->setTapMove(true);
+    GameData::getInstance()->setDoingAction(false);
+    //GameData::getInstance()->setBackgroundIndex(0);
     // Set the design resolution
     glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
     Size frameSize = glview->getFrameSize();
@@ -77,7 +76,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // run
     director->runWithScene(scene);
-
+    
     return true;
 }
 

@@ -86,10 +86,6 @@ void CardBackLayer::init(Layer* parent)
     _title = Sprite::create();
     addChild(_title);
     
-//    _selectedCardBack = Sprite::create(getNameWithResolution("selected_cardback").c_str());
-//    _selectedCardBack->setAnchorPoint(Vec2(0.5f, 0.5f));
-//    _selectedCardBack->setScale(getScaleWithDevice());
-    //addChild(_selectedCardBack,3);
     _selectedCardBack = MenuItemSprite::create(Sprite::create(getNameWithResolution("selected_cardback").c_str()),
                                                  Sprite::create(getNameWithResolution("selected_cardback").c_str()),this);
     _selectedCardBack->setAnchorPoint(Vec2(0.5f, 0.5f));
@@ -201,7 +197,6 @@ void CardBackLayer::init(Layer* parent)
     btnCard32 = MenuItemSprite::create(Sprite::create(getNameWithResolution("card32").c_str()),
                                          Sprite::create(getNameWithResolution("card32").c_str()),
                                          this, menu_selector(CardBackLayer::onCardTap));
-    
     
     btnCard01->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnCard02->setAnchorPoint(Vec2(0.5f, 0.5f));
@@ -332,41 +327,41 @@ void CardBackLayer::init(Layer* parent)
     _menu->addChild(_selectedCardBack,3);
     //addChild(_menu);
     
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     /////size of the viewable part of scrollview
-    if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
+    //if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
         _ScrollView = ScrollView::create(Size(winSize.width, winSize.height/1.75f), _menu);
-    else
-        _ScrollView = ScrollView::create(Size(winSize.width, winSize.height/1.45f), _menu);
+//    else
+//        _ScrollView = ScrollView::create(Size(winSize.width, winSize.height/1.45f), _menu);comment715
     _ScrollView->setDirection(cocos2d::extension::ScrollView::Direction::VERTICAL);
-    _ScrollView->setAnchorPoint(CCPointZero);
-    _ScrollView->setPosition(CCPointZero);
+    _ScrollView->setAnchorPoint(Vec2(0, 0));
+    _ScrollView->setPosition(Vec2(0, 0));
     addChild(_ScrollView);
     
-    if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
-    {
+//    if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
+//    {
         /////size of the viewable part of scrollview
         _ScrollView->setViewSize(Size(winSize.width, winSize.height/1.75f));
         ////size of the whole content (the big rectangle that we scroll in)
         _ScrollView->setContentSize(Size(winSize.width/2,winSize.height*1.5));
         //position it so that the top most is visible initially,
         _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*0.95));
-    }
-    else//portrait
-    {
-        /////size of the viewable part of scrollview
-        _ScrollView->setViewSize(Size(winSize.width, winSize.height/1.45f));
-        ////size of the whole content (the big rectangle that we scroll in)
-        _ScrollView->setContentSize(Size(winSize.width/2,winSize.height*2.1));
-        //position it so that the top most is visible initially,
-        //_ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*2));
-        _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*1.4));
-    }
+    //}
+//    else//portrait
+//    {
+//        /////size of the viewable part of scrollview
+//        _ScrollView->setViewSize(Size(winSize.width, winSize.height/1.45f));
+//        ////size of the whole content (the big rectangle that we scroll in)
+//        _ScrollView->setContentSize(Size(winSize.width/2,winSize.height*2.1));
+//        //position it so that the top most is visible initially,
+//        //_ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*2));
+//        _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*1.4));
+//    }comment715
 }
 
 void CardBackLayer::updateLayoutWithPortrait()
 {
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     
     _background->initWithFile(getNameWithDevice("menubg_port").c_str());
     _background->setScale(getScaleWithDevice());
@@ -585,7 +580,7 @@ void CardBackLayer::updateLayoutWithPortrait()
 
 void CardBackLayer::updateLayoutWithLandscape()
 {
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    CCSize winSize = Director::getInstance()->getWinSize();
     
     _background->initWithFile(getNameWithDevice("menubg_land").c_str());
     _background->setScale(getScaleWithDevice());
@@ -808,7 +803,7 @@ void CardBackLayer::onCardTap(CCObject* sender)
     //CCBlink *blink_ = CCBlink::create(1.0f, 7);
     //item->runAction(blink_);
     
-//    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+//    CCSize winSize = Director::getInstance()->getWinSize();
 //    _selectedCardBack->setPosition(Vec2(winSize.width/2.0f+item->getPositionX(), winSize.height/2.0f+item->getPositionY()));
     //_selectedCardBack->setPosition(Vec2(item->getPositionX(), item->getPositionY()));
     _selectedCardBack->setPosition(item->getPosition());

@@ -117,11 +117,12 @@
     
     UIPress* p = [presses anyObject];
     
-    if (p.type == UIPressTypeSelect)
+    //if (p.type == UIPressTypeSelect)
+    if(p.type == UIPressTypeSelect || p.type == UIPressTypeLeftArrow)
     {
-        cocos2d::String *s = cocos2d::String::create(cocos2d::Director::getInstance()->getRunningScene()->getName().c_str());
-        
-        cocos2d::Scene *ss = cocos2d::Scene::create();
+          //cocos2d::String *s = cocos2d::String::create(cocos2d::Director::getInstance()->getRunningScene()->getName().c_str());
+//        
+//        cocos2d::Scene *ss = cocos2d::Scene::create();
         if(cocos2d::Director::getInstance()->getRunningScene()){
             [super pressesBegan:presses withEvent:event];
         }
@@ -134,7 +135,7 @@
     
     if (p.type == UIPressTypeMenu)
     {
-        if(cocos2d::Director::getInstance()->getRunningScene()->getName() == "menu"){
+        if(cocos2d::Director::getInstance()->getRunningScene()->getName() == "MenuLayer"){
             [super pressesEnded:presses withEvent:event];
         }
     }

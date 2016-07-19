@@ -24,9 +24,9 @@ enum MENU_TAG {
     TAG_MAX
 };
 
-cocos2d::CCScene* CardFaceLayer::scene()
+cocos2d::Scene* CardFaceLayer::scene()
 {
-    CCScene* scene = cocos2d::CCScene::create();
+    Scene* scene = cocos2d::Scene::create();
     CardFaceLayer* layer = CardFaceLayer::create();
     scene->addChild(layer);
     return scene;
@@ -34,39 +34,39 @@ cocos2d::CCScene* CardFaceLayer::scene()
 
 bool CardFaceLayer::init()
 {
-    if(!CCLayer::init())
+    if(!Layer::init())
         return false;
     
     return true;
 }
 
-void CardFaceLayer::init(CCLayer* parent)
+void CardFaceLayer::init(Layer* parent)
 {
     _parentLayer = parent;
     
-    _background = CCSprite::create();
-    _background->setAnchorPoint(ccp(0.5f, 0.5f));
+    _background = Sprite::create();
+    _background->setAnchorPoint(Vec2(0.5f, 0.5f));
     addChild(_background);
     
-    _title = CCSprite::create();
+    _title = Sprite::create();
     addChild(_title);
     
-    btnBack = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("back_nor").c_str()),
-                                       CCSprite::create(getNameWithResolution("back_act").c_str()),
+    btnBack = MenuItemSprite::create(Sprite::create(getNameWithResolution("back_nor").c_str()),
+                                       Sprite::create(getNameWithResolution("back_act").c_str()),
                                        this, menu_selector(CardFaceLayer::onBack));
-    btnBack->setAnchorPoint(ccp(0.5f, 0.5f));
+    btnBack->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnBack->setScale(getScaleWithDevice());
     
-    sprite00=CCSprite::create(getNameWithResolution("spade1_10").c_str());
-    sprite01=CCSprite::create(getNameWithResolution("spade1_11").c_str());
-    sprite02=CCSprite::create(getNameWithResolution("spade1_12").c_str());
-    sprite03=CCSprite::create(getNameWithResolution("spade1_13").c_str());
-    sprite04=CCSprite::create(getNameWithResolution("spade1_1").c_str());
-    sprite05=CCSprite::create(getNameWithResolution("spade2_10").c_str());
-    sprite06=CCSprite::create(getNameWithResolution("spade2_11").c_str());
-    sprite07=CCSprite::create(getNameWithResolution("spade2_12").c_str());
-    sprite08=CCSprite::create(getNameWithResolution("spade2_13").c_str());
-    sprite09=CCSprite::create(getNameWithResolution("spade2_1").c_str());
+    sprite00=Sprite::create(getNameWithResolution("spade1_10").c_str());
+    sprite01=Sprite::create(getNameWithResolution("spade1_11").c_str());
+    sprite02=Sprite::create(getNameWithResolution("spade1_12").c_str());
+    sprite03=Sprite::create(getNameWithResolution("spade1_13").c_str());
+    sprite04=Sprite::create(getNameWithResolution("spade1_1").c_str());
+    sprite05=Sprite::create(getNameWithResolution("spade2_10").c_str());
+    sprite06=Sprite::create(getNameWithResolution("spade2_11").c_str());
+    sprite07=Sprite::create(getNameWithResolution("spade2_12").c_str());
+    sprite08=Sprite::create(getNameWithResolution("spade2_13").c_str());
+    sprite09=Sprite::create(getNameWithResolution("spade2_1").c_str());
     
     switch (GameData::getInstance()->getCardFaceIndex()) {
         case 0:
@@ -87,28 +87,28 @@ void CardFaceLayer::init(CCLayer* parent)
             break;
     }
     
-    btnCard01 = CCMenuItemSprite::create(sprite00,sprite00,this, menu_selector(CardFaceLayer::onCardTap));
-    btnCard02 = CCMenuItemSprite::create(sprite01,sprite01,this, menu_selector(CardFaceLayer::onCardTap));
-    btnCard03 = CCMenuItemSprite::create(sprite02,sprite02, this, menu_selector(CardFaceLayer::onCardTap));
-    btnCard04 = CCMenuItemSprite::create(sprite03,sprite03,this, menu_selector(CardFaceLayer::onCardTap));
-    btnCard05 = CCMenuItemSprite::create(sprite04,sprite04, this, menu_selector(CardFaceLayer::onCardTap));
-    btnCard06 = CCMenuItemSprite::create(sprite05,sprite05, this, menu_selector(CardFaceLayer::onCardTap));
-    btnCard07 = CCMenuItemSprite::create(sprite06,sprite06, this, menu_selector(CardFaceLayer::onCardTap));
-    btnCard08 = CCMenuItemSprite::create(sprite07,sprite07, this, menu_selector(CardFaceLayer::onCardTap));
-    btnCard09 = CCMenuItemSprite::create(sprite08,sprite08, this, menu_selector(CardFaceLayer::onCardTap));
-    btnCard10 = CCMenuItemSprite::create(sprite09,sprite09, this, menu_selector(CardFaceLayer::onCardTap));
+    btnCard01 = MenuItemSprite::create(sprite00,sprite00,this, menu_selector(CardFaceLayer::onCardTap));
+    btnCard02 = MenuItemSprite::create(sprite01,sprite01,this, menu_selector(CardFaceLayer::onCardTap));
+    btnCard03 = MenuItemSprite::create(sprite02,sprite02, this, menu_selector(CardFaceLayer::onCardTap));
+    btnCard04 = MenuItemSprite::create(sprite03,sprite03,this, menu_selector(CardFaceLayer::onCardTap));
+    btnCard05 = MenuItemSprite::create(sprite04,sprite04, this, menu_selector(CardFaceLayer::onCardTap));
+    btnCard06 = MenuItemSprite::create(sprite05,sprite05, this, menu_selector(CardFaceLayer::onCardTap));
+    btnCard07 = MenuItemSprite::create(sprite06,sprite06, this, menu_selector(CardFaceLayer::onCardTap));
+    btnCard08 = MenuItemSprite::create(sprite07,sprite07, this, menu_selector(CardFaceLayer::onCardTap));
+    btnCard09 = MenuItemSprite::create(sprite08,sprite08, this, menu_selector(CardFaceLayer::onCardTap));
+    btnCard10 = MenuItemSprite::create(sprite09,sprite09, this, menu_selector(CardFaceLayer::onCardTap));
     
-    btnCard01->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnCard02->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnCard03->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnCard04->setAnchorPoint(ccp(0.5f, 0.5f));
+    btnCard01->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnCard02->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnCard03->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnCard04->setAnchorPoint(Vec2(0.5f, 0.5f));
     
-    btnCard05->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnCard06->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnCard07->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnCard08->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnCard09->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnCard10->setAnchorPoint(ccp(0.5f, 0.5f));
+    btnCard05->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnCard06->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnCard07->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnCard08->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnCard09->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnCard10->setAnchorPoint(Vec2(0.5f, 0.5f));
     
     btnCard01->setScale(getScaleWithDevice());
     btnCard02->setScale(getScaleWithDevice());
@@ -151,14 +151,14 @@ void CardFaceLayer::updateLayoutWithPortrait()
     
     _background->initWithFile(getNameWithDevice("menubg_port").c_str());
     _background->setScale(getScaleWithDevice());
-    _background->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+    _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     
-    btnBack->setPosition(ccp(-winSize.width/2 + getSizeWithDevice(60), winSize.height/2.0f-getSizeWithDevice(60)));
+    btnBack->setPosition(Vec2(-winSize.width/2 + getSizeWithDevice(60), winSize.height/2.0f-getSizeWithDevice(60)));
     
     _title->initWithFile(getNameWithResolution("logo_port").c_str());
-    _title->setAnchorPoint(ccp(0.5f, 1.0f));
+    _title->setAnchorPoint(Vec2(0.5f, 1.0f));
     _title->setScale(getScaleWithDevice() * 0.7f);
-    _title->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f + getSizeWithDevice(460.0f)));
+    _title->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f + getSizeWithDevice(460.0f)));
     
     for(int i = 0; i < TAG_MAX; i++)
     {
@@ -212,7 +212,7 @@ void CardFaceLayer::updateLayoutWithPortrait()
         item->setPosition(pos);
     }
     
-    _menu->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+    _menu->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     _menu->setVisible(true);
 }
 
@@ -222,14 +222,14 @@ void CardFaceLayer::updateLayoutWithLandscape()
     
     _background->initWithFile(getNameWithDevice("menubg_land").c_str());
     _background->setScale(getScaleWithDevice());
-    _background->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+    _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     
-    btnBack->setPosition(ccp(-winSize.width/2+getSizeWithDevice(60), winSize.height/2.0f-getSizeWithDevice(60)));
+    btnBack->setPosition(Vec2(-winSize.width/2+getSizeWithDevice(60), winSize.height/2.0f-getSizeWithDevice(60)));
     
     _title->initWithFile(getNameWithResolution("logo_land").c_str());
-    _title->setAnchorPoint(ccp(0.5f, 1.0f));
+    _title->setAnchorPoint(Vec2(0.5f, 1.0f));
     _title->setScale(getScaleWithDevice() * 0.5f);
-    _title->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f + getSizeWithDevice(300.0f)));
+    _title->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f + getSizeWithDevice(300.0f)));
     
     for(int i = 0; i < TAG_MAX; i++)
     {
@@ -288,7 +288,7 @@ void CardFaceLayer::updateLayoutWithLandscape()
         item->setPosition(pos);
     }
     
-    _menu->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+    _menu->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     _menu->setVisible(true);
 }
 
@@ -393,17 +393,17 @@ void CardFaceLayer::onCardTap(CCObject* sender)
             break;
     }
     
-    sprite00->setAnchorPoint(ccp(0.0f, 0.0f));
-    sprite01->setAnchorPoint(ccp(0.0f, 0.0f));
-    sprite02->setAnchorPoint(ccp(0.0f, 0.0f));
-    sprite03->setAnchorPoint(ccp(0.0f, 0.0f));
-    sprite04->setAnchorPoint(ccp(0.0f, 0.0f));
+    sprite00->setAnchorPoint(Vec2(0.0f, 0.0f));
+    sprite01->setAnchorPoint(Vec2(0.0f, 0.0f));
+    sprite02->setAnchorPoint(Vec2(0.0f, 0.0f));
+    sprite03->setAnchorPoint(Vec2(0.0f, 0.0f));
+    sprite04->setAnchorPoint(Vec2(0.0f, 0.0f));
     
-    sprite05->setAnchorPoint(ccp(0.0f, 0.0f));
-    sprite06->setAnchorPoint(ccp(0.0f, 0.0f));
-    sprite07->setAnchorPoint(ccp(0.0f, 0.0f));
-    sprite08->setAnchorPoint(ccp(0.0f, 0.0f));
-    sprite09->setAnchorPoint(ccp(0.0f, 0.0f));
+    sprite05->setAnchorPoint(Vec2(0.0f, 0.0f));
+    sprite06->setAnchorPoint(Vec2(0.0f, 0.0f));
+    sprite07->setAnchorPoint(Vec2(0.0f, 0.0f));
+    sprite08->setAnchorPoint(Vec2(0.0f, 0.0f));
+    sprite09->setAnchorPoint(Vec2(0.0f, 0.0f));
     
     GameData::getInstance()->setCardFaceIndex(cardFaceIndex);
     

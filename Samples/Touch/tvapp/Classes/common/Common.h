@@ -76,6 +76,7 @@ std::string getNameWithResolution(std::string name);
 
 std::string to_string(int num);
 
+float getScaleWithDeviceAppleTV();
 float getScaleWithDevice();
 float getScaleWithDeviceiPad();
 int getSizeWithDevice(int orgSize);

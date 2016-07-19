@@ -75,7 +75,7 @@ std::string getNameWithResolution(std::string name)
     std::string newName;
     
 #ifdef _MAC_OS_
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     if(winSize.height == 480 || winSize.height == 568 ||
        winSize.width == 480 || winSize.width == 568)
         newName = name + ".png";
@@ -120,7 +120,7 @@ float getScaleWithDeviceAppleTV()
     else
         scale = scaleX;
     
-    return scale;
+    return 0.2;
 }
 
 float getScaleWithDevice()

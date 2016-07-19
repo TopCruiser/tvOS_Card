@@ -880,6 +880,7 @@ void Renderer::drawBatchedTriangles()
         }
 
         indexToDraw += cmd->getIndexCount();
+    
     }
 
     //Draw any remaining triangles
