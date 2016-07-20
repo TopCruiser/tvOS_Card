@@ -16,21 +16,6 @@ public:
     virtual bool init();
     virtual void onEnterTransitionDidFinish();
     virtual bool onTouchBegan(Touch *touch, Event *unused_event);
-    bool handleTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
-//    /** Callback function for touch moved.
-//     *
-//     * @param touch Touch infomation.
-//     * @param unused_event Event information.
-//     * @js NA
-//     */
-//    virtual void onTouchMoved(Touch *touch, Event *unused_event);
-//    /** Callback function for touch ended.
-//     *
-//     * @param touch Touch infomation.
-//     * @param unused_event Event information.
-//     * @js NA
-//     */
-//    virtual void onTouchEnded(Touch *touch, Event *unused_event);
     
     void onSolitaire(Ref* sender);
     void onFreeCell(Ref* sender);

@@ -23,11 +23,11 @@ enum DECK_TYPE
 
 class Card;
 
-class Deck : public CCNode
+class Deck : public Node
 {
 public:
     virtual bool init();
-    virtual void init(CCLayer* parent);
+    virtual void init(Layer* parent);
     
 public:
     void setType(int type);
@@ -56,7 +56,7 @@ public:
     
     void updateCardsWithoutAnimation();
     Card* getCard(int rank, int suit);
-    CCSprite* getSprite();
+    Sprite* getSprite();
     
     void shuffle(int time = 1);
     void selectedShuffle();
@@ -65,17 +65,17 @@ public:
     void flipAllCards();
     void draw(Deck* toDeck, int count);
     
-    void createSprite(CCString strSprite);
+    void createSprite(String strSprite);
     void updateSpriteWithEmpty();
     void updateSprite(float posX, float posY, float realWidth);
     void updateCardSprites(float posX, float posY, float realWidth);
     void showSprite(bool bVisible);
-    void doneAnimation(CCNode* sender, Card* card);
+    void doneAnimation(Node* sender, Card* card);
         
 public:
     static bool updatesDisabled;
     
-    CCArray* cards;
+    Array* cards;
     
 private:
     int _type;
@@ -85,8 +85,8 @@ private:
     float _cardSpaceX;
     float _cardSpaceY;
     
-    CCLayer* _parentLayer;
-    CCSprite* _deckSprite;
+    Layer* _parentLayer;
+    Sprite* _deckSprite;
     //CCArray* _goalArray;
     
 public:

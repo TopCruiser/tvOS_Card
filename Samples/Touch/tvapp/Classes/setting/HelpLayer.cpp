@@ -142,7 +142,7 @@ ssize_t HelpLayer::numberOfCellsInTableView(TableView *table)
 }
 
 //Generate cell
-TableViewCell* HelpLayer::tableCellAtIndex(TableView *table, unsigned int idx)
+TableViewCell* HelpLayer::tableCellAtIndex(TableView *table, ssize_t idx)
 {
     //CCString *nameString=CCString::createWithFormat("cell_%d.png",idx);
     
@@ -160,17 +160,17 @@ TableViewCell* HelpLayer::tableCellAtIndex(TableView *table, unsigned int idx)
     
     Size winSize = Director::getInstance()->getWinSize();
     Size textSize;
-    if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
-    {
-        if(idx == 1) textSize = Size(winSize.width-getSizeWithDevice(120), getSizeWithDevice(1300));
-        else textSize = Size(winSize.width-getSizeWithDevice(120), getSizeWithDevice(900));
-    }
-    else
+//    if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
+//    {
+//        if(idx == 1) textSize = Size(winSize.width-getSizeWithDevice(120), getSizeWithDevice(1300));
+//        else textSize = Size(winSize.width-getSizeWithDevice(120), getSizeWithDevice(900));
+//    }
+//    else//comment715
         textSize = Size(winSize.width-getSizeWithDevice(120), getSizeWithDevice(700));
     
     CCLabelTTF* _cellLabel = CCLabelTTF::create("", "Thonburi", getSizeWithDevice(25), textSize, kCCTextAlignmentLeft);
     
-    _cellLabel->setColor(ccc3(255, 255, 255));
+    _cellLabel->setColor(Color3B(255, 255, 255));
     _cellLabel->setAnchorPoint(CCPointZero);
     _cellLabel->setPosition(Vec2(0,0));
     

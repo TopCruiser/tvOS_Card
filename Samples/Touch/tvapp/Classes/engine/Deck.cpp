@@ -25,7 +25,7 @@ bool Deck::init()
 void Deck::init(Layer* parent)
 {
     _parentLayer = parent;
-    cards = new Array;
+    cards = new Array; cards->init();
     
     _cardSpaceX = 0.0f;
     _cardSpaceY = 0.0f;

@@ -30,7 +30,6 @@ void StatisticsLayer::init(Layer* parent)
     _parentLayer = parent;
     _isEnabled=true;
     
-    //_background = Sprite::create(getNameWithDevice("settingback").c_str());
     _background = Sprite::create(getNameWithDeviceJpg("settingback").c_str());
     _background->setAnchorPoint(Vec2(0.5f, 0.5f));
     _background->setScale(getScaleWithDevice());
@@ -53,7 +52,7 @@ void StatisticsLayer::init(Layer* parent)
     _titlebar->setScale(getScaleWithDevice());
     addChild(_titlebar);
     
-    CCSize winSize = Director::getInstance()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     tableView=TableView::create(this, Size(winSize.width-getSizeWithDevice(200.0f), winSize.height-getSizeWithDevice(190.0f)));
     tableView->setDirection(cocos2d::extension::ScrollView::Direction::VERTICAL);
     tableView->setAnchorPoint(Vec2(0, 0));
@@ -73,7 +72,7 @@ void StatisticsLayer::init(Layer* parent)
     _resetBackground->setScale(getScaleWithDevice());
     addChild(_resetBackground);
     
-    btnReset = CCMenuItemSprite::create(Sprite::create(getNameWithResolution("btn_reset_nor").c_str()),
+    btnReset = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_reset_nor").c_str()),
                                         Sprite::create(getNameWithResolution("btn_reset_act").c_str()),
                                         this, menu_selector(StatisticsLayer::onReset));
     
@@ -81,7 +80,7 @@ void StatisticsLayer::init(Layer* parent)
     btnReset->setScale(getScaleWithDevice());
     //btnReset->setPosition(Vec2(winSize.width*0.4f,  getSizeWithDevice(30.0f)));
     
-    btnDone = CCMenuItemSprite::create(Sprite::create(getNameWithResolution("btn_close_nor").c_str()),
+    btnDone = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_close_nor").c_str()),
                                        Sprite::create(getNameWithResolution("btn_close_act").c_str()),
                                        this, menu_selector(StatisticsLayer::onDone));
     
@@ -91,7 +90,7 @@ void StatisticsLayer::init(Layer* parent)
     
     
     
-    CCMenu* _menu = CCMenu::create();
+    Menu* _menu = CCMenu::create();
     _menu->addChild(btnDone);
     _menu->addChild(btnReset);
     
@@ -102,7 +101,7 @@ void StatisticsLayer::init(Layer* parent)
 }
 
 void StatisticsLayer::updateLayoutWithPortrait(){
-    CCSize winSize = Director::getInstance()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     _background->setRotation(0.0f);
     _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     _background->setVisible(true);
@@ -113,7 +112,7 @@ void StatisticsLayer::updateLayoutWithPortrait(){
     _titlebar->setPosition(Vec2(winSize.width/2, winSize.height-getSizeWithDevice(50)));
     tableView->setPosition(Vec2(getSizeWithDevice(120.0f), getSizeWithDevice(95.0f)));
     
-    tableView->setViewSize( CCSizeMake(winSize.width-getSizeWithDevice(240.0f), winSize.height-getSizeWithDevice(190.0f)));
+    tableView->setViewSize( Size(winSize.width-getSizeWithDevice(240.0f), winSize.height-getSizeWithDevice(190.0f)));
     tableView->reloadData();
     
     _backBackground->setPosition(Vec2(winSize.width*0.25, getSizeWithDevice(42)));
@@ -125,7 +124,7 @@ void StatisticsLayer::updateLayoutWithPortrait(){
 }
 
 void StatisticsLayer::updateLayoutWithLandscape(){
-    CCSize winSize = Director::getInstance()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     _background->setRotation(90.0f);
     _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     _background->setVisible(true);
@@ -136,7 +135,7 @@ void StatisticsLayer::updateLayoutWithLandscape(){
     _titlebar->setPosition(Vec2(winSize.width/2, winSize.height-getSizeWithDevice(50)));
     
     tableView->setPosition(Vec2(getSizeWithDevice(120.0f), getSizeWithDevice(95.0f)));
-    tableView->setViewSize( CCSizeMake(winSize.width-getSizeWithDevice(240.0f), winSize.height-getSizeWithDevice(190.0f)));
+    tableView->setViewSize( Size(winSize.width-getSizeWithDevice(240.0f), winSize.height-getSizeWithDevice(190.0f)));
     tableView->reloadData();
     
     _backBackground->setPosition(Vec2(winSize.width*0.25, getSizeWithDevice(42)));
@@ -147,7 +146,7 @@ void StatisticsLayer::updateLayoutWithLandscape(){
     
 }
 
-void StatisticsLayer::onDone(CCObject* sender)
+void StatisticsLayer::onDone(Ref* sender)
 {
     GameData::getInstance()->playSoundEffect();
     
@@ -155,7 +154,7 @@ void StatisticsLayer::onDone(CCObject* sender)
     ((GameLayer*)_parentLayer)->getSettingLayer()->didFinishCell();
 }
 
-void StatisticsLayer::onReset(CCObject* sender)
+void StatisticsLayer::onReset(Ref* sender)
 {
     GameData::getInstance()->playSoundEffect();
     
@@ -187,7 +186,7 @@ ssize_t StatisticsLayer::numberOfCellsInTableView(TableView *table)
 }
 
 //Generate cell
-TableViewCell* StatisticsLayer::tableCellAtIndex(TableView *table, unsigned int idx)
+TableViewCell* StatisticsLayer::tableCellAtIndex(TableView *table, ssize_t idx)
 {
     //CCString *nameString=CCString::createWithFormat("cell_%d.png",idx);
     
@@ -199,23 +198,23 @@ TableViewCell* StatisticsLayer::tableCellAtIndex(TableView *table, unsigned int 
     cell = new TableViewCell();
     cell->autorelease();
     
-    CCSize winSize = Director::getInstance()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     
     CCLabelTTF* _subLabel = CCLabelTTF::create("", "tt0283.ttf", getSizeWithDevice(30), CCSizeMake(winSize.width/2.0f, getSizeWithDevice(80.0f)), kCCTextAlignmentRight, kCCVerticalTextAlignmentBottom);
                                                
-    _subLabel->setColor(ccc3(255, 255, 255));
-    _subLabel->setAnchorPoint(CCPointZero);
-    _subLabel->setPosition(CCPointZero);
+    _subLabel->setColor(Color3B(255, 255, 255));
+    _subLabel->setAnchorPoint(Vec2(0, 0));
+    _subLabel->setPosition(Vec2(0, 0));
     
     CCLabelTTF* _cellLabel = CCLabelTTF::create("0", "tt0283m.ttf", getSizeWithDevice(30));
-    _cellLabel->setColor(ccc3(255, 255, 255));
-    _cellLabel->setAnchorPoint(CCPointZero);
+    _cellLabel->setColor(Color3B(255, 255, 255));
+    _cellLabel->setAnchorPoint(Vec2(0, 0));
     
     
     _cellLabel->setPosition(Vec2(winSize.width/2 + getSizeWithDevice(20.0f),0));
     const char* label;
     
-    int i=idx / 11;
+    long i=idx / 11;
     int j=idx % 11;
     
     std::vector<std::string> _gameTypeName;
@@ -252,7 +251,7 @@ TableViewCell* StatisticsLayer::tableCellAtIndex(TableView *table, unsigned int 
         //Statistics
         
         Sprite* titleSprite = Sprite::create();
-        titleSprite->setAnchorPoint(CCPointZero);
+        titleSprite->setAnchorPoint(Vec2(0, 0));
         titleSprite->setPosition(Vec2(winSize.width/2 - getSizeWithDevice(120), 0));
         cell->addChild(titleSprite);
         
@@ -323,7 +322,7 @@ TableViewCell* StatisticsLayer::tableCellAtIndex(TableView *table, unsigned int 
 Size StatisticsLayer::cellSizeForTable(TableView *table)
 {
     Size winSize = Director::getInstance()->getWinSize();
-    return CCSizeMake(winSize.width-getSizeWithDevice(240.0f), getSizeWithDevice(80.0f));
+    return Size(winSize.width-getSizeWithDevice(240.0f), getSizeWithDevice(80.0f));
 }
 
 void StatisticsLayer::tableCellHighlight(TableView *table, TableViewCell *cell)

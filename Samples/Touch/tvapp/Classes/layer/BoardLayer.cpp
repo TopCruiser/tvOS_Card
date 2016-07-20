@@ -92,11 +92,11 @@ void BoardLayer::init(CCLayer* parent)
     _startedGameFlag = false;
     _actuallyCardMoved = false;
     
-    cards = new __Array;
-    playCells = new __Array;
-    freeCells = new __Array;
-    goalCells = new __Array;
-    moves = new __Array;
+    cards = new __Array; cards->init();
+    playCells = new __Array; playCells->init();
+    freeCells = new __Array; freeCells->init();
+    goalCells = new __Array; goalCells->init();
+    moves = new __Array; moves->init();
     //replayCards = new __Array;
     
     _dealer = NULL;
@@ -242,23 +242,23 @@ void BoardLayer::startNewGame()
     GameData::getInstance()->setMenuLayer(false);
     
     //Google Analytics
-    /*switch (GameData::getInstance()->getGameType()) {
-        case TYPE_SOLITAIRE:
-            AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Solitaire Screen", 1);
-            break;
-            
-        case TYPE_FREECELL:
-            AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Freecell Screen", 1);
-            break;
-            
-        case TYPE_FORTY_THIEVES:
-            AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Forty Thieves Screen", 1);
-            break;
-            
-        case TYPE_SPIDER:
-            AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Spider Solitaire Screen", 1);
-            break;
-    }*/ //commented 716
+//    switch (GameData::getInstance()->getGameType()) {
+//        case TYPE_SOLITAIRE:
+//            AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Solitaire Screen", 1);
+//            break;
+//            
+//        case TYPE_FREECELL:
+//            AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Freecell Screen", 1);
+//            break;
+//            
+//        case TYPE_FORTY_THIEVES:
+//            AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Forty Thieves Screen", 1);
+//            break;
+//            
+//        case TYPE_SPIDER:
+//            AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Spider Solitaire Screen", 1);
+//            break;
+//    } //commented 716
     //
     
 //    switch (GameData::getInstance()->getGameType()) {
@@ -313,9 +313,9 @@ void BoardLayer::startNewGame()
     createGoalCells();
     createDealer();
     
-    if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
-        updateLayoutWithPortrait();
-    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
+//    if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
+//        updateLayoutWithPortrait();
+//    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)//comment715
         updateLayoutWithLandscape();
     
     GameData::getInstance()->setDoingAction(true);
@@ -674,7 +674,8 @@ void BoardLayer::updateCardSizeWithLandscape()
 
 void BoardLayer::createPlayCells()
 {
-    playCells->removeAllObjects();
+    if(playCells->data)
+        playCells->removeAllObjects();
     
     for(int i = 0; i < _stacks; i++)
     {
@@ -2949,19 +2950,19 @@ void BoardLayer:: setTime(float dt)
 }
 
 void BoardLayer::updateRightHanded(){
-    if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
-    {
-        updateDealerWithPortrait();
-        updateGoalCellsWithPortrait();
-        updatePlayCellsWithPortrait();
-        updateFreeCellsWithPortrait();
-    }
-    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT){
+//    if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
+//    {
+//        updateDealerWithPortrait();
+//        updateGoalCellsWithPortrait();
+//        updatePlayCellsWithPortrait();
+//        updateFreeCellsWithPortrait();
+//    }
+//    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT){
         updateDealerWithLandscape();
         updateGoalCellsWithLandscape();
         updatePlayCellsWithLandscape();
         updateFreeCellsWithLandscape();
-    }
+    //}//comment715
     
 }
 

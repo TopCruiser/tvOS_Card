@@ -41,7 +41,7 @@ public:
     virtual Size tableCellSizeForIndex(TableView *table, unsigned int idx);
     
     //Generate cell
-    virtual cocos2d::extension::TableViewCell* tableCellAtIndex(cocos2d::extension::TableView *table, unsigned int idx);
+    virtual cocos2d::extension::TableViewCell* tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx);
     //The number of cell
     virtual ssize_t numberOfCellsInTableView(cocos2d::extension::TableView *table);
     
@@ -65,6 +65,9 @@ private:
     Sprite* _backBackground;
     
     bool _isEnabled;
+    
+public:
+    CREATE_FUNC(HelpLayer);
 };
 
 #endif /* defined(__cardgame__HelpLayer__) */

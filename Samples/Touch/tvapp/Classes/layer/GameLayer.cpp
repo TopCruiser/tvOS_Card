@@ -538,12 +538,12 @@ void GameLayer::hideHelpLayer()
 {
     GameData::getInstance()->setDoingAction(true);
     
-    CCSize winSize= Director::getInstance()->getWinSize();
+    Size winSize= Director::getInstance()->getWinSize();
     float disappear;
     disappear = winSize.width > winSize.height ? winSize.width : winSize.height;
     
-    CCMoveTo* action = CCMoveTo::create(0.3f, Vec2(disappear,0));
-    CCEaseIn *_easein = CCEaseIn::create(action,0.3f);
+    MoveTo* action = MoveTo::create(0.3f, Vec2(disappear,0));
+    EaseIn *_easein = EaseIn::create(action,0.3f);
     Sequence *_sequence  =  Sequence::create(_easein, CC_CALLBACK_0(GameLayer::doneSettingAnimation, NULL), NULL);
     
     _helpLayer->runAction(_sequence);
@@ -551,8 +551,8 @@ void GameLayer::hideHelpLayer()
 
 void GameLayer::setBackground(int backgroundIndex){
     
-    CCString *nameString;
-    if(backgroundIndex<9) nameString=CCString::createWithFormat("background0%d",backgroundIndex+1);
+    String *nameString;
+    if(backgroundIndex<9) nameString=String::createWithFormat("background0%d",backgroundIndex+1);
     else nameString=CCString::createWithFormat("background%d",backgroundIndex+1);
     
     //_background->initWithFile(getNameWithDevice(nameString->m_sString).c_str());
@@ -567,34 +567,34 @@ void GameLayer::setBackground(int backgroundIndex){
     }
     
     //////added by amr
-    CCSize wSize = Director::getInstance()->getWinSize();
+    Size wSize = Director::getInstance()->getWinSize();
     float scaleX=0;
     float scaleY=0;
-    if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
-    {
+//    if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
+//    {
         scaleX = wSize.width / 2048;
         scaleY = wSize.height / 1536;
         _background->setScaleY(scaleX);
         _background->setScaleX(scaleY);
-    }
-    else
-    {
-        scaleX = wSize.width / 1536;
-        scaleY = wSize.height / 2048;
-        _background->setScaleX(scaleX);
-        _background->setScaleY(scaleY);
-    }
+//    }
+//    else
+//    {
+//        scaleX = wSize.width / 1536;
+//        scaleY = wSize.height / 2048;
+//        _background->setScaleX(scaleX);
+//        _background->setScaleY(scaleY);
+//    }comment715
     
     
     //////added by amr
     
     //added by khj 04/14/2015
-    if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
-        _background->setRotation(0.0f);
-    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
+//    if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
+//        _background->setRotation(0.0f);
+//    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)//comment715
         _background->setRotation(90.0f);
     
-    CCSize winSize = Director::getInstance()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     
 }
@@ -604,8 +604,8 @@ void GameLayer::setBackground(Texture2D* result){
     //_background->initWithTexture(result);
     _background->setRotation(0.0f);
     _background->setTexture(result);
-    CCSize winSize = Director::getInstance()->getWinSize();
-    CCSize bgSize= _background->getContentSize();
+    Size winSize = Director::getInstance()->getWinSize();
+    Size bgSize= _background->getContentSize();
     
     float scaleX=winSize.width/bgSize.width;
     float scaleY=winSize.height/bgSize.height;
@@ -628,7 +628,7 @@ void GameLayer::removeOptionLayers(){
     _solitaireOptionLayer = NULL;
 }
 
-void GameLayer::didFinishPickingWithResult(cocos2d::CCTexture2D* result){
+void GameLayer::didFinishPickingWithResult(cocos2d::Texture2D* result){
     CCLog("%s", "GameLayer didFinishPickingWithResult");
     if(result==NULL) return;
     

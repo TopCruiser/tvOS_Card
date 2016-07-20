@@ -15,19 +15,19 @@
 USING_NS_CC_EXT;//Cocos2dx defined macros
 using namespace cocos2d;
 
-class StatisticsLayer : public cocos2d::CCLayer, public cocos2d::extension::TableViewDelegate,cocos2d::extension::TableViewDataSource
+class StatisticsLayer : public cocos2d::Layer, public cocos2d::extension::TableViewDelegate,cocos2d::extension::TableViewDataSource
 {
 public:
-    static cocos2d::CCScene* scene();
+    static cocos2d::Scene* scene();
     virtual bool init();
-    virtual void init(CCLayer* parent);
+    virtual void init(Layer* parent);
     
     void updateLayoutWithPortrait();
     void updateLayoutWithLandscape();
     
-    void menuCloseCallback(CCObject* pSender);
-    void onDone(CCObject* sender);
-    void onReset(CCObject* sender);
+    void menuCloseCallback(Ref* pSender);
+    void onDone(Ref* sender);
+    void onReset(Ref* sender);
     TableView* getTableView();
     
 public:
@@ -41,7 +41,7 @@ public:
     //Each cell size
     virtual cocos2d::Size cellSizeForTable(cocos2d::extension::TableView *table);
     //Generate cell
-    virtual cocos2d::extension::TableViewCell* tableCellAtIndex(cocos2d::extension::TableView *table, unsigned int idx);
+    virtual cocos2d::extension::TableViewCell* tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx);
     //The number of cell
     virtual ssize_t numberOfCellsInTableView(cocos2d::extension::TableView *table);
     
@@ -70,6 +70,8 @@ private:
     //std::vector<std::string> _statisticsItem;
     
     bool _isEnabled;
+public:
+    CREATE_FUNC(StatisticsLayer);
 };
 
 #endif /* defined(__cardgame__StatisticsLayer__) */

@@ -32,7 +32,7 @@ void GameData::init()
     _vegasMode = false;
     _effectEnabled = true;
     _bgmEnabled = false;
-    _cardIndexArray = new Array;
+    _cardIndexArray = new __Array; _cardIndexArray->init();
 }
 
 int GameData::getSpiderMode()

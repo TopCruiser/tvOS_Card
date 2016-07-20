@@ -11,25 +11,27 @@
 
 #include "Common.h"
 
-class SolitaireOptionLayer : public cocos2d::CCLayer
+class SolitaireOptionLayer : public cocos2d::Layer
 {
 public:
-    static cocos2d::CCScene* scene();
+    static cocos2d::Scene* scene();
     
     virtual bool init();
-    virtual void init(CCLayer* parent);
+    virtual void init(Layer* parent);
     
-    void onSelDrawThree(CCObject* sender);
-    void onSelVegasStyle(CCObject* sender);
-    void onDone(CCObject* sender);
+    void onSelDrawThree(Ref* sender);
+    void onSelVegasStyle(Ref* sender);
+    void onDone(Ref* sender);
+    
+    bool handleTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
 
 private:
-    CCLayer* _parentLayer;
-    CCMenuItem* _drawthreeItem;
-    CCMenuItem* _drawthreeLabel;
-    CCMenuItem* _vegasItem;
-    CCMenuItem* _vegasLabel;
-    CCMenu* _menu;
+    Layer* _parentLayer;
+    MenuItem* _drawthreeItem;
+    MenuItem* _drawthreeLabel;
+    MenuItem* _vegasItem;
+    MenuItem* _vegasLabel;
+    Menu* _menu;
     
 public:
     CREATE_FUNC(SolitaireOptionLayer);
