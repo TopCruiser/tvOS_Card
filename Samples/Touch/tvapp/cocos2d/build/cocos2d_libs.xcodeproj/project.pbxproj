@@ -2694,17 +2694,6 @@
 		9EF9A44D1BA7A6D600102D0A /* btInternalEdgeUtility.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B6CAB0441AF9AA1900B9B856 /* btInternalEdgeUtility.cpp */; };
 		9EF9A44E1BA7A6D600102D0A /* CCPUOnTimeObserver.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B665E1841AA80A6500DDB1C5 /* CCPUOnTimeObserver.cpp */; };
 		9EF9A44F1BA7A6D600102D0A /* WebSocket.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1AAF5368180E3374000584C8 /* WebSocket.cpp */; };
-		9EF9A4511BA7A6D600102D0A /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AAF5387180E35AC000584C8 /* libwebsockets.a */; };
-		9EF9A4521BA7A6D600102D0A /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AAF541C180E3B6A000584C8 /* libcurl.a */; };
-		9EF9A4531BA7A6D600102D0A /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 292F1A5C1A5151CE00E479F8 /* libssl.a */; };
-		9EF9A4541BA7A6D600102D0A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1551A342158F2AB200E66CFE /* Foundation.framework */; };
-		9EF9A4551BA7A6D600102D0A /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A570363180BD1120088DEC7 /* libpng.a */; };
-		9EF9A4561BA7A6D600102D0A /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A570377180BD1B40088DEC7 /* libjpeg.a */; };
-		9EF9A4571BA7A6D600102D0A /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A5703A3180BD2350088DEC7 /* libtiff.a */; };
-		9EF9A4581BA7A6D600102D0A /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 292F1A5B1A5151CE00E479F8 /* libcrypto.a */; };
-		9EF9A4591BA7A6D600102D0A /* libchipmunk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 29031E0819BFE8DE00EFA1DF /* libchipmunk.a */; };
-		9EF9A45A1BA7A6D600102D0A /* libwebp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A5703BA180BD2800088DEC7 /* libwebp.a */; };
-		9EF9A45B1BA7A6D600102D0A /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1A57052D180BD3280088DEC7 /* libfreetype.a */; };
 		9EF9A45E1BA7A6D600102D0A /* b2Math.h in Headers */ = {isa = PBXBuildFile; fileRef = 46A168D41807AF9C005B8026 /* b2Math.h */; };
 		9EF9A45F1BA7A6D600102D0A /* btGenericPoolAllocator.h in Headers */ = {isa = PBXBuildFile; fileRef = B6CAB0A81AF9AA1900B9B856 /* btGenericPoolAllocator.h */; };
 		9EF9A4601BA7A6D600102D0A /* CCPUPathFollower.h in Headers */ = {isa = PBXBuildFile; fileRef = B665E1951AA80A6500DDB1C5 /* CCPUPathFollower.h */; };
@@ -3702,7 +3691,6 @@
 		A07A4CAF1783777C0073F6A7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1551A342158F2AB200E66CFE /* Foundation.framework */; };
 		B2165EEA19921124000BE3E6 /* CCPrimitiveCommand.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B257B45E198A353E00D9A687 /* CCPrimitiveCommand.cpp */; };
 		B217703C1977ECB4009EE11B /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B217703B1977ECB4009EE11B /* IOKit.framework */; };
-		B21770401977ECE6009EE11B /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B217703F1977ECE6009EE11B /* OpenGL.framework */; };
 		B21770421977ECF8009EE11B /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21770411977ECF8009EE11B /* ApplicationServices.framework */; };
 		B21770451977ED14009EE11B /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21770431977ED07009EE11B /* Cocoa.framework */; };
 		B21770471977ED34009EE11B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B21770461977ED34009EE11B /* QuartzCore.framework */; };
@@ -5442,6 +5430,18 @@
 		C50306771B60B5B2001E6D43 /* CSBoneBinary_generated.h in Headers */ = {isa = PBXBuildFile; fileRef = C50306721B60B5B2001E6D43 /* CSBoneBinary_generated.h */; };
 		C50306781B60B5B2001E6D43 /* SkeletonNodeReader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C50306731B60B5B2001E6D43 /* SkeletonNodeReader.cpp */; };
 		C50306791B60B5B2001E6D43 /* SkeletonNodeReader.h in Headers */ = {isa = PBXBuildFile; fileRef = C50306741B60B5B2001E6D43 /* SkeletonNodeReader.h */; };
+		CE3C301B1D42012200A34812 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7AFDD91D41CAA400096CB9 /* OpenGLES.framework */; };
+		CE3C301C1D42030B00A34812 /* libwebsockets.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7AFDDD1D41CBB100096CB9 /* libwebsockets.a */; };
+		CE7AFDC41D41BC7800096CB9 /* libjpeg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7AFDC31D41BC7800096CB9 /* libjpeg.a */; };
+		CE7AFDC61D41BCEB00096CB9 /* libpng.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7AFDC51D41BCEB00096CB9 /* libpng.a */; };
+		CE7AFDC81D41BCFA00096CB9 /* libtiff.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7AFDC71D41BCFA00096CB9 /* libtiff.a */; };
+		CE7AFDC91D41BE6300096CB9 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7AFDC11D41BC6800096CB9 /* libfreetype.a */; };
+		CE7AFDCB1D41BF6D00096CB9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7AFDCA1D41BF6D00096CB9 /* Foundation.framework */; };
+		CE7AFDD41D41C9FF00096CB9 /* libcrypto.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7AFDD11D41C9FF00096CB9 /* libcrypto.a */; };
+		CE7AFDD51D41C9FF00096CB9 /* libcurl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7AFDD21D41C9FF00096CB9 /* libcurl.a */; };
+		CE7AFDD61D41C9FF00096CB9 /* libssl.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7AFDD31D41C9FF00096CB9 /* libssl.a */; };
+		CE7AFDD81D41CA6500096CB9 /* libwebp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7AFDD71D41CA6500096CB9 /* libwebp.a */; };
+		CE7AFDDC1D41CB8100096CB9 /* libchipmunk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CE7AFDDB1D41CB8100096CB9 /* libchipmunk.a */; };
 		D0FD03491A3B51AA00825BB5 /* CCAllocatorBase.h in Headers */ = {isa = PBXBuildFile; fileRef = D0FD033B1A3B51AA00825BB5 /* CCAllocatorBase.h */; };
 		D0FD034A1A3B51AA00825BB5 /* CCAllocatorBase.h in Headers */ = {isa = PBXBuildFile; fileRef = D0FD033B1A3B51AA00825BB5 /* CCAllocatorBase.h */; };
 		D0FD034B1A3B51AA00825BB5 /* CCAllocatorDiagnostics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D0FD033C1A3B51AA00825BB5 /* CCAllocatorDiagnostics.cpp */; };
@@ -5920,7 +5920,6 @@
 		292F1A5C1A5151CE00E479F8 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libssl.a; sourceTree = "<group>"; };
 		292F1A601A52447100E479F8 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../external/curl/prebuilt/mac/libcrypto.a; sourceTree = "<group>"; };
 		292F1A611A52447100E479F8 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../external/curl/prebuilt/mac/libcurl.a; sourceTree = "<group>"; };
-		292F1A661A524F2700E479F8 /* libssl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libssl.dylib; path = usr/lib/libssl.dylib; sourceTree = SDKROOT; };
 		292F1A6A1A5250F700E479F8 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../external/curl/prebuilt/mac/libssl.a; sourceTree = "<group>"; };
 		29394CEC19B01DBA00D2DE1A /* UIWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIWebView.h; sourceTree = "<group>"; };
 		29394CED19B01DBA00D2DE1A /* UIWebView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = UIWebView.mm; sourceTree = "<group>"; };
@@ -6512,13 +6511,9 @@
 		B20564AA1A6E5744001C1B6E /* ccShader_PositionColorTextureAsPointsize.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = ccShader_PositionColorTextureAsPointsize.vert; sourceTree = "<group>"; };
 		B217703B1977ECB4009EE11B /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		B217703D1977ECC1009EE11B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		B217703F1977ECE6009EE11B /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		B21770411977ECF8009EE11B /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		B21770431977ED07009EE11B /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		B21770461977ED34009EE11B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		B21770481977ED4C009EE11B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		B217704A1977ED55009EE11B /* libcurl.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcurl.dylib; path = usr/lib/libcurl.dylib; sourceTree = SDKROOT; };
-		B217704C1977ED8B009EE11B /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		B230ED6F19B417AE00364AA8 /* CCTrianglesCommand.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCTrianglesCommand.cpp; sourceTree = "<group>"; };
 		B230ED7019B417AE00364AA8 /* CCTrianglesCommand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCTrianglesCommand.h; sourceTree = "<group>"; };
 		B240C5E71B09DFB000137F50 /* CCFrameBuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCFrameBuffer.cpp; sourceTree = "<group>"; };
@@ -7409,6 +7404,18 @@
 		C50306721B60B5B2001E6D43 /* CSBoneBinary_generated.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CSBoneBinary_generated.h; path = SkeletonReader/CSBoneBinary_generated.h; sourceTree = "<group>"; };
 		C50306731B60B5B2001E6D43 /* SkeletonNodeReader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SkeletonNodeReader.cpp; path = SkeletonReader/SkeletonNodeReader.cpp; sourceTree = "<group>"; };
 		C50306741B60B5B2001E6D43 /* SkeletonNodeReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkeletonNodeReader.h; path = SkeletonReader/SkeletonNodeReader.h; sourceTree = "<group>"; };
+		CE7AFDC11D41BC6800096CB9 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../external/freetype2/prebuilt/tvos/libfreetype.a; sourceTree = "<group>"; };
+		CE7AFDC31D41BC7800096CB9 /* libjpeg.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libjpeg.a; path = ../external/jpeg/prebuilt/tvos/libjpeg.a; sourceTree = "<group>"; };
+		CE7AFDC51D41BCEB00096CB9 /* libpng.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng.a; path = ../external/png/prebuilt/tvos/libpng.a; sourceTree = "<group>"; };
+		CE7AFDC71D41BCFA00096CB9 /* libtiff.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libtiff.a; path = ../external/tiff/prebuilt/tvos/libtiff.a; sourceTree = "<group>"; };
+		CE7AFDCA1D41BF6D00096CB9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.2.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		CE7AFDD11D41C9FF00096CB9 /* libcrypto.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcrypto.a; path = ../external/curl/prebuilt/tvos/libcrypto.a; sourceTree = "<group>"; };
+		CE7AFDD21D41C9FF00096CB9 /* libcurl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcurl.a; path = ../external/curl/prebuilt/tvos/libcurl.a; sourceTree = "<group>"; };
+		CE7AFDD31D41C9FF00096CB9 /* libssl.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libssl.a; path = ../external/curl/prebuilt/tvos/libssl.a; sourceTree = "<group>"; };
+		CE7AFDD71D41CA6500096CB9 /* libwebp.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebp.a; path = ../external/webp/prebuilt/tvos/libwebp.a; sourceTree = "<group>"; };
+		CE7AFDD91D41CAA400096CB9 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS9.2.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
+		CE7AFDDB1D41CB8100096CB9 /* libchipmunk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libchipmunk.a; path = ../external/chipmunk/prebuilt/tvos/libchipmunk.a; sourceTree = "<group>"; };
+		CE7AFDDD1D41CBB100096CB9 /* libwebsockets.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libwebsockets.a; path = ../external/websockets/prebuilt/tvos/libwebsockets.a; sourceTree = "<group>"; };
 		D0FD033B1A3B51AA00825BB5 /* CCAllocatorBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAllocatorBase.h; sourceTree = "<group>"; };
 		D0FD033C1A3B51AA00825BB5 /* CCAllocatorDiagnostics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CCAllocatorDiagnostics.cpp; sourceTree = "<group>"; };
 		D0FD033D1A3B51AA00825BB5 /* CCAllocatorDiagnostics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAllocatorDiagnostics.h; sourceTree = "<group>"; };
@@ -7442,7 +7449,6 @@
 				B21770471977ED34009EE11B /* QuartzCore.framework in Frameworks */,
 				B21770451977ED14009EE11B /* Cocoa.framework in Frameworks */,
 				B21770421977ECF8009EE11B /* ApplicationServices.framework in Frameworks */,
-				B21770401977ECE6009EE11B /* OpenGL.framework in Frameworks */,
 				B217703C1977ECB4009EE11B /* IOKit.framework in Frameworks */,
 				292F1A641A52447100E479F8 /* libcurl.a in Frameworks */,
 				1A570347180BD0850088DEC7 /* libglfw3.a in Frameworks */,
@@ -7458,17 +7464,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9EF9A4511BA7A6D600102D0A /* libwebsockets.a in Frameworks */,
-				9EF9A4521BA7A6D600102D0A /* libcurl.a in Frameworks */,
-				9EF9A4531BA7A6D600102D0A /* libssl.a in Frameworks */,
-				9EF9A4541BA7A6D600102D0A /* Foundation.framework in Frameworks */,
-				9EF9A4551BA7A6D600102D0A /* libpng.a in Frameworks */,
-				9EF9A4561BA7A6D600102D0A /* libjpeg.a in Frameworks */,
-				9EF9A4571BA7A6D600102D0A /* libtiff.a in Frameworks */,
-				9EF9A4581BA7A6D600102D0A /* libcrypto.a in Frameworks */,
-				9EF9A4591BA7A6D600102D0A /* libchipmunk.a in Frameworks */,
-				9EF9A45A1BA7A6D600102D0A /* libwebp.a in Frameworks */,
-				9EF9A45B1BA7A6D600102D0A /* libfreetype.a in Frameworks */,
+				CE3C301C1D42030B00A34812 /* libwebsockets.a in Frameworks */,
+				CE3C301B1D42012200A34812 /* OpenGLES.framework in Frameworks */,
+				CE7AFDDC1D41CB8100096CB9 /* libchipmunk.a in Frameworks */,
+				CE7AFDD81D41CA6500096CB9 /* libwebp.a in Frameworks */,
+				CE7AFDD41D41C9FF00096CB9 /* libcrypto.a in Frameworks */,
+				CE7AFDD51D41C9FF00096CB9 /* libcurl.a in Frameworks */,
+				CE7AFDD61D41C9FF00096CB9 /* libssl.a in Frameworks */,
+				CE7AFDCB1D41BF6D00096CB9 /* Foundation.framework in Frameworks */,
+				CE7AFDC91D41BE6300096CB9 /* libfreetype.a in Frameworks */,
+				CE7AFDC81D41BCFA00096CB9 /* libtiff.a in Frameworks */,
+				CE7AFDC61D41BCEB00096CB9 /* libpng.a in Frameworks */,
+				CE7AFDC41D41BC7800096CB9 /* libjpeg.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -7559,15 +7566,22 @@
 		1551A341158F2AB200E66CFE /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				CE7AFDDD1D41CBB100096CB9 /* libwebsockets.a */,
+				CE7AFDDB1D41CB8100096CB9 /* libchipmunk.a */,
+				CE7AFDD91D41CAA400096CB9 /* OpenGLES.framework */,
+				CE7AFDD71D41CA6500096CB9 /* libwebp.a */,
+				CE7AFDD11D41C9FF00096CB9 /* libcrypto.a */,
+				CE7AFDD21D41C9FF00096CB9 /* libcurl.a */,
+				CE7AFDD31D41C9FF00096CB9 /* libssl.a */,
+				CE7AFDCA1D41BF6D00096CB9 /* Foundation.framework */,
+				CE7AFDC71D41BCFA00096CB9 /* libtiff.a */,
+				CE7AFDC51D41BCEB00096CB9 /* libpng.a */,
+				CE7AFDC31D41BC7800096CB9 /* libjpeg.a */,
+				CE7AFDC11D41BC6800096CB9 /* libfreetype.a */,
 				2905E9CC1ACD3D8C00092DD2 /* libz.a */,
-				292F1A661A524F2700E479F8 /* libssl.dylib */,
-				B217704C1977ED8B009EE11B /* libsqlite3.dylib */,
-				B217704A1977ED55009EE11B /* libcurl.dylib */,
-				B21770481977ED4C009EE11B /* libz.dylib */,
 				B21770461977ED34009EE11B /* QuartzCore.framework */,
 				B21770431977ED07009EE11B /* Cocoa.framework */,
 				B21770411977ECF8009EE11B /* ApplicationServices.framework */,
-				B217703F1977ECE6009EE11B /* OpenGL.framework */,
 				B217703D1977ECC1009EE11B /* AudioToolbox.framework */,
 				B217703B1977ECB4009EE11B /* IOKit.framework */,
 				1551A342158F2AB200E66CFE /* Foundation.framework */,
@@ -16592,23 +16606,23 @@
 					"$(inherited)",
 					CC_TARGET_OS_APPLETV,
 				);
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				HEADER_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../external/png/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/jpeg/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/tiff/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/webp/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/freetype2/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/curl/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/websockets/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/chipmunk/prebuilt/ios\"",
+					"\"$(SRCROOT)/../external/png/prebuilt/tvos\"",
+					"\"$(SRCROOT)/../external/jpeg/prebuilt/tvos\"",
+					"\"$(SRCROOT)/../external/tiff/prebuilt/tvos\"",
+					"\"$(SRCROOT)/../external/webp/prebuilt/tvos\"",
+					"\"$(SRCROOT)/../external/freetype2/prebuilt/tvos\"",
+					"\"$(SRCROOT)/../external/curl/prebuilt/tvos\"",
+					"\"$(SRCROOT)/../external/websockets/prebuilt/tvos\"",
+					"\"$(SRCROOT)/../external/chipmunk/prebuilt/tvos\"",
 				);
 				OTHER_LDFLAGS = "-llibsql3";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/freetype2/include/ios $(SRCROOT)/../external/curl/include/ios $(SRCROOT)/../external/webp/include/ios $(SRCROOT)/../external/tiff/include/ios $(SRCROOT)/../external/jpeg/include/ios $(SRCROOT)/../external/png/include/ios $(SRCROOT)/../external/websockets/include/ios $(SRCROOT)/../external/chipmunk/include/chipmunk $(SRCROOT)/../external/freetype2/include/ios/freetype2";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/freetype2/include/tvos $(SRCROOT)/../external/curl/include/tvos $(SRCROOT)/../external/webp/include/tvos $(SRCROOT)/../external/tiff/include/tvos $(SRCROOT)/../external/jpeg/include/tvos $(SRCROOT)/../external/png/include/tvos $(SRCROOT)/../external/websockets/include/tvos $(SRCROOT)/../external/chipmunk/include/chipmunk $(SRCROOT)/../external/freetype2/include/tvos/freetype2";
 				VALID_ARCHS = arm64;
 			};
 			name = Debug;
@@ -16625,23 +16639,23 @@
 					"$(inherited)",
 					CC_TARGET_OS_APPLETV,
 				);
-				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = YES;
+				GCC_WARN_ABOUT_DEPRECATED_FUNCTIONS = NO;
 				HEADER_SEARCH_PATHS = "";
 				LIBRARY_SEARCH_PATHS = (
-					"\"$(SRCROOT)/../external/png/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/jpeg/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/tiff/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/webp/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/freetype2/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/curl/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/websockets/prebuilt/ios\"",
-					"\"$(SRCROOT)/../external/chipmunk/prebuilt/ios\"",
+					"\"$(SRCROOT)/../external/png/prebuilt/tvos\"",
+					"\"$(SRCROOT)/../external/jpeg/prebuilt/tvos\"",
+					"\"$(SRCROOT)/../external/tiff/prebuilt/tvos\"",
+					"\"$(SRCROOT)/../external/webp/prebuilt/tvos\"",
+					"\"$(SRCROOT)/../external/freetype2/prebuilt/tvos\"",
+					"\"$(SRCROOT)/../external/curl/prebuilt/tvos\"",
+					"\"$(SRCROOT)/../external/websockets/prebuilt/tvos\"",
+					"\"$(SRCROOT)/../external/chipmunk/prebuilt/tvos\"",
 				);
 				OTHER_LDFLAGS = "-llibsql3";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
-				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/freetype2/include/ios $(SRCROOT)/../external/curl/include/ios $(SRCROOT)/../external/webp/include/ios $(SRCROOT)/../external/tiff/include/ios $(SRCROOT)/../external/jpeg/include/ios $(SRCROOT)/../external/png/include/ios $(SRCROOT)/../external/websockets/include/ios $(SRCROOT)/../external/chipmunk/include/chipmunk $(SRCROOT)/../external/freetype2/include/ios/freetype2";
+				USER_HEADER_SEARCH_PATHS = "$(inherited) $(SRCROOT)/../external/freetype2/include/tvos $(SRCROOT)/../external/curl/include/tvos $(SRCROOT)/../external/webp/include/tvos $(SRCROOT)/../external/tiff/include/tvos $(SRCROOT)/../external/jpeg/include/tvos $(SRCROOT)/../external/png/include/tvos $(SRCROOT)/../external/websockets/include/tvos $(SRCROOT)/../external/chipmunk/include/chipmunk $(SRCROOT)/../external/freetype2/include/tvos/freetype2";
 				VALID_ARCHS = arm64;
 			};
 			name = Release;

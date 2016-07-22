@@ -73,6 +73,7 @@ bool MenuLayer::init()
     
     addChild(_menu);
     
+    setSwallowsTouches(true);
     return true;
 }
 
@@ -160,10 +161,10 @@ void MenuLayer::updateLayoutWithLandscape()
                 pos.y = -getSizeWithDevice(175);
                 break;
             case TAG_FREECELL:
-//                pos.x = getSizeWithDevice(230);
-//                pos.y = -getSizeWithDevice(20);
-                pos.x = 0;
-                pos.y = 0;
+                pos.x = getSizeWithDevice(230);
+                pos.y = -getSizeWithDevice(20);
+//                pos.x = 0;
+//                pos.y = 0;
                 break;
             case TAG_SPIDER_SOLITAIRE:
                 pos.x = getSizeWithDevice(230);
