@@ -46,9 +46,9 @@ enum NEW_GAME {
     SELECT_DEAL
 };
 
-cocos2d::CCScene* BoardLayer::scene()
+cocos2d::Scene* BoardLayer::scene()
 {
-    CCScene* scene = cocos2d::CCScene::create();
+    Scene* scene = cocos2d::Scene::create();
     BoardLayer* layer = BoardLayer::create();
     scene->addChild(layer);
     return scene;
@@ -56,12 +56,12 @@ cocos2d::CCScene* BoardLayer::scene()
 
 bool BoardLayer::init()
 {
-    if(!CCLayer::init()) return false;
+    if(!Layer::init()) return false;
     
     return true;
 }
 
-void BoardLayer::init(CCLayer* parent)
+void BoardLayer::init(Layer* parent)
 {
     _parentLayer = parent;
     
@@ -142,7 +142,7 @@ void BoardLayer::setStacks(int stacks)
     _stacks = stacks;
 }
 
-int BoardLayer::getScore()
+long BoardLayer::getScore()
 {
     return _gameScore;
 }
@@ -394,12 +394,12 @@ void BoardLayer::saveGameStatus()
     if(GameData::getInstance()->getGameType() == TYPE_SOLITAIRE && GameData::getInstance()->isVegasMode())
     {
         if(GameData::getInstance()->getInt(vegasStr, 0) < _gameScore)
-            GameData::getInstance()->setInt(vegasStr, _gameScore);
+            GameData::getInstance()->setInt(vegasStr, (int)_gameScore);
     }
     else
     {
         if(_gameScore > oldScore)
-            GameData::getInstance()->setInt(highScoreStr, _gameScore);
+            GameData::getInstance()->setInt(highScoreStr, (int)_gameScore);
     }
     
     int totalGameCount = GameData::getInstance()->getInt(gameCountStr, 0);
@@ -538,25 +538,37 @@ void BoardLayer::setGameInfo()
 void BoardLayer::initLayout()
 {
     if(!_gameFirstStarted){
-        _scoreLabel = CCLabelTTF::create("SCORE:0", "ClarendonBT-Roman", getSizeWithDevice(20));
-        _scoreLabel->setColor(ccc3(255, 255, 255));
+        _scoreLabel = LabelTTF::create("SCORE:0", "ClarendonBT-Roman", getSizeWithDevice(20));
+        _scoreLabel->setColor(Color3B(255, 255, 255));
         //_scoreLabel->enableStroke(ccRED, 10);
         addChild(_scoreLabel, 0);
         
-        _moveLabel = CCLabelTTF::create("MOVES:0", "ClarendonBT-Roman", getSizeWithDevice(20));
-        _moveLabel->setColor(ccc3(255, 255, 255));
+        _moveLabel = LabelTTF::create("MOVES:0", "ClarendonBT-Roman", getSizeWithDevice(20));
+        _moveLabel->setColor(Color3B(255, 255, 255));
         addChild(_moveLabel, 0);
         
-        _timeLabel = CCLabelTTF::create("TIME:00:00", "ClarendonBT-Roman", getSizeWithDevice(20));
-        _timeLabel->setColor(ccc3(255, 255, 255));
+        _timeLabel = LabelTTF::create("TIME:00:00", "ClarendonBT-Roman", getSizeWithDevice(20));
+        _timeLabel->setColor(Color3B(255, 255, 255));
         addChild(_timeLabel, 0);
     }else{
         _scoreLabel->setString("SCORE:0");
         _moveLabel->setString("MOVES:0");
         _timeLabel->setString("TIME:00:00");
     }
+    
+    //add dummy object to receive focus
+//    MenuItem* dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
+//                                             Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
+//                                             this, menu_selector(BoardLayer::onDummy));
+//    dummy->setScale(0.001);
+//    dummy->setPosition(Vec2(0, 0));
+//    addChild(dummy);
 }
 
+void BoardLayer::onDummy(Ref* sender)
+{
+    
+}
 void BoardLayer::updateLayoutWithPortrait()
 {
     Size winSize = Director::getInstance()->getWinSize();
@@ -1525,7 +1537,11 @@ bool BoardLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_even
     
     Director* director = Director::getInstance();
     Point location = touch->getLocationInView();
-    location = director->convertToGL(location);
+    //location = Vec2(1000, 400);
+    //location = director->convertToGL(location);
+    location = convertToNodeSpace(location);
+    
+    log("touch begin: %f, %f", location.x, location.y);
     
     _draggingCard = getSelectedCard(location);
     if(_draggingCard == NULL)
@@ -1535,7 +1551,7 @@ bool BoardLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_even
     else
     {
         Deck* deck = _draggingCard->getDeck();
-        for(int i = deck->cards->indexOfObject(_draggingCard); i < deck->cards->count(); i++)
+        for(long i = deck->cards->getIndexOfObject(_draggingCard); i < deck->cards->count(); i++)
         {
             Card* card = (Card*)deck->cards->getObjectAtIndex(i);
             card->touchBegan(location);
@@ -1572,7 +1588,7 @@ void BoardLayer::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_even
     if(_draggingCard != NULL)
     {
         Deck* deck = _draggingCard->getDeck();
-        for(int i = deck->cards->indexOfObject(_draggingCard); i < deck->cards->count(); i++)
+        for(long i = deck->cards->getIndexOfObject(_draggingCard); i < deck->cards->count(); i++)
         {
             Card* card = (Card*)deck->cards->getObjectAtIndex(i);
             card->touchEnded(location);
@@ -1594,13 +1610,13 @@ Card* BoardLayer::getSelectedCard(Point touchPoint)
         for(int j = 0; j < deck->cards->count(); j++)
         {
             Card* card = (Card*)deck->cards->getObjectAtIndex(j);
-            CCSprite* sprite = card->getSprite();
-            if(sprite->boundingBox().containsPoint(touchPoint))
+            Sprite* sprite = card->getSprite();
+            if(sprite->getBoundingBox().containsPoint(touchPoint))
             {
-                if(card->getZOrder() > topOrder)
+                if(card->getLocalZOrder() > topOrder)
                 {
                     _isPlayCellTap=true;
-                    topOrder = sprite->getZOrder();
+                    topOrder = sprite->getLocalZOrder();
                     result = card;
                 }
             }
@@ -1611,9 +1627,9 @@ Card* BoardLayer::getSelectedCard(Point touchPoint)
     }
     
     if(_dealer->hasCards()){
-        Card* card = (Card*)_dealer->cards->lastObject();
-        CCSprite* sprite = card->getSprite();
-        if(sprite->boundingBox().containsPoint(touchPoint))
+        Card* card = (Card*)_dealer->cards->getLastObject();
+        Sprite* sprite = card->getSprite();
+        if(sprite->getBoundingBox().containsPoint(touchPoint))
         {
             if(GameData::getInstance()->isSoundEnabled()){
                 //SimpleAudioEngine::sharedEngine()->playEffect("card_shuffle"); comment715
@@ -1632,8 +1648,8 @@ Card* BoardLayer::getSelectedCard(Point touchPoint)
                 {
                     Card* card=deck->getTopCard();
                     
-                    CCSprite* sprite = card->getSprite();
-                    if(sprite->boundingBox().containsPoint(touchPoint))
+                    Sprite* sprite = card->getSprite();
+                    if(sprite->getBoundingBox().containsPoint(touchPoint))
                     {
                         result = card;
                         return result;
@@ -1647,9 +1663,9 @@ Card* BoardLayer::getSelectedCard(Point touchPoint)
         
         if(_dealTo->hasCards()){//solitaire            
             Card* card=_dealTo->getTopCard();
-            CCSprite* sprite = card->getSprite();
+            Sprite* sprite = card->getSprite();
             
-            if(sprite->boundingBox().containsPoint(touchPoint))
+            if(sprite->getBoundingBox().containsPoint(touchPoint))
             {
                 result = card;
                 return result;
@@ -1669,7 +1685,7 @@ Deck* BoardLayer::getNearDeck()
 {
     Deck* result = NULL;
     float nearDistance = 0.0f;
-    CCPoint point = CCPointZero;
+    Point point = Vec2(0, 0);
     
     if(_draggingCard == NULL)
         return result;
@@ -1954,14 +1970,14 @@ void BoardLayer::doMove(Move* move)
 
 bool BoardLayer::doStackMove(Card* card, Deck* targetDeck)
 {
-    int stackSize = card->getDeck()->cards->count() - card->getDeck()->cards->indexOfObject(card);
+    long stackSize = card->getDeck()->cards->count() - card->getDeck()->cards->getIndexOfObject(card);
     int limit = movableStackLimit(targetDeck->cards->count() == 0);
     if(stackSize <= limit)
     {
         if(targetDeck != _dealTo)
         {
             Move* move = Move::stack(card->getDeck(), targetDeck);
-            for(int i = card->getDeck()->cards->indexOfObject(card); i < card->getDeck()->cards->count(); i++)
+            for(long i = card->getDeck()->cards->getIndexOfObject(card); i < card->getDeck()->cards->count(); i++)
                 move->cards->addObject((Card*)card->getDeck()->cards->getObjectAtIndex(i));
             _actuallyCardMoved = true;
             doMove(move);
@@ -2008,9 +2024,9 @@ bool BoardLayer::doStackMove(Card* card, Deck* targetDeck)
                     move->cards->addObject(card);
                 
             else{
-                int current;
+                long current;
                 for(int i = 0; i < moveCount; i++){
-                    current=card->getDeck()->cards->indexOfObject(card);
+                    current=card->getDeck()->cards->getIndexOfObject(card);
                     move->cards->addObject((Card*)_dealer->cards->getObjectAtIndex(current-i));
                 }
             }
@@ -2295,7 +2311,7 @@ void BoardLayer::showScore()
     _gameScore = _gameScore - _cuttingScore;
     
     //add by khj 3.9.2015
-    std::string temp="SCORE:"+to_string(_gameScore);
+    std::string temp="SCORE:"+to_string((int)_gameScore);
     _scoreLabel->setString(temp.c_str());
     
     if(GameData::getInstance()->getTimeMove()){
@@ -2327,7 +2343,7 @@ bool BoardLayer::checkPlayCell(Deck* deck)
     {
         if(deck->cards->count() >= 13 && deck->getTopCard()->getRank() == CARDRANK_ACE)
         {
-            for(int i = deck->cards->count() - 1; i > deck->cards->count() - 13; i--)
+            for(long i = deck->cards->count() - 1; i > deck->cards->count() - 13; i--)
             {
                 Card* card = (Card*)deck->cards->getObjectAtIndex(i);
                 Card* prevCard = (Card*)deck->cards->getObjectAtIndex(i-1);
@@ -2364,7 +2380,7 @@ bool BoardLayer::doCompleteDeckMove(Deck* deck)//Exception
     Move* move = Move::stack(deck, ((Deck*)goalCells->getObjectAtIndex(goalDeckIndex)));
     //Move* move = Move::stack(deck, targetDeck));
     
-    for(int i = deck->cards->count() - 1; i >= deck->cards->count() - 13; i--)
+    for(long i = deck->cards->count() - 1; i >= deck->cards->count() - 13; i--)
     {
         if(i<0) break;
         move->cards->addObject((Card*)deck->cards->getObjectAtIndex(i));
@@ -2654,7 +2670,7 @@ void BoardLayer::win()
                 break;
                 
             default:
-                card->setZOrder(0);
+                card->setLocalZOrder(0);
                 break;
         }
         
@@ -2689,9 +2705,9 @@ Point BoardLayer::getTargetPositon(Point first, Point second, int i, int num)
     return Vec2(winSize.width/2.0f+x, winSize.height/2.0f+y);
 }
 
-void BoardLayer::didWinAnimation(CCNode* sender, Card* card)
+void BoardLayer::didWinAnimation(Node* sender, Card* card)
 {
-    card->setZOrder(card->getOrder());
+    card->setLocalZOrder(card->getLocalZOrder());
     if(card->getOrder()==cards->count()-1)
     {
         schedule(schedule_selector(BoardLayer::doWinAnimation), 0.03f);
@@ -2724,9 +2740,9 @@ void BoardLayer::doWinAnimation(float dt)
         _congratulationLayer->setPosition(Vec2(0.0f, 0.0f));
         addChild(_congratulationLayer, 3);
         
-        CCMoveTo* action = CCMoveTo::create(0.3f, Vec2(winSize.width/2.0f,winSize.height/2.0f));
-        CCEaseIn *_easein = CCEaseIn::create(action,0.3f);
-        CCSequence *_sequence  =  CCSequence::create( _easein, NULL ,NULL);
+        MoveTo* action = MoveTo::create(0.3f, Vec2(winSize.width/2.0f,winSize.height/2.0f));
+        EaseIn *_easein = EaseIn::create(action,0.3f);
+        Sequence *_sequence  =  Sequence::create( _easein, NULL ,NULL);
         
         _congratulationLayer->runAction(_sequence);
         
@@ -2740,7 +2756,7 @@ void BoardLayer::doWinAnimation(float dt)
         
         _winAnimationCount++;
     
-        CCPoint targetPosition;
+        Point targetPosition;
         Card* card =(Card*) cards->getObjectAtIndex(0);
         targetPosition = card->getSprite()->getPosition();
     
@@ -2795,7 +2811,7 @@ void BoardLayer::undo()
 {
     if (moves->count() > 0)
     {
-        Move* move = (Move*)moves-> lastObject(); //Moves.Pop();
+        Move* move = (Move*)moves-> getLastObject(); //Moves.Pop();
         moves->removeLastObject();
        
         //add by khj 3.5
@@ -2857,11 +2873,11 @@ void BoardLayer::hint()
         for(int j = 0; j < deck->cards->count(); j++)
         {
             Card* card = (Card*)deck->cards->getObjectAtIndex(j);
-            CCSprite* sprite = card->getSprite();
+            Sprite* sprite = card->getSprite();
             
-            if(card->getZOrder() > topOrder)
+            if(card->getLocalZOrder() > topOrder)
             {
-                topOrder = sprite->getZOrder();
+                topOrder = sprite->getLocalZOrder();
                 if(!_actuallyCardMoved) checkHint(card);
                 else return;
             }
@@ -2898,7 +2914,7 @@ void BoardLayer::hint()
 
 void BoardLayer::checkHint(Card* _hintCard){
     Deck* deck = _hintCard->getDeck();
-    for(int i = deck->cards->indexOfObject(_hintCard); i < deck->cards->count(); i++)
+    for(long i = deck->cards->getIndexOfObject(_hintCard); i < deck->cards->count(); i++)
     {
         Card* card = (Card*)deck->cards->getObjectAtIndex(i);        
         doubleClick(card); //card->touchBegan(location);
@@ -2939,10 +2955,10 @@ void BoardLayer:: setTime(float dt)
             Deck* goalDeck = (Deck*) goalCells->getObjectAtIndex(i);
             if(goalDeck->hasCards())
             {
-                if(goalDeck->getTopCard()->getZOrder()!=12)
+                if(goalDeck->getTopCard()->getLocalZOrder()!=12)
                 {
                     //CCLog("%s","error");
-                    goalDeck->getTopCard()->setZOrder(12);
+                    goalDeck->getTopCard()->setLocalZOrder(12);
                 }
             }
         }
@@ -2979,10 +2995,10 @@ void BoardLayer::setPreviousMode(){
 
 void BoardLayer::submitScore(){
     
-    AppDelegate* app = AppDelegate::get();
-    
-    std::string winStr = getGameString() + "Wins";
-    int totalWins = GameData::getInstance()->getInt(winStr, 0);
+//    AppDelegate* app = AppDelegate::get();
+//    
+//    std::string winStr = getGameString() + "Wins";
+//    int totalWins = GameData::getInstance()->getInt(winStr, 0);//comment715
     
 //    switch (GameData::getInstance()->getGameType()) {
 //        case TYPE_SOLITAIRE:
@@ -3038,31 +3054,31 @@ void BoardLayer::submitScore(){
 
 void BoardLayer::submitAchieve(){
     
-    AppDelegate* app = AppDelegate::get();
-    
-    std::string winStr = getGameString() + "Wins";
-    int totalWins = GameData::getInstance()->getInt(winStr, 0);
-    
-    std::string totalScoreStr = getGameString() + "totalScore";
-    int totalScore = GameData::getInstance()->getInt(totalScoreStr, 0);
-    
-    std::string gameCountStr = getGameString() + "gameCount";
-    int totalGameCount = GameData::getInstance()->getInt(gameCountStr, 0);
-    
-    std::string undoStr = getGameString() + "withoutUndo";
-    int withoutUndoCount = GameData::getInstance()->getInt(undoStr, 0);
-    
-    std::string hintStr = getGameString() + "withoutHint";
-    int withoutHintCount = GameData::getInstance()->getInt(hintStr, 0);
-    
-    std::string longWinStreakStr = getGameString() + "longStreak";
-    int longWinStreakCount = GameData::getInstance()->getInt(longWinStreakStr, 0);
-    
-    std::string totalVegasStr = getGameString() + "totalVegasScore";
-    int totalVegasScore = GameData::getInstance()->getInt(totalScoreStr, 0);
-    
-    std::string selectFreecellStr = getGameString() + "selectFreecell";
-    int selectFreecellCount = GameData::getInstance()->getInt(selectFreecellStr, 0);
+//    AppDelegate* app = AppDelegate::get();
+//    
+//    std::string winStr = getGameString() + "Wins";
+//    int totalWins = GameData::getInstance()->getInt(winStr, 0);
+//    
+//    std::string totalScoreStr = getGameString() + "totalScore";
+//    int totalScore = GameData::getInstance()->getInt(totalScoreStr, 0);
+//    
+//    std::string gameCountStr = getGameString() + "gameCount";
+//    int totalGameCount = GameData::getInstance()->getInt(gameCountStr, 0);
+//    
+//    std::string undoStr = getGameString() + "withoutUndo";
+//    int withoutUndoCount = GameData::getInstance()->getInt(undoStr, 0);
+//    
+//    std::string hintStr = getGameString() + "withoutHint";
+//    int withoutHintCount = GameData::getInstance()->getInt(hintStr, 0);
+//    
+//    std::string longWinStreakStr = getGameString() + "longStreak";
+//    int longWinStreakCount = GameData::getInstance()->getInt(longWinStreakStr, 0);
+//    
+//    std::string totalVegasStr = getGameString() + "totalVegasScore";
+//    int totalVegasScore = GameData::getInstance()->getInt(totalScoreStr, 0);
+//    
+//    std::string selectFreecellStr = getGameString() + "selectFreecell";
+//    int selectFreecellCount = GameData::getInstance()->getInt(selectFreecellStr, 0);//comment715
     
 //    switch (GameData::getInstance()->getGameType()) {
 //        case TYPE_SOLITAIRE:

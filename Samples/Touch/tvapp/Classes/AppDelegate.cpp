@@ -65,7 +65,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     GameData::getInstance()->setRightHanded(false);
     GameData::getInstance()->setTapMove(true);
     GameData::getInstance()->setDoingAction(false);
-    //GameData::getInstance()->setBackgroundIndex(0);
+    GameData::getInstance()->setBackgroundIndex(0);
     // Set the design resolution
     glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
     Size frameSize = glview->getFrameSize();

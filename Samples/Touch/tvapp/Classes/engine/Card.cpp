@@ -249,7 +249,7 @@ void Card::setDeck(Deck* deck)
             _deck->cards->removeObject(this);
         }
         
-        if(getZOrder()<1000) setZOrder(getZOrder()+1000);//add by KHJ 03.23.2015
+        if(getLocalZOrder()<1000) setLocalZOrder(getLocalZOrder()+1000);//add by KHJ 03.23.2015
         
         _deck = deck;
         _deck->cards->addObject(this);
@@ -259,7 +259,7 @@ void Card::setDeck(Deck* deck)
 
 void Card::setDeck(int newPosition, Deck* deck)
 {
-    if(getZOrder()<1000) setZOrder(getZOrder()+1000);//add by KHJ 03.23.2015
+    if(getLocalZOrder()<1000) setLocalZOrder(getLocalZOrder()+1000);//add by KHJ 03.23.2015
     
     _deck->cards->removeObject(this);
     if(deck != NULL)
@@ -309,7 +309,7 @@ void Card::updateSprite(int posX, int posY, float realWidth)
 {
     float scale = realWidth / _sprite->getContentSize().width;
     _sprite->setScale(scale);
-    _sprite->setPosition(ccp(posX, posY));
+    _sprite->setPosition(Vec2(posX, posY));
     _sprite->setVisible(true);
     setContentSize(_sprite->getContentSize());
 }

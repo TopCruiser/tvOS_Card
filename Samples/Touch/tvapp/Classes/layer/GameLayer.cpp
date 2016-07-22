@@ -551,9 +551,9 @@ void GameLayer::hideHelpLayer()
 
 void GameLayer::setBackground(int backgroundIndex){
     
-    String *nameString;
-    if(backgroundIndex<9) nameString=String::createWithFormat("background0%d",backgroundIndex+1);
-    else nameString=CCString::createWithFormat("background%d",backgroundIndex+1);
+    __String *nameString;
+    if(backgroundIndex<9) nameString=__String::createWithFormat("background0%d",backgroundIndex+1);
+    else nameString=__String::createWithFormat("background%d",backgroundIndex+1);
     
     //_background->initWithFile(getNameWithDevice(nameString->m_sString).c_str());
     ////_background->setScale(getScaleWithDevice());

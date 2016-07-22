@@ -5,7 +5,7 @@
 
 class ImagePickerDelegate {
 public:
-    virtual void didFinishPickingWithResult(cocos2d::CCTexture2D* result) = 0;
+    virtual void didFinishPickingWithResult(cocos2d::Texture2D* result) = 0;
 };
 
 class ImagePicker{
@@ -14,7 +14,7 @@ public:
     static ImagePicker *getInstance();
     
     void pickImage(ImagePickerDelegate *delegate);
-    void finishImage(cocos2d::CCTexture2D *image);
+    void finishImage(cocos2d::Texture2D *image);
     
     void setDelegate(ImagePickerDelegate *delegate);//for getNativeBackground;
 private:

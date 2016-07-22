@@ -23,7 +23,7 @@ enum MOVE_TYPE
 class Deck;
 class Card;
 
-class Move : public CCObject
+class Move : public Ref
 {
 public:
     static Move* stack(Deck* source, Deck* target);
@@ -53,7 +53,7 @@ public:
     int getMoveType();
     
 public:
-    CCArray* cards;
+    __Array* cards;
     
 private:
     Deck* _sourceDeck;
@@ -63,7 +63,7 @@ private:
     int _oldIndex;
     int _moveType;
     
-    CCArray* _subMoves;
+    __Array* _subMoves;
 };
 
 #endif

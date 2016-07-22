@@ -102,7 +102,7 @@ public:
     bool isMenuLayer();//from menuLayer
     void setMenuLayer(bool isMenu);
     
-    CCArray* getCardIndexArray();
+    __Array* getCardIndexArray();
     int getInt(std::string key, int defaultValue);
     void setInt(std::string key, int value);
     
@@ -145,7 +145,7 @@ private:
     int _newGame;
     
     double _selectedGame;
-    CCArray* _cardIndexArray;
+    __Array* _cardIndexArray;
     
     int _bannerHeight = 0;    
 };

@@ -31,7 +31,7 @@ public:
     void setSuits(int suits);
     void setStacks(int stacks);
     
-    int getScore();
+    long getScore();
     std::string getTime();
     void setTime(float dt);
     
@@ -58,6 +58,8 @@ public:
     void didCongratulationDialog(bool isReplay);
     
     void setPreviousMode();
+    
+    void onDummy(Ref* sender);//dummy focus
     
 private:
     std::string getGameString();    
@@ -90,7 +92,7 @@ private:
     void calculateDragableCards();
     
     int movableStackLimit(bool isTargetEmptyPlayCell);
-    int countEmpty(Array* decks);
+    int countEmpty(__Array* decks);
     
     bool isWrongPlacement(Card* card1, Card* card2);
     Card* getSelectedCard(Point touchPoint);
@@ -118,12 +120,12 @@ private:
     
 public:
     Layer* _parentLayer;
-    Array* cards;
-    Array* moves;
+    __Array* cards;
+    __Array* moves;
     //CCArray* redoMoves;
-    Array* playCells;
-    CCArray* goalCells;
-    CCArray* freeCells;
+    __Array* playCells;
+    __Array* goalCells;
+    __Array* freeCells;
     LabelTTF* _timeLabel;
     LabelTTF* _moveLabel;
     int _totalMoveCount;
@@ -141,7 +143,7 @@ private:
     int _suits;
     int _stacks;
     int _directMode;
-    int _gameScore;
+    long _gameScore;
     int _cuttingScore;
     int _totalUndoCount;
     int _maxPlayCards;
@@ -164,13 +166,13 @@ private:
     bool _isSetting;
     bool _isPlayCellTap;
     
-    CCLabelTTF* _scoreLabel;
+    LabelTTF* _scoreLabel;
     
     Deck* _dealer;
     Deck* _dealTo;
     //Deck* _dealFrom;
     Card* _draggingCard;
-    CCArray* allActions;
+    __Array* allActions;
     CongratulationLayer* _congratulationLayer;
     
     bool _isCurrentDrawFlag;

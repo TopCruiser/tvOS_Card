@@ -350,6 +350,17 @@ std::string FileUtilsApple::getWritablePath() const
     std::string strRet = [documentsDirectory UTF8String];
     strRet.append("/");
     return strRet;
+    
+//    // Let's write it in the current working directory's data folder
+//    char cwd[FILENAME_MAX];
+//    
+//    getcwd(cwd, FILENAME_MAX - 1);
+//    cwd[FILENAME_MAX-1] = '\0'; // this line, original is cwd[FILENAME_MAX] = '\0', out of bound error.
+//    
+//    std::string path = cwd;
+//    path += "data/";
+//    
+//    return path;
 }
 
 bool FileUtilsApple::isFileExistInternal(const std::string& filePath) const

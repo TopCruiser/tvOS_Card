@@ -22,6 +22,7 @@ public:
     void onSelDrawThree(Ref* sender);
     void onSelVegasStyle(Ref* sender);
     void onDone(Ref* sender);
+    void onDummy(Ref* sender);
     
     bool handleTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
 

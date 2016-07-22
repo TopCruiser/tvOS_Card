@@ -412,10 +412,10 @@ UserDefault* UserDefault::getInstance()
 
         // only create xml file one time
         // the file exists after the program exit
-        if ((!isXMLFileExist()) && (!createXMLFile()))
-        {
-            return nullptr;
-        }
+//        if ((!isXMLFileExist()) && (!createXMLFile()))
+//        {
+//            return nullptr;
+//        }comment715 **** hacked by ccc
 
         _userDefault = new (std::nothrow) UserDefault();
     }

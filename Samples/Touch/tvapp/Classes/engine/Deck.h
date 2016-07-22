@@ -65,17 +65,17 @@ public:
     void flipAllCards();
     void draw(Deck* toDeck, int count);
     
-    void createSprite(String strSprite);
+    void createSprite(__String strSprite);
     void updateSpriteWithEmpty();
     void updateSprite(float posX, float posY, float realWidth);
     void updateCardSprites(float posX, float posY, float realWidth);
     void showSprite(bool bVisible);
-    void doneAnimation(Node* sender, Card* card);
+    void doneAnimation(Node* sender, void* card1);
         
 public:
     static bool updatesDisabled;
     
-    Array* cards;
+    __Array* cards;
     
 private:
     int _type;

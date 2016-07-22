@@ -72,6 +72,12 @@ void SolitaireOptionLayer::init(CCLayer* parent)
                                                    Sprite::create(getNameWithResolution("btn_done_act").c_str()),
                                                    this, menu_selector(SolitaireOptionLayer::onDone));
     
+    MenuItem* dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_done_nor").c_str()),
+                                               Sprite::create(getNameWithResolution("btn_done_act").c_str()),
+                                               this, menu_selector(SolitaireOptionLayer::onDummy));
+    dummy->setScale(0.01);
+    dummy->setPosition(Vec2(0, 0));
+    
     _drawthreeItem->setAnchorPoint(Vec2(0.5f, 0.5f));
     _vegasItem->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnDone->setAnchorPoint(Vec2(0.5f, 0.0f));
@@ -93,6 +99,7 @@ void SolitaireOptionLayer::init(CCLayer* parent)
     _menu->addChild(_vegasLabel);
     _menu->addChild(_vegasItem);
     _menu->addChild(btnDone);
+    _menu->addChild(dummy);
     
     _menu->setPosition(Vec2(0.0f, 0.0f));
     addChild(_menu);
@@ -166,6 +173,11 @@ void SolitaireOptionLayer::onSelVegasStyle(Ref* sender)
     
     norSpriteVegas->setAnchorPoint(Vec2(0.0f, 0.0f));
     selSpriteVegas->setAnchorPoint(Vec2(0.0f, 0.0f));
+}
+
+void SolitaireOptionLayer::onDummy(Ref* sender)
+{
+    
 }
 
 void SolitaireOptionLayer::onDone(CCObject* sender)

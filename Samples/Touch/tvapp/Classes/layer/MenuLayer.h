@@ -21,6 +21,7 @@ public:
     void onFreeCell(Ref* sender);
     void onFortyThieves(Ref* sender);
     void onSpiderSolitaire(Ref* sender);
+    void onDummy(Ref* sender);
     
 private:
     void updateLayoutWithPortrait();
@@ -30,6 +31,27 @@ private:
     Sprite* _background;
     Sprite* _title;
     Menu* _menu;
+    
+    MenuItem* btnSolitaire;
+    
+    void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+    
+    bool handleTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
+    void handleTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
+    void handleTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
+    
+    void onConnectController(cocos2d::Controller* controller, cocos2d::Event* event);
+    void onDisconnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
+    
+    void onKeyDown(cocos2d::Controller* controller, int key, cocos2d::Event* event);
+    void onKeyUp(cocos2d::Controller* controller, int key, cocos2d::Event* event);
+    void onKeyRepeat(cocos2d::Controller* controller, int key, cocos2d::Event* event);
+    
+    void onAxisEvent(cocos2d::Controller* controller, int axis, cocos2d::Event* event);
+    
+    cocos2d::EventListenerKeyboard* _keybListener = nullptr;
+    cocos2d::EventListener* _touchListener = nullptr;
+    cocos2d::EventListenerController* _controllerListener = nullptr;
 
 public:
     CREATE_FUNC(MenuLayer);

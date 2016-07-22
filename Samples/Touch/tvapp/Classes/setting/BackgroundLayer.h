@@ -12,39 +12,39 @@
 #include "Common.h"
 #include "ImagePicker.h"
 
-class BackgroundLayer : public cocos2d::CCLayer, ImagePickerDelegate
+class BackgroundLayer : public cocos2d::Layer, ImagePickerDelegate
 {
 public:
-    static cocos2d::CCScene* scene();
+    static cocos2d::Scene* scene();
     
     virtual bool init();
-    virtual void init(CCLayer* parent);
+    virtual void init(Layer* parent);
     
-    virtual void didFinishPickingWithResult(cocos2d::CCTexture2D* result);
+    virtual void didFinishPickingWithResult(cocos2d::Texture2D* result);
     
     void updateLayoutWithPortrait();
     void updateLayoutWithLandscape();
     
 private:
-    void onBackgroundSelected(CCObject* sender);
-    void onBack(CCObject* sender);
+    void onBackgroundSelected(Ref* sender);
+    void onBack(Ref* sender);
     
 private:
-    CCLayer* _parentLayer;
-    CCSprite* _background;
-    CCSprite* _title;
-    CCMenu* _menu;
+    Layer* _parentLayer;
+    Sprite* _background;
+    Sprite* _title;
+    Menu* _menu;
     
-    CCMenuItem* btnBack;
+    MenuItem* btnBack;
     
-    CCMenuItem* btnBG01;
-    CCMenuItem* btnBG02;
-    CCMenuItem* btnBG03;
-    CCMenuItem* btnBG04;
-    CCMenuItem* btnBG05;
-    CCMenuItem* btnBG06;
-    CCMenuItem* btnBG07;
-    CCMenuItem* btnBG08;
+    MenuItem* btnBG01;
+    MenuItem* btnBG02;
+    MenuItem* btnBG03;
+    MenuItem* btnBG04;
+    MenuItem* btnBG05;
+    MenuItem* btnBG06;
+    MenuItem* btnBG07;
+    MenuItem* btnBG08;
     
 public:
     CREATE_FUNC(BackgroundLayer);

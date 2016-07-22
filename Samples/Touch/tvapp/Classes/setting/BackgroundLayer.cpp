@@ -23,9 +23,9 @@ enum MENU_TAG {
     TAG_MAX
 };
 
-cocos2d::CCScene* BackgroundLayer::scene()
+cocos2d::Scene* BackgroundLayer::scene()
 {
-    CCScene* scene = cocos2d::CCScene::create();
+    Scene* scene = cocos2d::Scene::create();
     BackgroundLayer* layer = BackgroundLayer::create();
     scene->addChild(layer);
     return scene;
@@ -33,96 +33,96 @@ cocos2d::CCScene* BackgroundLayer::scene()
 
 bool BackgroundLayer::init()
 {
-    if(!CCLayer::init())
+    if(!Layer::init())
         return false;
     
     return true;
 }
 
-void BackgroundLayer::init(CCLayer* parent)
+void BackgroundLayer::init(Layer* parent)
 {
     _parentLayer = parent;
     
-    _background = CCSprite::create();
-    _background->setAnchorPoint(ccp(0.5f, 0.5f));
+    _background = Sprite::create();
+    _background->setAnchorPoint(Vec2(0.5f, 0.5f));
     addChild(_background);
     
-    btnBack = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("back_nor").c_str()),
-                                       CCSprite::create(getNameWithResolution("back_act").c_str()),
+    btnBack = MenuItemSprite::create(Sprite::create(getNameWithResolution("back_nor").c_str()),
+                                       Sprite::create(getNameWithResolution("back_act").c_str()),
                                        this, menu_selector(BackgroundLayer::onBack));
-    btnBack->setAnchorPoint(ccp(0.5f, 0.5f));
+    btnBack->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnBack->setScale(getScaleWithDevice());
     
-    _title = CCSprite::create();
+    _title = Sprite::create();
     addChild(_title);
     
-    //CCSprite * sprite01 =CCSprite::create(getNameWithDevice("background01").c_str());
-    CCSprite * sprite01 =CCSprite::create(getNameWithDeviceIpad("background01").c_str());
-    CCSize bgSize= sprite01->getContentSize();
+    //Sprite * sprite01 =Sprite::create(getNameWithDevice("background01").c_str());
+    Sprite * sprite01 =Sprite::create(getNameWithDeviceIpad("background01").c_str());
+    Size bgSize= sprite01->getContentSize();
     
     float scaleX=getSizeWithDevice(160.0f)/bgSize.width;
     float scaleY=getSizeWithDevice(160.0f)/bgSize.height;
     
-    sprite01->cocos2d::CCNode::setScale(scaleX, scaleY);
-    sprite01->setContentSize(CCSizeMake(getSizeWithDevice(160.0f), getSizeWithDevice(160.0f)));
-    btnBG01 = CCMenuItemSprite::create(sprite01, sprite01, this, menu_selector(BackgroundLayer::onBackgroundSelected));
+    sprite01->cocos2d::Node::setScale(scaleX, scaleY);
+    sprite01->setContentSize(Size(getSizeWithDevice(160.0f), getSizeWithDevice(160.0f)));
+    btnBG01 = MenuItemSprite::create(sprite01, sprite01, this, menu_selector(BackgroundLayer::onBackgroundSelected));
     
-    //CCSprite * sprite02 =CCSprite::create(getNameWithDevice("background02").c_str());
-    CCSprite * sprite02 =CCSprite::create(getNameWithDeviceIpad("background02").c_str());
+    //Sprite * sprite02 =Sprite::create(getNameWithDevice("background02").c_str());
+    Sprite * sprite02 =Sprite::create(getNameWithDeviceIpad("background02").c_str());
     sprite02->cocos2d::CCNode::setScale(scaleX, scaleY);
-    sprite02->setContentSize(CCSizeMake(getSizeWithDevice(160.0f), getSizeWithDevice(160.0f)));
-    btnBG02 = CCMenuItemSprite::create(sprite02, sprite02, this, menu_selector(BackgroundLayer::onBackgroundSelected));
+    sprite02->setContentSize(Size(getSizeWithDevice(160.0f), getSizeWithDevice(160.0f)));
+    btnBG02 = MenuItemSprite::create(sprite02, sprite02, this, menu_selector(BackgroundLayer::onBackgroundSelected));
     
-    //CCSprite * sprite03 =CCSprite::create(getNameWithDevice("background03").c_str());
-    CCSprite * sprite03 =CCSprite::create(getNameWithDeviceIpad("background03").c_str());
-    sprite03->cocos2d::CCNode::setScale(scaleX, scaleY);
-    sprite03->setContentSize(CCSizeMake(getSizeWithDevice(160.0f), getSizeWithDevice(160.0f)));
-    btnBG03 = CCMenuItemSprite::create(sprite03, sprite03, this, menu_selector(BackgroundLayer::onBackgroundSelected));
+    //Sprite * sprite03 =Sprite::create(getNameWithDevice("background03").c_str());
+    Sprite * sprite03 =Sprite::create(getNameWithDeviceIpad("background03").c_str());
+    sprite03->cocos2d::Node::setScale(scaleX, scaleY);
+    sprite03->setContentSize(Size(getSizeWithDevice(160.0f), getSizeWithDevice(160.0f)));
+    btnBG03 = MenuItemSprite::create(sprite03, sprite03, this, menu_selector(BackgroundLayer::onBackgroundSelected));
     
-    //CCSprite * sprite04 =CCSprite::create(getNameWithDevice("background04").c_str());
-    CCSprite * sprite04 =CCSprite::create(getNameWithDeviceIpad("background04").c_str());
-    sprite04->cocos2d::CCNode::setScale(scaleX, scaleY);
-    sprite04->setContentSize(CCSizeMake(getSizeWithDevice(160.0f), getSizeWithDevice(160.0f)));
-    btnBG04 = CCMenuItemSprite::create(sprite04, sprite04, this, menu_selector(BackgroundLayer::onBackgroundSelected));
+    //Sprite * sprite04 =Sprite::create(getNameWithDevice("background04").c_str());
+    Sprite * sprite04 =Sprite::create(getNameWithDeviceIpad("background04").c_str());
+    sprite04->cocos2d::Node::setScale(scaleX, scaleY);
+    sprite04->setContentSize(Size(getSizeWithDevice(160.0f), getSizeWithDevice(160.0f)));
+    btnBG04 = MenuItemSprite::create(sprite04, sprite04, this, menu_selector(BackgroundLayer::onBackgroundSelected));
     
-    //CCSprite * sprite05 =CCSprite::create(getNameWithDevice("background05").c_str());
-    CCSprite * sprite05 =CCSprite::create(getNameWithDeviceIpad("background05").c_str());
-    sprite05->cocos2d::CCNode::setScale(scaleX, scaleY);
-    sprite05->setContentSize(CCSizeMake(getSizeWithDevice(160.0f), getSizeWithDevice(160.0f)));
-    btnBG05 = CCMenuItemSprite::create(sprite05, sprite05, this, menu_selector(BackgroundLayer::onBackgroundSelected));
+    //Sprite * sprite05 =Sprite::create(getNameWithDevice("background05").c_str());
+    Sprite * sprite05 =Sprite::create(getNameWithDeviceIpad("background05").c_str());
+    sprite05->cocos2d::Node::setScale(scaleX, scaleY);
+    sprite05->setContentSize(Size(getSizeWithDevice(160.0f), getSizeWithDevice(160.0f)));
+    btnBG05 = MenuItemSprite::create(sprite05, sprite05, this, menu_selector(BackgroundLayer::onBackgroundSelected));
     
-    //CCSprite * sprite06 =CCSprite::create(getNameWithDevice("background06").c_str());
-    CCSprite * sprite06 =CCSprite::create(getNameWithDeviceIpad("background06").c_str());
-    sprite06->cocos2d::CCNode::setScale(scaleX, scaleY);
-    sprite06->setContentSize(CCSizeMake(getSizeWithDevice(160.0f), getSizeWithDevice(160.0f)));
-    btnBG06 = CCMenuItemSprite::create(sprite06, sprite06, this, menu_selector(BackgroundLayer::onBackgroundSelected));
+    //Sprite * sprite06 =Sprite::create(getNameWithDevice("background06").c_str());
+    Sprite * sprite06 =Sprite::create(getNameWithDeviceIpad("background06").c_str());
+    sprite06->cocos2d::Node::setScale(scaleX, scaleY);
+    sprite06->setContentSize(Size(getSizeWithDevice(160.0f), getSizeWithDevice(160.0f)));
+    btnBG06 = MenuItemSprite::create(sprite06, sprite06, this, menu_selector(BackgroundLayer::onBackgroundSelected));
     
-    //CCSprite * sprite07 =CCSprite::create(getNameWithDevice("background07").c_str());
-    CCSprite * sprite07 =CCSprite::create(getNameWithDeviceIpad("background07").c_str());
-    sprite07->cocos2d::CCNode::setScale(scaleX, scaleY);
-    sprite07->setContentSize(CCSizeMake(getSizeWithDevice(160.0f), getSizeWithDevice(160.0f)));
-    btnBG07 = CCMenuItemSprite::create(sprite07, sprite07, this, menu_selector(BackgroundLayer::onBackgroundSelected));
+    //Sprite * sprite07 =Sprite::create(getNameWithDevice("background07").c_str());
+    Sprite * sprite07 =Sprite::create(getNameWithDeviceIpad("background07").c_str());
+    sprite07->cocos2d::Node::setScale(scaleX, scaleY);
+    sprite07->setContentSize(Size(getSizeWithDevice(160.0f), getSizeWithDevice(160.0f)));
+    btnBG07 = MenuItemSprite::create(sprite07, sprite07, this, menu_selector(BackgroundLayer::onBackgroundSelected));
     
-    CCSprite * sprite08 =CCSprite::create(getNameWithDevice("background08").c_str());
+    Sprite * sprite08 =Sprite::create(getNameWithDevice("background08").c_str());
     
     bgSize= sprite08->getContentSize();
     
     scaleX=getSizeWithDevice(160.0f)/bgSize.width;
     scaleY=getSizeWithDevice(160.0f)/bgSize.height;
     
-    sprite08->cocos2d::CCNode::setScale(scaleX, scaleY);
-    sprite08->setContentSize(CCSizeMake(getSizeWithDevice(160.0f), getSizeWithDevice(160.0f)));
-    btnBG08 = CCMenuItemSprite::create(sprite08, sprite08, this, menu_selector(BackgroundLayer::onBackgroundSelected));
+    sprite08->cocos2d::Node::setScale(scaleX, scaleY);
+    sprite08->setContentSize(Size(getSizeWithDevice(160.0f), getSizeWithDevice(160.0f)));
+    btnBG08 = MenuItemSprite::create(sprite08, sprite08, this, menu_selector(BackgroundLayer::onBackgroundSelected));
     
-    btnBG01->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnBG02->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnBG03->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnBG04->setAnchorPoint(ccp(0.5f, 0.5f));
+    btnBG01->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnBG02->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnBG03->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnBG04->setAnchorPoint(Vec2(0.5f, 0.5f));
     
-    btnBG05->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnBG06->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnBG07->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnBG08->setAnchorPoint(ccp(0.5f, 0.5f));
+    btnBG05->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnBG06->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnBG07->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnBG08->setAnchorPoint(Vec2(0.5f, 0.5f));
     
     btnBG01->setScale(getScaleWithDevice());
     btnBG02->setScale(getScaleWithDevice());
@@ -134,7 +134,7 @@ void BackgroundLayer::init(CCLayer* parent)
     btnBG07->setScale(getScaleWithDevice());
     btnBG08->setScale(getScaleWithDevice());
     
-    _menu = CCMenu::create();
+    _menu = Menu::create();
     
     _menu->addChild(btnBack);
     
@@ -155,22 +155,22 @@ void BackgroundLayer::init(CCLayer* parent)
 
 void BackgroundLayer::updateLayoutWithPortrait()
 {
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     
     _background->initWithFile(getNameWithDevice("menubg_port").c_str());
     _background->setScale(getScaleWithDevice());
-    _background->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+    _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     
-    btnBack->setPosition(ccp(-winSize.width/2+getSizeWithDevice(60), winSize.height/2.0f-getSizeWithDevice(60)));
+    btnBack->setPosition(Vec2(-winSize.width/2+getSizeWithDevice(60), winSize.height/2.0f-getSizeWithDevice(60)));
     
     _title->initWithFile(getNameWithResolution("logo_port").c_str());
-    _title->setAnchorPoint(ccp(0.5f, 1.0f));
+    _title->setAnchorPoint(Vec2(0.5f, 1.0f));
     _title->setScale(getScaleWithDevice() * 0.7f);
-    _title->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f + getSizeWithDevice(460.0f)));
+    _title->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f + getSizeWithDevice(460.0f)));
     
     for(int i = 0; i < TAG_MAX; i++)
     {
-        CCPoint pos = CCPointZero;
+        Point pos = Vec2(0, 0);
         switch (i) {
             case TAG_BG01:
                 pos.x = getSizeWithDevice(-100);
@@ -208,33 +208,33 @@ void BackgroundLayer::updateLayoutWithPortrait()
                 break;
         }
         
-        CCMenuItem* item = (CCMenuItem*)_menu->getChildByTag(i);
+        MenuItem* item = (MenuItem*)_menu->getChildByTag(i);
         
         item->setPosition(pos);
     }
     
-    _menu->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+    _menu->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     _menu->setVisible(true);
 }
 
 void BackgroundLayer::updateLayoutWithLandscape()
 {
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     
     _background->initWithFile(getNameWithDevice("menubg_land").c_str());
     _background->setScale(getScaleWithDevice());
-    _background->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+    _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     
-    btnBack->setPosition(ccp(-winSize.width/2+getSizeWithDevice(60), winSize.height/2.0f-getSizeWithDevice(60)));
+    btnBack->setPosition(Vec2(-winSize.width/2+getSizeWithDevice(60), winSize.height/2.0f-getSizeWithDevice(60)));
     
     _title->initWithFile(getNameWithResolution("logo_land").c_str());
-    _title->setAnchorPoint(ccp(0.5f, 1.0f));
+    _title->setAnchorPoint(Vec2(0.5f, 1.0f));
     _title->setScale(getScaleWithDevice() * 0.5f);
-    _title->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f + getSizeWithDevice(300.0f)));
+    _title->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f + getSizeWithDevice(300.0f)));
     
     for(int i = 0; i < TAG_MAX; i++)
     {
-        CCPoint pos = CCPointZero;
+        Point pos = Vec2(0, 0);
         switch (i) {
             case TAG_BG01:
                 pos.x = -getSizeWithDevice(270);
@@ -276,19 +276,19 @@ void BackgroundLayer::updateLayoutWithLandscape()
                 break;
         }
         
-        CCMenuItem* item = (CCMenuItem*)_menu->getChildByTag(i);
+        MenuItem* item = (MenuItem*)_menu->getChildByTag(i);
         item->setPosition(pos);
     }
     
-    _menu->setPosition(ccp(winSize.width/2.0f, winSize.height/2.0f));
+    _menu->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     _menu->setVisible(true);
 }
 
-void BackgroundLayer::onBackgroundSelected(CCObject* sender)
+void BackgroundLayer::onBackgroundSelected(Ref* sender)
 {
     //Background selected
     
-    CCMenuItem* item = (CCMenuItem*)sender;
+    MenuItem* item = (MenuItem*)sender;
     int backgroundIndex=item->getTag() ;
     
     if(backgroundIndex<TAG_NATIVE)
@@ -303,7 +303,7 @@ void BackgroundLayer::onBackgroundSelected(CCObject* sender)
     ((GameLayer*)_parentLayer)->getSettingLayer()->didFinishCell();
 }
 
-void BackgroundLayer::didFinishPickingWithResult(cocos2d::CCTexture2D* result)
+void BackgroundLayer::didFinishPickingWithResult(cocos2d::Texture2D* result)
 {
     CCLog("%s", "BackgroundLayer didFinishPickingWithResult");
     if(result==NULL) return;
@@ -313,8 +313,8 @@ void BackgroundLayer::didFinishPickingWithResult(cocos2d::CCTexture2D* result)
         
     /*
      _background->initWithTexture(result);
-     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-     CCSize bgSize= _background->getContentSize();
+     Size winSize = Director::getInstance()->getWinSize();
+     Size bgSize= _background->getContentSize();
      
      float scaleX=winSize.width/bgSize.width;
      float scaleY=winSize.height/bgSize.height;
@@ -325,7 +325,7 @@ void BackgroundLayer::didFinishPickingWithResult(cocos2d::CCTexture2D* result)
     
 }
 
-void BackgroundLayer::onBack(CCObject* sender)
+void BackgroundLayer::onBack(Ref* sender)
 {
     setVisible(false);
     ((GameLayer*)_parentLayer)->getSettingLayer()->didFinishCell();

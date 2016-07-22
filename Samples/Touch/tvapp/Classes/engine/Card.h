@@ -44,16 +44,16 @@ enum CARD_COLOR
 
 class Deck;
 
-class Card : public CCNode
+class Card : public Node
 {
 public:
     virtual bool init();
-    virtual void init(CCLayer* parent);
-    virtual void init(int rank, int suit, Deck* deck, CCLayer* parent);
+    virtual void init(Layer* parent);
+    virtual void init(int rank, int suit, Deck* deck, Layer* parent);
     
-    void touchBegan(CCPoint position);
-    void touchMoved(CCPoint position);
-    void touchEnded(CCPoint position);
+    void touchBegan(Point position);
+    void touchMoved(Point position);
+    void touchEnded(Point position);
     
     int getRank();
     void setRank(int rank);
@@ -85,20 +85,20 @@ public:
     
     void createSprite();
     void updateSprite(int posX, int posY, float realWidth);
-    CCSprite* getSprite();
+    Sprite* getSprite();
     void setCardSprite(int cardFaceIndex, int cardBackIndex);
     
 private:
     void moveToIndex(int index);
     int getCardIndex();
-    CCString getRankString();
+    __String getRankString();
     
 public:
     static bool isAceBiggest;
     
 private:
-    CCLayer* _parentLayer;
-    CCSprite* _sprite;
+    Layer* _parentLayer;
+    Sprite* _sprite;
     
     const float _dragDeadDistance = 10.0f;
     
@@ -119,8 +119,8 @@ private:
     
     Deck* _deck;
     
-    CCPoint _clickedPosition;
-    CCPoint _lastMovePosition;
+    Point _clickedPosition;
+    Point _lastMovePosition;
     
 public:
     CREATE_FUNC(Card);

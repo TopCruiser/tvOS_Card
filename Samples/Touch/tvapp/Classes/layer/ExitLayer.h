@@ -11,23 +11,23 @@
 
 #include "Common.h"
 
-class ExitLayer : public cocos2d::CCLayer
+class ExitLayer : public cocos2d::Layer
 {
 public:
-    static cocos2d::CCScene* scene();
+    static cocos2d::Scene* scene();
     
     virtual bool init();
-    virtual void init(CCLayer* parent);
+    virtual void init(Layer* parent);
     
     
 private:
-    void onYES(CCObject* sender);
-    void onNO(CCObject* sender);
+    void onYES(Ref* sender);
+    void onNO(Ref* sender);
     void didAction();
     
 private:
-    CCLayer* _parentLayer;
-    CCMenu* _menu;
+    Layer* _parentLayer;
+    Menu* _menu;
     bool _isYes;
     
 public:

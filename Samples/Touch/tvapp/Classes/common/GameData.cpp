@@ -230,29 +230,29 @@ void GameData::setMenuLayer(bool isMenu)
     _isMenu = isMenu;
 }
 
-CCArray* GameData::getCardIndexArray()
+__Array* GameData::getCardIndexArray()
 {
     return _cardIndexArray;
 }
 
 int GameData::getInt(std::string key, int defaultValue)
 {
-    return CCUserDefault::sharedUserDefault()->getIntegerForKey(key.c_str(), defaultValue);
+    return UserDefault::getInstance()->getIntegerForKey(key.c_str(), defaultValue);
 }
 
 void GameData::setInt(std::string key, int value)
 {
-    CCUserDefault::sharedUserDefault()->setIntegerForKey(key.c_str(), value);
+    UserDefault::getInstance()->setIntegerForKey(key.c_str(), value);
 }
 
 float GameData::getFloat(std::string key, float defaultValue)
 {
-    return CCUserDefault::sharedUserDefault()->getFloatForKey(key.c_str(), defaultValue);
+    return UserDefault::getInstance()->getFloatForKey(key.c_str(), defaultValue);
 }
 
 void GameData::setFloat(std::string key, float value)
 {
-    CCUserDefault::sharedUserDefault()->setFloatForKey(key.c_str(), value);
+    UserDefault::getInstance()->setFloatForKey(key.c_str(), value);
 }
 
 std::string GameData::getStatisticsItem(std::string keyString, int itemType)

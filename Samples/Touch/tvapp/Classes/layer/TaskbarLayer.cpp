@@ -19,9 +19,9 @@ enum EXIT_GAME {
     GAME_CENTER
 };
 
-cocos2d::CCScene* TaskbarLayer::scene()
+cocos2d::Scene* TaskbarLayer::scene()
 {
-    CCScene* scene = cocos2d::CCScene::create();
+    Scene* scene = cocos2d::Scene::create();
     TaskbarLayer* layer = TaskbarLayer::create();
     scene->addChild(layer);
     return scene;
@@ -29,23 +29,23 @@ cocos2d::CCScene* TaskbarLayer::scene()
 
 bool TaskbarLayer::init()
 {
-    if(!CCLayer::init())
+    if(!Layer::init())
         return false;
     
     return true;
 }
 
-void TaskbarLayer::init(CCLayer* parent)
+void TaskbarLayer::init(Layer* parent)
 {
     _parentLayer = parent;
     
-    _background = CCSprite::create(getNameWithDevice("bg_taskbar").c_str());
+    _background = Sprite::create(getNameWithDevice("bg_taskbar").c_str());
     _background->setScale(getScaleWithDevice());
-    _background->setAnchorPoint(ccp(0.5f, 0.0f));
-    _background->setPosition(ccp(0.0f, 0.0f));
+    _background->setAnchorPoint(Vec2(0.5f, 0.0f));
+    _background->setPosition(Vec2(0.0f, 0.0f));
     addChild(_background);
     
-    CCSize size = _background->getContentSize();
+    Size size = _background->getContentSize();
     setContentSize(size);
     
     _settingItem = createItem(getNameWithResolution("setting_nor").c_str(), getNameWithResolution("setting_act").c_str(),
@@ -75,9 +75,9 @@ void TaskbarLayer::init(CCLayer* parent)
                            "Undo", getSizeWithDevice(64.0f), getSizeWithDevice(64.0f),
                            this, menu_selector(TaskbarLayer::onUndo));
     
-    _menu = CCMenu::create();
-    _menu->setAnchorPoint(ccp(0.0f, 0.0f));
-    _menu->setPosition(ccp(0.0f, 0.0f));
+    _menu = Menu::create();
+    _menu->setAnchorPoint(Vec2(0.0f, 0.0f));
+    _menu->setPosition(Vec2(0.0f, 0.0f));
     
     _menu->addChild(_settingItem);
     _menu->addChild(_centerItem);
@@ -94,102 +94,102 @@ void TaskbarLayer::init(CCLayer* parent)
 
 void TaskbarLayer::updateLayoutWithPortrait()
 {
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-    CCSize size = getContentSize();
+    Size winSize = Director::getInstance()->getWinSize();
+    Size size = getContentSize();
     
-    _settingItem->setPosition(ccp(-winSize.width/2.0f + getSizeWithDevice(50.0f), size.height/2.0f));
-    _centerItem->setPosition(ccp(-winSize.width/2.0f + getSizeWithDevice(130.0f), size.height/2.0f));
-    //_storeItem->setPosition(ccp(-winSize.width/2.0f + getSizeWithDevice(210.0f), size.height/2.0f));
+    _settingItem->setPosition(Vec2(-winSize.width/2.0f + getSizeWithDevice(50.0f), size.height/2.0f));
+    _centerItem->setPosition(Vec2(-winSize.width/2.0f + getSizeWithDevice(130.0f), size.height/2.0f));
+    //_storeItem->setPosition(Vec2(-winSize.width/2.0f + getSizeWithDevice(210.0f), size.height/2.0f));
     
     if(!GameData::getInstance()->isRemoveAds())
-        _storeItem->setPosition(ccp(-winSize.width/2.0f + getSizeWithDevice(230.0f), size.height/2.0f));
+        _storeItem->setPosition(Vec2(-winSize.width/2.0f + getSizeWithDevice(230.0f), size.height/2.0f));
     
-    _undoItem->setPosition(ccp(winSize.width/2.0f - getSizeWithDevice(50.0f), size.height/2.0f));
-    _hintItem->setPosition(ccp(winSize.width/2.0f - getSizeWithDevice(130.0f), size.height/2.0f));
-    _playItem->setPosition(ccp(winSize.width/2.0f - getSizeWithDevice(210.0f), size.height/2.0f));
-    _menuItem->setPosition(ccp(winSize.width/2.0f - getSizeWithDevice(290.0f), size.height/2.0f));
+    _undoItem->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(50.0f), size.height/2.0f));
+    _hintItem->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(130.0f), size.height/2.0f));
+    _playItem->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(210.0f), size.height/2.0f));
+    _menuItem->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(290.0f), size.height/2.0f));
     
     if(_newGameLayer != NULL)
     {
-        _newGameLayer->setPosition(ccp(0.0f, winSize.height/2.0f));
+        _newGameLayer->setPosition(Vec2(0.0f, winSize.height/2.0f));
         _newGameLayer->setVisible(true);        
     }
     
     if(_exitLayer != NULL)
     {
-        _exitLayer->setPosition(ccp(0.0f, winSize.height/2.0f));
+        _exitLayer->setPosition(Vec2(0.0f, winSize.height/2.0f));
     }
     
 }
 
 void TaskbarLayer::updateLayoutWithLandscape()
 {
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-    CCSize size = getContentSize();
+    Size winSize = Director::getInstance()->getWinSize();
+    Size size = getContentSize();
     
-    _settingItem->setPosition(ccp(-winSize.width/2.0f + getSizeWithDevice(40.0f), size.height/2.0f));
-    _centerItem->setPosition(ccp(-winSize.width/2.0f + getSizeWithDevice(120.0f), size.height/2.0f));
-    //_storeItem->setPosition(ccp(-winSize.width/2.0f + getSizeWithDevice(200.0f), size.height/2.0f));
+    _settingItem->setPosition(Vec2(-winSize.width/2.0f + getSizeWithDevice(40.0f), size.height/2.0f));
+    _centerItem->setPosition(Vec2(-winSize.width/2.0f + getSizeWithDevice(120.0f), size.height/2.0f));
+    //_storeItem->setPosition(Vec2(-winSize.width/2.0f + getSizeWithDevice(200.0f), size.height/2.0f));
     
     if(!GameData::getInstance()->isRemoveAds())
-        _storeItem->setPosition(ccp(-winSize.width/2.0f + getSizeWithDevice(220.0f), size.height/2.0f));
+        _storeItem->setPosition(Vec2(-winSize.width/2.0f + getSizeWithDevice(220.0f), size.height/2.0f));
     
-    _undoItem->setPosition(ccp(winSize.width/2.0f - getSizeWithDevice(40.0f), size.height/2.0f));
-    _hintItem->setPosition(ccp(winSize.width/2.0f - getSizeWithDevice(120.0f), size.height/2.0f));
-    _playItem->setPosition(ccp(winSize.width/2.0f - getSizeWithDevice(200.0f), size.height/2.0f));
-    _menuItem->setPosition(ccp(winSize.width/2.0f - getSizeWithDevice(280.0f), size.height/2.0f));
+    _undoItem->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(40.0f), size.height/2.0f));
+    _hintItem->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(120.0f), size.height/2.0f));
+    _playItem->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(200.0f), size.height/2.0f));
+    _menuItem->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(280.0f), size.height/2.0f));
     
     if(_newGameLayer != NULL)
     {
-        _newGameLayer->setPosition(ccp(0.0f, winSize.height/2.0f));
+        _newGameLayer->setPosition(Vec2(0.0f, winSize.height/2.0f));
         _newGameLayer->setVisible(true);
     }
     
     if(_exitLayer != NULL)
     {
-        _exitLayer->setPosition(ccp(0.0f, winSize.height/2.0f));
+        _exitLayer->setPosition(Vec2(0.0f, winSize.height/2.0f));
     }
     
 }
 
-CCMenuItem* TaskbarLayer::createItem(const char* szNormalSpritePath, const char* szActiveSpritePath, const char* szTitle,
-                                    float width, float height, CCObject* target, SEL_MenuHandler selector)
+MenuItem* TaskbarLayer::createItem(const char* szNormalSpritePath, const char* szActiveSpritePath, const char* szTitle,
+                                    float width, float height, Ref* target, SEL_MenuHandler selector)
 {
-    CCDrawNode* drawNodeNormal = CCDrawNode::create();
-    drawNodeNormal->setContentSize(CCSizeMake(width, height));
+    DrawNode* drawNodeNormal = DrawNode::create();
+    drawNodeNormal->setContentSize(Size(width, height));
    
-    CCDrawNode* drawNodeActive = CCDrawNode::create();
-    drawNodeActive->setContentSize(CCSizeMake(width, height));
+    DrawNode* drawNodeActive = DrawNode::create();
+    drawNodeActive->setContentSize(Size(width, height));
     
-    CCSprite* spriteNormal = CCSprite::create(szNormalSpritePath);
-    spriteNormal->setAnchorPoint(ccp(0.5f, 1.0f));
-    spriteNormal->setPosition(ccp(width/2.0f - getSizeWithDevice(0), height));
+    Sprite* spriteNormal = Sprite::create(szNormalSpritePath);
+    spriteNormal->setAnchorPoint(Vec2(0.5f, 1.0f));
+    spriteNormal->setPosition(Vec2(width/2.0f - getSizeWithDevice(0), height));
     spriteNormal->setScale(getScaleWithDevice());
     drawNodeNormal->addChild(spriteNormal);
     
-    CCSprite* spriteActive = CCSprite::create(szActiveSpritePath);
-    spriteActive->setAnchorPoint(ccp(0.5f, 1.0f));
-    spriteActive->setPosition(ccp(width/2.0f - getSizeWithDevice(0), height));
+    Sprite* spriteActive = Sprite::create(szActiveSpritePath);
+    spriteActive->setAnchorPoint(Vec2(0.5f, 1.0f));
+    spriteActive->setPosition(Vec2(width/2.0f - getSizeWithDevice(0), height));
     spriteActive->setScale(getScaleWithDevice());
     drawNodeActive->addChild(spriteActive);
     
     CCLabelTTF* ttfLabelNormal = CCLabelTTF::create(szTitle, "tt0283m.ttf", getSizeWithDevice(16));
-    ttfLabelNormal->setAnchorPoint(ccp(0.5f, 0.0f));
-    ttfLabelNormal->setPosition(ccp(width/2.0f, 0.0f));
-    ttfLabelNormal->setColor(ccc3(255, 255, 255));
+    ttfLabelNormal->setAnchorPoint(Vec2(0.5f, 0.0f));
+    ttfLabelNormal->setPosition(Vec2(width/2.0f, 0.0f));
+    ttfLabelNormal->setColor(Color3B(255, 255, 255));
     drawNodeNormal->addChild(ttfLabelNormal);
     
     CCLabelTTF* ttfLabelActive = CCLabelTTF::create(szTitle, "tt0283m.ttf", getSizeWithDevice(15));
-    ttfLabelActive->setAnchorPoint(ccp(0.5f, 0.0f));
-    ttfLabelActive->setPosition(ccp(width/2.0f, 0.0f));
-    ttfLabelActive->setColor(ccc3(255, 255, 255));
+    ttfLabelActive->setAnchorPoint(Vec2(0.5f, 0.0f));
+    ttfLabelActive->setPosition(Vec2(width/2.0f, 0.0f));
+    ttfLabelActive->setColor(Color3B(255, 255, 255));
     drawNodeActive->addChild(ttfLabelActive);
     
-    CCMenuItem* menuItem = CCMenuItemSprite::create(drawNodeNormal, drawNodeActive, target, selector);
+    MenuItem* menuItem = MenuItemSprite::create(drawNodeNormal, drawNodeActive, target, selector);
     return menuItem;
 }
 
-void TaskbarLayer::onSetting(CCObject* sender)
+void TaskbarLayer::onSetting(Ref* sender)
 {
     if(_parentLayer == NULL) return;
     if(BoardLayer::getInstance()==NULL) return;
@@ -214,13 +214,13 @@ void TaskbarLayer::onSetting(CCObject* sender)
     ((GameLayer*)_parentLayer)->showSettingLayer();
 }
 
-void TaskbarLayer::onCenter(CCObject* sender)
+void TaskbarLayer::onCenter(Ref* sender)
 {
     if(BoardLayer::getInstance()->getSetting()) return;
     
     GameData::getInstance()->playSoundEffect();
     
-    AppDelegate *app = AppDelegate::get();
+    //AppDelegate *app = AppDelegate::get();comment715
     
     //custom
     //app->sendMessageToNative(MSG_GAMECENTER, "LeaderBoard", GameData::getInstance()->getGameType());
@@ -269,7 +269,7 @@ void TaskbarLayer::onCenter(CCObject* sender)
     
 }
 
-void TaskbarLayer::onStore(CCObject* sender)
+void TaskbarLayer::onStore(Ref* sender)
 {
     if(BoardLayer::getInstance()->getSetting()) return;
     
@@ -287,7 +287,7 @@ void TaskbarLayer::onStore(CCObject* sender)
     *///comment715
 }
 
-void TaskbarLayer::onMenu(CCObject* sender)
+void TaskbarLayer::onMenu(Ref* sender)
 {
     //Select Game
     if(BoardLayer::getInstance()->getSetting()) return;
@@ -303,17 +303,17 @@ void TaskbarLayer::onMenu(CCObject* sender)
     else
     {
         BoardLayer::getInstance()->setSetting(true);
-        CCSize winSize =CCDirector::sharedDirector()->getWinSize();
+        Size winSize =Director::getInstance()->getWinSize();
         
         _exitLayer = ExitLayer::create();
         _exitLayer->init(this);
-        _exitLayer->setAnchorPoint(ccp(0.5f, 0.5f));
-        _exitLayer->setPosition(ccp(0.0f, winSize.height));
+        _exitLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
+        _exitLayer->setPosition(Vec2(0.0f, winSize.height));
         addChild(_exitLayer,2);
         
-        CCMoveTo* action = CCMoveTo::create(0.3f, ccp(0,winSize.height/2.0f));
-        CCEaseIn *_easein = CCEaseIn::create(action,0.3f);
-        CCSequence *_sequence  =  CCSequence::create( _easein, NULL ,NULL);
+        MoveTo* action = MoveTo::create(0.3f, Vec2(0,winSize.height/2.0f));
+        EaseIn *_easein = EaseIn::create(action,0.3f);
+        Sequence *_sequence  =  Sequence::create( _easein, NULL ,NULL);
         
         _exitLayer->runAction(_sequence);
         
@@ -334,7 +334,7 @@ void TaskbarLayer::didExitLayer(bool isYes)
             case GAME_MENU:
                 //if(GameData::getInstance()->getBackgroundIndex() == 7) GameData::getInstance()->setBackgroundIndex(0);
                 
-                CCDirector::sharedDirector()->replaceScene(CCTransitionFade::create(0.5f, MenuLayer::scene()));
+                Director::getInstance()->replaceScene(TransitionFade::create(0.5f, MenuLayer::scene()));
                 break;
             case GAME_PLAY:
                 
@@ -371,27 +371,27 @@ void TaskbarLayer::didExitLayer(bool isYes)
 void TaskbarLayer::showNewGame()
 {
     
-     CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+     Size winSize = Director::getInstance()->getWinSize();
      
      _newGameLayer = NewGameLayer::create();
      _newGameLayer->init(this);
-     _newGameLayer->setAnchorPoint(ccp(0.5f, 0.5f));
+     _newGameLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
      
-     _newGameLayer->setPosition(ccp(winSize.width/2.0f, 0));
+     _newGameLayer->setPosition(Vec2(winSize.width/2.0f, 0));
      addChild(_newGameLayer, 2);
      
      ((GameLayer*) _parentLayer)->getSettingLayer()->setEnabled(false);
      GameData::getInstance()->getInstance()->setNewGame(0);
      
-     CCMoveTo* action = CCMoveTo::create(0.3f, ccp(0,winSize.height/2.0f));
-     CCEaseIn *_easein = CCEaseIn::create(action,0.3f);
-     CCSequence *_sequence  =  CCSequence::create( _easein, NULL ,NULL);
+     MoveTo* action = MoveTo::create(0.3f, Vec2(0,winSize.height/2.0f));
+     EaseIn *_easein = EaseIn::create(action,0.3f);
+     Sequence *_sequence  =  Sequence::create( _easein, NULL ,NULL);
      
      _newGameLayer->runAction(_sequence);
     
 }
 
-void TaskbarLayer::onNewGame(CCObject* sender)
+void TaskbarLayer::onNewGame(Ref* sender)
 {
     //New Game
     if(BoardLayer::getInstance()==NULL) return;
@@ -409,17 +409,17 @@ void TaskbarLayer::onNewGame(CCObject* sender)
     }
     else
     {
-        CCSize winSize =CCDirector::sharedDirector()->getWinSize();
+        Size winSize =Director::getInstance()->getWinSize();
         
         _exitLayer = ExitLayer::create();
         _exitLayer->init(this);
-        _exitLayer->setAnchorPoint(ccp(0.5f, 0.5f));
-        _exitLayer->setPosition(ccp(0.0f, 0.0f));
+        _exitLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
+        _exitLayer->setPosition(Vec2(0.0f, 0.0f));
         addChild(_exitLayer,2);
         
-        CCMoveTo* action = CCMoveTo::create(0.3f, ccp(0,winSize.height/2.0f));
-        CCEaseIn *_easein = CCEaseIn::create(action,0.3f);
-        CCSequence *_sequence  =  CCSequence::create( _easein, NULL ,NULL);
+        MoveTo* action = MoveTo::create(0.3f, Vec2(0,winSize.height/2.0f));
+        EaseIn *_easein = EaseIn::create(action,0.3f);
+        Sequence *_sequence = Sequence::create( _easein, NULL ,NULL);
         
         _exitLayer->runAction(_sequence);
     }
@@ -434,7 +434,7 @@ void TaskbarLayer::didNewGame()
     ((GameLayer*) _parentLayer)->getSettingLayer()->setEnabled(true);
 }
 
-void TaskbarLayer::onHint(CCObject* sender)
+void TaskbarLayer::onHint(Ref* sender)
 {
     if(BoardLayer::getInstance()==NULL) return;
     if(BoardLayer::getInstance()->getSetting()) return;
@@ -442,7 +442,7 @@ void TaskbarLayer::onHint(CCObject* sender)
     BoardLayer::getInstance()->hint();
 }
 
-void TaskbarLayer::onUndo(CCObject* sender)
+void TaskbarLayer::onUndo(Ref* sender)
 {
     if(BoardLayer::getInstance()==NULL) return;
     if(BoardLayer::getInstance()->getSetting()) return;

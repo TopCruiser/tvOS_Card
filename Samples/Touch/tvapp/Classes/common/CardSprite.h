@@ -11,9 +11,9 @@
 
 #include "Common.h"
 
-extern String g_strCard1Sprites[];
-extern String g_strCard2Sprites[];
-extern String g_strCard3Sprites[];
-extern String g_strOtherCardSprites[];
-extern String g_strBackCardSprites[];
+extern __String g_strCard1Sprites[];
+extern __String g_strCard2Sprites[];
+extern __String g_strCard3Sprites[];
+extern __String g_strOtherCardSprites[];
+extern __String g_strBackCardSprites[];
 #endif

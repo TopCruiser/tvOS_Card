@@ -118,7 +118,7 @@
     UIPress* p = [presses anyObject];
     
     //if (p.type == UIPressTypeSelect)
-    if(p.type == UIPressTypeSelect || p.type == UIPressTypeLeftArrow)
+    if(p.type == UIPressTypeSelect)
     {
           //cocos2d::String *s = cocos2d::String::create(cocos2d::Director::getInstance()->getRunningScene()->getName().c_str());
 //        

@@ -11,19 +11,19 @@
 
 #include "Common.h"
 
-class SpiderOptionLayer : public cocos2d::CCLayer
+class SpiderOptionLayer : public cocos2d::Layer
 {
 public:
-    static cocos2d::CCScene* scene();
+    static cocos2d::Scene* scene();
     
     virtual bool init();
-    virtual void init(CCLayer* parent);
+    virtual void init(Layer* parent);
     
-    void onSelEasyMode(CCObject* sender);
-    void onSelNormalMode(CCObject* sender);
-    void onSelHardMode(CCObject* sender);
-    void onSelExpertMode(CCObject* sender);
-    void onDone(CCObject* sender);
+    void onSelEasyMode(Ref* sender);
+    void onSelNormalMode(Ref* sender);
+    void onSelHardMode(Ref* sender);
+    void onSelExpertMode(Ref* sender);
+    void onDone(Ref* sender);
     
 private:
     void createMenuWithEasy();
@@ -32,12 +32,12 @@ private:
     void createMenuWithHard();
     
 private:
-    CCLayer* _parentLayer;
-    CCMenuItem* _easyItem;
-    CCMenuItem* _normalItem;
-    CCMenuItem* _expertItem;
-    CCMenuItem* _hardItem;
-    CCMenu* _menu;
+    Layer* _parentLayer;
+    MenuItem* _easyItem;
+    MenuItem* _normalItem;
+    MenuItem* _expertItem;
+    MenuItem* _hardItem;
+    Menu* _menu;
     
 public:
     CREATE_FUNC(SpiderOptionLayer);

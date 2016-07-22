@@ -11,29 +11,29 @@
 
 #include "Common.h"
 
-class CongratulationLayer : public cocos2d::CCLayer
+class CongratulationLayer : public cocos2d::Layer
 {
 public:
-    static cocos2d::CCScene* scene();
+    static cocos2d::Scene* scene();
     
     virtual bool init();
-    virtual void init(CCLayer* parent);
+    virtual void init(Layer* parent);
     
 private:
         
-    void onFacebook(CCObject* sender);
-    void onTwitter(CCObject* sender);
-    void onChat(CCObject* sender);
-    void onMail(CCObject* sender);
-    void onGameCenter(CCObject* sender);
-    void onReplay(CCObject* sender);
-    void onDone(CCObject* sender);
+    void onFacebook(Ref* sender);
+    void onTwitter(Ref* sender);
+    void onChat(Ref* sender);
+    void onMail(Ref* sender);
+    void onGameCenter(Ref* sender);
+    void onReplay(Ref* sender);
+    void onDone(Ref* sender);
     
     std::string getMessage();
     
 private:
-    CCLayer* _parentLayer;    
-    CCMenu* _menu;
+    Layer* _parentLayer;
+    Menu* _menu;
     
 public:
     CREATE_FUNC(CongratulationLayer);

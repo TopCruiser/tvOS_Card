@@ -191,7 +191,8 @@ void Deck::updateCardsWithAnimation()//Error, Bug, Exception!
                 MoveTo* action = MoveTo::create(0.01f, basePosition);
                 card->setOrder(i);
                 card->getSprite()->stopAllActions();
-                card->getSprite()->runAction(Sequence::create(action, CC_CALLBACK_2(Deck::doneAnimation, this, card), NULL));
+                card->getSprite()->runAction(Sequence::create(action, CC_CALLBACK_2(Deck::doneAnimation, card, this), NULL));
+
             }
         }
         else if(i != 0)
@@ -261,7 +262,9 @@ void Deck::updateCardsWithAnimation()//Error, Bug, Exception!
                                                                                      
         card->setOrder(i);
         card->getSprite()->stopAllActions();
-        card->getSprite()->runAction(Sequence::create(action, CC_CALLBACK_2(Deck::doneAnimation, this, card), NULL));
+        
+        //card->getSprite()->runAction(Sequence::create(action, CC_CALLBACK_2(Deck::doneAnimation, this, card), NULL));
+        card->getSprite()->runAction(Sequence::create(action, __CCCallFuncND::create(this, callfuncND_selector(Deck::doneAnimation), (void*)card), nullptr));
     }
 }
 
@@ -327,9 +330,10 @@ void Deck::updateCardsWithoutAnimation()
     }
 }
 
-void Deck::doneAnimation(Node* sender, Card* card)
+void Deck::doneAnimation(Node* sender, void* card1)
 {
 
+    Card* card = (Card*)card1;
     card->setLocalZOrder(card->getOrder());
     
     if(card->getDeck()->getType()==DECK_GOAL && !GameData::getInstance()->isUndoMove())
@@ -341,7 +345,7 @@ void Deck::doneAnimation(Node* sender, Card* card)
             //SimpleAudioEngine::getInstance()->playEffect("goal.mp3"); comment715
         }
         
-        String *nameString = String::createWithFormat("particle_%d.png", card->getSuit());
+        __String *nameString = __String::createWithFormat("particle_%d.png", card->getSuit());
         
         ParticleExplosion* _emitter = ParticleExplosion::create();
         

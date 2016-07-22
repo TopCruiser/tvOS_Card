@@ -11,61 +11,61 @@
 
 #include "Common.h"
 
-class CardFaceLayer : public cocos2d::CCLayer
+class CardFaceLayer : public cocos2d::Layer
 {
 public:
-    static cocos2d::CCScene* scene();
+    static cocos2d::Scene* scene();
     
     virtual bool init();
-    virtual void init(CCLayer* parent);
+    virtual void init(Layer* parent);
     
     void updateLayoutWithPortrait();
     void updateLayoutWithLandscape();
     
 private:
-    void onCardTap(CCObject* sender);
-    void onBack(CCObject* sender);
+    void onCardTap(Ref* sender);
+    void onBack(Ref* sender);
     
 private:
-    CCLayer* _parentLayer;
-    CCSprite* _background;
-    CCSprite* _title;
-    CCMenu* _menu;
+    Layer* _parentLayer;
+    Sprite* _background;
+    Sprite* _title;
+    Menu* _menu;
     
-    CCMenuItem* btnBack;
+    MenuItem* btnBack;
     
-    CCMenuItem* btnCard01;
-    CCMenuItem* btnCard02;
-    CCMenuItem* btnCard03;
-    CCMenuItem* btnCard04;
-    CCMenuItem* btnCard05;
-    CCMenuItem* btnCard06;
-    CCMenuItem* btnCard07;
-    CCMenuItem* btnCard08;
-    CCMenuItem* btnCard09;
-    CCMenuItem* btnCard10;
-    CCMenuItem* btnCard11;
-    CCMenuItem* btnCard12;
-    CCMenuItem* btnCard13;
-    CCMenuItem* btnCard14;
-    CCMenuItem* btnCard15;
+    MenuItem* btnCard01;
+    MenuItem* btnCard02;
+    MenuItem* btnCard03;
+    MenuItem* btnCard04;
+    MenuItem* btnCard05;
+    MenuItem* btnCard06;
+    MenuItem* btnCard07;
+    MenuItem* btnCard08;
+    MenuItem* btnCard09;
+    MenuItem* btnCard10;
+    MenuItem* btnCard11;
+    MenuItem* btnCard12;
+    MenuItem* btnCard13;
+    MenuItem* btnCard14;
+    MenuItem* btnCard15;
 
     
-    CCSprite* sprite00;
-    CCSprite* sprite01;
-    CCSprite* sprite02;
-    CCSprite* sprite03;
-    CCSprite* sprite04;
-    CCSprite* sprite05;
-    CCSprite* sprite06;
-    CCSprite* sprite07;
-    CCSprite* sprite08;
-    CCSprite* sprite09;
-    CCSprite* sprite10;
-    CCSprite* sprite11;
-    CCSprite* sprite12;
-    CCSprite* sprite13;
-    CCSprite* sprite14;
+    Sprite* sprite00;
+    Sprite* sprite01;
+    Sprite* sprite02;
+    Sprite* sprite03;
+    Sprite* sprite04;
+    Sprite* sprite05;
+    Sprite* sprite06;
+    Sprite* sprite07;
+    Sprite* sprite08;
+    Sprite* sprite09;
+    Sprite* sprite10;
+    Sprite* sprite11;
+    Sprite* sprite12;
+    Sprite* sprite13;
+    Sprite* sprite14;
     
 public:
     CREATE_FUNC(CardFaceLayer);

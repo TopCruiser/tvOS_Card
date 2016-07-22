@@ -123,7 +123,7 @@ void CardFaceLayer::init(Layer* parent)
     btnCard10->setScale(getScaleWithDevice());
     
     
-    _menu = CCMenu::create();
+    _menu = Menu::create();
     
     _menu->addChild(btnBack);
     
@@ -147,7 +147,7 @@ void CardFaceLayer::init(Layer* parent)
 
 void CardFaceLayer::updateLayoutWithPortrait()
 {
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     
     _background->initWithFile(getNameWithDevice("menubg_port").c_str());
     _background->setScale(getScaleWithDevice());
@@ -162,7 +162,7 @@ void CardFaceLayer::updateLayoutWithPortrait()
     
     for(int i = 0; i < TAG_MAX; i++)
     {
-        CCPoint pos = CCPointZero;
+        Point pos = Vec2(0, 0);
         switch (i) {
             case TAG_CARD01:
                 pos.x = getSizeWithDevice(-90);
@@ -208,7 +208,7 @@ void CardFaceLayer::updateLayoutWithPortrait()
                 break;
         }
         
-        CCMenuItem* item = (CCMenuItem*)_menu->getChildByTag(i);
+        MenuItem* item = (MenuItem*)_menu->getChildByTag(i);
         item->setPosition(pos);
     }
     
@@ -218,7 +218,7 @@ void CardFaceLayer::updateLayoutWithPortrait()
 
 void CardFaceLayer::updateLayoutWithLandscape()
 {
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     
     _background->initWithFile(getNameWithDevice("menubg_land").c_str());
     _background->setScale(getScaleWithDevice());
@@ -233,7 +233,7 @@ void CardFaceLayer::updateLayoutWithLandscape()
     
     for(int i = 0; i < TAG_MAX; i++)
     {
-        CCPoint pos = CCPointZero;
+        Point pos = Vec2(0, 0);
         switch (i) {
             case TAG_CARD01:
                 pos.x = -getSizeWithDevice(230);
@@ -284,7 +284,7 @@ void CardFaceLayer::updateLayoutWithLandscape()
                 break;
         }
         
-        CCMenuItem* item = (CCMenuItem*)_menu->getChildByTag(i);
+        MenuItem* item = (MenuItem*)_menu->getChildByTag(i);
         item->setPosition(pos);
     }
     
@@ -292,10 +292,10 @@ void CardFaceLayer::updateLayoutWithLandscape()
     _menu->setVisible(true);
 }
 
-void CardFaceLayer::onCardTap(CCObject* sender)
+void CardFaceLayer::onCardTap(Ref* sender)
 {   //card selected
-    CCMenuItem* item = (CCMenuItem*)sender;
-    CCBlink *blink_ = CCBlink::create(1.0f, 7);
+    MenuItem* item = (MenuItem*)sender;
+    Blink *blink_ = Blink::create(1.0f, 7);
     item->runAction(blink_);
     
     int cardFaceIndex=item->getTag();
@@ -420,7 +420,7 @@ void CardFaceLayer::onCardTap(CCObject* sender)
     
 }
 
-void CardFaceLayer::onBack(CCObject* sender)
+void CardFaceLayer::onBack(Ref* sender)
 {
     setVisible(false);
     ((GameLayer*)_parentLayer)->getSettingLayer()->didFinishCell();

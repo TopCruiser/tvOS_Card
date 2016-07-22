@@ -27,13 +27,13 @@ public:
     void updateLayoutWithPortrait();
     void updateLayoutWithLandscape();
     
-    void onSetting(CCObject* sender);
-    void onCenter(CCObject* sender);
-    void onStore(CCObject* sender);
-    void onMenu(CCObject* sender);
-    void onNewGame(CCObject* sender);
-    void onUndo(CCObject* sender);
-    void onHint(CCObject* sender);
+    void onSetting(Ref* sender);
+    void onCenter(Ref* sender);
+    void onStore(Ref* sender);
+    void onMenu(Ref* sender);
+    void onNewGame(Ref* sender);
+    void onUndo(Ref* sender);
+    void onHint(Ref* sender);
     
     void showNewGame();
     void didNewGame();
@@ -43,7 +43,7 @@ public:
     
 private:
     MenuItem* createItem(const char* szNormalSpritePath, const char* szActiveSpritePath, const char* szTitle,
-                           float width, float height, CCObject* target, SEL_MenuHandler selector);
+                           float width, float height, Ref* target, SEL_MenuHandler selector);
 private:
     Layer* _parentLayer;
     Sprite* _background;
