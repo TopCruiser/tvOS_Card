@@ -58,7 +58,7 @@ bool MenuLayer::init()
     MenuItem* dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
                                              Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
                                              this, menu_selector(MenuLayer::onDummy));
-    dummy->setScale(0.001);
+    dummy->setScale(1);
     
     btnSolitaire->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnForty->setAnchorPoint(Vec2(0.5f, 0.5f));
@@ -75,7 +75,7 @@ bool MenuLayer::init()
     _menu->addChild(btnForty, 1, TAG_FORTY_THIEVES);
     _menu->addChild(btnFreecell, 1, TAG_FREECELL);
     _menu->addChild(btnSpider, 1, TAG_SPIDER_SOLITAIRE);
-    //_menu->addChild(dummy, 1, 5);
+    //_menu->addChild(dummy, 1, 4);
     _menu->setVisible(false);
     
     addChild(_menu);
@@ -100,13 +100,15 @@ bool MenuLayer::init()
     auto listener = EventListenerTouchOneByOne::create();
     listener->setSwallowTouches(true);
     
-    listener->onTouchBegan = CC_CALLBACK_2(MenuLayer::handleTouchBegan, this);
+    listener->onTouchBegan = CC_CALLBACK_2(MenuLayer::onTouchBegan, this);
     listener->onTouchMoved = CC_CALLBACK_2(MenuLayer::handleTouchMoved, this);
     listener->onTouchEnded = CC_CALLBACK_2(MenuLayer::handleTouchEnded, this);
     
     _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     _touchListener = listener;
     
+    
+    setTag(100);
     return true;
 }
 
@@ -207,9 +209,9 @@ void MenuLayer::updateLayoutWithLandscape()
                 pos.x = getSizeWithDevice(230);
                 pos.y = -getSizeWithDevice(175);
                 break;
-            case 5:
-                //pos.x = 0;
-                //pos.y = 0;
+            case TAG_MAX:
+                pos.x = 100;
+                pos.y = 100;
                 break;
             default:
                 break;
@@ -273,7 +275,7 @@ bool MenuLayer::handleTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
     {
         log("detect menu item");
     }
-    log("touch begin: %f, %f", location.x, location.y);
+    //log("touch begin: %f, %f", location.x, location.y);
     
     return true;
 }

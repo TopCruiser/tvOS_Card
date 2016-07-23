@@ -325,7 +325,6 @@ void CardBackLayer::init(Layer* parent)
     
     _menu->addChild(_selectedCardBack, 3, 10000);
     _menu->setVisible(false);
-    //addChild(_menu);
     
     Size winSize = Director::getInstance()->getWinSize();
     /////size of the viewable part of scrollview
@@ -580,7 +579,7 @@ void CardBackLayer::updateLayoutWithPortrait()
 
 void CardBackLayer::updateLayoutWithLandscape()
 {
-    CCSize winSize = Director::getInstance()->getWinSize();
+    Size winSize = Director::getInstance()->getWinSize();
     
     _background->initWithFile(getNameWithDevice("menubg_land").c_str());
     _background->setScale(getScaleWithDevice());
@@ -599,7 +598,7 @@ void CardBackLayer::updateLayoutWithLandscape()
     
     for(int i = 0; i < TAG_MAX; i++)
     {
-        CCPoint pos = CCPointZero;
+        Point pos = Vec2(0, 0);;
         switch (i) {
                 ///////////////////////by amr
             case TAG_CARD01:
@@ -797,25 +796,20 @@ void CardBackLayer::updateLayoutWithLandscape()
     _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*0.95));
 }
 
-void CardBackLayer::onCardTap(CCObject* sender)
+void CardBackLayer::onCardTap(Ref* sender)
 {   //card selected
     MenuItem* item = (MenuItem*)sender;
-    //CCBlink *blink_ = CCBlink::create(1.0f, 7);
-    //item->runAction(blink_);
-    
-//    CCSize winSize = Director::getInstance()->getWinSize();
-//    _selectedCardBack->setPosition(Vec2(winSize.width/2.0f+item->getPositionX(), winSize.height/2.0f+item->getPositionY()));
-    //_selectedCardBack->setPosition(Vec2(item->getPositionX(), item->getPositionY()));
+
     _selectedCardBack->setPosition(item->getPosition());
     
     int cardBackIndex=item->getTag();
     GameData::getInstance()->setCardBackIndex(cardBackIndex);
     
-    int cardCount=BoardLayer::getInstance()->cards->count();
+    long cardCount=BoardLayer::getInstance()->cards->count();
     int cardFaceIndex=GameData::getInstance()->getCardFaceIndex();
 
     for(int i=0;i<cardCount;i++){
-        Card* card=(Card*)(BoardLayer::getInstance()->cards->objectAtIndex(i));
+        Card* card=(Card*)(BoardLayer::getInstance()->cards->getObjectAtIndex(i));
         card->setCardSprite(cardFaceIndex, cardBackIndex);
     }
     
@@ -823,7 +817,7 @@ void CardBackLayer::onCardTap(CCObject* sender)
     ((GameLayer*)_parentLayer)->getSettingLayer()->didFinishCell();
 }
 
-void CardBackLayer::onBack(CCObject* sender)
+void CardBackLayer::onBack(Ref* sender)
 {
     setVisible(false);
     ((GameLayer*)_parentLayer)->getSettingLayer()->didFinishCell();

@@ -27,12 +27,14 @@ private:
     void updateLayoutWithPortrait();
     void updateLayoutWithLandscape();
     
+public:
+    MenuItem* btnSolitaire;
 private:
     Sprite* _background;
     Sprite* _title;
     Menu* _menu;
     
-    MenuItem* btnSolitaire;
+    
     
     void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
     

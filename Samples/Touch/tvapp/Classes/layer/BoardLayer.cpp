@@ -337,8 +337,6 @@ void BoardLayer::startNewGame()
     
 }
 
-
-
 std::string BoardLayer::getGameString()
 {
     switch (GameData::getInstance()->getGameType()) {
@@ -1537,9 +1535,7 @@ bool BoardLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_even
     
     Director* director = Director::getInstance();
     Point location = touch->getLocationInView();
-    //location = Vec2(1000, 400);
-    //location = director->convertToGL(location);
-    location = convertToNodeSpace(location);
+    location = director->convertToGL(location);
     
     log("touch begin: %f, %f", location.x, location.y);
     
@@ -1567,6 +1563,7 @@ void BoardLayer::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_even
     Point location = touch->getLocationInView();
     location = director->convertToGL(location);
     
+    log("touch move: %f, %f", location.x, location.y);
     if(_draggingCard != NULL)
     {
         _draggingCard->touchMoved(location);//////////////////

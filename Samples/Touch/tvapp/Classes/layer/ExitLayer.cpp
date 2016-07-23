@@ -26,74 +26,74 @@ bool ExitLayer::init()
     return true;
 }
 
-void ExitLayer::init(CCLayer* parent)
+void ExitLayer::init(Layer* parent)
 {
     _parentLayer = parent;
     
-    CCSprite* background;
-    background= CCSprite::create(getNameWithResolution("dialog_exit").c_str());
+    Sprite* background;
+    background= Sprite::create(getNameWithResolution("dialog_exit").c_str());
     
     background->setScale(getScaleWithDevice());
-    background->setPosition(ccp(0.0f, 0.0f));
+    background->setPosition(Vec2(0.0f, 0.0f));
     addChild(background);
     
-    CCSize size = background->getContentSize();
+    Size size = background->getContentSize();
     setContentSize(size);
     
-    CCMenuItem* btnYes = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("exit_yes_nor").c_str()),
-                                               CCSprite::create(getNameWithResolution("exit_yes_act").c_str()),
+    MenuItem* btnYes = MenuItemSprite::create(Sprite::create(getNameWithResolution("exit_yes_nor").c_str()),
+                                               Sprite::create(getNameWithResolution("exit_yes_act").c_str()),
                                                this, menu_selector(ExitLayer::onYES));
     
-    CCMenuItem* btnNo = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("exit_no_nor").c_str()),
-                                                CCSprite::create(getNameWithResolution("exit_no_act").c_str()),
+    MenuItem* btnNo = MenuItemSprite::create(Sprite::create(getNameWithResolution("exit_no_nor").c_str()),
+                                                Sprite::create(getNameWithResolution("exit_no_act").c_str()),
                                                 this, menu_selector(ExitLayer::onNO));
     
     
-    btnYes->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnNo->setAnchorPoint(ccp(0.5f, 0.5f));
+    btnYes->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnNo->setAnchorPoint(Vec2(0.5f, 0.5f));
     
     btnYes->setScale(getScaleWithDevice());
     btnNo->setScale(getScaleWithDevice());
     
-    btnYes->setPosition(ccp(getSizeWithDevice(80.0f), -getSizeWithDevice(70.0f)));
+    btnYes->setPosition(Vec2(getSizeWithDevice(80.0f), -getSizeWithDevice(70.0f)));
     
-    btnNo->setPosition(ccp(getSizeWithDevice(210.0f),  -getSizeWithDevice(70.0f)));
+    btnNo->setPosition(Vec2(getSizeWithDevice(210.0f),  -getSizeWithDevice(70.0f)));
     
-    _menu = CCMenu::create();
+    _menu = Menu::create();
     _menu->addChild(btnYes);
     _menu->addChild(btnNo);
     
-    _menu->setPosition(ccp(0.0f, 0.0f));
+    _menu->setPosition(Vec2(0.0f, 0.0f));
     addChild(_menu);
 }
 
 
-void ExitLayer::onYES(CCObject* sender)
+void ExitLayer::onYES(Ref* sender)
 {
     GameData::getInstance()->playSoundEffect();
     
     _isYes = true;
     
-    CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-    CCMoveTo *_move_to = CCMoveTo::create(0.3f,ccp( 0.0f, winSize.height));
-    CCEaseIn *_easein = CCEaseIn::create(_move_to,0.3f);
-    CCCallFunc *_functionCall = CCCallFunc::create(this,callfunc_selector(ExitLayer::didAction));
-    CCSequence *_sequence  =  CCSequence::create( _easein, _functionCall ,NULL);
+    Size winSize = Director::getInstance()->getWinSize();
+    MoveTo *_move_to = MoveTo::create(0.3f,Vec2( 0.0f, winSize.height));
+    EaseIn *_easein = EaseIn::create(_move_to,0.3f);
+    CallFunc *_functionCall = CallFunc::create(this,callfunc_selector(ExitLayer::didAction));
+    Sequence *_sequence  =  Sequence::create( _easein, _functionCall ,NULL);
     this->runAction(_sequence);
     
 }
 
-void ExitLayer::onNO(CCObject* sender)
+void ExitLayer::onNO(Ref* sender)
 {
     GameData::getInstance()->playSoundEffect();
     
     _isYes = false;
     
     //CCSize winSize = CCDirector::sharedDirector()->getWinSize();
-    CCMoveTo *_move_to = CCMoveTo::create(0.3f,ccp( 0.0f, 0.0f));
-    CCEaseIn *_easein = CCEaseIn::create(_move_to,0.3f);
-    CCCallFunc *_functionCall = CCCallFunc::create(this,callfunc_selector(ExitLayer::didAction));
-    CCSequence *_sequence  =  CCSequence::create( _easein, _functionCall ,NULL);
+    MoveTo *_move_to = MoveTo::create(0.3f,Vec2( 0.0f, 0.0f));
+    EaseIn *_easein = EaseIn::create(_move_to,0.3f);
+    CallFunc *_functionCall = CallFunc::create(this,callfunc_selector(ExitLayer::didAction));
+    Sequence *_sequence  =  Sequence::create( _easein, _functionCall ,NULL);
     this->runAction(_sequence);
     
 }

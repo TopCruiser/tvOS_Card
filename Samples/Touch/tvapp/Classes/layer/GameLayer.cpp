@@ -107,6 +107,8 @@ bool GameLayer::init()
     
     addChild(_helpLayer, ORDER_SET);
     
+    setTag(101);
+    
     return true;
 }
 

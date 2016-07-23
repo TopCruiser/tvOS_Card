@@ -30,6 +30,9 @@
 #else
 #import "platform/ios/CCEAGLView-ios.h"
 #endif
+
+USING_NS_CC;
+
 @implementation RootViewController
 
 /*
@@ -106,6 +109,7 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    
 }
 
 
@@ -120,14 +124,47 @@
     //if (p.type == UIPressTypeSelect)
     if(p.type == UIPressTypeSelect)
     {
-          //cocos2d::String *s = cocos2d::String::create(cocos2d::Director::getInstance()->getRunningScene()->getName().c_str());
-//        
-//        cocos2d::Scene *ss = cocos2d::Scene::create();
-        if(cocos2d::Director::getInstance()->getRunningScene()){
-            [super pressesBegan:presses withEvent:event];
+        Scene *pScene = Director::getInstance()->getRunningScene();
+        Layer *layer = (Layer*)(pScene->getChildren().at(1));
+        long tag = layer->getTag();
+        
+        String* s = String::create(layer->getName().c_str());
+        
+        
+        if(tag == 100)
+        {
+            MenuLayer* menuLayer = dynamic_cast<MenuLayer*>(layer);
+            [self setNeedsFocusUpdate];
+        }
+        else if(tag == 101)
+        {
+            //BoardLayer* boardLayer = dynamic_cast<BoardLayer*>(layer);
         }
     }
 }
+//
+//- (UIView *)preferredFocusedView
+//{
+//    Scene *pScene = Director::getInstance()->getRunningScene();
+//    Layer *layer = (Layer*)(pScene->getChildren().at(1));
+//    long tag = layer->getTag();
+//    
+//    if(tag == 100)
+//    {
+//        MenuLayer* menuLayer = dynamic_cast<MenuLayer*>(layer);
+//    
+//        cocos2d::Rect r = menuLayer->btnSolitaire->getBoundingBox();
+//        Vec2 pos = menuLayer->btnSolitaire->getPosition();
+//        UIView* view = [[UIView alloc]initWithFrame: CGRectMake(pos.x, pos.y, r.size.width , r.size.height)];
+//        return view;
+//    }
+//    else{
+//        return nil;
+//    }
+//    
+//    return self.view.preferredFocusedView;
+//    
+//}
 
 -(void)pressesEnded:(NSSet*)presses withEvent:(UIPressesEvent *)event {
     
@@ -139,5 +176,12 @@
             [super pressesEnded:presses withEvent:event];
         }
     }
+}
+
+-(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    Scene *pScene = Director::getInstance()->getRunningScene();
+    Layer *layer = (Layer*)(pScene->getChildren().at(1));
+    long tag = layer->getTag();
 }
 @end
