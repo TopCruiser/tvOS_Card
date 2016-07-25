@@ -91,6 +91,7 @@ void BoardLayer::init(Layer* parent)
     _gameFirstStarted = false;
     _startedGameFlag = false;
     _actuallyCardMoved = false;
+    bTouchBegan = false;
     
     cards = new __Array; cards->init();
     playCells = new __Array; playCells->init();
@@ -554,13 +555,11 @@ void BoardLayer::initLayout()
         _timeLabel->setString("TIME:00:00");
     }
     
-    //add dummy object to receive focus
-//    MenuItem* dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
-//                                             Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
-//                                             this, menu_selector(BoardLayer::onDummy));
-//    dummy->setScale(0.001);
-//    dummy->setPosition(Vec2(0, 0));
-//    addChild(dummy);
+    dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
+                                             Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
+                                             this, menu_selector(BoardLayer::onDummy));
+    dummy->setScale(0.1);
+    addChild(dummy, 1000);
 }
 
 void BoardLayer::onDummy(Ref* sender)
@@ -1529,20 +1528,26 @@ bool BoardLayer::isWrongPlacement(Card* card1, Card* card2)
     return true;
 }
 
-bool BoardLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+bool BoardLayer::pressesBegan()
 {
-    if(_isSetting) return false;
+    if(_isSetting)
+        return false;
     
-    Director* director = Director::getInstance();
-    Point location = touch->getLocationInView();
-    location = director->convertToGL(location);
+//    if(!bTouchBegan){
+//        setTouchEnabled(true);
+//    }
     
-    log("touch begin: %f, %f", location.x, location.y);
+    bTouchBegan = !bTouchBegan;
     
-    _draggingCard = getSelectedCard(location);
+    log("touch begin: %f, %f", lastMovedPoint.x, lastMovedPoint.y);
+    
+    _draggingCard = getSelectedCard(lastMovedPoint);
     if(_draggingCard == NULL)
     {
         showTaskbar();
+//        if(!bTouchBegan){
+//            setTouchEnabled(false);
+//        }
     }
     else
     {
@@ -1550,37 +1555,53 @@ bool BoardLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_even
         for(long i = deck->cards->getIndexOfObject(_draggingCard); i < deck->cards->count(); i++)
         {
             Card* card = (Card*)deck->cards->getObjectAtIndex(i);
-            card->touchBegan(location);
+            card->touchBegan(lastMovedPoint);
         }
     }
+    return true;
+}
+
+bool BoardLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+//    dummy->setPosition(lastMovedPoint);
+//    
+//    if(bTouchBegan)
+//    {
+//        _draggingCard = getSelectedCard(lastMovedPoint);
+//        if(_draggingCard == NULL)
+//        {
+//            showTaskbar();
+//        }
+//    }
     
     return true;
 }
 
 void BoardLayer::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
+    if(_isSetting) return;
+    
     Director* director = Director::getInstance();
     Point location = touch->getLocationInView();
     location = director->convertToGL(location);
+    lastMovedPoint = location;
     
     log("touch move: %f, %f", location.x, location.y);
     if(_draggingCard != NULL)
     {
-        _draggingCard->touchMoved(location);//////////////////
-        //Deck* deck = _draggingCard->getDeck();
-        //for(int i = deck->cards->indexOfObject(_draggingCard); i < deck->cards->count(); i++)
-        //{
-          //  Card* card = (Card*)deck->cards->getObjectAtIndex(i);
-          //  card->touchMoved(location);
-        //}
+        _draggingCard->touchMoved(lastMovedPoint);
     }
+    
+    dummy->setPosition(lastMovedPoint);
 }
 
 void BoardLayer::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-    Director* director = Director::getInstance();
-    Point location = touch->getLocationInView();
-    location = director->convertToGL(location);
+//    bTouchBegan = false;
+//    
+//    Director* director = Director::getInstance();
+//    Point location = touch->getLocationInView();
+//    location = director->convertToGL(location);
     
     if(_draggingCard != NULL)
     {
@@ -1588,7 +1609,7 @@ void BoardLayer::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_even
         for(long i = deck->cards->getIndexOfObject(_draggingCard); i < deck->cards->count(); i++)
         {
             Card* card = (Card*)deck->cards->getObjectAtIndex(i);
-            card->touchEnded(location);
+            card->touchEnded(lastMovedPoint);
         }
         _draggingCard = NULL;
     }
@@ -2676,7 +2697,8 @@ void BoardLayer::win()
         
         if(GameData::getInstance()->getGameType() != TYPE_SOLITAIRE){
             MoveTo* action = MoveTo::create(0.25f, targetPosition);
-            card->getSprite()->runAction(Sequence::create(action, CC_CALLBACK_2(BoardLayer::didWinAnimation, this, card), NULL));
+            //card->getSprite()->runAction(Sequence::create(action, CC_CALLBACK_2(BoardLayer::didWinAnimation, this, card), NULL));
+            card->getSprite()->runAction(Sequence::create(action, __CCCallFuncND::create(this, callfuncND_selector(BoardLayer::didWinAnimation), card), nullptr));
         }
         else{
             card->getSprite()->setPosition(targetPosition);
@@ -2702,8 +2724,9 @@ Point BoardLayer::getTargetPositon(Point first, Point second, int i, int num)
     return Vec2(winSize.width/2.0f+x, winSize.height/2.0f+y);
 }
 
-void BoardLayer::didWinAnimation(Node* sender, Card* card)
+void BoardLayer::didWinAnimation(Node* sender, void* card1)
 {
+    Card* card = (Card*)card1;
     card->setLocalZOrder(card->getLocalZOrder());
     if(card->getOrder()==cards->count()-1)
     {

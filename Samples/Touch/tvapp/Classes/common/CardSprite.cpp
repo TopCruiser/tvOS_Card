@@ -8,7 +8,7 @@
 
 #include "CardSprite.h"
 
-CCString g_strBackCardSprites[] =
+__String g_strBackCardSprites[] =
 {
     "card01",
     "card02",
@@ -44,7 +44,7 @@ CCString g_strBackCardSprites[] =
     "card32",
 };
 
-CCString g_strOtherCardSprites[] =
+__String g_strOtherCardSprites[] =
 {
     "card_empty_spot",
     "card_goal_spot",
@@ -52,7 +52,7 @@ CCString g_strOtherCardSprites[] =
     "empty_dealer"
 };
 
-CCString g_strCard1Sprites[] =
+__String g_strCard1Sprites[] =
 {
     "spade1_1",
     "spade1_2",
@@ -108,7 +108,7 @@ CCString g_strCard1Sprites[] =
     "club_1_13",
 };
 
-CCString g_strCard2Sprites[] =
+__String g_strCard2Sprites[] =
 {
     "spade2_1",
     "spade2_2",
@@ -164,7 +164,7 @@ CCString g_strCard2Sprites[] =
     "club_2_13",
 };
 
-CCString g_strCard3Sprites[] =
+__String g_strCard3Sprites[] =
 {
     "spade3_1",
     "spade3_2",

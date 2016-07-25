@@ -70,8 +70,9 @@ public:
 private:    
     
     void doneSettingAnimation();
+    void onDummy(Ref* sender);
     
-private:    
+public:
     Sprite* _background = NULL;
     Sprite* _blankBanner = NULL;
     

@@ -237,7 +237,7 @@ TableViewCell* HelpLayer::tableCellAtIndex(TableView *table, ssize_t idx)
 //    return Size(winSize.width-getSizeWithDevice(250.0f), getSizeWithDevice(500.0f));//40
 //}
 
-Size HelpLayer::tableCellSizeForIndex(TableView *table, unsigned int idx)
+cocos2d::Size HelpLayer::tableCellSizeForIndex(TableView *table, ssize_t idx)
 {
     Size winSize = Director::getInstance()->getWinSize();
     

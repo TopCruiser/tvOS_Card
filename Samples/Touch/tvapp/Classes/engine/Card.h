@@ -51,9 +51,9 @@ public:
     virtual void init(Layer* parent);
     virtual void init(int rank, int suit, Deck* deck, Layer* parent);
     
-    void touchBegan(Point position);
-    void touchMoved(Point position);
-    void touchEnded(Point position);
+    void touchBegan(CCPoint position);
+    void touchMoved(CCPoint position);
+    void touchEnded(CCPoint position);
     
     int getRank();
     void setRank(int rank);
@@ -62,7 +62,7 @@ public:
     void setSuit(int suit);
     
     int getColor();
-    int getIndex();
+    long getIndex();
     
     int getOrder();
     void setOrder(int order);
@@ -119,8 +119,8 @@ private:
     
     Deck* _deck;
     
-    Point _clickedPosition;
-    Point _lastMovePosition;
+    CCPoint _clickedPosition;
+    CCPoint _lastMovePosition;
     
 public:
     CREATE_FUNC(Card);

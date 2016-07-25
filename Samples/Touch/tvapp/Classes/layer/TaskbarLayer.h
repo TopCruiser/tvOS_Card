@@ -34,7 +34,7 @@ public:
     void onNewGame(Ref* sender);
     void onUndo(Ref* sender);
     void onHint(Ref* sender);
-    
+    void onDummy(Ref* sender);
     void showNewGame();
     void didNewGame();
     void didExitLayer(bool isYes);

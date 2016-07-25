@@ -58,33 +58,33 @@ bool MenuLayer::init()
     MenuItem* dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
                                              Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
                                              this, menu_selector(MenuLayer::onDummy));
-    dummy->setScale(1);
+    dummy->setScale(0.01);
     
     btnSolitaire->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnForty->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnFreecell->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnSpider->setAnchorPoint(Vec2(0.5f, 0.5f));
     
-    btnSolitaire->setScale(getScaleWithDevice());
-    btnForty->setScale(getScaleWithDevice());
-    btnFreecell->setScale(getScaleWithDevice());
-    btnSpider->setScale(getScaleWithDevice());
+    btnSolitaire->setScale(1.0);
+    btnForty->setScale(1.0);
+    btnFreecell->setScale(1.0);
+    btnSpider->setScale(1.0);
     
     _menu = Menu::create();
     _menu->addChild(btnSolitaire, 1, TAG_SOLITAIRE);
     _menu->addChild(btnForty, 1, TAG_FORTY_THIEVES);
     _menu->addChild(btnFreecell, 1, TAG_FREECELL);
     _menu->addChild(btnSpider, 1, TAG_SPIDER_SOLITAIRE);
-    //_menu->addChild(dummy, 1, 4);
+    _menu->addChild(dummy);
     _menu->setVisible(false);
     
     addChild(_menu);
     
     
     //event register
-#if defined(CC_TARGET_OS_IPHONE) || defined(CC_TARGET_OS_APPLETV)
+//#if defined(CC_TARGET_OS_IPHONE) || defined(CC_TARGET_OS_APPLETV)
     Controller::startDiscoveryController();
-#endif
+//#endif
     
     _controllerListener = EventListenerController::create();
     
@@ -96,19 +96,23 @@ bool MenuLayer::init()
     _controllerListener->onKeyRepeat = CC_CALLBACK_3(MenuLayer::onKeyRepeat, this);
     
     _eventDispatcher->addEventListenerWithSceneGraphPriority(_controllerListener, this);
-    
-    auto listener = EventListenerTouchOneByOne::create();
-    listener->setSwallowTouches(true);
-    
-    listener->onTouchBegan = CC_CALLBACK_2(MenuLayer::onTouchBegan, this);
-    listener->onTouchMoved = CC_CALLBACK_2(MenuLayer::handleTouchMoved, this);
-    listener->onTouchEnded = CC_CALLBACK_2(MenuLayer::handleTouchEnded, this);
-    
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-    _touchListener = listener;
-    
+
+//    EventListenerTouchOneByOne* listener = EventListenerTouchOneByOne::create();
+//    listener->setSwallowTouches(true);
+//    
+//    listener->onTouchBegan = CC_CALLBACK_2(MenuLayer::onTouchBegan, this);
+//    listener->onTouchMoved = CC_CALLBACK_2(MenuLayer::onTouchMoved, this);
+//    listener->onTouchEnded = CC_CALLBACK_2(MenuLayer::onTouchEnded, this);
+//    listener->onTouchCancelled = CC_CALLBACK_2(MenuLayer::onTouchCancelled, this);
+//    
+//    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
+//    _touchListener = listener;
     
     setTag(100);
+    
+    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+    setTouchEnabled(true);
+    
     return true;
 }
 
@@ -227,10 +231,52 @@ void MenuLayer::updateLayoutWithLandscape()
 
 bool MenuLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-    Vec2 location = convertToNodeSpace(touch->getLocation());
+    log("lastMovedPoint: %f, %f", lastMovedPoint.x, lastMovedPoint.y);
     
-    log("touch begin: %f, %f", location.x, location.y);
-    return false;
+//    Vec2 pos = btnSolitaire->getPosition();
+//    Rect r = Rect(btnSolitaire->getPosition(), Size(200, 200));
+//    
+//    if(r.containsPoint(lastMovedPoint))
+//    {
+//        btnSolitaire->setScale(1.0);
+//    }
+//    else
+//    {
+//        btnSolitaire->setScale(0.9);
+//    }
+    return true;
+}
+
+void MenuLayer::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    Director* director = Director::getInstance();
+    Point location = touch->getLocationInView();
+    location = director->convertToGL(location);
+    lastMovedPoint = location;
+    
+    Vec2 pos = btnSolitaire->getPosition();
+    pos = director->convertToGL(pos);
+    Rect r = Rect(btnSolitaire->getPosition(), Size(200, 200));
+    
+    if(r.containsPoint(lastMovedPoint))
+    {
+        btnSolitaire->setScale(1.0);
+    }
+    else
+    {
+        btnSolitaire->setScale(0.9);
+    }
+    
+    log("touch move: %f, %f", location.x, location.y);
+}
+
+void MenuLayer::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+//    Director* director = Director::getInstance();
+//    Point location = touch->getLocationInView();
+//    location = director->convertToGL(location);
+//    lastMovedPoint = location;
+    log("touch end: %f, %f", lastMovedPoint.x, lastMovedPoint.y);
 }
 
 void MenuLayer::onSolitaire(Ref* sender)
@@ -267,37 +313,37 @@ void MenuLayer::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
     log("key pressed: %d", keyCode);
 }
 
-bool MenuLayer::handleTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
-{
-    Vec2 location = convertToNodeSpace(touch->getLocation());
-    
-    if(btnSolitaire->getBoundingBox().containsPoint(location))
-    {
-        log("detect menu item");
-    }
-    //log("touch begin: %f, %f", location.x, location.y);
-    
-    return true;
-}
-
-void MenuLayer::handleTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event)
-{
-    Vec2 location = convertToNodeSpace(touch->getLocation());
-    
-    if(btnSolitaire->getBoundingBox().containsPoint(location))
-    {
-        log("detect menu item");
-    }
-    
-    log("touch moved: %f, %f", location.x, location.y);
-}
-
-void MenuLayer::handleTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
-{
-    Vec2 location = convertToNodeSpace(touch->getLocation());
-    
-    log("touch ended: %f, %f", location.x, location.y);
-}
+//bool MenuLayer::handleTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
+//{
+//    Vec2 location = convertToNodeSpace(touch->getLocation());
+//    
+//    if(btnSolitaire->getBoundingBox().containsPoint(location))
+//    {
+//        log("detect menu item");
+//    }
+//    //log("touch begin: %f, %f", location.x, location.y);
+//    
+//    return true;
+//}
+//
+//void MenuLayer::handleTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event)
+//{
+//    Vec2 location = convertToNodeSpace(touch->getLocation());
+//    
+//    if(btnSolitaire->getBoundingBox().containsPoint(location))
+//    {
+//        log("detect menu item");
+//    }
+//    
+//    log("touch moved: %f, %f", location.x, location.y);
+//}
+//
+//void MenuLayer::handleTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
+//{
+//    Vec2 location = convertToNodeSpace(touch->getLocation());
+//    
+//    log("touch ended: %f, %f", location.x, location.y);
+//}
 
 void MenuLayer::onConnectController(cocos2d::Controller* controller, cocos2d::Event* event)
 {

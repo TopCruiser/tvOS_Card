@@ -25,7 +25,8 @@ bool Deck::init()
 void Deck::init(Layer* parent)
 {
     _parentLayer = parent;
-    cards = new Array; cards->init();
+    cards = __Array::create();
+    cards->retain();
     
     _cardSpaceX = 0.0f;
     _cardSpaceY = 0.0f;
@@ -191,7 +192,7 @@ void Deck::updateCardsWithAnimation()//Error, Bug, Exception!
                 MoveTo* action = MoveTo::create(0.01f, basePosition);
                 card->setOrder(i);
                 card->getSprite()->stopAllActions();
-                card->getSprite()->runAction(Sequence::create(action, CC_CALLBACK_2(Deck::doneAnimation, card, this), NULL));
+                card->getSprite()->runAction(Sequence::create(action, __CCCallFuncND::create(this, callfuncND_selector(Deck::doneAnimation), (void*)card), nullptr));
 
             }
         }

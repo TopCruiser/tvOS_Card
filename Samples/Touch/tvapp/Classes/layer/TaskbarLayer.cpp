@@ -75,6 +75,12 @@ void TaskbarLayer::init(Layer* parent)
                            "Undo", getSizeWithDevice(64.0f), getSizeWithDevice(64.0f),
                            this, menu_selector(TaskbarLayer::onUndo));
     
+    //add dummy object to receive focus
+    MenuItem* dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
+                                             Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
+                                             this, menu_selector(TaskbarLayer::onDummy));
+    dummy->setScale(0.01);
+    
     _menu = Menu::create();
     _menu->setAnchorPoint(Vec2(0.0f, 0.0f));
     _menu->setPosition(Vec2(0.0f, 0.0f));
@@ -88,6 +94,7 @@ void TaskbarLayer::init(Layer* parent)
     _menu->addChild(_playItem);
     _menu->addChild(_hintItem);
     _menu->addChild(_undoItem);
+    _menu->addChild(dummy);
     
     addChild(_menu);
 }
@@ -451,6 +458,11 @@ void TaskbarLayer::onUndo(Ref* sender)
         //SimpleAudioEngine::sharedEngine()->playEffect("sparkle.wav");
     }
     BoardLayer::getInstance()->undo();
+}
+
+void TaskbarLayer::onDummy(cocos2d::Ref *sender)
+{
+    
 }
 
 void TaskbarLayer::removeStoreButton(){

@@ -38,7 +38,7 @@ public:
     virtual void tableCellTouched(cocos2d::extension::TableView* table, cocos2d::extension::TableViewCell* cell);
     //Each cell size
     //virtual cocos2d::Size cellSizeForTable(cocos2d::extension::TableView *table);
-    virtual Size tableCellSizeForIndex(TableView *table, unsigned int idx);
+    virtual cocos2d::Size tableCellSizeForIndex(TableView *table, ssize_t idx);
     
     //Generate cell
     virtual cocos2d::extension::TableViewCell* tableCellAtIndex(cocos2d::extension::TableView *table, ssize_t idx);

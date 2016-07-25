@@ -49,6 +49,13 @@ bool GameLayer::init()
     _blankBanner->initWithFile("banner_ads.png");
     addChild(_blankBanner, ORDER_BOARD);
     
+    //add dummy object to receive focus
+    MenuItem* dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
+                                             Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
+                                             this, menu_selector(GameLayer::onDummy));
+    dummy->setScale(0.01);
+    dummy->setPosition(Vec2(0, 0));
+    
     if(GameData::getInstance()->getBackgroundIndex()<BACKGROUND_NATIVE)
     {
         setBackground(GameData::getInstance()->getBackgroundIndex());
@@ -106,10 +113,15 @@ bool GameLayer::init()
     _helpLayer->setPosition(Vec2(winSize.width*2,0));
     
     addChild(_helpLayer, ORDER_SET);
-    
+    addChild(dummy);
     setTag(101);
     
     return true;
+}
+
+void GameLayer::onDummy(cocos2d::Ref *sender)
+{
+    
 }
 
 void GameLayer::onEnterTransitionDidFinish()
@@ -239,23 +251,12 @@ void GameLayer::showTaskbar()
         
         position = Vec2(winSize.width/2.0f, bannerHeight);
         _blankBanner->setPosition(Vec2(winSize.width/2, -_blankBanner->getContentSize().height/2+ bannerHeight));
-        
-        //CCLog("%f", _blankBanner->getContentSize().height);
     }
     else{
-        //position = Vec2(winSize.width/2.0f, -_taskbarLayer->getContentSize().height + bannerHeight);
+        
         position = Vec2(winSize.width/2.0f, -_taskbarLayer->getContentSize().height);
         _blankBanner->setPosition(Vec2(winSize.width/2, -_blankBanner->getContentSize().height));
     }
-    
-    /*
-    if(_isShowTaskbar){
-     
-        position = Vec2(_taskbarLayer->getPositionX(), _taskbarLayer->getPositionY() + _taskbarLayer->getContentSize().height);
-    }
-    else
-        position = Vec2(_taskbarLayer->getPositionX(), _taskbarLayer->getPositionY() - _taskbarLayer->getContentSize().height);
-    */
     
     Action* action = MoveTo::create(0.2f, position);
     _taskbarLayer->runAction(action);

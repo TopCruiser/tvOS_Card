@@ -40,7 +40,8 @@ Move* Move::multi()
 
 Move::Move(Card* card1, Card* card2)
 {
-    cards = new CCArray;
+    cards = __Array::create();
+    cards->retain();
     _sourceDeck = card1->getDeck();
     _targetDeck = card2->getDeck();
     _moveType = MOVETYPE_SWAP;
@@ -48,7 +49,8 @@ Move::Move(Card* card1, Card* card2)
 
 Move::Move(Deck* source, Deck* target)
 {
-    cards = new CCArray;
+    cards = __Array::create();
+    cards->retain();
     _sourceDeck = source;
     _targetDeck = target;
     _moveType = MOVETYPE_STACK;
@@ -56,7 +58,8 @@ Move::Move(Deck* source, Deck* target)
 
 Move::Move(Card* card, Deck* target, int targetIndex)
 {
-    cards = new CCArray;
+    cards = __Array::create();
+    cards->retain();
     _sourceDeck = card->getDeck();
     _targetDeck = target;
     _cardIndex = targetIndex;
@@ -65,7 +68,8 @@ Move::Move(Card* card, Deck* target, int targetIndex)
 
 Move::Move()
 {
-     _subMoves = new CCArray;
+    _subMoves = __Array::create();
+    _subMoves->retain();
      _moveType = MOVETYPE_MULTI;
 }
 

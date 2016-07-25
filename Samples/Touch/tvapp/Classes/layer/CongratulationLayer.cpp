@@ -11,9 +11,9 @@
 #include "GameData.h"
 #include "AppDelegate.h"
 
-cocos2d::CCScene* CongratulationLayer::scene()
+cocos2d::Scene* CongratulationLayer::scene()
 {
-    CCScene* scene = cocos2d::CCScene::create();
+    Scene* scene = cocos2d::Scene::create();
     CongratulationLayer* layer = CongratulationLayer::create();
     scene->addChild(layer);
     return scene;
@@ -21,60 +21,66 @@ cocos2d::CCScene* CongratulationLayer::scene()
 
 bool CongratulationLayer::init()
 {
-    if(!CCLayer::init())
+    if(!Layer::init())
         return false;
     
     return true;
 }
 
-void CongratulationLayer::init(CCLayer* parent)
+void CongratulationLayer::init(Layer* parent)
 {
     _parentLayer = parent;
     
-    CCSprite* background = CCSprite::create(getNameWithResolution("dialog_congratulation").c_str());
+    Sprite* background = Sprite::create(getNameWithResolution("dialog_congratulation").c_str());
     background->setScale(getScaleWithDevice());
-    background->setPosition(ccp(0.0f, 0.0f));
+    background->setPosition(Vec2(0.0f, 0.0f));
     addChild(background);
     
-    CCSize size = background->getContentSize();
+    Size size = background->getContentSize();
     setContentSize(size);
     
-    CCMenuItem* btnFacebook = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_facebook_nor").c_str()),
-                                                     CCSprite::create(getNameWithResolution("btn_facebook_act").c_str()),
+    MenuItem* btnFacebook = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_facebook_nor").c_str()),
+                                                     Sprite::create(getNameWithResolution("btn_facebook_act").c_str()),
                                                      this, menu_selector(CongratulationLayer::onFacebook));
     
-    CCMenuItem* btnTwitter = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_twitter_nor").c_str()),
-                                                       CCSprite::create(getNameWithResolution("btn_twitter_act").c_str()),
+    MenuItem* btnTwitter = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_twitter_nor").c_str()),
+                                                       Sprite::create(getNameWithResolution("btn_twitter_act").c_str()),
                                                        this, menu_selector(CongratulationLayer::onTwitter));
     
-    CCMenuItem* btnChat = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_chat_nor").c_str()),
-                                                     CCSprite::create(getNameWithResolution("btn_chat_act").c_str()),
+    MenuItem* btnChat = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_chat_nor").c_str()),
+                                                     Sprite::create(getNameWithResolution("btn_chat_act").c_str()),
                                                      this, menu_selector(CongratulationLayer::onChat));
     
-    CCMenuItem* btnMail = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_mail_nor").c_str()),
-                                                     CCSprite::create(getNameWithResolution("btn_mail_act").c_str()),
+    MenuItem* btnMail = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_mail_nor").c_str()),
+                                                     Sprite::create(getNameWithResolution("btn_mail_act").c_str()),
                                                      this, menu_selector(CongratulationLayer::onMail));
     
-    CCMenuItem* btnGameCenter = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("center_nor").c_str()),
-                                                       CCSprite::create(getNameWithResolution("center_act").c_str()),
+    MenuItem* btnGameCenter = MenuItemSprite::create(Sprite::create(getNameWithResolution("center_nor").c_str()),
+                                                       Sprite::create(getNameWithResolution("center_act").c_str()),
                                                        this, menu_selector(CongratulationLayer::onGameCenter));
     
-    CCMenuItem* btnReplay = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("congratulation_replay_nor").c_str()),
-                                                     CCSprite::create(getNameWithResolution("congratulation_replay_act").c_str()),
+    MenuItem* btnReplay = MenuItemSprite::create(Sprite::create(getNameWithResolution("congratulation_replay_nor").c_str()),
+                                                     Sprite::create(getNameWithResolution("congratulation_replay_act").c_str()),
                                                      this, menu_selector(CongratulationLayer::onReplay));
     
-    CCMenuItem* btnDone = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("congratulation_done_nor").c_str()),
-                                                   CCSprite::create(getNameWithResolution("congratulation_done_act").c_str()),
+    MenuItem* btnDone = MenuItemSprite::create(Sprite::create(getNameWithResolution("congratulation_done_nor").c_str()),
+                                                   Sprite::create(getNameWithResolution("congratulation_done_act").c_str()),
                                                    this, menu_selector(CongratulationLayer::onDone));
     
-    btnFacebook->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnTwitter->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnChat->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnMail->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnGameCenter->setAnchorPoint(ccp(0.5f, 0.5f));
+    //add dummy object to receive focus
+    MenuItem* dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
+                                             Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
+                                             this, menu_selector(CongratulationLayer::onDummy));
+    dummy->setScale(0.01);
     
-    btnReplay->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnDone->setAnchorPoint(ccp(0.5f, 0.0f));
+    btnFacebook->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnTwitter->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnChat->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnMail->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnGameCenter->setAnchorPoint(Vec2(0.5f, 0.5f));
+    
+    btnReplay->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnDone->setAnchorPoint(Vec2(0.5f, 0.0f));
     
     btnFacebook->setScale(getScaleWithDevice());
     btnTwitter->setScale(getScaleWithDevice());
@@ -85,16 +91,16 @@ void CongratulationLayer::init(CCLayer* parent)
     btnReplay->setScale(getScaleWithDevice());
     btnDone->setScale(getScaleWithDevice());
     
-    btnFacebook->setPosition(ccp(getSizeWithDevice(-210.0f), getSizeWithDevice(50.0f)));
-    btnTwitter->setPosition(ccp(getSizeWithDevice(-160.0f), getSizeWithDevice(50.0f)));
-    btnChat->setPosition(ccp(getSizeWithDevice(-210.0f), getSizeWithDevice(0.0f)));
-    btnMail->setPosition(ccp(getSizeWithDevice(-160.0f), getSizeWithDevice(0.0f)));
-    btnGameCenter->setPosition(ccp(getSizeWithDevice(200.0f), getSizeWithDevice(0.0f)));
+    btnFacebook->setPosition(Vec2(getSizeWithDevice(-210.0f), getSizeWithDevice(50.0f)));
+    btnTwitter->setPosition(Vec2(getSizeWithDevice(-160.0f), getSizeWithDevice(50.0f)));
+    btnChat->setPosition(Vec2(getSizeWithDevice(-210.0f), getSizeWithDevice(0.0f)));
+    btnMail->setPosition(Vec2(getSizeWithDevice(-160.0f), getSizeWithDevice(0.0f)));
+    btnGameCenter->setPosition(Vec2(getSizeWithDevice(200.0f), getSizeWithDevice(0.0f)));
     
-    btnReplay->setPosition(ccp(getSizeWithDevice(-120.0f), -size.height/2.0f + getSizeWithDevice(45.0f)));
-    btnDone->setPosition(ccp(getSizeWithDevice(148.0f),  -size.height/2.0f + getSizeWithDevice(27.0f)));
+    btnReplay->setPosition(Vec2(getSizeWithDevice(-120.0f), -size.height/2.0f + getSizeWithDevice(45.0f)));
+    btnDone->setPosition(Vec2(getSizeWithDevice(148.0f),  -size.height/2.0f + getSizeWithDevice(27.0f)));
     
-    _menu = CCMenu::create();
+    _menu = Menu::create();
     _menu->addChild(btnFacebook);
     _menu->addChild(btnTwitter);
     _menu->addChild(btnChat);
@@ -102,8 +108,9 @@ void CongratulationLayer::init(CCLayer* parent)
     _menu->addChild(btnGameCenter);
     _menu->addChild(btnReplay);
     _menu->addChild(btnDone);
+    _menu->addChild(dummy);
     
-    _menu->setPosition(ccp(0.0f, 0.0f));
+    _menu->setPosition(Vec2(0.0f, 0.0f));
     addChild(_menu);
     
     //showScore
@@ -115,29 +122,29 @@ void CongratulationLayer::init(CCLayer* parent)
     
     
     CCLabelTTF* _scoreLabel = CCLabelTTF::create(temp.c_str(), "tt0283m.ttf", getSizeWithDevice(30));
-    _scoreLabel->setColor(ccc3(255, 255, 255));
+    _scoreLabel->setColor(Color3B(255, 255, 255));
     addChild(_scoreLabel, 0);
     
     int moveCount = ((BoardLayer*)_parentLayer)->_totalMoveCount;
     temp=to_string(moveCount);
     
     CCLabelTTF* _moveLabel = CCLabelTTF::create(temp.c_str(), "tt0283m.ttf", getSizeWithDevice(30));
-    _moveLabel->setColor(ccc3(255, 255, 255));
+    _moveLabel->setColor(Color3B(255, 255, 255));
     addChild(_moveLabel, 0);
     
     temp=((BoardLayer*)_parentLayer)->getTime();
     
     CCLabelTTF* _timeLabel = CCLabelTTF::create(temp.c_str(), "tt0283m.ttf", getSizeWithDevice(30));
-    _timeLabel->setColor(ccc3(255, 255, 255));
+    _timeLabel->setColor(Color3B(255, 255, 255));
     addChild(_timeLabel, 0);
     
-    _scoreLabel->setAnchorPoint(ccp(0.5f, 0.5f));
-    _moveLabel->setAnchorPoint(ccp(0.5f, 0.5f));
-    _timeLabel->setAnchorPoint(ccp(0.5f, 0.5f));
+    _scoreLabel->setAnchorPoint(Vec2(0.5f, 0.5f));
+    _moveLabel->setAnchorPoint(Vec2(0.5f, 0.5f));
+    _timeLabel->setAnchorPoint(Vec2(0.5f, 0.5f));
     
-    _scoreLabel->setPosition(ccp(getSizeWithDevice(55.0f), getSizeWithDevice(65.0f)));
-    _moveLabel->setPosition(ccp(getSizeWithDevice(55.0f),  getSizeWithDevice(20.0f)));
-    _timeLabel->setPosition(ccp(getSizeWithDevice(60.0f),  -getSizeWithDevice(25.0f)));
+    _scoreLabel->setPosition(Vec2(getSizeWithDevice(55.0f), getSizeWithDevice(65.0f)));
+    _moveLabel->setPosition(Vec2(getSizeWithDevice(55.0f),  getSizeWithDevice(20.0f)));
+    _timeLabel->setPosition(Vec2(getSizeWithDevice(60.0f),  -getSizeWithDevice(25.0f)));
     
     
     //AppDelegate::get()->sendMessageToNative(MSG_SHOW_REWARDEDVIDEO, "Chartboost Rewarded Video", 1);
@@ -149,24 +156,28 @@ void CongratulationLayer::init(CCLayer* parent)
     
 }
 
+void CongratulationLayer::onDummy(Ref* sender)
+{
+    
+}
 
-void CongratulationLayer::onFacebook(CCObject* sender)
+void CongratulationLayer::onFacebook(Ref* sender)
 {
     //AppDelegate::get()->sendMessageToNative(MSG_SHOW_FACEBOOK, getMessage().c_str(), 1);comment715
 }
 
-void CongratulationLayer::onTwitter(CCObject* sender)
+void CongratulationLayer::onTwitter(Ref* sender)
 {
     //AppDelegate::get()->sendMessageToNative(MSG_SHOW_TWITTER, getMessage().c_str(), 1);comment715
 }
 
-void CongratulationLayer::onChat(CCObject* sender)
+void CongratulationLayer::onChat(Ref* sender)
 {
     //SMS
     //AppDelegate::get()->sendMessageToNative(MSG_SMS, getMessage().c_str(), 1);//comment715
 }
 
-void CongratulationLayer::onMail(CCObject* sender)
+void CongratulationLayer::onMail(Ref* sender)
 {
     //AppDelegate::get()->sendMessageToNative(MSG_EMAIL, getMessage().c_str(), 1);comment715
 }
@@ -175,7 +186,7 @@ std::string CongratulationLayer::getMessage(){
     
     std::string msg = "Check out my score ";
     
-    int score = ((BoardLayer*)_parentLayer)->getScore();
+    long score = ((BoardLayer*)_parentLayer)->getScore();
     std::string temp=to_string(score);
     
     msg+=temp;
@@ -202,9 +213,9 @@ std::string CongratulationLayer::getMessage(){
     return msg;
 }
 
-void CongratulationLayer::onGameCenter(CCObject* sender)
+void CongratulationLayer::onGameCenter(Ref* sender)
 {
-    AppDelegate* app = AppDelegate::get();
+//    AppDelegate* app = AppDelegate::get();
     
 //    switch (GameData::getInstance()->getGameType()) {
 //        case TYPE_SOLITAIRE:
@@ -248,14 +259,14 @@ void CongratulationLayer::onGameCenter(CCObject* sender)
 //    }comment715
 }
 
-void CongratulationLayer::onReplay(CCObject* sender)
+void CongratulationLayer::onReplay(Ref* sender)
 {
     GameData::getInstance()->playSoundEffect();
     
     ((BoardLayer*)_parentLayer)->didCongratulationDialog(true);
 }
 
-void CongratulationLayer::onDone(CCObject* sender)
+void CongratulationLayer::onDone(Ref* sender)
 {
     GameData::getInstance()->playSoundEffect();
     

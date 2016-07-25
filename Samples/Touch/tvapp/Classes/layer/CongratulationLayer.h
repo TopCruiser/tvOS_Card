@@ -28,6 +28,7 @@ private:
     void onGameCenter(Ref* sender);
     void onReplay(Ref* sender);
     void onDone(Ref* sender);
+    void onDummy(Ref* sender);
     
     std::string getMessage();
     

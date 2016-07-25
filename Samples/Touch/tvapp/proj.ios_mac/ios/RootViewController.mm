@@ -31,6 +31,8 @@
 #import "platform/ios/CCEAGLView-ios.h"
 #endif
 
+#import "GameLayer.h"
+
 USING_NS_CC;
 
 @implementation RootViewController
@@ -128,17 +130,14 @@ USING_NS_CC;
         Layer *layer = (Layer*)(pScene->getChildren().at(1));
         long tag = layer->getTag();
         
-        String* s = String::create(layer->getName().c_str());
-        
-        
         if(tag == 100)
         {
-            MenuLayer* menuLayer = dynamic_cast<MenuLayer*>(layer);
-            [self setNeedsFocusUpdate];
+
         }
         else if(tag == 101)
         {
-            //BoardLayer* boardLayer = dynamic_cast<BoardLayer*>(layer);
+            GameLayer* gameLayer = dynamic_cast<GameLayer*>(layer);
+            gameLayer->_boardLayer->pressesBegan();
         }
     }
 }
@@ -166,22 +165,16 @@ USING_NS_CC;
 //    
 //}
 
--(void)pressesEnded:(NSSet*)presses withEvent:(UIPressesEvent *)event {
-    
-    UIPress* p = [presses anyObject];
-    
-    if (p.type == UIPressTypeMenu)
-    {
-        if(cocos2d::Director::getInstance()->getRunningScene()->getName() == "MenuLayer"){
-            [super pressesEnded:presses withEvent:event];
-        }
-    }
-}
+//-(void)pressesEnded:(NSSet*)presses withEvent:(UIPressesEvent *)event {
+//    
+//    UIPress* p = [presses anyObject];
+//    
+//    if (p.type == UIPressTypeMenu)
+//    {
+//        if(cocos2d::Director::getInstance()->getRunningScene()->getName() == "MenuLayer"){
+//            [super pressesEnded:presses withEvent:event];
+//        }
+//    }
+//}
 
--(void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    Scene *pScene = Director::getInstance()->getRunningScene();
-    Layer *layer = (Layer*)(pScene->getChildren().at(1));
-    long tag = layer->getTag();
-}
 @end

@@ -16,13 +16,13 @@ bool Card::isAceBiggest = true;
 
 bool Card::init()
 {
-    if(!CCNode::init())
+    if(!Node::init())
         return false;
     
     return true;
 }
 
-void Card::init(CCLayer* parent)
+void Card::init(Layer* parent)
 {
     _parentLayer = parent;
     
@@ -38,7 +38,7 @@ void Card::init(CCLayer* parent)
     ((BoardLayer*)_parentLayer)->cards->addObject(this);
 }
 
-void Card::init(int rank, int suit, Deck* deck, CCLayer* parent)
+void Card::init(int rank, int suit, Deck* deck, Layer* parent)
 {
     _parentLayer = parent;
     
@@ -58,7 +58,7 @@ void Card::init(int rank, int suit, Deck* deck, CCLayer* parent)
     ((BoardLayer*)_parentLayer)->cards->addObject(this);
 }
 
-void Card::touchBegan(CCPoint position)
+void Card::touchBegan(Point position)
 {
     if(_deck->getType() == DECK_DEALER)
         _clickedDealer = true;
@@ -80,7 +80,7 @@ void Card::touchBegan(CCPoint position)
     }   
 }
 
-void Card::touchMoved(CCPoint position)
+void Card::touchMoved(Point position)
 {
     if(position.getDistanceSq(_clickedPosition) > _dragDeadDistance * _dragDeadDistance)
     {
@@ -93,10 +93,10 @@ void Card::touchMoved(CCPoint position)
                 _dragging = true;
             
             Deck* deck = this->getDeck();
-            for(int i = deck->cards->indexOfObject(this); i < deck->cards->count(); i++)
+            for(long i = deck->cards->getIndexOfObject(this); i < deck->cards->count(); i++)
             {
-                Card* card = (Card*)deck->cards->objectAtIndex(i);
-                if(card->getZOrder()<1000) card->setZOrder(getZOrder()+1000);
+                Card* card = (Card*)deck->cards->getObjectAtIndex(i);
+                if(card->getLocalZOrder()<1000) card->setLocalZOrder(getLocalZOrder()+1000);
             }
             
             _firstMove = false;
@@ -104,11 +104,11 @@ void Card::touchMoved(CCPoint position)
             float deltaX = position.x - _lastMovePosition.x;
             float deltaY = position.y - _lastMovePosition.y;
             
-            for(int i = deck->cards->indexOfObject(this); i < deck->cards->count(); i++)
+            for(long i = deck->cards->getIndexOfObject(this); i < deck->cards->count(); i++)
             {
-                Card* card = (Card*)deck->cards->objectAtIndex(i);
-                CCPoint pos = card->getSprite()->getPosition();
-                card->getSprite()->setPosition(ccp(pos.x+deltaX, pos.y+deltaY));
+                Card* card = (Card*)deck->cards->getObjectAtIndex(i);
+                Point pos = card->getSprite()->getPosition();
+                card->getSprite()->setPosition(Vec2(pos.x+deltaX, pos.y+deltaY));
                 
             }
             
@@ -117,7 +117,7 @@ void Card::touchMoved(CCPoint position)
     }
 }
 
-void Card::touchEnded(CCPoint position)
+void Card::touchEnded(Point position)
 {
     _dragDisabled = false;
     _firstMove = true;
@@ -146,7 +146,7 @@ void Card::touchEnded(CCPoint position)
         {
             //_dragDisabled = true;
             //setZOrder(_sprite->getZOrder() + 1000);
-            setZOrder(getZOrder()+1000);//update by KHJ 03.21.2015
+            setLocalZOrder(getLocalZOrder()+1000);//update by KHJ 03.21.2015
             ((BoardLayer*)_parentLayer)->doubleClick(this);
             //_lastClickTime = 0.0f;
         }
@@ -182,9 +182,9 @@ int Card::getColor()
         return CARDCOLOR_RED;
 }
 
-int Card::getIndex()
+long Card::getIndex()
 {
-    return _deck->cards->indexOfObject(this);
+    return _deck->cards->getIndexOfObject(this);
 }
 
 int Card::getOrder()
@@ -289,7 +289,7 @@ void Card::moveToIndex(int index)
 
 void Card::createSprite()
 {
-    _sprite = CCSprite::create();
+    _sprite = Sprite::create();
     switch (GameData::getInstance()->getCardFaceIndex()) {
         case 0:
             _sprite->initWithFile(getNameWithResolution(g_strCard1Sprites[getCardIndex()].getCString()).c_str());
@@ -334,7 +334,7 @@ void Card::setCardSprite(int cardFaceIndex, int cardBackIndex)
         _sprite->initWithFile(getNameWithResolution(g_strBackCardSprites[cardBackIndex].getCString()).c_str());
 }
 
-CCSprite* Card::getSprite()
+Sprite* Card::getSprite()
 {
     return _sprite;
 }
@@ -344,7 +344,7 @@ int Card::getCardIndex()
     return ((_suit - 1) * 13) + _rank - 1;
 }
 
-CCString Card::getRankString()
+__String Card::getRankString()
 {
     switch (_rank)
     {

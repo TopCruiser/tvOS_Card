@@ -155,7 +155,7 @@ void SettingLayer::updateLayoutWithLandscape(){
     
 }
 
-void SettingLayer::onDone(CCObject* sender)
+void SettingLayer::onDone(Ref* sender)
 {
     if(!_isEnabled) return;
     
@@ -197,7 +197,7 @@ TableViewCell* SettingLayer::tableCellAtIndex(TableView *table, ssize_t idx)
     
         CCLabelTTF* _cellLabel = CCLabelTTF::create("", "ClarendonBT-Roman", getSizeWithDevice(30));
     
-        _cellLabel->setColor(ccc3(255, 255, 255));
+        _cellLabel->setColor(Color3B(255, 255, 255));
         _cellLabel->setAnchorPoint(Vec2(0, 0));
         _cellLabel->setPosition(Vec2(getSizeWithDevice(100),0));
     
@@ -415,7 +415,7 @@ TableViewCell* SettingLayer::tableCellAtIndex(TableView *table, ssize_t idx)
     
 }
 
-Size SettingLayer::tableCellSizeForIndex(TableView *table, ssize_t idx)
+cocos2d::Size SettingLayer::tableCellSizeForIndex(TableView *table, ssize_t idx)
 {
     Size winSize = Director::getInstance()->getWinSize();
     if(idx>7 && idx<11) return Size(getSizeWithDevice(250.0f), getSizeWithDevice(120.0f));

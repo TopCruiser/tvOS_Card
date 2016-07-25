@@ -25,29 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../Classes/engine/Deck.cpp"
-            timestampString = "490901264.401149"
+            filePath = "../Classes/layer/MenuLayer.cpp"
+            timestampString = "491065137.79022"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
-            landmarkName = "Deck::updateCardsWithAnimation()"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ios/RootViewController.mm"
-            timestampString = "490958063.898639"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "183"
-            endingLineNumber = "183"
-            landmarkName = "-touchesBegan:withEvent:"
+            startingLineNumber = "362"
+            endingLineNumber = "362"
+            landmarkName = "MenuLayer::onKeyDown(cocos2d::Controller* controller, int key, cocos2d::Event* event)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

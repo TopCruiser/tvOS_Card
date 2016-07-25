@@ -27,6 +27,9 @@ public:
     virtual bool onTouchBegan(Touch *touch, Event *unused_event);
     virtual void onTouchMoved(Touch *touch, Event *unused_event);
     virtual void onTouchEnded(Touch *touch, Event *unused_event);
+    
+    void onDummy(Ref* sender);////////////
+    
     void setCells(int cells);
     void setSuits(int suits);
     void setStacks(int stacks);
@@ -59,7 +62,7 @@ public:
     
     void setPreviousMode();
     
-    void onDummy(Ref* sender);//dummy focus
+    bool pressesBegan();
     
 private:
     std::string getGameString();    
@@ -95,7 +98,7 @@ private:
     int countEmpty(__Array* decks);
     
     bool isWrongPlacement(Card* card1, Card* card2);
-    Card* getSelectedCard(Point touchPoint);
+    Card* getSelectedCard(CCPoint touchPoint);
     
     void showCardFace();
     void showScore();
@@ -110,8 +113,8 @@ private:
     
     void win();
     void doWinAnimation(float dt);
-    void didWinAnimation(Node* sender, Card* card);
-    Point getTargetPositon(Point first, Point second, int i, int num);
+    void didWinAnimation(Node* sender, void* card);
+    CCPoint getTargetPositon(CCPoint first, CCPoint second, int i, int num);
     
     void checkHint(Card*);
     
@@ -131,6 +134,11 @@ public:
     int _totalMoveCount;
     bool _startedGameFlag;
     bool _hasWon;
+    /////
+    bool bTouchBegan;
+    Vec2 lastMovedPoint;
+    
+    MenuItem* dummy;
     
 private:
     static BoardLayer* _instance;

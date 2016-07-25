@@ -15,7 +15,6 @@ public:
     
     virtual bool init();
     virtual void onEnterTransitionDidFinish();
-    virtual bool onTouchBegan(Touch *touch, Event *unused_event);
     
     void onSolitaire(Ref* sender);
     void onFreeCell(Ref* sender);
@@ -38,9 +37,13 @@ private:
     
     void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
     
-    bool handleTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
-    void handleTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
-    void handleTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
+    virtual bool onTouchBegan(Touch *touch, Event *unused_event);
+    virtual void onTouchMoved(Touch *touch, Event *unused_event);
+    virtual void onTouchEnded(Touch *touch, Event *unused_event);
+    
+//    bool handleTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
+//    void handleTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
+//    void handleTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
     
     void onConnectController(cocos2d::Controller* controller, cocos2d::Event* event);
     void onDisconnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
@@ -55,6 +58,8 @@ private:
     cocos2d::EventListener* _touchListener = nullptr;
     cocos2d::EventListenerController* _controllerListener = nullptr;
 
+public:
+    cocos2d::Vec2 lastMovedPoint;
 public:
     CREATE_FUNC(MenuLayer);
 };
