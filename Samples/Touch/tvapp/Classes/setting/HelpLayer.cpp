@@ -80,11 +80,6 @@ void HelpLayer::init(Layer* parent)
         
     _menu->setPosition(Vec2(0.0f, 0.0f));
     addChild(_menu);
-    
-    //if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
-        //updateLayoutWithPortrait();
-    //else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
-        //updateLayoutWithLandscape();
 }
 
 void HelpLayer::updateLayoutWithPortrait(){
@@ -171,7 +166,7 @@ TableViewCell* HelpLayer::tableCellAtIndex(TableView *table, ssize_t idx)
     CCLabelTTF* _cellLabel = CCLabelTTF::create("", "Thonburi", getSizeWithDevice(25), textSize, kCCTextAlignmentLeft);
     
     _cellLabel->setColor(Color3B(255, 255, 255));
-    _cellLabel->setAnchorPoint(CCPointZero);
+    _cellLabel->setAnchorPoint(Vec2(0, 0));
     _cellLabel->setPosition(Vec2(0,0));
     
     //_cellLabel->set
@@ -215,17 +210,7 @@ TableViewCell* HelpLayer::tableCellAtIndex(TableView *table, ssize_t idx)
         _cellLabel->setString("The tableau contains: \n   A stock in the top left corner.\n   a manoeuvre zone with 10 stacks of 4 cards. \n   8 foundation stacks on the left and right sides of the screen. \n \nIn the manoeuvre zone, form descending same-suit sequences. (Eg: 7 of Clubs, on 9 of Clubs...) \nIn the foundation stacks, form ascending sequences of the same suit. (Eg: 3 of diamonds, on 2 of Diamonds, on Ace of Diamonds...) \nOnly one card can me be moved at once. \nAn empty column in the manoeuvre can be filled with any card.");
         cell->addChild(_cellLabel);
     }
-    //}
-    /*
-     else
-     {
-     CCLog("else  %d", idx);
-     //Create and would not need to re create, or you'll find out the picture with the words wrong
-     CCTexture2D *aTexture=CCTextureCache::sharedTextureCache()->addImage(getNameWithResolution("setting_nor").c_str());
-     Sprite *pSprite=(Sprite *)cell->getChildByTag(123);
-     pSprite->setTexture(aTexture);
-     }
-     */
+
     return cell;
     
 }

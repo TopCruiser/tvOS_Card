@@ -180,7 +180,7 @@ void SolitaireOptionLayer::onDummy(Ref* sender)
     
 }
 
-void SolitaireOptionLayer::onDone(CCObject* sender)
+void SolitaireOptionLayer::onDone(Ref* sender)
 {
     GameData::getInstance()->playSoundEffect();
     

@@ -51,9 +51,9 @@ public:
     virtual void init(Layer* parent);
     virtual void init(int rank, int suit, Deck* deck, Layer* parent);
     
-    void touchBegan(CCPoint position);
-    void touchMoved(CCPoint position);
-    void touchEnded(CCPoint position);
+    void touchBegan(cocos2d::Point position);
+    void touchMoved(cocos2d::Point position);
+    void touchEnded(cocos2d::Point position);
     
     int getRank();
     void setRank(int rank);
@@ -119,8 +119,8 @@ private:
     
     Deck* _deck;
     
-    CCPoint _clickedPosition;
-    CCPoint _lastMovePosition;
+    cocos2d::Point _clickedPosition;
+    cocos2d::Point _lastMovePosition;
     
 public:
     CREATE_FUNC(Card);

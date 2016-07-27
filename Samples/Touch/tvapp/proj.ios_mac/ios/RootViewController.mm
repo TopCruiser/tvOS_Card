@@ -53,13 +53,16 @@ USING_NS_CC;
 }
 */
 
-/*
+
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    dummyView = [[UITextField alloc] initWithFrame:CGRectMake(400, 400, 200, 200)];
+    
+    
 }
 
-*/
 // Override to allow orientations other than the default portrait orientation.
 // This method is deprecated on ios6
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -121,6 +124,8 @@ USING_NS_CC;
 
 -(void)pressesBegan:(NSSet*)presses withEvent:(UIPressesEvent *)event {
     
+    [self setNeedsFocusUpdate];
+    [self updateFocusIfNeeded];
     UIPress* p = [presses anyObject];
     
     //if (p.type == UIPressTypeSelect)
@@ -142,28 +147,11 @@ USING_NS_CC;
     }
 }
 //
-//- (UIView *)preferredFocusedView
-//{
-//    Scene *pScene = Director::getInstance()->getRunningScene();
-//    Layer *layer = (Layer*)(pScene->getChildren().at(1));
-//    long tag = layer->getTag();
-//    
-//    if(tag == 100)
-//    {
-//        MenuLayer* menuLayer = dynamic_cast<MenuLayer*>(layer);
-//    
-//        cocos2d::Rect r = menuLayer->btnSolitaire->getBoundingBox();
-//        Vec2 pos = menuLayer->btnSolitaire->getPosition();
-//        UIView* view = [[UIView alloc]initWithFrame: CGRectMake(pos.x, pos.y, r.size.width , r.size.height)];
-//        return view;
-//    }
-//    else{
-//        return nil;
-//    }
-//    
-//    return self.view.preferredFocusedView;
-//    
-//}
+- (UIView *)preferredFocusedView
+{
+    return dummyView;
+    
+}
 
 //-(void)pressesEnded:(NSSet*)presses withEvent:(UIPressesEvent *)event {
 //    

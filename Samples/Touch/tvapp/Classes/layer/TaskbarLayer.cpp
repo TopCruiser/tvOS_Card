@@ -97,6 +97,24 @@ void TaskbarLayer::init(Layer* parent)
     _menu->addChild(dummy);
     
     addChild(_menu);
+    
+    setTouchEnabled(true);
+    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+}
+
+bool TaskbarLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    return true;
+}
+
+void TaskbarLayer::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    
+}
+
+void TaskbarLayer::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    
 }
 
 void TaskbarLayer::updateLayoutWithPortrait()

@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../Classes/layer/SettingLayer.cpp"
-            timestampString = "490459478.726371"
+            filePath = "../Classes/layer/MenuLayer.cpp"
+            timestampString = "491106022.08553"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "SettingLayer::updateLayoutWithPortrait()"
+            startingLineNumber = "360"
+            endingLineNumber = "360"
+            landmarkName = "MenuLayer::onKeyDown(cocos2d::Controller* controller, int key, cocos2d::Event* event)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../Classes/layer/MenuLayer.cpp"
-            timestampString = "491065137.79022"
+            filePath = "../Classes/layer/TaskbarLayer.cpp"
+            timestampString = "491139883.90407"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "362"
-            endingLineNumber = "362"
-            landmarkName = "MenuLayer::onKeyDown(cocos2d::Controller* controller, int key, cocos2d::Event* event)"
+            startingLineNumber = "107"
+            endingLineNumber = "107"
+            landmarkName = "TaskbarLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -97,21 +97,19 @@ bool MenuLayer::init()
     
     _eventDispatcher->addEventListenerWithSceneGraphPriority(_controllerListener, this);
 
-//    EventListenerTouchOneByOne* listener = EventListenerTouchOneByOne::create();
-//    listener->setSwallowTouches(true);
-//    
-//    listener->onTouchBegan = CC_CALLBACK_2(MenuLayer::onTouchBegan, this);
-//    listener->onTouchMoved = CC_CALLBACK_2(MenuLayer::onTouchMoved, this);
-//    listener->onTouchEnded = CC_CALLBACK_2(MenuLayer::onTouchEnded, this);
-//    listener->onTouchCancelled = CC_CALLBACK_2(MenuLayer::onTouchCancelled, this);
-//    
-//    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-//    _touchListener = listener;
+    EventListenerTouchOneByOne* listener = EventListenerTouchOneByOne::create();
+    listener->setSwallowTouches(true);
+    
+    listener->onTouchBegan = CC_CALLBACK_2(MenuLayer::onTouchBegan, this);
+    listener->onTouchMoved = CC_CALLBACK_2(MenuLayer::onTouchMoved, this);
+    listener->onTouchEnded = CC_CALLBACK_2(MenuLayer::onTouchEnded, this);
+    
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
     
     setTag(100);
     
-    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
-    setTouchEnabled(true);
+//    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+//    setTouchEnabled(true);
     
     return true;
 }

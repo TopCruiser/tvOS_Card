@@ -70,7 +70,7 @@ bool GameLayer::init()
     _taskbarLayer->init(this);
     _taskbarLayer->setAnchorPoint(Vec2(0.5f, 0.0f));
     _taskbarLayer->setVisible(false);
-    addChild(_taskbarLayer, ORDER_TASKBAR);
+    addChild(_taskbarLayer, 1);
     
     
     Size winSize = Director::getInstance()->getWinSize();
@@ -113,7 +113,8 @@ bool GameLayer::init()
     _helpLayer->setPosition(Vec2(winSize.width*2,0));
     
     addChild(_helpLayer, ORDER_SET);
-    addChild(dummy);
+    //addChild(dummy);
+    
     setTag(101);
     
     return true;
@@ -235,6 +236,9 @@ void GameLayer::showBoardLayerWithSpider()
 
 void GameLayer::showTaskbar()
 {
+    setTouchEnabled(true);
+    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+
     if(_taskbarLayer == NULL)
         return;
     

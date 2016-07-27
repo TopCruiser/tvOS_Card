@@ -1545,6 +1545,7 @@ bool BoardLayer::pressesBegan()
     if(_draggingCard == NULL)
     {
         showTaskbar();
+        //setTouchEnabled(false);
 //        if(!bTouchBegan){
 //            setTouchEnabled(false);
 //        }

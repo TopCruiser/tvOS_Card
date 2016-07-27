@@ -38,7 +38,6 @@ bool NewGameLayer::init()
 void NewGameLayer::init(Layer* parent)
 {
     _parentLayer = parent;
-        
     
     background= Sprite::create(getNameWithResolution("dialog_new_deal").c_str());
     

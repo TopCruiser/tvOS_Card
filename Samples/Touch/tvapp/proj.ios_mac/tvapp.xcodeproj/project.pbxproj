@@ -46,7 +46,6 @@
 		CE1B9A0D1D3A772A007AB3E9 /* Move.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A061D3A772A007AB3E9 /* Move.cpp */; };
 		CE1B9A101D3A7B41007AB3E9 /* BoardLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A0E1D3A7B41007AB3E9 /* BoardLayer.cpp */; };
 		CE1B9A111D3A7B41007AB3E9 /* BoardLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A0E1D3A7B41007AB3E9 /* BoardLayer.cpp */; };
-		CE1B9A141D3A8078007AB3E9 /* SettingLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A121D3A8078007AB3E9 /* SettingLayer.cpp */; };
 		CE1B9A151D3A8078007AB3E9 /* SettingLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A121D3A8078007AB3E9 /* SettingLayer.cpp */; };
 		CE1B9A251D3A8171007AB3E9 /* BackgroundLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A171D3A8171007AB3E9 /* BackgroundLayer.cpp */; };
 		CE1B9A261D3A8171007AB3E9 /* BackgroundLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A171D3A8171007AB3E9 /* BackgroundLayer.cpp */; };
@@ -66,7 +65,6 @@
 		CE1B9A461D3A915B007AB3E9 /* CongratulationLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A371D3A915B007AB3E9 /* CongratulationLayer.cpp */; };
 		CE1B9A471D3A915B007AB3E9 /* ExitLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A391D3A915B007AB3E9 /* ExitLayer.cpp */; };
 		CE1B9A481D3A915B007AB3E9 /* ExitLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A391D3A915B007AB3E9 /* ExitLayer.cpp */; };
-		CE1B9A491D3A915B007AB3E9 /* GameLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A3B1D3A915B007AB3E9 /* GameLayer.cpp */; };
 		CE1B9A4A1D3A915B007AB3E9 /* GameLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A3B1D3A915B007AB3E9 /* GameLayer.cpp */; };
 		CE1B9A4B1D3A915B007AB3E9 /* NewGameLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A3D1D3A915B007AB3E9 /* NewGameLayer.cpp */; };
 		CE1B9A4C1D3A915B007AB3E9 /* NewGameLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE1B9A3D1D3A915B007AB3E9 /* NewGameLayer.cpp */; };
@@ -4376,7 +4374,6 @@
 				CE1B9A101D3A7B41007AB3E9 /* BoardLayer.cpp in Sources */,
 				CE1B9A251D3A8171007AB3E9 /* BackgroundLayer.cpp in Sources */,
 				CE1B9A311D3A8171007AB3E9 /* StatisticsLayer.cpp in Sources */,
-				CE1B9A141D3A8078007AB3E9 /* SettingLayer.cpp in Sources */,
 				CE1B9A0A1D3A772A007AB3E9 /* Deck.cpp in Sources */,
 				CE1B9A351D3A9048007AB3E9 /* ImagePickerImpl.mm in Sources */,
 				CE1B9A2B1D3A8171007AB3E9 /* HelpLayer.cpp in Sources */,
@@ -4390,7 +4387,6 @@
 				CE1B9A471D3A915B007AB3E9 /* ExitLayer.cpp in Sources */,
 				CE1B9A511D3A915B007AB3E9 /* TaskbarLayer.cpp in Sources */,
 				CE1B99FD1D3A76F3007AB3E9 /* LoadLayer.cpp in Sources */,
-				CE1B9A491D3A915B007AB3E9 /* GameLayer.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				CE1B9A271D3A8171007AB3E9 /* CardBackLayer.cpp in Sources */,
 				CE1B99EF1D3A6C2A007AB3E9 /* Common.cpp in Sources */,

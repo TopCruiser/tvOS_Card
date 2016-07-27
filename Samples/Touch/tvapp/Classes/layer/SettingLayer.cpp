@@ -114,13 +114,6 @@ void SettingLayer::updateLayoutWithPortrait(){
 //        _orientationLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
 //        //_orientationLayer->setVisible(true);
 //    }comment715
-    
-    //if(_helpLayer != NULL)
-    //{
-    //    _helpLayer->setPosition(Vec2(0.0f, 0.0f));
-    //    _helpLayer->updateLayoutWithPortrait();
-    //}
-    
 }
 
 void SettingLayer::updateLayoutWithLandscape(){
@@ -146,13 +139,6 @@ void SettingLayer::updateLayoutWithLandscape(){
 //        _orientationLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
 //        //_orientationLayer->setVisible(true);
 //    }comment715
-    
-    //if(_helpLayer != NULL)
-    //{
-    //    _helpLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
-    //    _helpLayer->updateLayoutWithLandscape();
-    //}
-    
 }
 
 void SettingLayer::onDone(Ref* sender)
