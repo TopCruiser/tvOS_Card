@@ -25,13 +25,29 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../Classes/layer/TaskbarLayer.cpp"
-            timestampString = "491139883.90407"
+            filePath = "../Classes/layer/GameLayer.cpp"
+            timestampString = "491467908.106968"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "TaskbarLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)"
+            startingLineNumber = "554"
+            endingLineNumber = "554"
+            landmarkName = "GameLayer::hideHelpLayer()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Classes/layer/SolitaireOptionLayer.cpp"
+            timestampString = "491410081.765795"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "SolitaireOptionLayer::onDone(Ref* sender)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

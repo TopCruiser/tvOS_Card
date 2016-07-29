@@ -57,10 +57,6 @@ USING_NS_CC;
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    dummyView = [[UITextField alloc] initWithFrame:CGRectMake(400, 400, 200, 200)];
-    
-    
 }
 
 // Override to allow orientations other than the default portrait orientation.
@@ -143,26 +139,9 @@ USING_NS_CC;
         {
             GameLayer* gameLayer = dynamic_cast<GameLayer*>(layer);
             gameLayer->_boardLayer->pressesBegan();
+            //gameLayer->_taskbarLayer->pressesBegan();
         }
     }
 }
-//
-- (UIView *)preferredFocusedView
-{
-    return dummyView;
-    
-}
-
-//-(void)pressesEnded:(NSSet*)presses withEvent:(UIPressesEvent *)event {
-//    
-//    UIPress* p = [presses anyObject];
-//    
-//    if (p.type == UIPressTypeMenu)
-//    {
-//        if(cocos2d::Director::getInstance()->getRunningScene()->getName() == "MenuLayer"){
-//            [super pressesEnded:presses withEvent:event];
-//        }
-//    }
-//}
 
 @end

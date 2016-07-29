@@ -45,6 +45,8 @@ public:
     virtual void onTouchMoved(Touch *touch, Event *unused_event);
     virtual void onTouchEnded(Touch *touch, Event *unused_event);
     
+    bool pressesBegan(Vec2 touchPoint);
+    
 private:
     MenuItem* createItem(const char* szNormalSpritePath, const char* szActiveSpritePath, const char* szTitle,
                            float width, float height, Ref* target, SEL_MenuHandler selector);

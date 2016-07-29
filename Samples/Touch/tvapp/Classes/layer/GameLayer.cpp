@@ -70,7 +70,7 @@ bool GameLayer::init()
     _taskbarLayer->init(this);
     _taskbarLayer->setAnchorPoint(Vec2(0.5f, 0.0f));
     _taskbarLayer->setVisible(false);
-    addChild(_taskbarLayer, 1);
+    addChild(_taskbarLayer);
     
     
     Size winSize = Director::getInstance()->getWinSize();

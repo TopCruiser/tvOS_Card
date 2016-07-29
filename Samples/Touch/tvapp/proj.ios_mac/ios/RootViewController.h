@@ -28,8 +28,6 @@
 //#import "BoardLayer.h"
 
 @interface RootViewController : UIViewController {
-    
-    UITextField* dummyView;
 }
 - (BOOL) prefersStatusBarHidden;
 

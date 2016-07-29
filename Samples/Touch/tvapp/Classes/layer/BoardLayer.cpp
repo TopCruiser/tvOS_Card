@@ -1533,10 +1533,6 @@ bool BoardLayer::pressesBegan()
     if(_isSetting)
         return false;
     
-//    if(!bTouchBegan){
-//        setTouchEnabled(true);
-//    }
-    
     bTouchBegan = !bTouchBegan;
     
     log("touch begin: %f, %f", lastMovedPoint.x, lastMovedPoint.y);
@@ -1544,11 +1540,16 @@ bool BoardLayer::pressesBegan()
     _draggingCard = getSelectedCard(lastMovedPoint);
     if(_draggingCard == NULL)
     {
-        showTaskbar();
-        //setTouchEnabled(false);
-//        if(!bTouchBegan){
-//            setTouchEnabled(false);
-//        }
+        int width = ((GameLayer*)_parentLayer)->_taskbarLayer->getContentSize().width;
+        int height = ((GameLayer*)_parentLayer)->_taskbarLayer->getContentSize().height;
+        cocos2d::Rect taskbarRect = cocos2d::Rect(0, 0, width, height);
+        if(taskbarRect.containsPoint(lastMovedPoint))
+        {
+            ((GameLayer*)_parentLayer)->_taskbarLayer->pressesBegan(lastMovedPoint);
+        }
+        else{
+            showTaskbar();
+        }
     }
     else
     {
@@ -1564,17 +1565,6 @@ bool BoardLayer::pressesBegan()
 
 bool BoardLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-//    dummy->setPosition(lastMovedPoint);
-//    
-//    if(bTouchBegan)
-//    {
-//        _draggingCard = getSelectedCard(lastMovedPoint);
-//        if(_draggingCard == NULL)
-//        {
-//            showTaskbar();
-//        }
-//    }
-    
     return true;
 }
 

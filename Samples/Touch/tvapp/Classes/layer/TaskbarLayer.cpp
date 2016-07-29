@@ -489,3 +489,21 @@ void TaskbarLayer::removeStoreButton(){
         _storeItem->removeFromParentAndCleanup(true);
     _storeItem = NULL;
 }
+
+bool TaskbarLayer::pressesBegan(Vec2 touchPoint)
+{
+    
+    CCLOG("touch point : (%f, %f)", touchPoint.x, touchPoint.y);
+    touchPoint = convertToNodeSpace(touchPoint);
+    
+    if(_settingItem->getBoundingBox().containsPoint(touchPoint)) onSetting(this);
+    if(_undoItem->getBoundingBox().containsPoint(touchPoint)) onUndo(this);
+    if(_playItem->getBoundingBox().containsPoint(touchPoint)) onNewGame(this);
+    if(_hintItem->getBoundingBox().containsPoint(touchPoint)) onHint(this);
+    if(_centerItem->getBoundingBox().containsPoint(touchPoint)) onCenter(this);
+    if(_storeItem->getBoundingBox().containsPoint(touchPoint)) onStore(this);
+    if(_menuItem->getBoundingBox().containsPoint(touchPoint)) onMenu(this);
+    
+    return true;
+    
+}
