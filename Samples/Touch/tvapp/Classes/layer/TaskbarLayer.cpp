@@ -79,7 +79,7 @@ void TaskbarLayer::init(Layer* parent)
     MenuItem* dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
                                              Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
                                              this, menu_selector(TaskbarLayer::onDummy));
-    dummy->setScale(0.01);
+    dummy->setScale(0.001);
     
     _menu = Menu::create();
     _menu->setAnchorPoint(Vec2(0.0f, 0.0f));
@@ -334,7 +334,8 @@ void TaskbarLayer::onMenu(Ref* sender)
         _exitLayer->init(this);
         _exitLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
         _exitLayer->setPosition(Vec2(0.0f, winSize.height));
-        addChild(_exitLayer,2);
+        setLocalZOrder(6);
+        addChild(_exitLayer,1);
         
         MoveTo* action = MoveTo::create(0.3f, Vec2(0,winSize.height/2.0f));
         EaseIn *_easein = EaseIn::create(action,0.3f);
@@ -368,16 +369,19 @@ void TaskbarLayer::didExitLayer(bool isYes)
                 switch (GameData::getInstance()->getGameType()) {
                     case TYPE_SPIDER:
                     
+                        setLocalZOrder(1);
                         ((GameLayer*) _parentLayer)->showSpiderOptionLayer();
                         break;
                         
                     case TYPE_SOLITAIRE:
                     
+                        setLocalZOrder(1);
                         ((GameLayer*) _parentLayer)->showSolitaireOptionLayer();                    
                         break;
                         
                     case TYPE_FREECELL:
                     case TYPE_FORTY_THIEVES:
+                        setLocalZOrder(1);
                         showNewGame();
                         break;
                 }
@@ -413,7 +417,6 @@ void TaskbarLayer::showNewGame()
      Sequence *_sequence  =  Sequence::create( _easein, NULL ,NULL);
      
      _newGameLayer->runAction(_sequence);
-    
 }
 
 void TaskbarLayer::onNewGame(Ref* sender)
@@ -440,6 +443,7 @@ void TaskbarLayer::onNewGame(Ref* sender)
         _exitLayer->init(this);
         _exitLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
         _exitLayer->setPosition(Vec2(0.0f, 0.0f));
+        setLocalZOrder(6);
         addChild(_exitLayer,2);
         
         MoveTo* action = MoveTo::create(0.3f, Vec2(0,winSize.height/2.0f));
@@ -493,7 +497,7 @@ void TaskbarLayer::removeStoreButton(){
 bool TaskbarLayer::pressesBegan(Vec2 touchPoint)
 {
     
-    CCLOG("touch point : (%f, %f)", touchPoint.x, touchPoint.y);
+    CCLOG("Taskbarlayer - press began : (%f, %f)", touchPoint.x, touchPoint.y);
     touchPoint = convertToNodeSpace(touchPoint);
     
     if(_settingItem->getBoundingBox().containsPoint(touchPoint)) onSetting(this);

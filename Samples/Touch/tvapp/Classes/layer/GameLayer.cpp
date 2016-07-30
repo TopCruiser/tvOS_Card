@@ -49,13 +49,6 @@ bool GameLayer::init()
     _blankBanner->initWithFile("banner_ads.png");
     addChild(_blankBanner, ORDER_BOARD);
     
-    //add dummy object to receive focus
-    MenuItem* dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
-                                             Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
-                                             this, menu_selector(GameLayer::onDummy));
-    dummy->setScale(0.01);
-    dummy->setPosition(Vec2(0, 0));
-    
     if(GameData::getInstance()->getBackgroundIndex()<BACKGROUND_NATIVE)
     {
         setBackground(GameData::getInstance()->getBackgroundIndex());
@@ -113,24 +106,15 @@ bool GameLayer::init()
     _helpLayer->setPosition(Vec2(winSize.width*2,0));
     
     addChild(_helpLayer, ORDER_SET);
-    //addChild(dummy);
-    
-    setTag(101);
     
     return true;
 }
 
-void GameLayer::onDummy(cocos2d::Ref *sender)
-{
-    
-}
-
 void GameLayer::onEnterTransitionDidFinish()
 {
-    //if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
-        //updateLayoutWithPortrait();
-//    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)comment715
-        updateLayoutWithLandscape();
+    CCLOG("GameLayer - onEnterTransitiondidFinish");
+    
+    updateLayoutWithLandscape();
     
     if(_isFirstLunch)
     {
@@ -236,9 +220,6 @@ void GameLayer::showBoardLayerWithSpider()
 
 void GameLayer::showTaskbar()
 {
-    setTouchEnabled(true);
-    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
-
     if(_taskbarLayer == NULL)
         return;
     
@@ -279,87 +260,6 @@ void GameLayer::upTaskbar(int bannerHeight)
     _taskbarLayer->setPosition(position);
 }
 
-void GameLayer::updateLayoutWithPortrait()
-{
-    Size winSize = Director::getInstance()->getWinSize();
-
-    _background->setRotation(0.0f);
-    _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
-    _background->setVisible(true);
-    
-    //added by KHJ 04/14/2015
-    if(GameData::getInstance()->getBackgroundIndex() == BACKGROUND_NATIVE)
-    {
-        Size bgSize= _background->getContentSize();
-        
-        float scaleX=winSize.width/bgSize.width;
-        float scaleY=winSize.height/bgSize.height;
-        
-        _background->setScaleX(scaleX);
-        _background->setScaleY(scaleY);
-        _background->setContentSize(_background->getContentSize());
-    }
-    //
-    
-    if(_solitaireOptionLayer != NULL)
-    {
-        _solitaireOptionLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
-        _solitaireOptionLayer->setVisible(true);
-    }
-    
-    if(_spiderOptionLayer != NULL)
-    {
-        _spiderOptionLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
-        _spiderOptionLayer->setVisible(true);
-    }
-    
-    if(_boardLayer != NULL)
-        _boardLayer->updateLayoutWithPortrait();
-    
-    if(_taskbarLayer != NULL)
-    {
-        int bannerHeight = GameData::getInstance()->getBannerHeight();
-        _blankBanner->setVisible(true);
-        
-        if(_isShowTaskbar){
-            _taskbarLayer->setPosition(winSize.width/2.0f, bannerHeight);
-            _blankBanner->setPosition(Vec2(winSize.width/2, -_blankBanner->getContentSize().height/2+bannerHeight));
-        }
-        else{
-            _taskbarLayer->setPosition(winSize.width/2.0f, -_taskbarLayer->getContentSize().height);
-            _blankBanner->setPosition(Vec2(winSize.width/2, -_blankBanner->getContentSize().height));
-        }
-        
-        _taskbarLayer->updateLayoutWithPortrait();
-        _taskbarLayer->setVisible(true);
-    }
-    
-    if(_settingLayer!=NULL){
-        _settingLayer->updateLayoutWithPortrait();
-    }
-    
-    if(_cardBackLayer!=NULL){
-        _cardBackLayer->updateLayoutWithPortrait();
-    }
-    
-    
-    if(_backgroundLayer!=NULL){
-        _backgroundLayer->updateLayoutWithPortrait();
-    }
-    
-    if(_cardFaceLayer!=NULL){
-        _cardFaceLayer->updateLayoutWithPortrait();
-    }
-    
-    if(_statisticsLayer!=NULL){
-        _statisticsLayer->updateLayoutWithPortrait();
-    }
-    
-    if(_helpLayer!=NULL){
-        _helpLayer->updateLayoutWithPortrait();
-    }
-}
-
 void GameLayer::updateLayoutWithLandscape()
 {
     Size winSize = Director::getInstance()->getWinSize();
@@ -368,7 +268,6 @@ void GameLayer::updateLayoutWithLandscape()
     _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     _background->setVisible(true);
     
-    //added by KHJ 04/14/2015
     if(GameData::getInstance()->getBackgroundIndex() == BACKGROUND_NATIVE)
     {
         _background->setRotation(0.0f);
@@ -381,7 +280,6 @@ void GameLayer::updateLayoutWithLandscape()
         _background->setScaleY(scaleY);
         _background->setContentSize(_background->getContentSize());
     }
-    //
     
     if(_solitaireOptionLayer != NULL)
         _solitaireOptionLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
@@ -442,7 +340,7 @@ void GameLayer::showSolitaireOptionLayer()
     _solitaireOptionLayer->init(this);
     _solitaireOptionLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
     _solitaireOptionLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
-    addChild(_solitaireOptionLayer, ORDER_OPTION);
+    addChild(_solitaireOptionLayer, 6);
 }
 
 void GameLayer::showSpiderOptionLayer()
@@ -463,7 +361,6 @@ void GameLayer::showSettingLayer()
     _settingLayer->setVisible(true);
     MoveTo* action = MoveTo::create(0.3f, Vec2(0,0));
     EaseIn *_easein = EaseIn::create(action,0.3f);
-    //Sequence *_sequence  =  Sequence::create(_easein, CCCallFuncND::create(this, callfuncND_selector(GameLayer::doneSettingAnimation), NULL), NULL);
     Sequence *_sequence  =  Sequence::create(_easein, CC_CALLBACK_0(GameLayer::doneSettingAnimation, NULL), NULL);
     _settingLayer->runAction(_sequence);
 }
@@ -482,6 +379,8 @@ void GameLayer::hideSettingLayer()
     //CCSequence *_sequence  =  CCSequence::create( _easein, CCCallFuncND::create(this, callfuncND_selector(GameLayer::doneSettingAnimation), NULL), NULL);
     Sequence *_sequence  =  Sequence::create(_easein, CC_CALLBACK_0(GameLayer::doneSettingAnimation, NULL), NULL);
     _settingLayer->runAction(_sequence);
+    
+    setTag(101);
 }
 
 void GameLayer::doneSettingAnimation()

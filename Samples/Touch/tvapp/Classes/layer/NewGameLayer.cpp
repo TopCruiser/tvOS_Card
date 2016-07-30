@@ -109,10 +109,7 @@ void NewGameLayer::init(Layer* parent)
 
 void NewGameLayer::onRandomDeal(Ref* sender)
 {
-    //if(GameData::getInstance()->getNewGame()==3) return;
-    
     GameData::getInstance()->playSoundEffect();
-    
     GameData::getInstance()->setNewGame(RANDOM_DEAL);
     GameData::getInstance()->setSelectedGame(0);
     ((TaskbarLayer*)_parentLayer)->didNewGame();

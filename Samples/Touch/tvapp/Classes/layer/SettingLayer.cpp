@@ -83,37 +83,18 @@ void SettingLayer::init(Layer* parent)
     btnDone->setAnchorPoint(Vec2(0.5f, 0.0f));
     btnDone->setScale(getScaleWithDevice());
     
+    MenuItem* dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_back_nor").c_str()),
+                                     Sprite::create(getNameWithResolution("btn_back_act").c_str()),
+                                     this, menu_selector(SettingLayer::onDone));
+    
+    dummy->setScale(0.1);
+    
     Menu* _menu = Menu::create();
     _menu->addChild(btnDone);
+    _menu->addChild(dummy);
     
     _menu->setPosition(Vec2(0.0f, 0.0f));
     addChild(_menu);
-}
-
-void SettingLayer::updateLayoutWithPortrait(){
-    Size winSize = Director::getInstance()->getWinSize();
-    _background->setRotation(0.0f);
-    _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
-    _background->setVisible(true);
-    
-    _header->setPosition(Vec2(winSize.width/2.0f, winSize.height-getSizeWithDevice(117)));
-    _footer->setPosition(Vec2(winSize.width/2.0f, 0));
-    
-    _title->setPosition(Vec2(winSize.width/2, winSize.height-getSizeWithDevice(50)));
-    
-    tableView->setPosition(Vec2(0, getSizeWithDevice(95.0f)));
-    
-    tableView->setViewSize( Size(winSize.width, winSize.height-getSizeWithDevice(190.0f)));
-    tableView->reloadData();
-    
-    _buttonbackground->setPosition(Vec2(winSize.width/2.0f,  getSizeWithDevice(42.0f)));
-    btnDone->setPosition(Vec2(winSize.width/2.0f,  getSizeWithDevice(20.0f)));
-    
-//    if(_orientationLayer != NULL)
-//    {
-//        _orientationLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
-//        //_orientationLayer->setVisible(true);
-//    }comment715
 }
 
 void SettingLayer::updateLayoutWithLandscape(){
@@ -133,12 +114,6 @@ void SettingLayer::updateLayoutWithLandscape(){
     
     _buttonbackground->setPosition(Vec2(winSize.width/2.0f,  getSizeWithDevice(42.0f)));
     btnDone->setPosition(Vec2(winSize.width/2.0f,  getSizeWithDevice(20.0f)));
-    
-//    if(_orientationLayer != NULL)
-//    {
-//        _orientationLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
-//        //_orientationLayer->setVisible(true);
-//    }comment715
 }
 
 void SettingLayer::onDone(Ref* sender)
@@ -151,8 +126,6 @@ void SettingLayer::onDone(Ref* sender)
     
     BoardLayer::getInstance()->setSetting(false);
     ((GameLayer*)_parentLayer)->hideSettingLayer();
-    
-    //AppDelegate::get()->sendMessageToNative(MSG_ADMOB_BANNER, "GoogleMobileAds", SHOW_ADMOB);
 }
 
 //The number of cell
@@ -383,20 +356,6 @@ TableViewCell* SettingLayer::tableCellAtIndex(TableView *table, ssize_t idx)
                 ////////////////////////////////////////////
         
         }
-    
-    
-        
-       
-    //}
-    //else
-    //{
-    //    CCLog("else  %d", idx);
-        //Create and would not need to re create, or you'll find out the picture with the words wrong
-    //    CCTexture2D *aTexture=CCTextureCache::sharedTextureCache()->addImage(getNameWithResolution(nameString->m_sString).c_str());
-    //    Sprite *pSprite=(Sprite *)cell->getChildByTag(123);
-    //    pSprite->setTexture(aTexture);
-    //}
-     
     return cell;
     
 }
@@ -627,6 +586,4 @@ void SettingLayer::tableCellWillRecycle(TableView* table, TableViewCell* cell)
 {
     
 }
-
-//Size SettingLayer::cellSizeForTable(TableView *table){return Size(100, 100);}
 

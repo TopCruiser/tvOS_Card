@@ -142,6 +142,20 @@ USING_NS_CC;
             //gameLayer->_taskbarLayer->pressesBegan();
         }
     }
+    else if(p.type == UIPressTypeMenu)
+    {
+        Scene *pScene = Director::getInstance()->getRunningScene();
+        Layer *layer = (Layer*)(pScene->getChildren().at(1));
+        String *s = String::create(layer->getName().c_str());
+        long tag = layer->getTag();
+        if(tag == 102)//Setting
+        {
+            GameLayer* gameLayer = dynamic_cast<GameLayer*>(layer);
+            gameLayer->hideSettingLayer();
+            gameLayer->_boardLayer->setSetting(false);
+            gameLayer->setTag(101);
+        }
+    }
 }
 
 @end

@@ -10,9 +10,9 @@
 #include "GameLayer.h"
 #include "GameData.h"
 
-cocos2d::CCScene* SpiderOptionLayer::scene()
+cocos2d::Scene* SpiderOptionLayer::scene()
 {
-    CCScene* scene = cocos2d::CCScene::create();
+    Scene* scene = cocos2d::Scene::create();
     SpiderOptionLayer* layer = SpiderOptionLayer::create();
     scene->addChild(layer);
     return scene;
@@ -20,22 +20,22 @@ cocos2d::CCScene* SpiderOptionLayer::scene()
 
 bool SpiderOptionLayer::init()
 {
-    if(!CCLayer::init())
+    if(!Layer::init())
         return false;
     
     return true;
 }
 
-void SpiderOptionLayer::init(CCLayer* parent)
+void SpiderOptionLayer::init(Layer* parent)
 {
     _parentLayer = parent;
     
-    CCSprite* background = CCSprite::create(getNameWithResolution("dialog_spider_option").c_str());
+    Sprite* background = Sprite::create(getNameWithResolution("dialog_spider_option").c_str());
     background->setScale(getScaleWithDevice());
-    background->setPosition(ccp(0.0f, 0.0f));
+    background->setPosition(Vec2(0.0f, 0.0f));
     addChild(background);
     
-    CCSize size = background->getContentSize();
+    Size size = background->getContentSize();
     setContentSize(size);
     
     int mode = GameData::getInstance()->getSpiderMode();
@@ -58,30 +58,30 @@ void SpiderOptionLayer::init(CCLayer* parent)
             break;
     }
     
-    CCMenuItem* btnDone = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_done_nor").c_str()),
-                                                   CCSprite::create(getNameWithResolution("btn_done_act").c_str()),
+    MenuItem* btnDone = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_done_nor").c_str()),
+                                                   Sprite::create(getNameWithResolution("btn_done_act").c_str()),
                                                    this, menu_selector(SpiderOptionLayer::onDone));
-    CCMenuItem* easyLabel = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_label").c_str()),
-                                                   CCSprite::create(getNameWithResolution("btn_check_label").c_str()),
+    MenuItem* easyLabel = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_label").c_str()),
+                                                   Sprite::create(getNameWithResolution("btn_check_label").c_str()),
                                                    this, menu_selector(SpiderOptionLayer::onSelEasyMode));
-    CCMenuItem* normalLabel = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_label").c_str()),
-                                                   CCSprite::create(getNameWithResolution("btn_check_label").c_str()),
+    MenuItem* normalLabel = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_label").c_str()),
+                                                   Sprite::create(getNameWithResolution("btn_check_label").c_str()),
                                                    this, menu_selector(SpiderOptionLayer::onSelNormalMode));
     
-    CCMenuItem* expertLabel = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_label").c_str()),
-                                                       CCSprite::create(getNameWithResolution("btn_check_label").c_str()),
+    MenuItem* expertLabel = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_label").c_str()),
+                                                       Sprite::create(getNameWithResolution("btn_check_label").c_str()),
                                                        this, menu_selector(SpiderOptionLayer::onSelExpertMode));
     
     
-    CCMenuItem* hardLabel = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_label").c_str()),
-                                                   CCSprite::create(getNameWithResolution("btn_check_label").c_str()),
+    MenuItem* hardLabel = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_label").c_str()),
+                                                   Sprite::create(getNameWithResolution("btn_check_label").c_str()),
                                                    this, menu_selector(SpiderOptionLayer::onSelHardMode));
     
-    _easyItem->setAnchorPoint(ccp(0.5f, 0.5f));
-    _normalItem->setAnchorPoint(ccp(0.5f, 0.5f));
-    _expertItem->setAnchorPoint(ccp(0.5f, 0.5f));
-    _hardItem->setAnchorPoint(ccp(0.5f, 0.5f));
-    btnDone->setAnchorPoint(ccp(0.5f, 0.0f));
+    _easyItem->setAnchorPoint(Vec2(0.5f, 0.5f));
+    _normalItem->setAnchorPoint(Vec2(0.5f, 0.5f));
+    _expertItem->setAnchorPoint(Vec2(0.5f, 0.5f));
+    _hardItem->setAnchorPoint(Vec2(0.5f, 0.5f));
+    btnDone->setAnchorPoint(Vec2(0.5f, 0.0f));
     
     _easyItem->setScale(getScaleWithDevice());
     _normalItem->setScale(getScaleWithDevice());
@@ -89,21 +89,21 @@ void SpiderOptionLayer::init(CCLayer* parent)
     _hardItem->setScale(getScaleWithDevice());
     btnDone->setScale(getScaleWithDevice());
     
-    _easyItem->setPosition(ccp(getSizeWithDevice(230.0f), getSizeWithDevice(100.0f)));
-    _normalItem->setPosition(ccp(getSizeWithDevice(230.0f), getSizeWithDevice(30.0f)));
+    _easyItem->setPosition(Vec2(getSizeWithDevice(230.0f), getSizeWithDevice(100.0f)));
+    _normalItem->setPosition(Vec2(getSizeWithDevice(230.0f), getSizeWithDevice(30.0f)));
     
-    _expertItem->setPosition(ccp(getSizeWithDevice(230.0f), -getSizeWithDevice(45.0f)));
-    _hardItem->setPosition(ccp(getSizeWithDevice(230.0f), -getSizeWithDevice(120.0f)));
+    _expertItem->setPosition(Vec2(getSizeWithDevice(230.0f), -getSizeWithDevice(45.0f)));
+    _hardItem->setPosition(Vec2(getSizeWithDevice(230.0f), -getSizeWithDevice(120.0f)));
     
-    easyLabel->setPosition(ccp(getSizeWithDevice(10.0f), getSizeWithDevice(100.0f)));
-    normalLabel->setPosition(ccp(getSizeWithDevice(10.0f), getSizeWithDevice(30.0f)));
+    easyLabel->setPosition(Vec2(getSizeWithDevice(10.0f), getSizeWithDevice(100.0f)));
+    normalLabel->setPosition(Vec2(getSizeWithDevice(10.0f), getSizeWithDevice(30.0f)));
     
-    expertLabel->setPosition(ccp(getSizeWithDevice(10.0f), -getSizeWithDevice(45.0f)));
-    hardLabel->setPosition(ccp(getSizeWithDevice(10.0f), -getSizeWithDevice(120.0f)));
+    expertLabel->setPosition(Vec2(getSizeWithDevice(10.0f), -getSizeWithDevice(45.0f)));
+    hardLabel->setPosition(Vec2(getSizeWithDevice(10.0f), -getSizeWithDevice(120.0f)));
     
-    btnDone->setPosition(ccp(getSizeWithDevice(0.0f),  -size.height/2.0f + getSizeWithDevice(27.0f)));
+    btnDone->setPosition(Vec2(getSizeWithDevice(0.0f),  -size.height/2.0f + getSizeWithDevice(27.0f)));
     
-    _menu = CCMenu::create();
+    _menu = Menu::create();
     _menu->addChild(easyLabel);
     _menu->addChild(normalLabel);
     
@@ -118,93 +118,93 @@ void SpiderOptionLayer::init(CCLayer* parent)
     
     _menu->addChild(btnDone);
     
-    _menu->setPosition(ccp(0.0f, 0.0f));
+    _menu->setPosition(Vec2(0.0f, 0.0f));
     addChild(_menu);
 }
 
 void SpiderOptionLayer::createMenuWithEasy()
 {
  
-    _easyItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_on").c_str()),
-                                         CCSprite::create(getNameWithResolution("btn_check_on").c_str()),
+    _easyItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_on").c_str()),
+                                         Sprite::create(getNameWithResolution("btn_check_on").c_str()),
                                          this, menu_selector(SpiderOptionLayer::onSelEasyMode));
-    _normalItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
-                                           CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
+    _normalItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_off").c_str()),
+                                           Sprite::create(getNameWithResolution("btn_check_off").c_str()),
                                            this, menu_selector(SpiderOptionLayer::onSelNormalMode));
     
-    _expertItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
-                                           CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
+    _expertItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_off").c_str()),
+                                           Sprite::create(getNameWithResolution("btn_check_off").c_str()),
                                            this, menu_selector(SpiderOptionLayer::onSelExpertMode));
     
-    _hardItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
-                                         CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
+    _hardItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_off").c_str()),
+                                         Sprite::create(getNameWithResolution("btn_check_off").c_str()),
                                          this, menu_selector(SpiderOptionLayer::onSelHardMode));
 }
 
 void SpiderOptionLayer::createMenuWithNormal()
 {
-    _easyItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
-                                         CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
+    _easyItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_off").c_str()),
+                                         Sprite::create(getNameWithResolution("btn_check_off").c_str()),
                                          this, menu_selector(SpiderOptionLayer::onSelEasyMode));
-    _normalItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_on").c_str()),
-                                           CCSprite::create(getNameWithResolution("btn_check_on").c_str()),
+    _normalItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_on").c_str()),
+                                           Sprite::create(getNameWithResolution("btn_check_on").c_str()),
                                            this, menu_selector(SpiderOptionLayer::onSelNormalMode));
     
-    _expertItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
-                                           CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
+    _expertItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_off").c_str()),
+                                           Sprite::create(getNameWithResolution("btn_check_off").c_str()),
                                            this, menu_selector(SpiderOptionLayer::onSelExpertMode));
-    _hardItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
-                                         CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
+    _hardItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_off").c_str()),
+                                         Sprite::create(getNameWithResolution("btn_check_off").c_str()),
                                          this, menu_selector(SpiderOptionLayer::onSelHardMode));
 }
 
 void SpiderOptionLayer::createMenuWithExpert()
 {
-    _easyItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
-                                         CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
+    _easyItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_off").c_str()),
+                                         Sprite::create(getNameWithResolution("btn_check_off").c_str()),
                                          this, menu_selector(SpiderOptionLayer::onSelEasyMode));
-    _normalItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
-                                           CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
+    _normalItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_off").c_str()),
+                                           Sprite::create(getNameWithResolution("btn_check_off").c_str()),
                                            this, menu_selector(SpiderOptionLayer::onSelNormalMode));
     
-    _expertItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_on").c_str()),
-                                           CCSprite::create(getNameWithResolution("btn_check_on").c_str()),
+    _expertItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_on").c_str()),
+                                           Sprite::create(getNameWithResolution("btn_check_on").c_str()),
                                            this, menu_selector(SpiderOptionLayer::onSelExpertMode));
-    _hardItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
-                                         CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
+    _hardItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_off").c_str()),
+                                         Sprite::create(getNameWithResolution("btn_check_off").c_str()),
                                          this, menu_selector(SpiderOptionLayer::onSelHardMode));
 }
 
 void SpiderOptionLayer::createMenuWithHard()
 {
-    _easyItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
-                                         CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
+    _easyItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_off").c_str()),
+                                         Sprite::create(getNameWithResolution("btn_check_off").c_str()),
                                          this, menu_selector(SpiderOptionLayer::onSelEasyMode));
-    _normalItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
-                                           CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
+    _normalItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_off").c_str()),
+                                           Sprite::create(getNameWithResolution("btn_check_off").c_str()),
                                            this, menu_selector(SpiderOptionLayer::onSelNormalMode));
     
-    _expertItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
-                                           CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
+    _expertItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_off").c_str()),
+                                           Sprite::create(getNameWithResolution("btn_check_off").c_str()),
                                            this, menu_selector(SpiderOptionLayer::onSelExpertMode));
-    _hardItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_on").c_str()),
-                                         CCSprite::create(getNameWithResolution("btn_check_on").c_str()),
+    _hardItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_on").c_str()),
+                                         Sprite::create(getNameWithResolution("btn_check_on").c_str()),
                                          this, menu_selector(SpiderOptionLayer::onSelHardMode));
 }
 
-void SpiderOptionLayer::onSelEasyMode(CCObject* sender)
+void SpiderOptionLayer::onSelEasyMode(Ref* sender)
 {
     GameData::getInstance()->setSpiderMode(SPIDER_MODE_EASY);
     
-    CCSprite* norSpriteEasy = (CCSprite*)((CCMenuItemSprite*)_easyItem)->getNormalImage();
-    CCSprite* selSpriteEasy = (CCSprite*)((CCMenuItemSprite*)_easyItem)->getSelectedImage();
-    CCSprite* norSpriteNormal = (CCSprite*)((CCMenuItemSprite*)_normalItem)->getNormalImage();
-    CCSprite* selSpriteNormal = (CCSprite*)((CCMenuItemSprite*)_normalItem)->getSelectedImage();
+    Sprite* norSpriteEasy = (Sprite*)((MenuItemSprite*)_easyItem)->getNormalImage();
+    Sprite* selSpriteEasy = (Sprite*)((MenuItemSprite*)_easyItem)->getSelectedImage();
+    Sprite* norSpriteNormal = (Sprite*)((MenuItemSprite*)_normalItem)->getNormalImage();
+    Sprite* selSpriteNormal = (Sprite*)((MenuItemSprite*)_normalItem)->getSelectedImage();
     
-    CCSprite* norSpriteExpert = (CCSprite*)((CCMenuItemSprite*)_expertItem)->getNormalImage();
-    CCSprite* selSpriteExpert = (CCSprite*)((CCMenuItemSprite*)_expertItem)->getSelectedImage();
-    CCSprite* norSpriteHard = (CCSprite*)((CCMenuItemSprite*)_hardItem)->getNormalImage();
-    CCSprite* selSpriteHard = (CCSprite*)((CCMenuItemSprite*)_hardItem)->getSelectedImage();
+    Sprite* norSpriteExpert = (Sprite*)((MenuItemSprite*)_expertItem)->getNormalImage();
+    Sprite* selSpriteExpert = (Sprite*)((MenuItemSprite*)_expertItem)->getSelectedImage();
+    Sprite* norSpriteHard = (Sprite*)((MenuItemSprite*)_hardItem)->getNormalImage();
+    Sprite* selSpriteHard = (Sprite*)((MenuItemSprite*)_hardItem)->getSelectedImage();
     
     norSpriteEasy->initWithFile(getNameWithResolution("btn_check_on").c_str());
     selSpriteEasy->initWithFile(getNameWithResolution("btn_check_on").c_str());
@@ -216,30 +216,30 @@ void SpiderOptionLayer::onSelEasyMode(CCObject* sender)
     norSpriteHard->initWithFile(getNameWithResolution("btn_check_off").c_str());
     selSpriteHard->initWithFile(getNameWithResolution("btn_check_off").c_str());
     
-    norSpriteEasy->setAnchorPoint(ccp(0.0f, 0.0f));
-    selSpriteEasy->setAnchorPoint(ccp(0.0f, 0.0f));
-    norSpriteNormal->setAnchorPoint(ccp(0.0f, 0.0f));
-    selSpriteNormal->setAnchorPoint(ccp(0.0f, 0.0f));
+    norSpriteEasy->setAnchorPoint(Vec2(0.0f, 0.0f));
+    selSpriteEasy->setAnchorPoint(Vec2(0.0f, 0.0f));
+    norSpriteNormal->setAnchorPoint(Vec2(0.0f, 0.0f));
+    selSpriteNormal->setAnchorPoint(Vec2(0.0f, 0.0f));
     
-    norSpriteExpert->setAnchorPoint(ccp(0.0f, 0.0f));
-    selSpriteExpert->setAnchorPoint(ccp(0.0f, 0.0f));
-    norSpriteHard->setAnchorPoint(ccp(0.0f, 0.0f));
-    selSpriteHard->setAnchorPoint(ccp(0.0f, 0.0f));
+    norSpriteExpert->setAnchorPoint(Vec2(0.0f, 0.0f));
+    selSpriteExpert->setAnchorPoint(Vec2(0.0f, 0.0f));
+    norSpriteHard->setAnchorPoint(Vec2(0.0f, 0.0f));
+    selSpriteHard->setAnchorPoint(Vec2(0.0f, 0.0f));
 }
 
-void SpiderOptionLayer::onSelNormalMode(CCObject* sender)
+void SpiderOptionLayer::onSelNormalMode(Ref* sender)
 {
     GameData::getInstance()->setSpiderMode(SPIDER_MODE_NORMAL);
     
-    CCSprite* norSpriteEasy = (CCSprite*)((CCMenuItemSprite*)_easyItem)->getNormalImage();
-    CCSprite* selSpriteEasy = (CCSprite*)((CCMenuItemSprite*)_easyItem)->getSelectedImage();
-    CCSprite* norSpriteNormal = (CCSprite*)((CCMenuItemSprite*)_normalItem)->getNormalImage();
-    CCSprite* selSpriteNormal = (CCSprite*)((CCMenuItemSprite*)_normalItem)->getSelectedImage();
+    Sprite* norSpriteEasy = (Sprite*)((MenuItemSprite*)_easyItem)->getNormalImage();
+    Sprite* selSpriteEasy = (Sprite*)((MenuItemSprite*)_easyItem)->getSelectedImage();
+    Sprite* norSpriteNormal = (Sprite*)((MenuItemSprite*)_normalItem)->getNormalImage();
+    Sprite* selSpriteNormal = (Sprite*)((MenuItemSprite*)_normalItem)->getSelectedImage();
     
-    CCSprite* norSpriteExpert = (CCSprite*)((CCMenuItemSprite*)_expertItem)->getNormalImage();
-    CCSprite* selSpriteExpert = (CCSprite*)((CCMenuItemSprite*)_expertItem)->getSelectedImage();
-    CCSprite* norSpriteHard = (CCSprite*)((CCMenuItemSprite*)_hardItem)->getNormalImage();
-    CCSprite* selSpriteHard = (CCSprite*)((CCMenuItemSprite*)_hardItem)->getSelectedImage();
+    Sprite* norSpriteExpert = (Sprite*)((MenuItemSprite*)_expertItem)->getNormalImage();
+    Sprite* selSpriteExpert = (Sprite*)((MenuItemSprite*)_expertItem)->getSelectedImage();
+    Sprite* norSpriteHard = (Sprite*)((MenuItemSprite*)_hardItem)->getNormalImage();
+    Sprite* selSpriteHard = (Sprite*)((MenuItemSprite*)_hardItem)->getSelectedImage();
     
     norSpriteEasy->initWithFile(getNameWithResolution("btn_check_off").c_str());
     selSpriteEasy->initWithFile(getNameWithResolution("btn_check_off").c_str());
@@ -251,30 +251,30 @@ void SpiderOptionLayer::onSelNormalMode(CCObject* sender)
     norSpriteHard->initWithFile(getNameWithResolution("btn_check_off").c_str());
     selSpriteHard->initWithFile(getNameWithResolution("btn_check_off").c_str());
     
-    norSpriteEasy->setAnchorPoint(ccp(0.0f, 0.0f));
-    selSpriteEasy->setAnchorPoint(ccp(0.0f, 0.0f));
-    norSpriteNormal->setAnchorPoint(ccp(0.0f, 0.0f));
-    selSpriteNormal->setAnchorPoint(ccp(0.0f, 0.0f));
+    norSpriteEasy->setAnchorPoint(Vec2(0.0f, 0.0f));
+    selSpriteEasy->setAnchorPoint(Vec2(0.0f, 0.0f));
+    norSpriteNormal->setAnchorPoint(Vec2(0.0f, 0.0f));
+    selSpriteNormal->setAnchorPoint(Vec2(0.0f, 0.0f));
     
-    norSpriteExpert->setAnchorPoint(ccp(0.0f, 0.0f));
-    selSpriteExpert->setAnchorPoint(ccp(0.0f, 0.0f));
-    norSpriteHard->setAnchorPoint(ccp(0.0f, 0.0f));
-    selSpriteHard->setAnchorPoint(ccp(0.0f, 0.0f));
+    norSpriteExpert->setAnchorPoint(Vec2(0.0f, 0.0f));
+    selSpriteExpert->setAnchorPoint(Vec2(0.0f, 0.0f));
+    norSpriteHard->setAnchorPoint(Vec2(0.0f, 0.0f));
+    selSpriteHard->setAnchorPoint(Vec2(0.0f, 0.0f));
 }
 
-void SpiderOptionLayer::onSelExpertMode(CCObject* sender)
+void SpiderOptionLayer::onSelExpertMode(Ref* sender)
 {
     GameData::getInstance()->setSpiderMode(SPIDER_MODE_EXPERT);
     
-    CCSprite* norSpriteEasy = (CCSprite*)((CCMenuItemSprite*)_easyItem)->getNormalImage();
-    CCSprite* selSpriteEasy = (CCSprite*)((CCMenuItemSprite*)_easyItem)->getSelectedImage();
-    CCSprite* norSpriteNormal = (CCSprite*)((CCMenuItemSprite*)_normalItem)->getNormalImage();
-    CCSprite* selSpriteNormal = (CCSprite*)((CCMenuItemSprite*)_normalItem)->getSelectedImage();
+    Sprite* norSpriteEasy = (Sprite*)((MenuItemSprite*)_easyItem)->getNormalImage();
+    Sprite* selSpriteEasy = (Sprite*)((MenuItemSprite*)_easyItem)->getSelectedImage();
+    Sprite* norSpriteNormal = (Sprite*)((MenuItemSprite*)_normalItem)->getNormalImage();
+    Sprite* selSpriteNormal = (Sprite*)((MenuItemSprite*)_normalItem)->getSelectedImage();
     
-    CCSprite* norSpriteExpert = (CCSprite*)((CCMenuItemSprite*)_expertItem)->getNormalImage();
-    CCSprite* selSpriteExpert = (CCSprite*)((CCMenuItemSprite*)_expertItem)->getSelectedImage();
-    CCSprite* norSpriteHard = (CCSprite*)((CCMenuItemSprite*)_hardItem)->getNormalImage();
-    CCSprite* selSpriteHard = (CCSprite*)((CCMenuItemSprite*)_hardItem)->getSelectedImage();
+    Sprite* norSpriteExpert = (Sprite*)((MenuItemSprite*)_expertItem)->getNormalImage();
+    Sprite* selSpriteExpert = (Sprite*)((MenuItemSprite*)_expertItem)->getSelectedImage();
+    Sprite* norSpriteHard = (Sprite*)((MenuItemSprite*)_hardItem)->getNormalImage();
+    Sprite* selSpriteHard = (Sprite*)((MenuItemSprite*)_hardItem)->getSelectedImage();
     
     norSpriteEasy->initWithFile(getNameWithResolution("btn_check_off").c_str());
     selSpriteEasy->initWithFile(getNameWithResolution("btn_check_off").c_str());
@@ -286,30 +286,30 @@ void SpiderOptionLayer::onSelExpertMode(CCObject* sender)
     norSpriteHard->initWithFile(getNameWithResolution("btn_check_off").c_str());
     selSpriteHard->initWithFile(getNameWithResolution("btn_check_off").c_str());
     
-    norSpriteEasy->setAnchorPoint(ccp(0.0f, 0.0f));
-    selSpriteEasy->setAnchorPoint(ccp(0.0f, 0.0f));
-    norSpriteNormal->setAnchorPoint(ccp(0.0f, 0.0f));
-    selSpriteNormal->setAnchorPoint(ccp(0.0f, 0.0f));
+    norSpriteEasy->setAnchorPoint(Vec2(0.0f, 0.0f));
+    selSpriteEasy->setAnchorPoint(Vec2(0.0f, 0.0f));
+    norSpriteNormal->setAnchorPoint(Vec2(0.0f, 0.0f));
+    selSpriteNormal->setAnchorPoint(Vec2(0.0f, 0.0f));
     
-    norSpriteExpert->setAnchorPoint(ccp(0.0f, 0.0f));
-    selSpriteExpert->setAnchorPoint(ccp(0.0f, 0.0f));
-    norSpriteHard->setAnchorPoint(ccp(0.0f, 0.0f));
-    selSpriteHard->setAnchorPoint(ccp(0.0f, 0.0f));
+    norSpriteExpert->setAnchorPoint(Vec2(0.0f, 0.0f));
+    selSpriteExpert->setAnchorPoint(Vec2(0.0f, 0.0f));
+    norSpriteHard->setAnchorPoint(Vec2(0.0f, 0.0f));
+    selSpriteHard->setAnchorPoint(Vec2(0.0f, 0.0f));
 }
 
-void SpiderOptionLayer::onSelHardMode(CCObject* sender)
+void SpiderOptionLayer::onSelHardMode(Ref* sender)
 {
     GameData::getInstance()->setSpiderMode(SPIDER_MODE_HARD);
     
-    CCSprite* norSpriteEasy = (CCSprite*)((CCMenuItemSprite*)_easyItem)->getNormalImage();
-    CCSprite* selSpriteEasy = (CCSprite*)((CCMenuItemSprite*)_easyItem)->getSelectedImage();
-    CCSprite* norSpriteNormal = (CCSprite*)((CCMenuItemSprite*)_normalItem)->getNormalImage();
-    CCSprite* selSpriteNormal = (CCSprite*)((CCMenuItemSprite*)_normalItem)->getSelectedImage();
+    Sprite* norSpriteEasy = (Sprite*)((MenuItemSprite*)_easyItem)->getNormalImage();
+    Sprite* selSpriteEasy = (Sprite*)((MenuItemSprite*)_easyItem)->getSelectedImage();
+    Sprite* norSpriteNormal = (Sprite*)((MenuItemSprite*)_normalItem)->getNormalImage();
+    Sprite* selSpriteNormal = (Sprite*)((MenuItemSprite*)_normalItem)->getSelectedImage();
     
-    CCSprite* norSpriteExpert = (CCSprite*)((CCMenuItemSprite*)_expertItem)->getNormalImage();
-    CCSprite* selSpriteExpert = (CCSprite*)((CCMenuItemSprite*)_expertItem)->getSelectedImage();
-    CCSprite* norSpriteHard = (CCSprite*)((CCMenuItemSprite*)_hardItem)->getNormalImage();
-    CCSprite* selSpriteHard = (CCSprite*)((CCMenuItemSprite*)_hardItem)->getSelectedImage();
+    Sprite* norSpriteExpert = (Sprite*)((MenuItemSprite*)_expertItem)->getNormalImage();
+    Sprite* selSpriteExpert = (Sprite*)((MenuItemSprite*)_expertItem)->getSelectedImage();
+    Sprite* norSpriteHard = (Sprite*)((MenuItemSprite*)_hardItem)->getNormalImage();
+    Sprite* selSpriteHard = (Sprite*)((MenuItemSprite*)_hardItem)->getSelectedImage();
     
     norSpriteEasy->initWithFile(getNameWithResolution("btn_check_off").c_str());
     selSpriteEasy->initWithFile(getNameWithResolution("btn_check_off").c_str());
@@ -321,18 +321,18 @@ void SpiderOptionLayer::onSelHardMode(CCObject* sender)
     norSpriteHard->initWithFile(getNameWithResolution("btn_check_on").c_str());
     selSpriteHard->initWithFile(getNameWithResolution("btn_check_on").c_str());
     
-    norSpriteEasy->setAnchorPoint(ccp(0.0f, 0.0f));
-    selSpriteEasy->setAnchorPoint(ccp(0.0f, 0.0f));
-    norSpriteNormal->setAnchorPoint(ccp(0.0f, 0.0f));
-    selSpriteNormal->setAnchorPoint(ccp(0.0f, 0.0f));
+    norSpriteEasy->setAnchorPoint(Vec2(0.0f, 0.0f));
+    selSpriteEasy->setAnchorPoint(Vec2(0.0f, 0.0f));
+    norSpriteNormal->setAnchorPoint(Vec2(0.0f, 0.0f));
+    selSpriteNormal->setAnchorPoint(Vec2(0.0f, 0.0f));
     
-    norSpriteExpert->setAnchorPoint(ccp(0.0f, 0.0f));
-    selSpriteExpert->setAnchorPoint(ccp(0.0f, 0.0f));
-    norSpriteHard->setAnchorPoint(ccp(0.0f, 0.0f));
-    selSpriteHard->setAnchorPoint(ccp(0.0f, 0.0f));
+    norSpriteExpert->setAnchorPoint(Vec2(0.0f, 0.0f));
+    selSpriteExpert->setAnchorPoint(Vec2(0.0f, 0.0f));
+    norSpriteHard->setAnchorPoint(Vec2(0.0f, 0.0f));
+    selSpriteHard->setAnchorPoint(Vec2(0.0f, 0.0f));
 }
 
-void SpiderOptionLayer::onDone(CCObject* sender)
+void SpiderOptionLayer::onDone(Ref* sender)
 {
     GameData::getInstance()->playSoundEffect();
     

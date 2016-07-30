@@ -58,7 +58,7 @@ bool MenuLayer::init()
     MenuItem* dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
                                              Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
                                              this, menu_selector(MenuLayer::onDummy));
-    dummy->setScale(0.01);
+    dummy->setScale(0.001);
     
     btnSolitaire->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnForty->setAnchorPoint(Vec2(0.5f, 0.5f));

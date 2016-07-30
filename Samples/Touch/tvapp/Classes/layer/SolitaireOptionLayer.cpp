@@ -20,13 +20,13 @@ cocos2d::Scene* SolitaireOptionLayer::scene()
 
 bool SolitaireOptionLayer::init()
 {
-    if(!CCLayer::init())
+    if(!Layer::init())
         return false;
     
     return true;
 }
 
-void SolitaireOptionLayer::init(CCLayer* parent)
+void SolitaireOptionLayer::init(Layer* parent)
 {
     _parentLayer = parent;
     
@@ -49,8 +49,8 @@ void SolitaireOptionLayer::init(CCLayer* parent)
     
     }
     else{
-        _drawthreeItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
-                                                  CCSprite::create(getNameWithResolution("btn_check_off").c_str()),
+        _drawthreeItem = CCMenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_off").c_str()),
+                                                  Sprite::create(getNameWithResolution("btn_check_off").c_str()),
                                                   this, menu_selector(SolitaireOptionLayer::onSelDrawThree));
     }
     
@@ -58,8 +58,8 @@ void SolitaireOptionLayer::init(CCLayer* parent)
                                            Sprite::create(getNameWithResolution("btn_check_label").c_str()),
                                            this, menu_selector(SolitaireOptionLayer::onSelVegasStyle));
     if(GameData::getInstance()->isVegasMode())
-        _vegasItem = CCMenuItemSprite::create(CCSprite::create(getNameWithResolution("btn_check_on").c_str()),
-                                              CCSprite::create(getNameWithResolution("btn_check_on").c_str()),
+        _vegasItem = CCMenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_on").c_str()),
+                                              Sprite::create(getNameWithResolution("btn_check_on").c_str()),
                                               this, menu_selector(SolitaireOptionLayer::onSelVegasStyle));
     else{
         _vegasItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_off").c_str()),
@@ -76,7 +76,6 @@ void SolitaireOptionLayer::init(CCLayer* parent)
                                                Sprite::create(getNameWithResolution("btn_done_act").c_str()),
                                                this, menu_selector(SolitaireOptionLayer::onDummy));
     dummy->setScale(0.01);
-    dummy->setPosition(Vec2(0, 0));
     
     _drawthreeItem->setAnchorPoint(Vec2(0.5f, 0.5f));
     _vegasItem->setAnchorPoint(Vec2(0.5f, 0.5f));
@@ -103,30 +102,6 @@ void SolitaireOptionLayer::init(CCLayer* parent)
     
     _menu->setPosition(Vec2(0.0f, 0.0f));
     addChild(_menu);
-    
-    //added715
-#if defined(CC_TARGET_OS_IPHONE) || defined(CC_TARGET_OS_APPLETV)
-    Controller::startDiscoveryController();
-#endif
-    
-    auto listener = EventListenerTouchOneByOne::create();
-    listener->setSwallowTouches(true);
-    
-    listener->onTouchBegan = CC_CALLBACK_2(SolitaireOptionLayer::handleTouchBegan, this);
-    
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-    _touchListener = listener;
-    
-    scheduleUpdate();
-}
-
-bool SolitaireOptionLayer::handleTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
-{
-    Vec2 location = convertToNodeSpace(touch->getLocation());
-    
-    log("touch begin: %f, %f", location.x, location.y);
-    
-    return true;
 }
 
 void SolitaireOptionLayer::onSelDrawThree(Ref* sender)

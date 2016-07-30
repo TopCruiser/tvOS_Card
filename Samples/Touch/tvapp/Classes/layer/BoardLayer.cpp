@@ -92,17 +92,16 @@ void BoardLayer::init(Layer* parent)
     _startedGameFlag = false;
     _actuallyCardMoved = false;
     bTouchBegan = false;
+    lastMovedPoint = Vec2(0, 0);
     
     cards = new __Array; cards->init();
     playCells = new __Array; playCells->init();
     freeCells = new __Array; freeCells->init();
     goalCells = new __Array; goalCells->init();
     moves = new __Array; moves->init();
-    //replayCards = new __Array;
     
     _dealer = NULL;
     _dealTo = NULL;
-    //_dealFrom = NULL;
     _draggingCard = NULL;
     
     _isSetting=false;
@@ -228,7 +227,8 @@ void BoardLayer::replayGame()
     
     setTouchEnabled(false);
     startNewGame();
-
+    
+    ((GameLayer*)_parentLayer)->_taskbarLayer->setLocalZOrder(0);
 }
 void BoardLayer::startNewGame()
 {
@@ -313,11 +313,8 @@ void BoardLayer::startNewGame()
         createFreeCells();
     createGoalCells();
     createDealer();
-    
-//    if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
-//        updateLayoutWithPortrait();
-//    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)//comment715
-        updateLayoutWithLandscape();
+
+    updateLayoutWithLandscape();
     
     GameData::getInstance()->setDoingAction(true);
     
@@ -336,6 +333,7 @@ void BoardLayer::startNewGame()
         _currentSpiderMode = GameData::getInstance()->getSpiderMode();
     }
     
+    _parentLayer->setTag(101);
 }
 
 std::string BoardLayer::getGameString()
@@ -555,6 +553,8 @@ void BoardLayer::initLayout()
         _timeLabel->setString("TIME:00:00");
     }
     
+    if(dummy) removeChild(dummy);
+    
     dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
                                              Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
                                              this, menu_selector(BoardLayer::onDummy));
@@ -565,33 +565,6 @@ void BoardLayer::initLayout()
 void BoardLayer::onDummy(Ref* sender)
 {
     
-}
-void BoardLayer::updateLayoutWithPortrait()
-{
-    Size winSize = Director::getInstance()->getWinSize();
-    
-    _scoreLabel->setAnchorPoint(Vec2(0.0f, 1.0f));
-    _scoreLabel->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(270.0f), winSize.height - getSizeWithDevice(30.0f)));
-    
-    _moveLabel->setAnchorPoint(Vec2(0.0f, 1.0f));
-    _moveLabel->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(75.0f), winSize.height - getSizeWithDevice(30.0f)));
-    
-    _timeLabel->setAnchorPoint(Vec2(0.0f, 1.0f));
-    _timeLabel->setPosition(Vec2(winSize.width/2.0f + getSizeWithDevice(120.0f), winSize.height - getSizeWithDevice(30.0f)));
-    
-    updateCardSizeWithPortrait();
-    updatePlayCellsWithPortrait();
-    updateFreeCellsWithPortrait();
-    updateGoalCellsWithPortrait();
-    updateDealerWithPortrait();
-    
-    if(_startedGameFlag) schedule(CC_SCHEDULE_SELECTOR(BoardLayer::setTime), 1.0f);
-    
-    if(_congratulationLayer != NULL)
-    {
-        _congratulationLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
-        _congratulationLayer->setVisible(true);
-    }
 }
 
 void BoardLayer::updateLayoutWithLandscape()
@@ -620,34 +593,6 @@ void BoardLayer::updateLayoutWithLandscape()
         _congratulationLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
         _congratulationLayer->setVisible(true);
     }
-}
-
-void BoardLayer::updateCardSizeWithPortrait()
-{
-    Size winSize = Director::getInstance()->getWinSize();
-    
-    switch (GameData::getInstance()->getGameType()) {
-        case TYPE_SOLITAIRE:
-            _cardwidth = (winSize.width - getSizeWithDevice(SOLITAIRE_MARGIN_PORT) * 2
-                          - getSizeWithDevice(SOLITAIRE_PADDING_PORT) * (_stacks - 1)) / _stacks;
-            break;
-        case TYPE_FREECELL:
-            _cardwidth = (winSize.width - getSizeWithDevice(FREECELL_MARGIN_PORT) * 2
-                          - getSizeWithDevice(FREECELL_PADDING_PORT) * (_stacks - 1)) / _stacks;
-            break;
-        case TYPE_FORTY_THIEVES:
-            _cardwidth = (winSize.width - getSizeWithDevice(FORTY_MARGIN_PORT) * 2
-                          - getSizeWithDevice(FORTY_PADDING_PORT) * (_stacks - 1)) / _stacks;
-            break;
-        case TYPE_SPIDER:
-            _cardwidth = (winSize.width - getSizeWithDevice(SPIDER_MARGIN_PORT) * 2
-                          - getSizeWithDevice(SPIDER_PADDING_PORT) * (_stacks-1)) / _stacks;
-            break;
-        default:
-            return;
-    }
-    
-    _cardheight = _cardwidth * 120.0f / 85.0f;
 }
 
 void BoardLayer::updateCardSizeWithLandscape()
@@ -699,63 +644,6 @@ void BoardLayer::createPlayCells()
     }
 }
 
-void BoardLayer::updatePlayCellsWithPortrait()
-{
-    Size winSize = Director::getInstance()->getWinSize();
-    
-    float startPositionX = 0.0f;
-    float startPositionY = 0.0f;
-    
-    switch(GameData::getInstance()->getGameType())
-    {
-        case TYPE_SOLITAIRE:
-            startPositionX = getSizeWithDevice(SOLITAIRE_MARGIN_PORT) + _cardwidth * 0.5f;
-            startPositionY = winSize.height - getSizeWithDevice(SOLITAIRE_MARGIN_PORT) * 2
-                             - getSizeWithDevice(LABEL_HEIGHT) - _cardheight * 1.5f;
-            break;
-        case TYPE_FREECELL:
-            startPositionX = getSizeWithDevice(FREECELL_MARGIN_PORT) + _cardwidth * 0.5f;
-            startPositionY = winSize.height - getSizeWithDevice(FREECELL_MARGIN_PORT) * 2
-                             - getSizeWithDevice(LABEL_HEIGHT) - _cardheight * 1.5f;
-            break;
-        case TYPE_FORTY_THIEVES:
-            startPositionX = getSizeWithDevice(SOLITAIRE_MARGIN_PORT) + _cardwidth * 0.5f;
-            startPositionY = winSize.height - getSizeWithDevice(SOLITAIRE_MARGIN_PORT) * 2
-                             - getSizeWithDevice(LABEL_HEIGHT) - _cardheight * 1.5f;
-            break;
-        case TYPE_SPIDER:
-            startPositionX = getSizeWithDevice(SPIDER_MARGIN_PORT) + _cardwidth * 0.5f;
-            startPositionY = winSize.height - getSizeWithDevice(SPIDER_MARGIN_PORT) * 2
-                             - getSizeWithDevice(LABEL_HEIGHT) - _cardheight * 1.5f;
-            break;
-    }
-    
-    for(int i = 0; i < playCells->count(); i++)
-    {
-        Deck* deck = (Deck*) playCells->getObjectAtIndex(i);
-        deck->updateSprite(startPositionX, startPositionY, _cardwidth);
-        deck->updateCardSprites(startPositionX, startPositionY, _cardwidth);
-        deck->updateCardsWithoutAnimation();
-        
-        switch (GameData::getInstance()->getGameType())
-        {
-            case TYPE_SOLITAIRE:
-                startPositionX += (_cardwidth + getSizeWithDevice(SOLITAIRE_PADDING_PORT));
-                break;
-            case TYPE_FREECELL:
-                startPositionX += (_cardwidth + getSizeWithDevice(FREECELL_PADDING_PORT));
-                break;
-            case TYPE_FORTY_THIEVES:
-                startPositionX += (_cardwidth + getSizeWithDevice(SOLITAIRE_PADDING_PORT));
-                break;
-            case TYPE_SPIDER:
-                startPositionX += (_cardwidth + getSizeWithDevice(SPIDER_PADDING_PORT));
-                break;
-            default:
-                break;
-        }
-    }
-}
 
 void BoardLayer::updatePlayCellsWithLandscape()
 {
@@ -832,26 +720,6 @@ void BoardLayer::createFreeCells()
     }
 }
 
-void BoardLayer::updateFreeCellsWithPortrait()
-{
-    Size winSize = Director::getInstance()->getWinSize();
-    
-    if(GameData::getInstance()->getGameType() == TYPE_FREECELL)
-    {
-        float startPositionX = getSizeWithDevice(FREECELL_MARGIN_PORT) + _cardwidth * 0.5f;
-        float startPositionY = winSize.height - getSizeWithDevice(FREECELL_MARGIN_PORT)
-                               - getSizeWithDevice(LABEL_HEIGHT) - _cardheight * 0.5f;
-        
-        for(int i = 0; i < freeCells->count(); i++)
-        {
-            Deck* deck = (Deck*) freeCells->getObjectAtIndex(i);
-            deck->updateSprite(startPositionX, startPositionY, _cardwidth);
-            deck->updateCardSprites(startPositionX, startPositionY, _cardwidth);//insert by KHJ 03/19/2015
-            startPositionX += (_cardwidth + getSizeWithDevice(FREECELL_PADDING_PORT));
-        }
-    }
-}
-
 void BoardLayer::updateFreeCellsWithLandscape()
 {
     Size winSize = Director::getInstance()->getWinSize();
@@ -895,72 +763,6 @@ void BoardLayer::createGoalCells()
         deck->setIndex(i);
         addChild(deck);
         goalCells->addObject(deck);
-    }
-}
-
-void BoardLayer::updateGoalCellsWithPortrait()
-{
-    Size winSize = Director::getInstance()->getWinSize();
-    
-    float startPositionX = 0.0f;
-    float startPositionY = 0.0f;
-    
-    switch(GameData::getInstance()->getGameType())
-    {
-        case TYPE_SOLITAIRE:
-            startPositionX = winSize.width - getSizeWithDevice(SOLITAIRE_MARGIN_PORT) - _cardwidth * 0.5f;
-            if(GameData::getInstance()->isRightHanded())
-                startPositionX = winSize.width-startPositionX;
-            
-            startPositionY = winSize.height - getSizeWithDevice(SOLITAIRE_MARGIN_PORT + LABEL_HEIGHT) - _cardheight * 0.5f;
-            break;
-        case TYPE_FREECELL:
-            startPositionX = winSize.width - getSizeWithDevice(FREECELL_MARGIN_PORT) - _cardwidth * 0.5f;
-            startPositionY = winSize.height - getSizeWithDevice(FREECELL_MARGIN_PORT + LABEL_HEIGHT) - _cardheight * 0.5f;
-            break;
-        case TYPE_FORTY_THIEVES:
-            startPositionX = winSize.width - getSizeWithDevice(FORTY_MARGIN_PORT) - _cardwidth * 0.5f;
-            if(GameData::getInstance()->isRightHanded())
-                startPositionX=winSize.width-startPositionX;
-            startPositionY = winSize.height - getSizeWithDevice(FORTY_MARGIN_PORT + LABEL_HEIGHT) - _cardheight * 0.5f;
-            break;
-        case TYPE_SPIDER:
-            startPositionX = winSize.width - getSizeWithDevice(SPIDER_MARGIN_PORT) - _cardwidth * 0.5f;
-            startPositionY = winSize.height - getSizeWithDevice(SPIDER_MARGIN_PORT + LABEL_HEIGHT) - _cardheight * 0.5f;
-            if(GameData::getInstance()->isRightHanded())
-                startPositionX = winSize.width-startPositionX;
-            break;
-    }
-    
-    for(int i = 0; i < goalCells->count(); i++)
-    {
-        Deck* deck = (Deck*) goalCells->getObjectAtIndex(i);
-        deck->updateSprite(startPositionX, startPositionY, _cardwidth);
-        if(!_hasWon) deck->updateCardSprites(startPositionX, startPositionY, _cardwidth);//insert by KHJ 03/19/2015
-        switch (GameData::getInstance()->getGameType())
-        {
-            case TYPE_SOLITAIRE:
-                if(GameData::getInstance()->isRightHanded())
-                    startPositionX+=(_cardwidth+getSizeWithDevice(SOLITAIRE_PADDING_PORT));
-                else startPositionX -= (_cardwidth + getSizeWithDevice(SOLITAIRE_PADDING_PORT));
-                break;
-            case TYPE_FREECELL:
-                startPositionX -= (_cardwidth + getSizeWithDevice(FREECELL_PADDING_PORT));
-                break;
-            case TYPE_FORTY_THIEVES:
-                if(GameData::getInstance()->isRightHanded())
-                    startPositionX+=(_cardwidth+getSizeWithDevice(FORTY_PADDING_PORT));
-                else startPositionX -= (_cardwidth + getSizeWithDevice(FORTY_PADDING_PORT));
-                break;
-            case TYPE_SPIDER:
-                if(GameData::getInstance()->isRightHanded())
-                    startPositionX+=(_cardwidth+getSizeWithDevice(SPIDER_PADDING_PORT));
-                else startPositionX -= (_cardwidth + getSizeWithDevice(SPIDER_PADDING_PORT));
-                break;
-            default:
-                break;
-        }
-        
     }
 }
 
@@ -1304,75 +1106,6 @@ void BoardLayer::showTaskbar()
     
 }
 
-void BoardLayer::updateDealerWithPortrait()
-{
-    Size winSize = Director::getInstance()->getWinSize();
-    
-    float startPositionX = 0.0f;
-    float startPositionY = 0.0f;
-    float dealToPosX = 0.0f;
-    float dealToPosY = 0.0f;
-    
-    switch (GameData::getInstance()->getGameType()) {
-        case TYPE_SOLITAIRE:
-            startPositionX = getSizeWithDevice(SOLITAIRE_MARGIN_PORT) + _cardwidth * 0.5f;
-            startPositionY = winSize.height - getSizeWithDevice(SOLITAIRE_MARGIN_PORT + LABEL_HEIGHT) - _cardheight * 0.5f;
-            
-            dealToPosX = startPositionX + getSizeWithDevice(SOLITAIRE_PADDING_PORT) + _cardwidth;
-            dealToPosY = startPositionY;
-            
-            if(GameData::getInstance()->isRightHanded()){
-                startPositionX=winSize.width-startPositionX;
-                dealToPosX=winSize.width-dealToPosX;//draw3, draw1
-            }
-            
-            _dealTo->updateSprite(dealToPosX, dealToPosY, _cardwidth);
-            _dealTo->updateCardSprites(dealToPosX, dealToPosY, _cardwidth); //inserted by KHJ 03/19/2015
-            _dealTo->showSprite(false);
-            
-            if(GameData::getInstance()->isRightHanded()){
-                _dealTo->updateCardSprites(dealToPosX, dealToPosY, _cardwidth);
-            }else{
-                _dealTo->updateCardSprites(dealToPosX, dealToPosY, _cardwidth);
-            }
-            break;
-            
-        case TYPE_FREECELL:
-            startPositionX = winSize.width / 2.0f;
-            startPositionY = winSize.height / 4.0f;
-            _dealer->showSprite(false);
-            break;
-            
-        case TYPE_FORTY_THIEVES:
-            startPositionX = getSizeWithDevice(FORTY_MARGIN_PORT) + _cardwidth * 0.5f;
-            startPositionY = winSize.height - getSizeWithDevice(FORTY_MARGIN_PORT + LABEL_HEIGHT) - _cardheight * 0.5f;
-            dealToPosX = startPositionX + getSizeWithDevice(FORTY_PADDING_PORT) + _cardwidth;
-            dealToPosY = startPositionY;
-            
-            if(GameData::getInstance()->isRightHanded()){
-                startPositionX=winSize.width-startPositionX;
-                dealToPosX=winSize.width-dealToPosX;
-            }
-            _dealTo->updateSprite(dealToPosX, dealToPosY, _cardwidth);
-            _dealTo->updateCardSprites(dealToPosX, dealToPosY, _cardwidth);//inserted by KHJ 03/19/2015
-            _dealTo->showSprite(false);
-            
-            break;
-            
-        case TYPE_SPIDER:
-            startPositionX = getSizeWithDevice(SPIDER_MARGIN_PORT) + _cardwidth * 0.5f;
-            if(GameData::getInstance()->isRightHanded()) startPositionX=winSize.width-startPositionX;
-            
-            startPositionY = winSize.height - getSizeWithDevice(SPIDER_MARGIN_PORT + LABEL_HEIGHT) - _cardheight * 0.5f;
-            break;
-        default:
-            return;
-    }
-    
-    _dealer->updateSprite(startPositionX, startPositionY, _cardwidth);
-    _dealer->updateCardSprites(startPositionX, startPositionY, _cardwidth);
-}
-
 void BoardLayer::updateDealerWithLandscape()
 {
     Size winSize = Director::getInstance()->getWinSize();
@@ -1535,15 +1268,13 @@ bool BoardLayer::pressesBegan()
     
     bTouchBegan = !bTouchBegan;
     
-    log("touch begin: %f, %f", lastMovedPoint.x, lastMovedPoint.y);
-    
     _draggingCard = getSelectedCard(lastMovedPoint);
     if(_draggingCard == NULL)
     {
         int width = ((GameLayer*)_parentLayer)->_taskbarLayer->getContentSize().width;
         int height = ((GameLayer*)_parentLayer)->_taskbarLayer->getContentSize().height;
         cocos2d::Rect taskbarRect = cocos2d::Rect(0, 0, width, height);
-        if(taskbarRect.containsPoint(lastMovedPoint))
+        if(taskbarRect.containsPoint(lastMovedPoint) && ((GameLayer*)_parentLayer)->_isShowTaskbar)
         {
             ((GameLayer*)_parentLayer)->_taskbarLayer->pressesBegan(lastMovedPoint);
         }
@@ -2756,8 +2487,7 @@ void BoardLayer::doWinAnimation(float dt)
         Sequence *_sequence  =  Sequence::create( _easein, NULL ,NULL);
         
         _congratulationLayer->runAction(_sequence);
-        
-        //GameData::getInstance()->setDoingAction(false);
+
     }
     else
     {
@@ -2977,19 +2707,11 @@ void BoardLayer:: setTime(float dt)
 }
 
 void BoardLayer::updateRightHanded(){
-//    if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
-//    {
-//        updateDealerWithPortrait();
-//        updateGoalCellsWithPortrait();
-//        updatePlayCellsWithPortrait();
-//        updateFreeCellsWithPortrait();
-//    }
-//    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT){
-        updateDealerWithLandscape();
-        updateGoalCellsWithLandscape();
-        updatePlayCellsWithLandscape();
-        updateFreeCellsWithLandscape();
-    //}//comment715
+
+    updateDealerWithLandscape();
+    updateGoalCellsWithLandscape();
+    updatePlayCellsWithLandscape();
+    updateFreeCellsWithLandscape();
     
 }
 

@@ -23,6 +23,7 @@ public:
 private:
     void onYES(Ref* sender);
     void onNO(Ref* sender);
+    void onDummy(Ref* sender);
     void didAction();
     
 private:

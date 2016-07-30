@@ -56,7 +56,6 @@ public:
     void showHelpLayer();
     void hideHelpLayer();
     
-    void updateLayoutWithPortrait();
     void updateLayoutWithLandscape();
     SettingLayer* getSettingLayer();
     void setBackground(int backgroundIndex);
@@ -70,7 +69,6 @@ public:
 private:    
     
     void doneSettingAnimation();
-    void onDummy(Ref* sender);
     
 public:
     Sprite* _background = NULL;

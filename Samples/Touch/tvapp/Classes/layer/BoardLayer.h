@@ -43,8 +43,7 @@ public:
     
     void startNewGame();
     void replayGame();
-    
-    void updateLayoutWithPortrait();
+
     void updateLayoutWithLandscape();
     void updateRightHanded();
     
@@ -80,16 +79,11 @@ private:
     void showLastCards();
     void flipLastCards(float dt);
     void showTaskbar();
-    
-    void updateCardSizeWithPortrait();
+
     void updateCardSizeWithLandscape();
-    void updatePlayCellsWithPortrait();
     void updatePlayCellsWithLandscape();
-    void updateFreeCellsWithPortrait();
     void updateFreeCellsWithLandscape();
-    void updateGoalCellsWithPortrait();
     void updateGoalCellsWithLandscape();
-    void updateDealerWithPortrait();
     void updateDealerWithLandscape();
     
     void calculateDragableCards();

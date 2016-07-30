@@ -25,7 +25,6 @@ public:
     virtual bool init();
     virtual void init(Layer* parent);
     
-    void updateLayoutWithPortrait();
     void updateLayoutWithLandscape();
     
     void menuCloseCallback(Ref* pSender);

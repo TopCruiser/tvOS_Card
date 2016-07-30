@@ -10,9 +10,9 @@
 #include "GameLayer.h"
 #include "GameData.h"
 
-cocos2d::CCScene* ExitLayer::scene()
+cocos2d::Scene* ExitLayer::scene()
 {
-    CCScene* scene = cocos2d::CCScene::create();
+    Scene* scene = cocos2d::Scene::create();
     ExitLayer* layer = ExitLayer::create();
     scene->addChild(layer);
     return scene;
@@ -20,7 +20,7 @@ cocos2d::CCScene* ExitLayer::scene()
 
 bool ExitLayer::init()
 {
-    if(!CCLayer::init())
+    if(!Layer::init())
         return false;
     
     return true;
@@ -47,7 +47,10 @@ void ExitLayer::init(Layer* parent)
     MenuItem* btnNo = MenuItemSprite::create(Sprite::create(getNameWithResolution("exit_no_nor").c_str()),
                                                 Sprite::create(getNameWithResolution("exit_no_act").c_str()),
                                                 this, menu_selector(ExitLayer::onNO));
-    
+    MenuItem* btnDummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("exit_no_nor").c_str()),
+                                             Sprite::create(getNameWithResolution("exit_no_act").c_str()),
+                                                this, menu_selector(ExitLayer::onDummy));
+    btnDummy->setScale(0.12);
     
     btnYes->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnNo->setAnchorPoint(Vec2(0.5f, 0.5f));
@@ -62,11 +65,16 @@ void ExitLayer::init(Layer* parent)
     _menu = Menu::create();
     _menu->addChild(btnYes);
     _menu->addChild(btnNo);
+    _menu->addChild(btnDummy);
     
     _menu->setPosition(Vec2(0.0f, 0.0f));
     addChild(_menu);
 }
 
+void ExitLayer::onDummy(Ref* sender)
+{
+    
+}
 
 void ExitLayer::onYES(Ref* sender)
 {
@@ -80,7 +88,7 @@ void ExitLayer::onYES(Ref* sender)
     CallFunc *_functionCall = CallFunc::create(this,callfunc_selector(ExitLayer::didAction));
     Sequence *_sequence  =  Sequence::create( _easein, _functionCall ,NULL);
     this->runAction(_sequence);
-    
+    setLocalZOrder(0);
 }
 
 void ExitLayer::onNO(Ref* sender)
@@ -89,13 +97,12 @@ void ExitLayer::onNO(Ref* sender)
     
     _isYes = false;
     
-    //CCSize winSize = CCDirector::sharedDirector()->getWinSize();
     MoveTo *_move_to = MoveTo::create(0.3f,Vec2( 0.0f, 0.0f));
     EaseIn *_easein = EaseIn::create(_move_to,0.3f);
     CallFunc *_functionCall = CallFunc::create(this,callfunc_selector(ExitLayer::didAction));
     Sequence *_sequence  =  Sequence::create( _easein, _functionCall ,NULL);
     this->runAction(_sequence);
-    
+    setLocalZOrder(0);
 }
 
 void ExitLayer::didAction()
