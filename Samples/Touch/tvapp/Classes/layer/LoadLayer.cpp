@@ -51,11 +51,7 @@ void LoadLayer::update(float dt)
 void LoadLayer::onEnterTransitionDidFinish()
 {
     scheduleUpdate();
-    //loading screent setting
-//    if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
-//        updateLayoutWithPortrait();
-//    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
-        updateLayoutWithLandscape();
+    updateLayoutWithLandscape();
 }
 
 void LoadLayer::updateLayoutWithPortrait()

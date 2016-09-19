@@ -31,8 +31,35 @@
 #import "cocos2d.h"
 #import "AppDelegate.h"
 #import "RootViewController.h"
+#import <Firebase/Firebase.h>
+
+@interface TCocosParam : NSObject
+{
+    
+}
+@property (nonatomic)           int nType;
+@property (nonatomic, retain)   NSString* strParam;
+@property (nonatomic)           int nParam;
+@end
+@implementation TCocosParam
+@synthesize nType;
+@synthesize strParam;
+@synthesize nParam;
+@end
 
 @implementation AppController
+{
+    BOOL admobBannerEnabled;
+    BOOL isRemoveAds;
+    BOOL AppLovinHomeScreenEnabled;
+    BOOL AppLovinGameStartEnabled;
+    BOOL AppLovinNewGameEnabled;
+    
+    int MESSAGE_ALERT_TYPE;
+}
+
+@synthesize window;
+@synthesize viewController;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -40,8 +67,22 @@
 // cocos2d application instance
 static AppDelegate s_sharedApplication;
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    [self loadFirebaseParameters];
+    
+//    [rootref authUser:@"iospro0712@gmail.com" password:@"iospro0123" withCompletionBlock:^(NSError *error, FAuthData *authData) {
+//        if(error == nil){
+//            
+//        }
+//        else {
+//            NSLog(@"%@", error.description);
+//        }
+//    }];
+    
+    
+    [ALSdk initializeSdk];
+    
     cocos2d::Application *app = cocos2d::Application::getInstance();
     app->initGLContextAttrs();
     cocos2d::GLViewImpl::convertAttrs();
@@ -66,23 +107,24 @@ static AppDelegate s_sharedApplication;
 #endif
 
     // Use RootViewController manage CCEAGLView 
-    _viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
+    viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
 #if CC_TARGET_PLATFORM != CC_PLATFORM_TVOS
     _viewController.wantsFullScreenLayout = YES;
 #endif
-    _viewController.view = eaglView;
+    viewController.view = eaglView;
 
     // Set RootViewController to window
     if ( [[UIDevice currentDevice].systemVersion floatValue] < 6.0)
     {
         // warning: addSubView doesn't work on iOS6
-        [window addSubview: _viewController.view];
+        [window addSubview: viewController.view];
     }
     else
     {
         // use this method on ios6
-        [window setRootViewController:_viewController];
+        [window setRootViewController:viewController];
     }
+    
 
     [window makeKeyAndVisible];
 
@@ -155,5 +197,197 @@ static AppDelegate s_sharedApplication;
     [super dealloc];
 }
 
+-(bool) receivedFromCocos2dx:(int) nType strParam:(NSString*) strParam intParam:(int) nParam
+{
+    TCocosParam* cocosParam = [[TCocosParam alloc] init];
+    [cocosParam setNType:nType];
+    [cocosParam setStrParam:strParam];
+    [cocosParam setNParam:nParam];
+    [self performSelectorOnMainThread:@selector(receivedFromCocos2dxOnMain:) withObject:cocosParam waitUntilDone:YES];
+    
+    return YES;
+}
+
+-(bool) receivedFromCocos2dxOnMain:(TCocosParam*) cocosParam
+{
+    int nType = [cocosParam nType];
+    NSString* strParam = [cocosParam strParam];
+    int nParam = [cocosParam nParam];
+    
+    MESSAGE_ALERT_TYPE = nType;
+    
+    bool bRet = true;
+    switch (nType) {
+//        case MSG_ORIENTATION:
+//            [viewController setCocosOrientation:nParam];
+//            break;
+//            
+//        case MSG_SELECTFREECELL:
+//            [self showMessageBox:nParam];
+//            break;
+//            
+//        case MSG_TELL_A_FRIEND:
+//            //[self sendEMail];
+//            [self showTellAFriend];
+//            break;
+//            
+//        case MSG_FEEDBACK_EMAIL:
+//            [self sendFeedback];
+//            break;
+//            
+//        case MSG_SUBMIT_SCORE:
+//            [self submitLeaderboard:nParam leaderboardID:strParam];
+//            break;
+//            
+//        case MSG_SUBMIT_ACHIEVE:
+//            [self submitAchieve:nParam achieveID:strParam];
+//            break;
+//            
+//        case MSG_RANK_ACHIEVE:
+//            [self rankAchieve:nParam leaderBoard_ID:strParam];
+//            break;
+//            
+//        case MSG_GAMECENTER:
+//            //[self showAchievements];
+//            [MBProgressHUD showHUDAddedTo:window animated:YES];
+//            [self showLeaderboard:strParam];
+//            //[self leaderboardInfo:nParam];
+//            break;
+//            
+//        case MSG_REMOVE_ADS:
+//            [MBProgressHUD showHUDAddedTo:window animated:YES];
+//            [NSTimer scheduledTimerWithTimeInterval:3
+//                                             target:self
+//                                           selector:@selector(delayTime)
+//                                           userInfo:nil
+//                                            repeats:NO];
+//            
+//            [[LStoreManagerIOS sharedInstance] buyProduct:strParam];
+//            break;
+//            
+//        case MSG_ADMOB_BANNER:
+//            if(nParam == 0) [self hideAdmobBanner];
+//            else [self showAdmobBanner];
+//            break;
+            
+        case MSG_SHOW_CHARTBOOST:
+            [ALInterstitialAd show];
+            break;
+            
+//        case MSG_SHOW_REWARDEDVIDEO:
+//            [self showRewardedAdertiseVideo];
+//            break;
+//            
+//        case MSG_GOOGLE_ANALYTICS:
+//            [viewController setCurrentSceneWith:strParam];
+//            break;
+//            
+//        case MSG_ADCOLONY_VIDEO:
+//            if(!isRemoveAds)
+//                [AdColony playVideoAdForZone:@"vz8eef5502199446a399" withDelegate:self withV4VCPrePopup:YES andV4VCPostPopup:YES];
+//            break;
+//            
+//        case MSG_APPIRATER:
+//            [self runAppirater];
+//            break;
+//            
+//        case MSG_ASKINGPOINT:
+//            [ASKPManager requestCommandsWithTag:strParam];
+//            break;
+//            
+//        case MSG_NATIVE_BACKGROUND:
+//            [self getNativeBackground];
+//            break;
+//            
+//        case MSG_SHOW_FACEBOOK:
+//            //[MBProgressHUD showHUDAddedTo:window animated:YES];
+//            [self showFacebook:strParam];
+//            break;
+//            
+//        case MSG_SHOW_TWITTER:
+//            //[MBProgressHUD showHUDAddedTo:window animated:YES];
+//            [self showTwitter:strParam];
+//            break;
+//            
+//        case MSG_RESTORE_REQUEST:
+//            [MBProgressHUD showHUDAddedTo:window animated:YES];
+//            [NSTimer scheduledTimerWithTimeInterval:3
+//                                             target:self
+//                                           selector:@selector(delayTime)
+//                                           userInfo:nil
+//                                            repeats:NO];
+//            [[LStoreManagerIOS sharedInstance] restore];
+//            break;
+//            
+//        case MSG_SMS:
+//            [self showSMS:strParam];
+//            break;
+//            
+//        case MSG_EMAIL:
+//            [self sendEMail:strParam];
+//            break;
+//            
+//        case MSG_REMOVE_ALL_ADS:
+//            
+//            if(nParam == REMOVE_ADMOB){
+//                isRemoveAds = true;
+//                [self hideAdmobBanner];
+//            }else{
+//                isRemoveAds = false;
+//                [self showAdmobBanner];
+//                [self showInterstitialAdvertise:@"Startup"];
+//            }
+//            
+//            break;
+            
+            
+    }
+    return bRet;
+}
+
+-(void) loadFirebaseParameters{
+    
+    NSLog(@"Getting the latest config...");
+    
+    Firebase *rootref = [[Firebase alloc] initWithUrl:@"https://test01-3e67f.firebaseio.com"];
+    
+    [rootref observeEventType:FEventTypeValue withBlock:^(FDataSnapshot *snapshot) {
+        NSLog(@"Yay! Config was fetched from the server.");
+        
+        NSString *IsApprater = snapshot.value[@"AppRaterEnabled"];
+        bool IsEnabled = [IsApprater boolValue];
+        //self.AppRaterEnabled = IsEnabled;
+        
+        NSString *AppRaterUsesstr = snapshot.value[@"AppRaterUsers"];
+        int AppRaterUses = [AppRaterUsesstr intValue];
+        
+        NSString *AppRaterDaysstr = snapshot.value[@"AppRaterDays"];
+        int AppRaterDays = [AppRaterDaysstr intValue];
+        
+        NSString *IsAppLovinHomeScreenEnabledstr = snapshot.value[@"AppLovinHomeScreenEnabled"];
+        AppLovinHomeScreenEnabled = [IsAppLovinHomeScreenEnabledstr boolValue];
+        
+        NSString *IsAppLovinGameStartEnabledstr = snapshot.value[@"AppLovinGameStartEnabled"];
+        AppLovinGameStartEnabled = [IsAppLovinGameStartEnabledstr boolValue];
+        
+        NSString *IsAppLovinNewGameEnabledstr = snapshot.value[@"AppLovinNewGameEnabled"];
+        AppLovinNewGameEnabled = [IsAppLovinNewGameEnabledstr boolValue];
+        
+        if (IsEnabled)
+        {
+            //Appirater
+//            [Appirater setAppId:@"955521457"];
+//            [Appirater setDaysUntilPrompt:AppRaterDays];
+//            [Appirater setUsesUntilPrompt:AppRaterUses];
+//            [Appirater setSignificantEventsUntilPrompt:-1];
+//            [Appirater setTimeBeforeReminding:2];
+//            [Appirater setDebug:NO];
+//            [Appirater appLaunched:YES];
+        }
+        
+    } withCancelBlock:^(NSError *error) {
+        NSLog(@"Failed to fetch. Using Cached Config.");
+    }];
+}
 
 @end

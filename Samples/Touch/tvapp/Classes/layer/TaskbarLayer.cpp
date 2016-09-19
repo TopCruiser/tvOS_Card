@@ -393,6 +393,7 @@ void TaskbarLayer::didExitLayer(bool isYes)
     }
     else
     {
+        setLocalZOrder(0);
         BoardLayer::getInstance()->setSetting(false);
     }
 }

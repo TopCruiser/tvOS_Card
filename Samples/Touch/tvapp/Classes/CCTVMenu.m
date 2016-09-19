@@ -128,9 +128,6 @@
 -(id) initWithArray:(NSArray *)arrayOfItems
 {
     if( (self=[super initWithArray:arrayOfItems]) ) {
-        [self addPanRecognizer];
-        [self addSwipeRecognizer];
-        [self addTapRecognizers];
         
         _focusedItem = nil;
         focusedItemIsFocusable = NO;
@@ -141,12 +138,28 @@
         _panControlActive = YES;
         _playPauseAction = kPlayPauseNone;
         
-        [self findFirstFocusableItem];
     }
     
     return self;
 }
 
+- (void) setMenuEnable
+{
+    [self addPanRecognizer];
+    [self addSwipeRecognizer];
+    [self addTapRecognizers];
+    
+    [self findFirstFocusableItem];
+}
+
+- (void) setMenuDisable
+{
+    [self resetFocus];
+    
+    [self removePanRecognizer];
+    [self removeTapRecognizers];
+    [self removeSwipeRecognizer];
+}
 /**
  *  Cleans up the menu prior to deallocation.
  */
@@ -229,7 +242,7 @@
     NSLog(@"Menu Enabled: %@ in parent: %@", (enabled ? @"YES" : @"NO"), [[self.parent class] description]);
 
     [super setEnabled:enabled];
-    
+
     if (enabled == YES) {
         if (focusedItemIsFocusable == NO) {
             // Before we do this, we need to reset the scale of the item so that restarting the focus scaling
@@ -475,8 +488,8 @@
         if ([node getActionByTag:kFocusedActionTag] == nil) {
             self.focusAction = [CCRepeatForever actionWithAction:
                                 [CCSequence actions:
-                                 [CCScaleTo actionWithDuration:0.5 scale:_focusedItemScale * 1.2],
-                                 [CCScaleTo actionWithDuration:0.5 scale:_focusedItemScale * 1.15],
+                                 [CCScaleTo actionWithDuration:0.4 scale:_focusedItemScale * 1.1],
+                                 [CCScaleTo actionWithDuration:0.4 scale:_focusedItemScale * 1.0],
                                  nil]];
             self.focusAction.tag = kFocusedActionTag;
             

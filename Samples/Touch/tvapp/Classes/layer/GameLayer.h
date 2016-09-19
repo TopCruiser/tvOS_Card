@@ -68,7 +68,7 @@ public:
     
 private:    
     
-    void doneSettingAnimation();
+    void doneSettingAnimation(Ref* sender);
     
 public:
     Sprite* _background = NULL;

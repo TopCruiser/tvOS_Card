@@ -1,4 +1,6 @@
 #import <UIKit/UIKit.h>
+#import "ALSdk.h"
+#import "ALInterstitialAd.h"
 
 @class RootViewController;
 
@@ -7,6 +9,9 @@
 }
 
 @property(nonatomic, readonly) RootViewController* viewController;
+
+
+-(void)loadFirebaseParameters;
 
 @end
 

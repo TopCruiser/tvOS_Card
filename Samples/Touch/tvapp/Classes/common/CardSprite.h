@@ -16,4 +16,5 @@ extern __String g_strCard2Sprites[];
 extern __String g_strCard3Sprites[];
 extern __String g_strOtherCardSprites[];
 extern __String g_strBackCardSprites[];
+
 #endif

@@ -114,7 +114,6 @@ void NewGameLayer::onRandomDeal(Ref* sender)
     GameData::getInstance()->setSelectedGame(0);
     ((TaskbarLayer*)_parentLayer)->didNewGame();
     BoardLayer::getInstance()->replayGame();
-    
 }
 
 void NewGameLayer::onWinningDeal(Ref* sender)
@@ -171,3 +170,4 @@ void NewGameLayer::didAction()
 {
     ((TaskbarLayer*)_parentLayer)->didNewGame();
 }
+

@@ -22,13 +22,13 @@ public:
     virtual bool init();
     virtual void init(Layer* parent);
     
-    void updateLayoutWithPortrait();
     void updateLayoutWithLandscape();
     
     
 private:
     void onCardTap(Ref* sender);
     void onBack(Ref*  sender);
+    void onDummy(Ref* sender);
     
 private:
     Layer* _parentLayer;

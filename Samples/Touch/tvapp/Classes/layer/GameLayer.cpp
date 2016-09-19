@@ -361,8 +361,9 @@ void GameLayer::showSettingLayer()
     _settingLayer->setVisible(true);
     MoveTo* action = MoveTo::create(0.3f, Vec2(0,0));
     EaseIn *_easein = EaseIn::create(action,0.3f);
-    Sequence *_sequence  =  Sequence::create(_easein, CC_CALLBACK_0(GameLayer::doneSettingAnimation, NULL), NULL);
+    Sequence *_sequence  =  Sequence::create(_easein, __CCCallFuncO::create(this, callfuncO_selector(GameLayer::doneSettingAnimation), NULL), nullptr);
     _settingLayer->runAction(_sequence);
+    setTag(102);
 }
 
 void GameLayer::hideSettingLayer()
@@ -377,27 +378,30 @@ void GameLayer::hideSettingLayer()
     MoveTo* action = MoveTo::create(0.3f, Vec2(-1.25 * disappear,0));
     EaseIn *_easein = EaseIn::create(action,0.3f);
     //CCSequence *_sequence  =  CCSequence::create( _easein, CCCallFuncND::create(this, callfuncND_selector(GameLayer::doneSettingAnimation), NULL), NULL);
-    Sequence *_sequence  =  Sequence::create(_easein, CC_CALLBACK_0(GameLayer::doneSettingAnimation, NULL), NULL);
+    Sequence *_sequence  =  Sequence::create(_easein, __CCCallFuncO::create(this, callfuncO_selector(GameLayer::doneSettingAnimation), NULL), nullptr);
     _settingLayer->runAction(_sequence);
     
     setTag(101);
 }
 
-void GameLayer::doneSettingAnimation()
+void GameLayer::doneSettingAnimation(Ref* sender)
 {
     GameData::getInstance()->setDoingAction(false);
 }
 
 void GameLayer::showCardBackLayer(){
     _cardBackLayer->setVisible(true);
+    setTag(103);
 }
 
 void GameLayer::showBackgroundLayer(){
     _backgroundLayer->setVisible(true);
+    setTag(105);
 }
 
 void GameLayer::showCardFaceLayer(){
     _cardFaceLayer->setVisible(true);
+    setTag(104);
 }
 
 void GameLayer::showStatisticsLayer(){

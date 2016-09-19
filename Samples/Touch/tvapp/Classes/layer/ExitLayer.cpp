@@ -50,7 +50,7 @@ void ExitLayer::init(Layer* parent)
     MenuItem* btnDummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("exit_no_nor").c_str()),
                                              Sprite::create(getNameWithResolution("exit_no_act").c_str()),
                                                 this, menu_selector(ExitLayer::onDummy));
-    btnDummy->setScale(0.12);
+    btnDummy->setScale(0.01);
     
     btnYes->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnNo->setAnchorPoint(Vec2(0.5f, 0.5f));

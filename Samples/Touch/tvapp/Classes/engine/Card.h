@@ -48,8 +48,8 @@ class Card : public Node
 {
 public:
     virtual bool init();
-    virtual void init(Layer* parent);
-    virtual void init(int rank, int suit, Deck* deck, Layer* parent);
+     void init(Layer* parent);
+     void init(int rank, int suit, Deck* deck, Layer* parent);
     
     void touchBegan(cocos2d::Point position);
     void touchMoved(cocos2d::Point position);

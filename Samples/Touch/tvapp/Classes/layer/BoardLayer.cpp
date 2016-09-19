@@ -232,6 +232,7 @@ void BoardLayer::replayGame()
 }
 void BoardLayer::startNewGame()
 {
+    AppDelegate::get()->AppDelegate::get()->sendMessageToNative(MSG_SHOW_CHARTBOOST, "Game Start", 1);
 //    if(!GameData::getInstance()->isRemoveAds())
 //    {
 //        if(GameData::getInstance()->isMenuLayer())
@@ -555,10 +556,12 @@ void BoardLayer::initLayout()
     
     if(dummy) removeChild(dummy);
     
-    dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
-                                             Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
+    dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("hand_icon").c_str()),
+                                             Sprite::create(getNameWithResolution("hand_icon").c_str()),
                                              this, menu_selector(BoardLayer::onDummy));
-    dummy->setScale(0.1);
+    dummy->setScale(0.5);
+    dummy->setAnchorPoint(Vec2(0.5, 1));
+    dummy->setPosition(Vec2(960, 540));
     addChild(dummy, 1000);
 }
 
@@ -572,13 +575,13 @@ void BoardLayer::updateLayoutWithLandscape()
     Size winSize = Director::getInstance()->getWinSize();
     
     _scoreLabel->setAnchorPoint(Vec2(0.0f, 0.0f));
-    _scoreLabel->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(220.0f), getSizeWithDevice(35.0f)));
+    _scoreLabel->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(230.0f), getSizeWithDevice(35.0f)));
     
     _moveLabel->setAnchorPoint(Vec2(0.0f, 0.0f));
-    _moveLabel->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(75.0f), getSizeWithDevice(35.0f)));
+    _moveLabel->setPosition(Vec2(winSize.width/2.0f - getSizeWithDevice(90.0f), getSizeWithDevice(35.0f)));
     
     _timeLabel->setAnchorPoint(Vec2(0.0f, 0.0f));
-    _timeLabel->setPosition(Vec2(winSize.width/2.0f + getSizeWithDevice(70.0f), getSizeWithDevice(35.0f)));
+    _timeLabel->setPosition(Vec2(winSize.width/2.0f + getSizeWithDevice(55.0f), getSizeWithDevice(35.0f)));
     
     updateCardSizeWithLandscape();
     updatePlayCellsWithLandscape();
@@ -613,9 +616,6 @@ void BoardLayer::updateCardSizeWithLandscape()
                           - getSizeWithDevice(FORTY_PADDING_LAND) * (_stacks - 1)) / _stacks;
             break;
         case TYPE_SPIDER:
-            //_cardwidth = (winSize.width - getSizeWithDevice(SPIDER_MARGIN_LAND) * 2
-                          //- getSizeWithDevice(SPIDER_PADDING_LAND) * _stacks) / (_stacks + 1);
-            
             _cardwidth = (winSize.width - getSizeWithDevice(SPIDER_MARGIN_LAND) * 2
                           - getSizeWithDevice(SPIDER_PADDING_LAND) * (_stacks - 1)) / _stacks;
             break;
@@ -667,12 +667,8 @@ void BoardLayer::updatePlayCellsWithLandscape()
             startPositionY = winSize.height - getSizeWithDevice(FORTY_MARGIN_LAND) * 2 - _cardheight * 1.5f;
             break;
         case TYPE_SPIDER:
-            //startPositionX = getSizeWithDevice(SPIDER_MARGIN_LAND + SPIDER_PADDING_LAND) + _cardwidth * 1.5f;
             startPositionX = getSizeWithDevice(SPIDER_MARGIN_LAND) + _cardwidth * 0.5f;
             startPositionY = winSize.height - getSizeWithDevice(SPIDER_MARGIN_LAND) - _cardheight * 0.5f;
-            //if(GameData::getInstance()->isRightHanded()){
-            //    startPositionX-=(getSizeWithDevice(SPIDER_PADDING_LAND)+_cardwidth);
-            //}
             break;
     }
     
@@ -893,6 +889,7 @@ void BoardLayer::createDealer()
         if(GameData::getInstance()->getNewGame() == REPLAY_DEAL){
             //REPLAY_DEAL
             _dealer->selectedShuffle();
+
         }
         else if(GameData::getInstance()->getNewGame() == WINNING_DEAL){
             
@@ -994,8 +991,7 @@ void BoardLayer::drawDealer(float dt)
 
 void BoardLayer::addCardsToPlayCell(float dt)
 {
-    //static int stack = 0;
-    //static int index = 0;
+    CCLOG("dealer cards total = %zd", _dealer->cards->count());
     if(GameData::getInstance()->isSoundEnabled()){
         //SimpleAudioEngine::sharedEngine()->playEffect("deal.wav");//solitaire,spider,forty thieves sounds comment715
     }
@@ -1007,7 +1003,7 @@ void BoardLayer::addCardsToPlayCell(float dt)
             if(stack < _stacks)
             {
                 //update by KHJ 03.28.2015
-                _dealer->draw((Deck*)playCells->getObjectAtIndex(index % playCells->count()), 1);
+                _dealer->draw((Deck*)(playCells->getObjectAtIndex(index % playCells->count())), 1);
                 index++;
                 if(index == _stacks){
                       stack++;
@@ -1166,6 +1162,7 @@ void BoardLayer::updateDealerWithLandscape()
     
     _dealer->updateSprite(startPositionX, startPositionY, _cardwidth);
     _dealer->updateCardSprites(startPositionX, startPositionY, _cardwidth);
+    CCLOG("%f, %f", startPositionX, startPositionY);
 }
 
 void BoardLayer::calculateDragableCards()
@@ -1324,6 +1321,7 @@ void BoardLayer::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_even
 //    Director* director = Director::getInstance();
 //    Point location = touch->getLocationInView();
 //    location = director->convertToGL(location);
+
     
     if(_draggingCard != NULL)
     {
@@ -2074,6 +2072,7 @@ void BoardLayer::checkCompletePlaycells()
         {
             doCompleteDeckMove(deck);
         }
+        
     }
 }
 
@@ -2216,7 +2215,7 @@ Deck* BoardLayer::getGoalDeckForCard(Card* card)
 {
     if(GameData::getInstance()->getGameType() != TYPE_SPIDER)
     {
-        /*
+        
         for(int i = 0; i < goalCells->count(); i++)
         {
             Deck* goalDeck = (Deck*)goalCells->getObjectAtIndex(i);
@@ -2227,7 +2226,7 @@ Deck* BoardLayer::getGoalDeckForCard(Card* card)
                goalDeck->getTopCard()->getRank() == card->getRank() - 1)
                 return goalDeck;
         }
-        */
+        
         
         //---Update by KHJ 03.27.2015---//
         int goalDeckIdx = 0;

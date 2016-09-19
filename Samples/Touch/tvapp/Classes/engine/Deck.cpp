@@ -215,14 +215,6 @@ void Deck::updateCardsWithAnimation()//Error, Bug, Exception!
                             else if(cards->count() > 12){ //20                                
                                 deltaPosition.y += getSizeWithDevice(12.0f); // -24.0f
                             }
-                            //deltaPosition.x -= (getSizeWithDevice(_cardSpaceX) * _maxCardSpace) / cards->count();
-                        //}
-                        //else
-                        //{
-                          //  CCLog("where %d", _maxCardSpace);
-                          //  deltaPosition.x -= (getSizeWithDevice(_cardSpaceX) * _maxCardSpace) / cards->count();
-                          //  deltaPosition.y -= (getSizeWithDevice(_cardSpaceY) * _maxCardSpace) / cards->count();
-                        //}
                     }
                 }
                 else
@@ -257,14 +249,13 @@ void Deck::updateCardsWithAnimation()//Error, Bug, Exception!
         }
         
         Point targetPosition = Vec2(basePosition.x + deltaPosition.x, basePosition.y + deltaPosition.y);
+        //Point targetPosition = Vec2(0, 0);
         
         MoveTo* action;
          action = MoveTo::create(0.2f, targetPosition);
                                                                                      
         card->setOrder(i);
         card->getSprite()->stopAllActions();
-        
-        //card->getSprite()->runAction(Sequence::create(action, CC_CALLBACK_2(Deck::doneAnimation, this, card), NULL));
         card->getSprite()->runAction(Sequence::create(action, __CCCallFuncND::create(this, callfuncND_selector(Deck::doneAnimation), (void*)card), nullptr));
     }
 }
@@ -290,11 +281,7 @@ void Deck::updateCardsWithoutAnimation()
                     {
                         if(getType() == DECK_PLAY)
                         {
-                        //    if(cards->count() <= 20)
-                        //        deltaPosition.y -= getSizeWithDevice(30);
-                        //    else if(cards->count() > 20)
-                        //        deltaPosition.y -= getSizeWithDevice(24.0f);
-                        //    deltaPosition.x -= (_cardSpaceX * _maxCardSpace) / cards->count();
+
                         }
                         else
                         {
@@ -339,9 +326,6 @@ void Deck::doneAnimation(Node* sender, void* card1)
     
     if(card->getDeck()->getType()==DECK_GOAL && !GameData::getInstance()->isUndoMove())
     {
-        //FadeOut* fadeOut = FadeOut::create(2);
-        //goalSprite->runAction(fadeOut);
-        
         if(GameData::getInstance()->isSoundEnabled()){
             //SimpleAudioEngine::getInstance()->playEffect("goal.mp3"); comment715
         }
@@ -593,6 +577,7 @@ void Deck::updateCardSprites(float posX, float posY, float realWidth)
         Card* card = (Card*)cards->getObjectAtIndex(i);
         card->updateSprite(posX, posY, realWidth);
     }
+    CCLOG("updated dealing %zdcard", cards->count());
 }
 
 void Deck::showSprite(bool bVisible)

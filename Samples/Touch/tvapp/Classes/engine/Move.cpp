@@ -70,7 +70,7 @@ Move::Move()
 {
     _subMoves = __Array::create();
     _subMoves->retain();
-     _moveType = MOVETYPE_MULTI;
+    _moveType = MOVETYPE_MULTI;
 }
 
 Move::~Move()

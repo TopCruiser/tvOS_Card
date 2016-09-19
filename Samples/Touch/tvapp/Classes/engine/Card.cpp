@@ -142,13 +142,10 @@ void Card::touchEnded(Point position)
             
             _deck->updateCardsWithAnimation();
         }
-        else//add by KHJ 04/03/2015
+        else
         {
-            //_dragDisabled = true;
-            //setZOrder(_sprite->getZOrder() + 1000);
             setLocalZOrder(getLocalZOrder()+1000);//update by KHJ 03.21.2015
             ((BoardLayer*)_parentLayer)->doubleClick(this);
-            //_lastClickTime = 0.0f;
         }
     }
     
@@ -307,9 +304,11 @@ void Card::createSprite()
 
 void Card::updateSprite(int posX, int posY, float realWidth)
 {
+    CCLOG("-----------------updateSprite function called (%d, %d)----------------", posX, posY);
     float scale = realWidth / _sprite->getContentSize().width;
     _sprite->setScale(scale);
     _sprite->setPosition(Vec2(posX, posY));
+    CCPoint cc = _sprite->convertToWorldSpace(_sprite->getPosition());
     _sprite->setVisible(true);
     setContentSize(_sprite->getContentSize());
 }

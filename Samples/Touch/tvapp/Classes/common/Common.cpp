@@ -130,15 +130,15 @@ float getScaleWithDevice()
 #ifdef _MAC_OS_
 #else
     Size winSize = Director::getInstance()->getWinSize();
-    float scaleX = winSize.width / 1920;
-    float scaleY = winSize.height / 1080;
+    float scaleX = winSize.width / 2048;
+    float scaleY = winSize.height / 2048;
     if(scaleY < scaleX)
         scale = scaleY;
     else
         scale = scaleX;
 #endif
     
-    return scale;
+    return 1;
 }
 
 int getSizeWithDevice(int orgSize)

@@ -87,7 +87,6 @@ private:
     
     Layer* _parentLayer;
     Sprite* _deckSprite;
-    //CCArray* _goalArray;
     
 public:
     CREATE_FUNC(Deck);

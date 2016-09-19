@@ -40,23 +40,6 @@ private:
     virtual bool onTouchBegan(Touch *touch, Event *unused_event);
     virtual void onTouchMoved(Touch *touch, Event *unused_event);
     virtual void onTouchEnded(Touch *touch, Event *unused_event);
-    
-//    bool handleTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event);
-//    void handleTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event);
-//    void handleTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event);
-    
-    void onConnectController(cocos2d::Controller* controller, cocos2d::Event* event);
-    void onDisconnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
-    
-    void onKeyDown(cocos2d::Controller* controller, int key, cocos2d::Event* event);
-    void onKeyUp(cocos2d::Controller* controller, int key, cocos2d::Event* event);
-    void onKeyRepeat(cocos2d::Controller* controller, int key, cocos2d::Event* event);
-    
-    void onAxisEvent(cocos2d::Controller* controller, int axis, cocos2d::Event* event);
-    
-    cocos2d::EventListenerKeyboard* _keybListener = nullptr;
-    cocos2d::EventListener* _touchListener = nullptr;
-    cocos2d::EventListenerController* _controllerListener = nullptr;
 
 public:
     cocos2d::Vec2 lastMovedPoint;

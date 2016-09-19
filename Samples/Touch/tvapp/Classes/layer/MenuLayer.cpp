@@ -80,36 +80,10 @@ bool MenuLayer::init()
     
     addChild(_menu);
     
-    
-    //event register
-//#if defined(CC_TARGET_OS_IPHONE) || defined(CC_TARGET_OS_APPLETV)
-    Controller::startDiscoveryController();
-//#endif
-    
-    _controllerListener = EventListenerController::create();
-    
-    _controllerListener->onConnected = CC_CALLBACK_2(MenuLayer::onConnectController,this);
-    _controllerListener->onDisconnected = CC_CALLBACK_2(MenuLayer::onDisconnectedController,this);
-    _controllerListener->onKeyDown = CC_CALLBACK_3(MenuLayer::onKeyDown, this);
-    _controllerListener->onKeyUp = CC_CALLBACK_3(MenuLayer::onKeyUp, this);
-    _controllerListener->onAxisEvent = CC_CALLBACK_3(MenuLayer::onAxisEvent, this);
-    _controllerListener->onKeyRepeat = CC_CALLBACK_3(MenuLayer::onKeyRepeat, this);
-    
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(_controllerListener, this);
-
-    EventListenerTouchOneByOne* listener = EventListenerTouchOneByOne::create();
-    listener->setSwallowTouches(true);
-    
-    listener->onTouchBegan = CC_CALLBACK_2(MenuLayer::onTouchBegan, this);
-    listener->onTouchMoved = CC_CALLBACK_2(MenuLayer::onTouchMoved, this);
-    listener->onTouchEnded = CC_CALLBACK_2(MenuLayer::onTouchEnded, this);
-    
-    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
-    
     setTag(100);
     
-//    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
-//    setTouchEnabled(true);
+    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+    setTouchEnabled(true);
     
     return true;
 }
@@ -131,7 +105,7 @@ void MenuLayer::onEnterTransitionDidFinish()
 
 void MenuLayer::updateLayoutWithPortrait()
 {
-    Size winSize = Director::getInstance()->getWinSize();
+    cocos2d::Size winSize = Director::getInstance()->getWinSize();
     
     _background->initWithFile(getNameWithDevice("menubg_port").c_str());
     _background->setScale(getScaleWithDevice());
@@ -144,7 +118,7 @@ void MenuLayer::updateLayoutWithPortrait()
     
     for(int i = 0; i < TAG_MAX; i++)
     {
-        Point pos = Vec2(0, 0);
+        cocos2d::Point pos = Vec2(0, 0);
         switch (i) {
             case TAG_SOLITAIRE:
                 pos.x = getSizeWithDevice(0);
@@ -176,7 +150,7 @@ void MenuLayer::updateLayoutWithPortrait()
 
 void MenuLayer::updateLayoutWithLandscape()
 {
-    Size winSize = Director::getInstance()->getWinSize();
+    cocos2d::Size winSize = Director::getInstance()->getWinSize();
     
     _background->initWithFile(getNameWithDevice("menubg_land").c_str());
     _background->setScale(getScaleWithDevice());
@@ -189,7 +163,7 @@ void MenuLayer::updateLayoutWithLandscape()
     
     for(int i = 0; i < TAG_MAX; i++)
     {
-        Point pos = Vec2(0, 0);
+        cocos2d::Point pos = Vec2(0, 0);
         switch (i) {
             case TAG_SOLITAIRE:
                 pos.x = -getSizeWithDevice(230);
@@ -248,13 +222,13 @@ bool MenuLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event
 void MenuLayer::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
     Director* director = Director::getInstance();
-    Point location = touch->getLocationInView();
+    cocos2d::Point location = touch->getLocationInView();
     location = director->convertToGL(location);
     lastMovedPoint = location;
     
     Vec2 pos = btnSolitaire->getPosition();
     pos = director->convertToGL(pos);
-    Rect r = Rect(btnSolitaire->getPosition(), Size(200, 200));
+    cocos2d::Rect r = cocos2d::Rect(btnSolitaire->getPosition(), cocos2d::Size(200, 200));
     
     if(r.containsPoint(lastMovedPoint))
     {
@@ -310,92 +284,3 @@ void MenuLayer::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
 {
     log("key pressed: %d", keyCode);
 }
-
-//bool MenuLayer::handleTouchBegan(cocos2d::Touch* touch, cocos2d::Event* event)
-//{
-//    Vec2 location = convertToNodeSpace(touch->getLocation());
-//    
-//    if(btnSolitaire->getBoundingBox().containsPoint(location))
-//    {
-//        log("detect menu item");
-//    }
-//    //log("touch begin: %f, %f", location.x, location.y);
-//    
-//    return true;
-//}
-//
-//void MenuLayer::handleTouchMoved(cocos2d::Touch* touch, cocos2d::Event* event)
-//{
-//    Vec2 location = convertToNodeSpace(touch->getLocation());
-//    
-//    if(btnSolitaire->getBoundingBox().containsPoint(location))
-//    {
-//        log("detect menu item");
-//    }
-//    
-//    log("touch moved: %f, %f", location.x, location.y);
-//}
-//
-//void MenuLayer::handleTouchEnded(cocos2d::Touch* touch, cocos2d::Event* event)
-//{
-//    Vec2 location = convertToNodeSpace(touch->getLocation());
-//    
-//    log("touch ended: %f, %f", location.x, location.y);
-//}
-
-void MenuLayer::onConnectController(cocos2d::Controller* controller, cocos2d::Event* event)
-{
-    log("Controller connected %s", controller->getDeviceName().c_str());
-    
-    //controller->setAbsoluteDpadValues(true);
-}
-
-void MenuLayer::onDisconnectedController(cocos2d::Controller* controller, cocos2d::Event* event)
-{
-}
-
-void MenuLayer::onKeyDown(cocos2d::Controller* controller, int key, cocos2d::Event* event)
-{
-#if defined(CC_TARGET_OS_IPHONE) || defined(CC_TARGET_OS_APPLETV)
-    log("key down: %d, float value: %f", key, controller->getKeyStatus(key).value);
-    
-    if (key == Controller::BUTTON_X)
-    {
-        //Director::getInstance()->replaceScene(Game::create());
-    }
-    
-#endif
-}
-
-void MenuLayer::onKeyUp(cocos2d::Controller* controller, int key, cocos2d::Event* event)
-{
-    log("key up: %d", key);
-}
-
-void MenuLayer::onAxisEvent(cocos2d::Controller* controller, int axis, cocos2d::Event* event)
-{
-    log("axis event: %d", axis);
-}
-
-void MenuLayer::onKeyRepeat(cocos2d::Controller* controller, int key, cocos2d::Event* event)
-{
-    log("key repeat: %d", key);
-    
-    if (key == cocos2d::Controller::BUTTON_DPAD_LEFT)
-    {
-        log("Left value: %f", controller->getKeyStatus(key).value);
-    }
-    else if (key == cocos2d::Controller::BUTTON_DPAD_RIGHT)
-    {
-        log("Right value: %f", controller->getKeyStatus(key).value);
-    }
-    else if (key == cocos2d::Controller::BUTTON_DPAD_UP)
-    {
-        log("Up value: %f", controller->getKeyStatus(key).value);
-    }
-    else if (key == cocos2d::Controller::BUTTON_DPAD_DOWN)
-    {
-        log("Down value: %f", controller->getKeyStatus(key).value);
-    }
-}
-

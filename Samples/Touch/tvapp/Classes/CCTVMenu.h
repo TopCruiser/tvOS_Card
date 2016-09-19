@@ -172,9 +172,15 @@ typedef enum {
  */
 - (void) setFocusedNode:(id)node;
 
+- (void) resetFocus;
+
+- (void) setMenuEnable;
+- (void) setMenuDisable;
+
 /**
  *  Returns the menu item that currently has focus as a CCNode
  */
 - (CCNode*) focusedNode;
+
 
 @end

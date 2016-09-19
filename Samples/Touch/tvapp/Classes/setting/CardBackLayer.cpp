@@ -281,7 +281,11 @@ void CardBackLayer::init(Layer* parent)
     btnCard32->setScale(getScaleWithDevice());
     
     _menu = Menu::create();
-    //_menu->addChild(btnBack);
+    //add dummy object to receive focus
+    MenuItem* dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
+                                             Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
+                                             this, menu_selector(CardBackLayer::onDummy));
+    dummy->setScale(0.001);
     
     _menu->addChild(btnCard01, 1, TAG_CARD01);
     _menu->addChild(btnCard02, 1, TAG_CARD02);
@@ -323,258 +327,28 @@ void CardBackLayer::init(Layer* parent)
     _menu->addChild(btnCard31, 1, TAG_CARD31);
     _menu->addChild(btnCard32, 1, TAG_CARD32);
     
+    _menu->addChild(dummy);
+    
     _menu->addChild(_selectedCardBack, 3, 10000);
     _menu->setVisible(false);
     
     Size winSize = Director::getInstance()->getWinSize();
-    /////size of the viewable part of scrollview
-    //if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
-        _ScrollView = ScrollView::create(Size(winSize.width, winSize.height/1.75f), _menu);
-//    else
-//        _ScrollView = ScrollView::create(Size(winSize.width, winSize.height/1.45f), _menu);comment715
+
+    _ScrollView = ScrollView::create(Size(winSize.width, winSize.height/1.75f), _menu);
+
     _ScrollView->setDirection(cocos2d::extension::ScrollView::Direction::VERTICAL);
     _ScrollView->setAnchorPoint(Vec2(0, 0));
     _ScrollView->setPosition(Vec2(0, 0));
     addChild(_ScrollView);
-    
-//    if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)
-//    {
-        /////size of the viewable part of scrollview
-        _ScrollView->setViewSize(Size(winSize.width, winSize.height/1.75f));
-        ////size of the whole content (the big rectangle that we scroll in)
-        _ScrollView->setContentSize(Size(winSize.width/2,winSize.height*1.5));
-        //position it so that the top most is visible initially,
-        _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*0.95));
-    //}
-//    else//portrait
-//    {
-//        /////size of the viewable part of scrollview
-//        _ScrollView->setViewSize(Size(winSize.width, winSize.height/1.45f));
-//        ////size of the whole content (the big rectangle that we scroll in)
-//        _ScrollView->setContentSize(Size(winSize.width/2,winSize.height*2.1));
-//        //position it so that the top most is visible initially,
-//        //_ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*2));
-//        _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*1.4));
-//    }comment715
+
+    _ScrollView->setViewSize(Size(winSize.width, winSize.height));
+    _ScrollView->setContentSize(Size(winSize.width/2,winSize.height));
+    _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height));
 }
 
-void CardBackLayer::updateLayoutWithPortrait()
+void CardBackLayer::onDummy(cocos2d::Ref *sender)
 {
-    Size winSize = Director::getInstance()->getWinSize();
     
-    _background->initWithFile(getNameWithDevice("menubg_port").c_str());
-    _background->setScale(getScaleWithDevice());
-    _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
-    
-//    btnBack->setPosition(Vec2(-winSize.width/2+getSizeWithDevice(60), winSize.height/2.0f-getSizeWithDevice(60)));
-    btnBack->setPosition(Vec2(getSizeWithDevice(60), winSize.height-getSizeWithDevice(60)));
-    
-    _title->initWithFile(getNameWithResolution("logo_port").c_str());
-    _title->setAnchorPoint(Vec2(0.5f, 1.0f));
-    _title->setScale(getScaleWithDevice() * 0.7f);
-    _title->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f + getSizeWithDevice(460.0f)));
-    
-    int InitY = winSize.height*2;
-    int DeltaY = 150;
-    
-    for(int i = 0; i < TAG_MAX; i++)
-    {
-        CCPoint pos = CCPointZero;
-        switch (i) {
-            case TAG_CARD01:
-                pos.x = getSizeWithDevice(-180);
-//                pos.y = getSizeWithDevice(90);
-                pos.y = getSizeWithDevice(InitY);
-                break;
-            case TAG_CARD02:
-                pos.x = getSizeWithDevice(0);
-//                pos.y = getSizeWithDevice(90);
-                pos.y = getSizeWithDevice(InitY);
-                break;
-            case TAG_CARD03:
-                pos.x = getSizeWithDevice(180);
-//                pos.y = getSizeWithDevice(90);
-                pos.y = getSizeWithDevice(InitY);
-                break;
-                
-            case TAG_CARD04:
-                pos.x = getSizeWithDevice(-180);
-//                pos.y = -getSizeWithDevice(60);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 1));
-                break;
-            case TAG_CARD05:
-                pos.x = getSizeWithDevice(0);
-//                pos.y = -getSizeWithDevice(60);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 1));
-                break;
-            case TAG_CARD06:
-                pos.x = getSizeWithDevice(180);
-//                pos.y = -getSizeWithDevice(60);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 1));
-                break;
-                
-            case TAG_CARD07:
-                pos.x = getSizeWithDevice(-180);
-//                pos.y = -getSizeWithDevice(210);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 2));
-                break;
-            case TAG_CARD08:
-                pos.x = getSizeWithDevice(0);
-//                pos.y = -getSizeWithDevice(210);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 2));
-                break;
-            case TAG_CARD09:
-                pos.x = getSizeWithDevice(180);
-//                pos.y = -getSizeWithDevice(210);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 2));
-                break;
-                
-            case TAG_CARD10:
-                pos.x = getSizeWithDevice(-180);
-//                pos.y = -getSizeWithDevice(360);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 3));
-                break;
-            case TAG_CARD11:
-                pos.x = getSizeWithDevice(0);
-//                pos.y = -getSizeWithDevice(360);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 3));
-                break;
-            case TAG_CARD12:
-                pos.x = getSizeWithDevice(180);
-//                pos.y = -getSizeWithDevice(360);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 3));
-                break;
-                
-            case TAG_CARD13:
-                pos.x = getSizeWithDevice(-180);
-//                pos.y = -getSizeWithDevice(510);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 4));
-                break;
-            case TAG_CARD14:
-                pos.x = getSizeWithDevice(0);
-//                pos.y = -getSizeWithDevice(510);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 4));
-                break;
-            case TAG_CARD15:
-                pos.x = getSizeWithDevice(180);
-//                pos.y = -getSizeWithDevice(510);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 4));
-                break;
-                
-            case TAG_CARD16:
-                pos.x = getSizeWithDevice(-180);
-//                pos.y = -getSizeWithDevice(660);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 5));
-                break;
-            case TAG_CARD17:
-                pos.x = getSizeWithDevice(0);
-//                pos.y = -getSizeWithDevice(660);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 5));
-                break;
-            case TAG_CARD18:
-                pos.x = getSizeWithDevice(180);
-//                pos.y = -getSizeWithDevice(660);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 5));
-                break;
-                
-            case TAG_CARD19:
-                pos.x = getSizeWithDevice(-180);
-//                pos.y = -getSizeWithDevice(810);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 6));
-                break;
-            case TAG_CARD20:
-                pos.x = getSizeWithDevice(0);
-//                pos.y = -getSizeWithDevice(810);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 6));
-                break;
-            case TAG_CARD21:
-                pos.x = getSizeWithDevice(180);
-//                pos.y = -getSizeWithDevice(810);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 6));
-                break;
-                
-            case TAG_CARD22:
-                pos.x = getSizeWithDevice(-180);
-//                pos.y = -getSizeWithDevice(960);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 7));
-                break;
-            case TAG_CARD23:
-                pos.x = getSizeWithDevice(0);
-//                pos.y = -getSizeWithDevice(960);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 7));
-                break;
-            case TAG_CARD24:
-                pos.x = getSizeWithDevice(180);
-//                pos.y = -getSizeWithDevice(960);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 7));
-                break;
-                
-            case TAG_CARD25:
-                pos.x = getSizeWithDevice(-180);
-//                pos.y = -getSizeWithDevice(1110);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 8));
-                break;
-            case TAG_CARD26:
-                pos.x = getSizeWithDevice(0);
-//                pos.y = -getSizeWithDevice(1110);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 8));
-                break;
-            case TAG_CARD27:
-                pos.x = getSizeWithDevice(180);
-//                pos.y = -getSizeWithDevice(1110);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 8));
-                break;
-                
-            case TAG_CARD28:
-                pos.x = getSizeWithDevice(-180);
-//                pos.y = -getSizeWithDevice(1260);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 9));
-                break;
-            case TAG_CARD29:
-                pos.x = getSizeWithDevice(0);
-//                pos.y = -getSizeWithDevice(1260);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 9));
-                break;
-            case TAG_CARD30:
-                pos.x = getSizeWithDevice(180);
-//                pos.y = -getSizeWithDevice(1260);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 9));
-                break;
-                
-            case TAG_CARD31:
-                pos.x = getSizeWithDevice(-180);
-//                pos.y = -getSizeWithDevice(1410);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 10));
-                break;
-            case TAG_CARD32:
-                pos.x = getSizeWithDevice(0);
-//                pos.y = -getSizeWithDevice(1410);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 10));
-                break;
-            default:
-                break;
-        }
-        
-        MenuItem* item = (MenuItem*)_menu->getChildByTag(i);
-        item->setPosition(pos);
-        
-//        if(i==GameData::getInstance()->getCardBackIndex())
-//            _selectedCardBack->setPosition(Vec2(winSize.width/2.0f+pos.x, winSize.height/2.0f+pos.y));
-        if(i==GameData::getInstance()->getCardBackIndex())
-            _selectedCardBack->setPosition(pos);
-
-    }
-    
-//    _menu->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
-    _menu->setVisible(true);
-    
-    /////size of the viewable part of scrollview
-    _ScrollView->setViewSize(Size(winSize.width, winSize.height/1.45f));
-    ////size of the whole content (the big rectangle that we scroll in)
-    _ScrollView->setContentSize(Size(winSize.width/2,winSize.height*2.1));
-    //position it so that the top most is visible initially,
-    //_ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*2));
-    _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*1.4));
 }
 
 void CardBackLayer::updateLayoutWithLandscape()
@@ -585,7 +359,6 @@ void CardBackLayer::updateLayoutWithLandscape()
     _background->setScale(getScaleWithDevice());
     _background->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     
-    //btnBack->setPosition(Vec2(-winSize.width/2+getSizeWithDevice(60), winSize.height/2.0f-getSizeWithDevice(60)));
     btnBack->setPosition(Vec2(getSizeWithDevice(60), winSize.height-getSizeWithDevice(60)));
     
     _title->initWithFile(getNameWithResolution("logo_land").c_str());
@@ -779,21 +552,15 @@ void CardBackLayer::updateLayoutWithLandscape()
         MenuItem* item = (MenuItem*)_menu->getChildByTag(i);
         item->setPosition(pos);
         
-//        if(i==GameData::getInstance()->getCardBackIndex())
-//            _selectedCardBack->setPosition(Vec2(winSize.width/2.0f+pos.x, winSize.height/2.0f+pos.y));
         if(i==GameData::getInstance()->getCardBackIndex())
             _selectedCardBack->setPosition(pos);
     }
     
-//    _menu->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
     _menu->setVisible(true);
     
-    /////size of the viewable part of scrollview
-    _ScrollView->setViewSize(Size(winSize.width, winSize.height/1.75f));
-    ////size of the whole content (the big rectangle that we scroll in)
-    _ScrollView->setContentSize(Size(winSize.width/2,winSize.height*1.5));
-    //position it so that the top most is visible initially,
-    _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*0.95));
+    _ScrollView->setViewSize(Size(winSize.width, winSize.height/2.0));
+    _ScrollView->setContentSize(Size(winSize.width/2,winSize.height*3.0));
+    _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*2.0));
 }
 
 void CardBackLayer::onCardTap(Ref* sender)

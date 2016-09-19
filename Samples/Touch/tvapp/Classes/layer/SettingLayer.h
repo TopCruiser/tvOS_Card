@@ -70,6 +70,7 @@ private:
     //HelpLayer* _helpLayer = NULL;
     
     bool _isEnabled;
+    
 public:
     CREATE_FUNC(SettingLayer);
 };

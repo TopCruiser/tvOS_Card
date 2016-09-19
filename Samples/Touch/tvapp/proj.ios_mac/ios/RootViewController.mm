@@ -155,6 +155,24 @@ USING_NS_CC;
             gameLayer->_boardLayer->setSetting(false);
             gameLayer->setTag(101);
         }
+        if(tag == 103)//Setting
+        {
+            GameLayer* gameLayer = dynamic_cast<GameLayer*>(layer);
+            gameLayer->_cardBackLayer->setVisible(false);
+            gameLayer->setTag(102);
+        }
+        if(tag == 104)//Setting
+        {
+            GameLayer* gameLayer = dynamic_cast<GameLayer*>(layer);
+            gameLayer->_cardFaceLayer->setVisible(false);
+            gameLayer->setTag(102);
+        }
+        if(tag == 105)//Setting
+        {
+            GameLayer* gameLayer = dynamic_cast<GameLayer*>(layer);
+            gameLayer->_backgroundLayer->setVisible(false);
+            gameLayer->setTag(102);
+        }
     }
 }
 
