@@ -33,6 +33,7 @@
 		CC1BECCD1D905AAE0041A2DF /* largeicon.png in Resources */ = {isa = PBXBuildFile; fileRef = CC1BECC91D905AAE0041A2DF /* largeicon.png */; };
 		CC1BECCE1D905AAE0041A2DF /* launch.png in Resources */ = {isa = PBXBuildFile; fileRef = CC1BECCA1D905AAE0041A2DF /* launch.png */; };
 		CC1BECCF1D905AAE0041A2DF /* topshelf.png in Resources */ = {isa = PBXBuildFile; fileRef = CC1BECCB1D905AAE0041A2DF /* topshelf.png */; };
+		CCE3E5C21D915F8E00877C41 /* TipLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE3E5C01D915F8E00877C41 /* TipLayer.cpp */; };
 		CE02F28F1D506EB1008C510A /* hand_icon_ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = CE02F28E1D506EB1008C510A /* hand_icon_ipadhd.png */; };
 		CE0736081D76F347004CB813 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE0736071D76F347004CB813 /* GoogleService-Info.plist */; };
 		CE1489411D292A560010E6B9 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE1489401D292A560010E6B9 /* GameKit.framework */; };
@@ -1079,7 +1080,6 @@
 		5087E77917EB970100C73F5D /* Icon-57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-57.png"; sourceTree = "<group>"; };
 		5087E77A17EB970100C73F5D /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		5087E77B17EB970100C73F5D /* Icon-76.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-76.png"; sourceTree = "<group>"; };
-		5087E77C17EB970100C73F5D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5087E78817EB974C00C73F5D /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		5087E78A17EB975400C73F5D /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
 		50EF629217ECD46A001EB2F8 /* Icon-40.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-40.png"; sourceTree = "<group>"; };
@@ -1101,6 +1101,8 @@
 		CC1BECC91D905AAE0041A2DF /* largeicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = largeicon.png; path = ../../../../../../../Users/user/Desktop/largeicon.png; sourceTree = "<group>"; };
 		CC1BECCA1D905AAE0041A2DF /* launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch.png; path = ../../../../../../../Users/user/Desktop/launch.png; sourceTree = "<group>"; };
 		CC1BECCB1D905AAE0041A2DF /* topshelf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = topshelf.png; path = ../../../../../../../Users/user/Desktop/topshelf.png; sourceTree = "<group>"; };
+		CCE3E5C01D915F8E00877C41 /* TipLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TipLayer.cpp; sourceTree = "<group>"; };
+		CCE3E5C11D915F8E00877C41 /* TipLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipLayer.h; sourceTree = "<group>"; };
 		CE02F28E1D506EB1008C510A /* hand_icon_ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hand_icon_ipadhd.png; sourceTree = "<group>"; };
 		CE0736071D76F347004CB813 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "tv/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		CE1489401D292A560010E6B9 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/System/Library/Frameworks/GameKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -2319,7 +2321,6 @@
 				5087E77917EB970100C73F5D /* Icon-57.png */,
 				5087E77A17EB970100C73F5D /* Icon-72.png */,
 				5087E77B17EB970100C73F5D /* Icon-76.png */,
-				5087E77C17EB970100C73F5D /* Info.plist */,
 			);
 			name = Icons;
 			path = ios;
@@ -3391,6 +3392,8 @@
 		CEAA64971D3B380A00F54E80 /* layer */ = {
 			isa = PBXGroup;
 			children = (
+				CCE3E5C01D915F8E00877C41 /* TipLayer.cpp */,
+				CCE3E5C11D915F8E00877C41 /* TipLayer.h */,
 				CE1B9A371D3A915B007AB3E9 /* CongratulationLayer.cpp */,
 				CE1B9A381D3A915B007AB3E9 /* CongratulationLayer.h */,
 				CE1B9A391D3A915B007AB3E9 /* ExitLayer.cpp */,
@@ -4582,6 +4585,7 @@
 				CE1B99F21D3A6C2A007AB3E9 /* GameData.cpp in Sources */,
 				9EF9A8EA1BA89E2D00102D0A /* AppDelegate.cpp in Sources */,
 				CE1B9A001D3A76F3007AB3E9 /* MenuLayer.cpp in Sources */,
+				CCE3E5C21D915F8E00877C41 /* TipLayer.cpp in Sources */,
 				CE1B9A0D1D3A772A007AB3E9 /* Move.cpp in Sources */,
 				CE1B9A2E1D3A8171007AB3E9 /* ImagePicker.cpp in Sources */,
 				CE1B9A2A1D3A8171007AB3E9 /* CardFaceLayer.cpp in Sources */,
@@ -4767,7 +4771,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS Icon";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = NO;
@@ -4780,11 +4784,11 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Cobra Corp (LF778JD8C9)";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Distribution: Cobra Corp (LF778JD8C9)";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4839,7 +4843,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS Icon";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = NO;
@@ -4852,12 +4856,12 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = NO;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Cobra Corp (LF778JD8C9)";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Distribution: Cobra Corp (LF778JD8C9)";
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
