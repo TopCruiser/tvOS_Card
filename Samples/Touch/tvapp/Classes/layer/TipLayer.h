@@ -7,6 +7,7 @@
 //
 
 #include "Common.h"
+#include <iostream>
 
 class TipLayer : public cocos2d::Layer
 {
@@ -37,4 +38,3 @@ public:
     CREATE_FUNC(TipLayer);
 };
 
- /* defined(__cardgame__CongratulationLayer__) */

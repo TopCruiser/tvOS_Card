@@ -92,7 +92,7 @@ void BoardLayer::init(Layer* parent)
     _startedGameFlag = false;
     _actuallyCardMoved = false;
     bTouchBegan = false;
-    lastMovedPoint = Vec2(0, 0);
+    lastMovedPoint = Vec2(960, 540);
     
     cards = new __Array; cards->init();
     playCells = new __Array; playCells->init();
@@ -1293,6 +1293,7 @@ bool BoardLayer::pressesBegan()
 
 bool BoardLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
+    prevPoint = touch->getLocation();
     return true;
 }
 
@@ -1303,7 +1304,11 @@ void BoardLayer::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_even
     Director* director = Director::getInstance();
     Point location = touch->getLocationInView();
     location = director->convertToGL(location);
-    lastMovedPoint = location;
+    
+    //added by ccl
+    Vec2 delta = location - prevPoint;
+    lastMovedPoint += delta;
+    //lastMovedPoint = location;
     
     log("touch move: %f, %f", location.x, location.y);
     if(_draggingCard != NULL)
@@ -1312,6 +1317,7 @@ void BoardLayer::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_even
     }
     
     dummy->setPosition(lastMovedPoint);
+    prevPoint = location;//added ccl
 }
 
 void BoardLayer::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)

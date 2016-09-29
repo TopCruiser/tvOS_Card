@@ -76,7 +76,8 @@ void SolitaireOptionLayer::init(Layer* parent)
                                                Sprite::create(getNameWithResolution("btn_done_act").c_str()),
                                                this, menu_selector(SolitaireOptionLayer::onDummy));
     dummy->setScale(0.01);
-    
+    //dummy->setPosition(Vec2(getSizeWithDevice(0.0), -size.height / 2.0 + getSizeWithDevice(40.0)));
+    dummy->setPosition(Vec2(0.0, 0.0));
     _drawthreeItem->setAnchorPoint(Vec2(0.5f, 0.5f));
     _vegasItem->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnDone->setAnchorPoint(Vec2(0.5f, 0.0f));

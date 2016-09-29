@@ -131,6 +131,7 @@ public:
     /////
     bool bTouchBegan;
     Vec2 lastMovedPoint;
+    Vec2 prevPoint;
     
     MenuItem* dummy;
     

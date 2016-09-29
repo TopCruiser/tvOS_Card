@@ -95,6 +95,8 @@ void SpiderOptionLayer::init(Layer* parent)
     _expertItem->setPosition(Vec2(getSizeWithDevice(230.0f), -getSizeWithDevice(45.0f)));
     _hardItem->setPosition(Vec2(getSizeWithDevice(230.0f), -getSizeWithDevice(120.0f)));
     
+    _hardItem->setPosition(Vec2(0.6, 0.6));//pending
+    
     easyLabel->setPosition(Vec2(getSizeWithDevice(10.0f), getSizeWithDevice(100.0f)));
     normalLabel->setPosition(Vec2(getSizeWithDevice(10.0f), getSizeWithDevice(30.0f)));
     
@@ -190,6 +192,7 @@ void SpiderOptionLayer::createMenuWithHard()
     _hardItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_on").c_str()),
                                          Sprite::create(getNameWithResolution("btn_check_on").c_str()),
                                          this, menu_selector(SpiderOptionLayer::onSelHardMode));
+    
 }
 
 void SpiderOptionLayer::onSelEasyMode(Ref* sender)

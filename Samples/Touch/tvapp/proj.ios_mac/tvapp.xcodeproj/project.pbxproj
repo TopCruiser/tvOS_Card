@@ -29,10 +29,7 @@
 		CC1BECC51D905A9C0041A2DF /* largeicon.png in Resources */ = {isa = PBXBuildFile; fileRef = CC1BECC11D905A9C0041A2DF /* largeicon.png */; };
 		CC1BECC61D905A9C0041A2DF /* launch.png in Resources */ = {isa = PBXBuildFile; fileRef = CC1BECC21D905A9C0041A2DF /* launch.png */; };
 		CC1BECC71D905A9C0041A2DF /* topshelf.png in Resources */ = {isa = PBXBuildFile; fileRef = CC1BECC31D905A9C0041A2DF /* topshelf.png */; };
-		CC1BECCC1D905AAE0041A2DF /* smallicon.png in Resources */ = {isa = PBXBuildFile; fileRef = CC1BECC81D905AAE0041A2DF /* smallicon.png */; };
-		CC1BECCD1D905AAE0041A2DF /* largeicon.png in Resources */ = {isa = PBXBuildFile; fileRef = CC1BECC91D905AAE0041A2DF /* largeicon.png */; };
-		CC1BECCE1D905AAE0041A2DF /* launch.png in Resources */ = {isa = PBXBuildFile; fileRef = CC1BECCA1D905AAE0041A2DF /* launch.png */; };
-		CC1BECCF1D905AAE0041A2DF /* topshelf.png in Resources */ = {isa = PBXBuildFile; fileRef = CC1BECCB1D905AAE0041A2DF /* topshelf.png */; };
+		CC34C6551D96A06D00F926EF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC34C6541D96A06D00F926EF /* Assets.xcassets */; };
 		CCE3E5C21D915F8E00877C41 /* TipLayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CCE3E5C01D915F8E00877C41 /* TipLayer.cpp */; };
 		CE02F28F1D506EB1008C510A /* hand_icon_ipadhd.png in Resources */ = {isa = PBXBuildFile; fileRef = CE02F28E1D506EB1008C510A /* hand_icon_ipadhd.png */; };
 		CE0736081D76F347004CB813 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CE0736071D76F347004CB813 /* GoogleService-Info.plist */; };
@@ -1004,7 +1001,6 @@
 		CEB9C7DD1D5F0A4500ED1DF3 /* LJniMediator.mm in Sources */ = {isa = PBXBuildFile; fileRef = CEB9C7DC1D5F0A4500ED1DF3 /* LJniMediator.mm */; };
 		CEB9C83B1D5F230800ED1DF3 /* libAppLovinTVOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB9C83A1D5F230800ED1DF3 /* libAppLovinTVOS.a */; };
 		CEB9C83D1D5F23CA00ED1DF3 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEB9C83C1D5F23CA00ED1DF3 /* AVFoundation.framework */; };
-		CEF95B461D39D704007DF7EB /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEF95B451D39D704007DF7EB /* GameController.framework */; };
 		D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D44C620D132DFF430009C878 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
@@ -1097,10 +1093,7 @@
 		CC1BECC11D905A9C0041A2DF /* largeicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = largeicon.png; sourceTree = "<group>"; };
 		CC1BECC21D905A9C0041A2DF /* launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launch.png; sourceTree = "<group>"; };
 		CC1BECC31D905A9C0041A2DF /* topshelf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topshelf.png; sourceTree = "<group>"; };
-		CC1BECC81D905AAE0041A2DF /* smallicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = smallicon.png; path = ../../../../../../../Users/user/Desktop/smallicon.png; sourceTree = "<group>"; };
-		CC1BECC91D905AAE0041A2DF /* largeicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = largeicon.png; path = ../../../../../../../Users/user/Desktop/largeicon.png; sourceTree = "<group>"; };
-		CC1BECCA1D905AAE0041A2DF /* launch.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = launch.png; path = ../../../../../../../Users/user/Desktop/launch.png; sourceTree = "<group>"; };
-		CC1BECCB1D905AAE0041A2DF /* topshelf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = topshelf.png; path = ../../../../../../../Users/user/Desktop/topshelf.png; sourceTree = "<group>"; };
+		CC34C6541D96A06D00F926EF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = tv/Assets.xcassets; sourceTree = "<group>"; };
 		CCE3E5C01D915F8E00877C41 /* TipLayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TipLayer.cpp; sourceTree = "<group>"; };
 		CCE3E5C11D915F8E00877C41 /* TipLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TipLayer.h; sourceTree = "<group>"; };
 		CE02F28E1D506EB1008C510A /* hand_icon_ipadhd.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hand_icon_ipadhd.png; sourceTree = "<group>"; };
@@ -2156,7 +2149,6 @@
 				CE7AFDB01D41AB5D00096CB9 /* Security.framework in Frameworks */,
 				CE7AFDAC1D41AB0B00096CB9 /* TVServices.framework in Frameworks */,
 				CE7AFDAA1D41AB0000096CB9 /* TVMLKit.framework in Frameworks */,
-				CEF95B461D39D704007DF7EB /* GameController.framework in Frameworks */,
 				9EF9A8E71BA89A8200102D0A /* libcocos2d tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2204,6 +2196,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				CC34C6541D96A06D00F926EF /* Assets.xcassets */,
 				1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */,
 				46880B8319C43A87006E1F66 /* Classes */,
 				46880B7519C43A67006E1F66 /* Resources */,
@@ -2329,10 +2322,6 @@
 		9EF9A8BB1BA898F000102D0A /* tv */ = {
 			isa = PBXGroup;
 			children = (
-				CC1BECC81D905AAE0041A2DF /* smallicon.png */,
-				CC1BECC91D905AAE0041A2DF /* largeicon.png */,
-				CC1BECCA1D905AAE0041A2DF /* launch.png */,
-				CC1BECCB1D905AAE0041A2DF /* topshelf.png */,
 				CE0736071D76F347004CB813 /* GoogleService-Info.plist */,
 				9EE108791BA8A72800078FAA /* Assets.xcassets */,
 				9EE1087A1BA8A72800078FAA /* Info.plist */,
@@ -3536,9 +3525,13 @@
 			attributes = {
 				LastUpgradeCheck = 0710;
 				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = L7Y7RLS5F8;
+					};
 					9EF9A8B91BA898F000102D0A = {
 						CreatedOnToolsVersion = 7.1;
 						DevelopmentTeam = LF778JD8C9;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -3614,6 +3607,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC34C6551D96A06D00F926EF /* Assets.xcassets in Resources */,
 				CE3C35EA1D424DF700A34812 /* spade3_12_hd.png in Resources */,
 				CE3C35EC1D424DF700A34812 /* spade3_13.png in Resources */,
 				CE3C35851D424DF700A34812 /* club3_5.png in Resources */,
@@ -3907,7 +3901,6 @@
 				CE3C343F1D424DF600A34812 /* club_1_13.png in Resources */,
 				CE3C35761D424DF700A34812 /* club3_12_ipadhd.png in Resources */,
 				CE3C36361D424DF700A34812 /* congratulation_replay_act.png in Resources */,
-				CC1BECCE1D905AAE0041A2DF /* launch.png in Resources */,
 				CE3C35131D424DF700A34812 /* diamond2_6.png in Resources */,
 				CE3C34491D424DF600A34812 /* club_1_3_ipadhd.png in Resources */,
 				CE3C36D91D424DF800A34812 /* statistics_hd.png in Resources */,
@@ -4033,7 +4026,6 @@
 				CE3C369E1D424DF700A34812 /* freecel.png in Resources */,
 				CE3C340A1D424DF600A34812 /* card24.png in Resources */,
 				CE3C35821D424DF700A34812 /* club3_4.png in Resources */,
-				CC1BECCC1D905AAE0041A2DF /* smallicon.png in Resources */,
 				CE3C33F51D424DF600A34812 /* card17.png in Resources */,
 				CE3C35D61D424DF700A34812 /* heart3_6.png in Resources */,
 				CE3C35601D424DF700A34812 /* spade2_5_ipadhd.png in Resources */,
@@ -4073,7 +4065,6 @@
 				CE3C36401D424DF700A34812 /* dialog_exit_hd.png in Resources */,
 				CE3C34BF1D424DF600A34812 /* spade1_4.png in Resources */,
 				CE3C352F1D424DF700A34812 /* heart2_2_hd.png in Resources */,
-				CC1BECCD1D905AAE0041A2DF /* largeicon.png in Resources */,
 				CE3C36861D424DF700A34812 /* btn_back_nor.png in Resources */,
 				CE3C33D91D424DF600A34812 /* card07_ipadhd.png in Resources */,
 				CE3C35121D424DF700A34812 /* diamond2_5_ipadhd.png in Resources */,
@@ -4138,7 +4129,6 @@
 				CE3C35251D424DF700A34812 /* heart2_11_ipadhd.png in Resources */,
 				CE3C35751D424DF700A34812 /* club3_12_hd.png in Resources */,
 				CE3C34241D424DF600A34812 /* card32_ipadhd.png in Resources */,
-				CC1BECCF1D905AAE0041A2DF /* topshelf.png in Resources */,
 				CE3C354E1D424DF700A34812 /* spade2_12_hd.png in Resources */,
 				CE3C36911D424DF700A34812 /* btn_go_ipadhd.png in Resources */,
 				CE3C355A1D424DF700A34812 /* spade2_3_ipadhd.png in Resources */,
@@ -4633,8 +4623,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yasir Azad (KYVM388L7U)";
 				COMPRESS_PNG_FILES = NO;
+				DEVELOPMENT_TEAM = L7Y7RLS5F8;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -4659,7 +4650,7 @@
 					"$(_COCOS_LIB_IOS_END)",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.cocos.tvapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sardartesting;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";
@@ -4671,8 +4662,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Yasir Azad (KYVM388L7U)";
 				COMPRESS_PNG_FILES = NO;
+				DEVELOPMENT_TEAM = L7Y7RLS5F8;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ios/Prefix.pch;
@@ -4695,7 +4687,7 @@
 					"$(_COCOS_LIB_IOS_END)",
 					"-ObjC",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.cocos.tvapp;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sardartesting;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";
@@ -4771,7 +4763,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS Icon";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = NO;
@@ -4788,7 +4780,8 @@
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "iPhone Distribution: Cobra Corp (LF778JD8C9)";
 				COMPRESS_PNG_FILES = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
+				DEVELOPMENT_TEAM = LF778JD8C9;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4832,6 +4825,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cobraclip.CardGames;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d4d94d15-99ac-41e9-8350-29305ad2b7d1";
+				PROVISIONING_PROFILE_SPECIFIER = "tvOS Card game Profile";
 				SDKROOT = appletvos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -4843,7 +4837,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = "tvOS Icon";
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = NO;
 				CLANG_ENABLE_OBJC_ARC = NO;
@@ -4861,7 +4855,8 @@
 				COMPRESS_PNG_FILES = NO;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = YES;
+				DEVELOPMENT_TEAM = LF778JD8C9;
+				EMBED_ASSET_PACKS_IN_PRODUCT_BUNDLE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4904,6 +4899,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.cobraclip.CardGames;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "d4d94d15-99ac-41e9-8350-29305ad2b7d1";
+				PROVISIONING_PROFILE_SPECIFIER = "tvOS Card game Profile";
 				SDKROOT = appletvos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -4939,7 +4935,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = appletvos9.2;
 			};
 			name = Debug;
 		};
@@ -4968,7 +4964,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = appletvos9.2;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

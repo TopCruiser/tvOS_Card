@@ -32,6 +32,7 @@ void TipLayer::init(Layer* parent)
     _parentLayer = parent;
     
     Sprite* background = Sprite::create(getNameWithResolution("dialog_congratulation").c_str());
+    
     background->setScale(getScaleWithDevice());
     background->setPosition(Vec2(0.0f, 0.0f));
     addChild(background);
@@ -54,6 +55,7 @@ void TipLayer::init(Layer* parent)
     MenuItem* btnMail = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_mail_nor").c_str()),
                                                      Sprite::create(getNameWithResolution("btn_mail_act").c_str()),
                                                      this, menu_selector(TipLayer::onMail));
+    
     
     MenuItem* btnGameCenter = MenuItemSprite::create(Sprite::create(getNameWithResolution("center_nor").c_str()),
                                                        Sprite::create(getNameWithResolution("center_act").c_str()),
@@ -153,6 +155,7 @@ void TipLayer::init(Layer* parent)
 //    
 //    //Appirater
 //    AppDelegate::get()->sendMessageToNative(MSG_APPIRATER, "Appirater", 1);comment715
+    
     
 }
 
