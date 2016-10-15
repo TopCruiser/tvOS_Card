@@ -32,6 +32,8 @@
 #import "AppDelegate.h"
 #import "RootViewController.h"
 #import <Firebase/Firebase.h>
+#import "MBProgressHUD.h"
+#import "LJniMediator.h"
 
 @interface TCocosParam : NSObject
 {
@@ -81,7 +83,14 @@ static AppDelegate s_sharedApplication;
 //    }];
     
     
+    adDisplaying = YES;
     [ALSdk initializeSdk];
+    
+    //********** initialize for GameCenter *********//
+    [self initGameCenter];
+    
+    //***********  In App LStoreManager  **********//
+    [[LStoreManagerIOS sharedInstance] setDelegate:self];
     
     cocos2d::Application *app = cocos2d::Application::getInstance();
     app->initGLContextAttrs();
@@ -109,7 +118,7 @@ static AppDelegate s_sharedApplication;
     // Use RootViewController manage CCEAGLView 
     viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
 #if CC_TARGET_PLATFORM != CC_PLATFORM_TVOS
-    _viewController.wantsFullScreenLayout = YES;
+    viewController.wantsFullScreenLayout = YES;
 #endif
     viewController.view = eaglView;
 
@@ -141,6 +150,10 @@ static AppDelegate s_sharedApplication;
     return YES;
 }
 
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+    cocos2d::Director::getInstance()->resume();
+}
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     /*
@@ -151,13 +164,6 @@ static AppDelegate s_sharedApplication;
     /* cocos2d::Director::getInstance()->pause(); */
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
-    /*
-     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-     */
-     //We don't need to call this method any more. It will interupt user defined game pause&resume logic
-    /* cocos2d::Director::getInstance()->resume(); */
-}
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     /*
@@ -235,43 +241,42 @@ static AppDelegate s_sharedApplication;
 //            [self sendFeedback];
 //            break;
 //            
-//        case MSG_SUBMIT_SCORE:
-//            [self submitLeaderboard:nParam leaderboardID:strParam];
-//            break;
-//            
-//        case MSG_SUBMIT_ACHIEVE:
-//            [self submitAchieve:nParam achieveID:strParam];
-//            break;
-//            
-//        case MSG_RANK_ACHIEVE:
-//            [self rankAchieve:nParam leaderBoard_ID:strParam];
-//            break;
-//            
-//        case MSG_GAMECENTER:
-//            //[self showAchievements];
-//            [MBProgressHUD showHUDAddedTo:window animated:YES];
-//            [self showLeaderboard:strParam];
-//            //[self leaderboardInfo:nParam];
-//            break;
-//            
-//        case MSG_REMOVE_ADS:
-//            [MBProgressHUD showHUDAddedTo:window animated:YES];
-//            [NSTimer scheduledTimerWithTimeInterval:3
-//                                             target:self
-//                                           selector:@selector(delayTime)
-//                                           userInfo:nil
-//                                            repeats:NO];
-//            
-//            [[LStoreManagerIOS sharedInstance] buyProduct:strParam];
-//            break;
-//            
-//        case MSG_ADMOB_BANNER:
-//            if(nParam == 0) [self hideAdmobBanner];
-//            else [self showAdmobBanner];
-//            break;
+        case MSG_SUBMIT_SCORE:
+            [self submitLeaderboard:nParam leaderboardID:strParam];
+            break;
+            
+        case MSG_SUBMIT_ACHIEVE:
+            [self submitAchieve:nParam achieveID:strParam];
+            break;
+            
+        case MSG_RANK_ACHIEVE:
+            [self rankAchieve:nParam leaderBoard_ID:strParam];
+            break;
+            
+        case MSG_GAMECENTER:
+            //[self showAchievements];
+            [MBProgressHUD showHUDAddedTo:window animated:YES];
+            [self showLeaderboard:strParam];
+            //[self leaderboardInfo:nParam];
+            break;
+//
+        case MSG_REMOVE_ADS:
+            [MBProgressHUD showHUDAddedTo:window animated:YES];
+            [NSTimer scheduledTimerWithTimeInterval:3
+                                             target:self
+                                           selector:@selector(delayTime)
+                                           userInfo:nil
+                                            repeats:NO];
+            
+            [[LStoreManagerIOS sharedInstance] buyProduct:strParam];
+            break;
+            
+        case MSG_ADMOB_BANNER:
+            adDisplaying = NO;
+            break;
             
         case MSG_SHOW_CHARTBOOST:
-            [ALInterstitialAd show];
+            if(adDisplaying) [ALInterstitialAd show];
             break;
             
 //        case MSG_SHOW_REWARDEDVIDEO:
@@ -309,16 +314,16 @@ static AppDelegate s_sharedApplication;
 //            [self showTwitter:strParam];
 //            break;
 //            
-//        case MSG_RESTORE_REQUEST:
-//            [MBProgressHUD showHUDAddedTo:window animated:YES];
-//            [NSTimer scheduledTimerWithTimeInterval:3
-//                                             target:self
-//                                           selector:@selector(delayTime)
-//                                           userInfo:nil
-//                                            repeats:NO];
-//            [[LStoreManagerIOS sharedInstance] restore];
-//            break;
-//            
+        case MSG_RESTORE_REQUEST:
+            [MBProgressHUD showHUDAddedTo:window animated:YES];
+            [NSTimer scheduledTimerWithTimeInterval:3
+                                             target:self
+                                           selector:@selector(delayTime)
+                                           userInfo:nil
+                                            repeats:NO];
+            [[LStoreManagerIOS sharedInstance] restore];
+            break;
+//
 //        case MSG_SMS:
 //            [self showSMS:strParam];
 //            break;
@@ -388,6 +393,203 @@ static AppDelegate s_sharedApplication;
     } withCancelBlock:^(NSError *error) {
         NSLog(@"Failed to fetch. Using Cached Config.");
     }];
+}
+
+- (void) showLeaderboard:(NSString*) strID {
+    
+    if ([GameCenterManager isGameCenterAvailable])
+    {
+        [MBProgressHUD hideAllHUDsForView:window animated:YES];
+        GKGameCenterViewController *leaderboardController = [[GKGameCenterViewController alloc] init];
+        
+        if (leaderboardController != NULL) {
+            
+            leaderboardController.restorationIdentifier = strID;
+            
+            leaderboardController.gameCenterDelegate = self;
+            [viewController presentViewController:leaderboardController animated:NO completion:^{
+                //[viewController updateFocusIfNeeded];
+                //[viewController setNeedsFocusUpdate];
+            }];
+        }
+    }
+    else
+    {
+        [MBProgressHUD hideAllHUDsForView:window animated:YES];
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil
+                                                                       message:@"Game Center is not available."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {
+                                                              //[self.viewController updateFocusIfNeeded];
+                                                              }];
+        
+        [alert addAction:defaultAction];
+        [self.viewController presentViewController:alert animated:NO completion:nil];
+    }
+    
+}
+
+-(void) initGameCenter{
+    
+    if([GameCenterManager isGameCenterAvailable]){
+        
+        gameCenterManager = [[[GameCenterManager alloc] init] autorelease];
+        [gameCenterManager setDelegate:self];
+        [gameCenterManager authenticateLocalUser];
+        
+    }else{
+        
+        UIAlertController* alert = [UIAlertController alertControllerWithTitle:nil
+                                                                       message:@"Game Center is not available."
+                                                                preferredStyle:UIAlertControllerStyleAlert];
+        
+        
+        UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"Close" style:UIAlertActionStyleDefault
+                                                              handler:^(UIAlertAction * action) {
+                                                                  //[self.viewController updateFocusIfNeeded];
+                                                              }];
+        
+        [alert addAction:defaultAction];
+        [self.viewController presentViewController:alert animated:YES completion:nil];
+        
+    }
+}
+
+-(void) delayTime{
+    [MBProgressHUD hideAllHUDsForView:window animated:YES];
+}
+
+- (void) submitLeaderboard:(int)nScore leaderboardID:(NSString*)strParam{
+    
+    if( nScore >= 0){
+        [gameCenterManager reportScore:nScore forCategory:strParam];
+    }
+}
+
+- (void) submitAchieve:(int)nPercent achieveID:(NSString*)strParam{
+    
+    [gameCenterManager submitAchievement:strParam percentComplete:nPercent];
+}
+
+
+-(void) rankAchieve:(int) nGameType leaderBoard_ID:(NSString*) category{
+    
+    GKLeaderboard *lb = [[[GKLeaderboard alloc] init] autorelease];
+    lb.identifier = category;
+    lb. timeScope = GKLeaderboardTimeScopeToday;
+    [lb loadScoresWithCompletionHandler:^(NSArray *scores, NSError *error)
+     {
+         GKLocalPlayer *lp = [GKLocalPlayer localPlayer];
+         for (GKScore* score in scores)
+         {
+             if (score.player == lp)
+             {
+                 if(nGameType == TYPE_SOLITAIRE){
+                     if(score.rank <11){
+                         NSString* achieve_ID = @"com.cobraclip.cardgames.sTop10ScoreWiningDeal.ach";
+                         [gameCenterManager submitAchievement:achieve_ID percentComplete:100];
+                     }
+                 }
+                 
+                 if(nGameType == TYPE_FREECELL){
+                     if(score.rank < 6){
+                         NSString* achieve_ID = @"com.cobraclip.cardgames.fTop5ScoreWiningDeal.ach";
+                         [gameCenterManager submitAchievement:achieve_ID percentComplete:100];
+                     }
+                 }
+             }
+         }
+     }];
+    
+}
+
+
+#pragma In App Purchase----
+// **** in app purchase ****//
+-(void) purchaseSuccessed:(NSString*) productId
+{
+    NSLog(@"===== Purchase Success ========");
+    [MBProgressHUD hideAllHUDsForView:window animated:YES];
+    
+    isRemoveAds = true;
+    [self sendToCocos:MSG_REMOVE_ADS strParam:productId intParam:REMOVE_ADMOB];//Success
+    
+    
+    
+}
+-(void) purchaseFailed:(NSString*) productId message:(NSString*) errMsg
+{
+    [MBProgressHUD hideAllHUDsForView:window animated:YES];
+    //[self sendToCocos:MSG_REMOVE_ADS strParam:productId intParam:SHOW_ADMOB];//Failed
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"In App Purchase"
+                                                                   message:@"Purchase Failed!"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              //[self.viewController updateFocusIfNeeded];
+                                                          }];
+    
+    [alert addAction:defaultAction];
+    [self.viewController presentViewController:alert animated:NO completion:nil];
+    
+}
+
+-(void) sendToCocos:(int) nType strParam:(NSString*) strParam intParam:(int) nParam
+{
+    TCocosParam* cocosParam = [[TCocosParam alloc] init];
+    [cocosParam setNType:nType];
+    [cocosParam setStrParam:strParam];
+    [cocosParam setNParam:nParam];
+    
+    [self performSelectorOnMainThread:@selector(sendToCocosOnMain:) withObject:cocosParam waitUntilDone:YES];
+}
+
+-(void) sendToCocosOnMain:(TCocosParam*) cocosParam
+{
+    LJniMediator::sharedInstance()->sendToCocos(cocosParam.nType, [cocosParam.strParam UTF8String], cocosParam.nParam);
+    [cocosParam release];
+}
+
+-(void) restoreSuccessed:(NSArray*) productIdList
+{
+    [MBProgressHUD hideAllHUDsForView:window animated:YES];
+    for (NSString* productId in productIdList)
+    {
+        //Only one : remove ads
+        isRemoveAds = true;
+        [self sendToCocos:MSG_REMOVE_ADS strParam:productId intParam:REMOVE_ADMOB];
+        
+    }
+}
+-(void) restoreFailed:(NSString*) errMsg
+{
+    [MBProgressHUD hideAllHUDsForView:window animated:YES];
+    
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Restore"
+                                                                   message:@"Restore Failed!"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+                                                          handler:^(UIAlertAction * action) {
+                                                              //[self.viewController updateFocusIfNeeded];
+                                                          }];
+    
+    [alert addAction:defaultAction];
+    [self.viewController presentViewController:alert animated:NO completion:nil];
+}
+
+#pragma GameCenterControllerDelegate---
+- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController {
+    
+    [viewController dismissViewControllerAnimated:YES completion:nil];
+    cocos2d::Director::getInstance()->resume();
 }
 
 @end

@@ -19,6 +19,11 @@ public:
     virtual bool init();
     virtual void init(Layer* parent);
     
+    virtual bool onTouchBegan(Touch *touch, Event *unused_event);
+    virtual void onTouchMoved(Touch *touch, Event *unused_event);
+    virtual void onTouchEnded(Touch *touch, Event *unused_event);
+    
+    void pressBegan();
     void onSelEasyMode(Ref* sender);
     void onSelNormalMode(Ref* sender);
     void onSelHardMode(Ref* sender);
@@ -37,7 +42,13 @@ private:
     MenuItem* _normalItem;
     MenuItem* _expertItem;
     MenuItem* _hardItem;
+    MenuItem* btnDone;
+    
     Menu* _menu;
+    
+    MenuItem* arrowSprite;
+    Vec2 prevPoint;
+    Vec2 lastMovedPoint;
     
 public:
     CREATE_FUNC(SpiderOptionLayer);

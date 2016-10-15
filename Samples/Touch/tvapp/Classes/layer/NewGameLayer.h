@@ -20,6 +20,11 @@ public:
     virtual bool init();
     virtual void init(Layer* parent);
     
+    virtual bool onTouchBegan(Touch *touch, Event *unused_event);
+    virtual void onTouchMoved(Touch *touch, Event *unused_event);
+    virtual void onTouchEnded(Touch *touch, Event *unused_event);
+    
+    void pressBegan();
 private:
     void onRandomDeal(Ref* sender);
     void onWinningDeal(Ref* sender);
@@ -30,12 +35,18 @@ private:
     
 private:
     Layer* _parentLayer;
-    MenuItem* _randomDealItem;
-    MenuItem* _winningDealItem;
-    MenuItem* _replayDealItem;
-    MenuItem* _selectDealItem;
+    Sprite* _randomDealItem;
+    Sprite* _winningDealItem;
+    Sprite* _replayDealItem;
+    Sprite* _selectDealItem;
+    MenuItem* btnDone;
+    
     Menu* _menu;
-    Sprite* background;   
+    Sprite* background;
+    
+    MenuItem* arrowSprite;
+    Vec2 prevPoint;
+    Vec2 lastMovedPoint;
     
 public:
     CREATE_FUNC(NewGameLayer);

@@ -68,7 +68,7 @@ void SolitaireOptionLayer::init(Layer* parent)
     
     }
     
-    MenuItem* btnDone = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_done_nor").c_str()),
+    btnDone = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_done_nor").c_str()),
                                                    Sprite::create(getNameWithResolution("btn_done_act").c_str()),
                                                    this, menu_selector(SolitaireOptionLayer::onDone));
     
@@ -77,7 +77,7 @@ void SolitaireOptionLayer::init(Layer* parent)
                                                this, menu_selector(SolitaireOptionLayer::onDummy));
     dummy->setScale(0.01);
     //dummy->setPosition(Vec2(getSizeWithDevice(0.0), -size.height / 2.0 + getSizeWithDevice(40.0)));
-    dummy->setPosition(Vec2(0.0, 0.0));
+    //dummy->setPosition(Vec2(0.0, 0.0));
     _drawthreeItem->setAnchorPoint(Vec2(0.5f, 0.5f));
     _vegasItem->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnDone->setAnchorPoint(Vec2(0.5f, 0.0f));
@@ -99,10 +99,28 @@ void SolitaireOptionLayer::init(Layer* parent)
     _menu->addChild(_vegasLabel);
     _menu->addChild(_vegasItem);
     _menu->addChild(btnDone);
-    _menu->addChild(dummy);
     
     _menu->setPosition(Vec2(0.0f, 0.0f));
     addChild(_menu);
+    
+    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+    setTouchEnabled(true);
+    
+    if(arrowSprite) removeChild(arrowSprite);
+    
+    arrowSprite = MenuItemSprite::create(Sprite::create(getNameWithResolution("hand_icon").c_str()),
+                                         Sprite::create(getNameWithResolution("hand_icon").c_str()),
+                                         this, menu_selector(BoardLayer::onDummy));
+    arrowSprite->setScale(0.5);
+    arrowSprite->setAnchorPoint(Vec2(0.5, 1));
+    arrowSprite->setPosition(Vec2(0, 0));
+    addChild(arrowSprite, 1000);
+    
+    Size winSize = Director::getInstance()->getWinSize();
+    
+    lastMovedPoint = Vec2(0, 0);
+    
+    setTag(99);
 }
 
 void SolitaireOptionLayer::onSelDrawThree(Ref* sender)
@@ -168,4 +186,59 @@ void SolitaireOptionLayer::onDone(Ref* sender)
         ((GameLayer*)_parentLayer)->removeOptionLayers();
         ((GameLayer*)_parentLayer)->getTaskbarLayer()->showNewGame();
     }    
+}
+
+bool SolitaireOptionLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    log("lastMovedPoint: %f, %f", lastMovedPoint.x, lastMovedPoint.y);
+    
+    prevPoint = touch->getLocation();
+    
+    return true;
+}
+
+void SolitaireOptionLayer::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    Director* director = Director::getInstance();
+    Point location = touch->getLocationInView();
+    location = director->convertToGL(location);
+    
+    //added by ccl
+    Vec2 delta = location - prevPoint;
+    lastMovedPoint += delta;
+    
+    log("touch move: %f, %f", location.x, location.y);
+    
+    arrowSprite->setPosition(lastMovedPoint);
+    prevPoint = location;//added ccl
+    
+    log("touch move: %f, %f", location.x, location.y);
+}
+
+void SolitaireOptionLayer::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    log("touch end: %f, %f", lastMovedPoint.x, lastMovedPoint.y);
+}
+
+void SolitaireOptionLayer::pressBegan()
+{
+    CCLOG("Taskbarlayer - press began : (%f, %f)", lastMovedPoint.x, lastMovedPoint.y);
+    //Vec2 touchPoint = convertToNodeSpace(lastMovedPoint);
+    Vec2 touchPoint = lastMovedPoint;
+    
+    if(btnDone->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(SolitaireOptionLayer::onDone,this));
+        btnDone->runAction(Sequence::create(FadeTo::create(0.1, 0.6), func, NULL));
+    }
+    if(_vegasItem->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(SolitaireOptionLayer::onSelVegasStyle,this));
+        _vegasItem->runAction(Sequence::create(func, NULL));
+    }
+    if(_drawthreeItem->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(SolitaireOptionLayer::onSelDrawThree,this));
+        _drawthreeItem->runAction(Sequence::create(func, NULL));
+    }
 }

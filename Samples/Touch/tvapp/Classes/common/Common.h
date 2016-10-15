@@ -68,6 +68,7 @@ enum ADMOB_BANNER
 };
 
 extern int g_nOrientation;
+extern bool g_bTipDisplay;
 
 std::string getNameWithDeviceJpg(std::string name);
 std::string getNameWithDeviceIpad(std::string name);

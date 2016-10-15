@@ -50,7 +50,7 @@ public:
 private:
     MenuItem* createItem(const char* szNormalSpritePath, const char* szActiveSpritePath, const char* szTitle,
                            float width, float height, Ref* target, SEL_MenuHandler selector);
-private:
+public:
     Layer* _parentLayer;
     Sprite* _background;
     Menu* _menu;

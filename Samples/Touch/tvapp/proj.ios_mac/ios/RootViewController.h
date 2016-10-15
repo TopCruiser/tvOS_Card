@@ -24,10 +24,13 @@
  ****************************************************************************/
 
 #import <UIKit/UIKit.h>
+#import <GameKit/GameKit.h>
+#import <AVFoundation/AVFoundation.h>
 #import "MenuLayer.h"
 //#import "BoardLayer.h"
 
 @interface RootViewController : UIViewController {
+    AVAudioPlayer* audioPlayer;
 }
 - (BOOL) prefersStatusBarHidden;
 

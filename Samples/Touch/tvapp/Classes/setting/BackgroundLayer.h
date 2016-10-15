@@ -25,6 +25,12 @@ public:
     void updateLayoutWithPortrait();
     void updateLayoutWithLandscape();
     
+    virtual bool onTouchBegan(Touch *touch, Event *unused_event);
+    virtual void onTouchMoved(Touch *touch, Event *unused_event);
+    virtual void onTouchEnded(Touch *touch, Event *unused_event);
+    
+    void pressBegan();
+    
 private:
     void onBackgroundSelected(Ref* sender);
     void onBack(Ref* sender);
@@ -45,6 +51,13 @@ private:
     MenuItem* btnBG06;
     MenuItem* btnBG07;
     MenuItem* btnBG08;
+    
+    Vec2 lastMovedPoint;
+    Vec2 prevPoint;
+    
+    MenuItem* arrowSprite;
+    
+    
     
 public:
     CREATE_FUNC(BackgroundLayer);

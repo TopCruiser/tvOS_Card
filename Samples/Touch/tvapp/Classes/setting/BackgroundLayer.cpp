@@ -138,19 +138,42 @@ void BackgroundLayer::init(Layer* parent)
     
     _menu->addChild(btnBack);
     
-    _menu->addChild(btnBG01, 1, TAG_BG01);
-    _menu->addChild(btnBG02, 1, TAG_BG02);
-    _menu->addChild(btnBG03, 1, TAG_BG03);
-    _menu->addChild(btnBG04, 1, TAG_BG04);
+    addChild(btnBG01, 1, TAG_BG01);
+    addChild(btnBG02, 1, TAG_BG02);
+    addChild(btnBG03, 1, TAG_BG03);
+    addChild(btnBG04, 1, TAG_BG04);
+    addChild(btnBG05, 1, TAG_BG05);
+    addChild(btnBG06, 1, TAG_BG06);
+    addChild(btnBG07, 1, TAG_BG07);
+    addChild(btnBG08, 1, TAG_NATIVE);
     
-    _menu->addChild(btnBG05, 1, TAG_BG05);
-    _menu->addChild(btnBG06, 1, TAG_BG06);
-    _menu->addChild(btnBG07, 1, TAG_BG07);
-    _menu->addChild(btnBG08, 1, TAG_NATIVE);
+//    _menu->addChild(btnBG01, 1, TAG_BG01);
+//    _menu->addChild(btnBG02, 1, TAG_BG02);
+//    _menu->addChild(btnBG03, 1, TAG_BG03);
+//    _menu->addChild(btnBG04, 1, TAG_BG04);
+//    
+//    _menu->addChild(btnBG05, 1, TAG_BG05);
+//    _menu->addChild(btnBG06, 1, TAG_BG06);
+//    _menu->addChild(btnBG07, 1, TAG_BG07);
+//    _menu->addChild(btnBG08, 1, TAG_NATIVE);
     _menu->setVisible(false);
     
     addChild(_menu);
     
+    if(arrowSprite) removeChild(arrowSprite);
+    
+    arrowSprite = MenuItemSprite::create(Sprite::create(getNameWithResolution("hand_icon").c_str()),
+                                         Sprite::create(getNameWithResolution("hand_icon").c_str()),
+                                         this, menu_selector(BoardLayer::onDummy));
+    arrowSprite->setScale(0.5);
+    arrowSprite->setAnchorPoint(Vec2(0.5, 1));
+    arrowSprite->setPosition(Vec2(960, 540));
+    addChild(arrowSprite, 1000);
+    
+    lastMovedPoint = Vec2(960, 540);
+    
+    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+    setTouchEnabled(true);
 }
 
 void BackgroundLayer::updateLayoutWithPortrait()
@@ -234,53 +257,50 @@ void BackgroundLayer::updateLayoutWithLandscape()
     
     for(int i = 0; i < TAG_MAX; i++)
     {
-        Point pos = Vec2(0, 0);
+        Point pos = Vec2(960, 540);
         switch (i) {
             case TAG_BG01:
-                pos.x = -getSizeWithDevice(270);
-                pos.y = -getSizeWithDevice(20);
+                pos.x = 400;
+                pos.y = 520;
                 break;
             case TAG_BG02:
-                pos.x = -getSizeWithDevice(270);
-                pos.y = -getSizeWithDevice(190);
+                pos.x = 400;
+                pos.y = 200;
                 break;
-                
-                
-                
             case TAG_BG03:
-                pos.x = -getSizeWithDevice(90);
-                pos.y = -getSizeWithDevice(20);
+                pos.x = 750;
+                pos.y = 520;
                 break;
             case TAG_BG04:
-                pos.x = -getSizeWithDevice(90);
-                pos.y = -getSizeWithDevice(190);
+                pos.x = 750;
+                pos.y = 200;
                 break;
             case TAG_BG05:
-                pos.x = getSizeWithDevice(90);
-                pos.y = -getSizeWithDevice(20);
+                pos.x = 1170;
+                pos.y = 520;
                 break;
             case TAG_BG06:
-                pos.x = getSizeWithDevice(90);
-                pos.y = -getSizeWithDevice(190);
+                pos.x = 1170;
+                pos.y = 200;
                 break;
                 
             case TAG_BG07:
-                pos.x = getSizeWithDevice(270);
-                pos.y = -getSizeWithDevice(20);
+                pos.x = 1520;
+                pos.y = 520;
                 break;
             case TAG_NATIVE:
-                pos.x = getSizeWithDevice(270);
-                pos.y = -getSizeWithDevice(190);
+                pos.x = 1520;
+                pos.y = 200;
                 break;
             default:
                 break;
         }
         
-        MenuItem* item = (MenuItem*)_menu->getChildByTag(i);
+        Sprite* item = (Sprite*)getChildByTag(i);
         item->setPosition(pos);
     }
     
-    _menu->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
+    _menu->setPosition(Vec2(0, 0));
     _menu->setVisible(true);
 }
 
@@ -310,23 +330,91 @@ void BackgroundLayer::didFinishPickingWithResult(cocos2d::Texture2D* result)
     
     GameData::getInstance()->setBackgroundIndex(TAG_NATIVE);
     ((GameLayer*)_parentLayer)->setBackground(result);
-        
-    /*
-     _background->initWithTexture(result);
-     Size winSize = Director::getInstance()->getWinSize();
-     Size bgSize= _background->getContentSize();
-     
-     float scaleX=winSize.width/bgSize.width;
-     float scaleY=winSize.height/bgSize.height;
-     
-     _background->cocos2d::CCNode::setScale(scaleX, scaleY);
-     _background->setContentSize(_background->getContentSize());
-    */
-    
 }
 
 void BackgroundLayer::onBack(Ref* sender)
 {
     setVisible(false);
     ((GameLayer*)_parentLayer)->getSettingLayer()->didFinishCell();
+}
+
+void BackgroundLayer::pressBegan()
+{
+    CCLOG("Taskbarlayer - press began : (%f, %f)", lastMovedPoint.x, lastMovedPoint.y);
+    Vec2 touchPoint = (lastMovedPoint);
+    
+    if(btnBG01->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(BackgroundLayer::onBackgroundSelected,this));
+        btnBG01->runAction(Sequence::create(ScaleTo::create(0.01, 0.7), ScaleTo::create(0.01, 1.0), func, NULL));
+    }
+    if(btnBG02->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(BackgroundLayer::onBackgroundSelected,this));
+        btnBG02->runAction(Sequence::create(ScaleTo::create(0.01, 0.7), ScaleTo::create(0.01, 1.0), func, NULL));
+    }
+    if(btnBG03->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(BackgroundLayer::onBackgroundSelected,this));
+        btnBG03->runAction(Sequence::create(ScaleTo::create(0.01, 0.7), ScaleTo::create(0.01, 1.0), func, NULL));
+    }
+    if(btnBG04->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(BackgroundLayer::onBackgroundSelected,this));
+        btnBG04->runAction(Sequence::create(ScaleTo::create(0.01, 0.7), ScaleTo::create(0.01, 1.0), func, NULL));
+    }
+    if(btnBG04->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(BackgroundLayer::onBackgroundSelected,this));
+        btnBG04->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnBG05->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(BackgroundLayer::onBackgroundSelected,this));
+        btnBG05->runAction(Sequence::create(ScaleTo::create(0.01, 0.7), ScaleTo::create(0.01, 1.0), func, NULL));
+    }
+    if(btnBG06->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(BackgroundLayer::onBackgroundSelected,this));
+        btnBG06->runAction(Sequence::create(ScaleTo::create(0.01, 0.7), ScaleTo::create(0.01, 1.0), func, NULL));
+    }
+    if(btnBG07->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(BackgroundLayer::onBackgroundSelected,this));
+        btnBG07->runAction(Sequence::create(ScaleTo::create(0.01, 0.7), ScaleTo::create(0.01, 1.0), func, NULL));
+    }
+}
+
+bool BackgroundLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    if(!this->isVisible()) return false;
+    
+    log("lastMovedPoint: %f, %f", lastMovedPoint.x, lastMovedPoint.y);
+    
+    prevPoint = touch->getLocation();
+    
+    return true;
+}
+
+void BackgroundLayer::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    Director* director = Director::getInstance();
+    Point location = touch->getLocationInView();
+    location = director->convertToGL(location);
+    
+    //added by ccl
+    Vec2 delta = location - prevPoint;
+    lastMovedPoint += delta;
+    
+    log("touch move: %f, %f", location.x, location.y);
+    
+    arrowSprite->setPosition(lastMovedPoint);
+    prevPoint = location;//added ccl
+    
+    log("touch move: %f, %f", location.x, location.y);
+}
+
+void BackgroundLayer::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    log("touch end: %f, %f", lastMovedPoint.x, lastMovedPoint.y);
 }

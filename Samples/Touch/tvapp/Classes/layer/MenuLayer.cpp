@@ -44,13 +44,13 @@ bool MenuLayer::init()
     btnSolitaire = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_solitaire_nor").c_str()),
                                                         Sprite::create(getNameWithResolution("btn_solitaire_act").c_str()),
                                                         this, menu_selector(MenuLayer::onSolitaire));
-    MenuItem* btnForty = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_fortythieves_nor").c_str()),
+    btnForty = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_fortythieves_nor").c_str()),
                                                     Sprite::create(getNameWithResolution("btn_fortythieves_act").c_str()),
                                                     this, menu_selector(MenuLayer::onFortyThieves));
-    MenuItem* btnFreecell = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
+    btnFreecell = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
                                                        Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
                                                        this, menu_selector(MenuLayer::onFreeCell));
-    MenuItem* btnSpider = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_spider_nor").c_str()),
+    btnSpider = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_spider_nor").c_str()),
                                                      Sprite::create(getNameWithResolution("btn_spider_act").c_str()),
                                                      this, menu_selector(MenuLayer::onSpiderSolitaire));
     
@@ -59,16 +59,17 @@ bool MenuLayer::init()
                                              Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
                                              this, menu_selector(MenuLayer::onDummy));
     dummy->setScale(0.001);
+    //dummy->setPosition(Vec2(960, 540));
     
     btnSolitaire->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnForty->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnFreecell->setAnchorPoint(Vec2(0.5f, 0.5f));
     btnSpider->setAnchorPoint(Vec2(0.5f, 0.5f));
     
-    btnSolitaire->setScale(1.0);
-    btnForty->setScale(1.0);
-    btnFreecell->setScale(1.0);
-    btnSpider->setScale(1.0);
+    btnSolitaire->setScale(0.8);
+    btnForty->setScale(0.8);
+    btnFreecell->setScale(0.8);
+    btnSpider->setScale(0.8);
     
     _menu = Menu::create();
     _menu->addChild(btnSolitaire, 1, TAG_SOLITAIRE);
@@ -80,11 +81,34 @@ bool MenuLayer::init()
     
     addChild(_menu);
     
-    setTag(100);
-    
     setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+    setSwallowsTouches(true);
     setTouchEnabled(true);
     
+    if(arrowSprite) removeChild(arrowSprite);
+    
+    arrowSprite = MenuItemSprite::create(Sprite::create(getNameWithResolution("hand_icon").c_str()),
+                                   Sprite::create(getNameWithResolution("hand_icon").c_str()),
+                                   this, menu_selector(BoardLayer::onDummy));
+    arrowSprite->setScale(0.5);
+    arrowSprite->setAnchorPoint(Vec2(0.5, 1));
+    arrowSprite->setPosition(Vec2(960, 540));
+    addChild(arrowSprite, 1000);
+    
+    Size winSize = Director::getInstance()->getWinSize();
+    
+    lastMovedPoint = Vec2(960, 540);
+    
+//    if(!g_bTipDisplay)
+//    {
+//        tipLayer = TipLayer::create();
+//        tipLayer->init(this);
+//        tipLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
+//        tipLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
+//        addChild(tipLayer, 6);
+//        g_bTipDisplay = true;
+//    }
+    setTag(100);
     return true;
 }
 
@@ -95,12 +119,7 @@ void MenuLayer::onDummy(Ref* sender)
 
 void MenuLayer::onEnterTransitionDidFinish()
 {
-    //if(g_nOrientation == ORIENTATION_PORTRAIT || g_nOrientation == ORIENTATION_PORTRAIT_UPSIDEDOWN)
-        //updateLayoutWithPortrait();
-//    else if(g_nOrientation == ORIENTATION_LANDSCAPE_LEFT || g_nOrientation == ORIENTATION_LANDSCAPE_RIGHT)comment716
-          updateLayoutWithLandscape();
-    
-    //AppDelegate::get()->sendMessageToNative(MSG_GOOGLE_ANALYTICS, "Home Screen", 1);comment715
+    updateLayoutWithLandscape();
 }
 
 void MenuLayer::updateLayoutWithPortrait()
@@ -163,32 +182,28 @@ void MenuLayer::updateLayoutWithLandscape()
     
     for(int i = 0; i < TAG_MAX; i++)
     {
-        cocos2d::Point pos = Vec2(0, 0);
+        cocos2d::Point pos = Vec2(960, 540);
         switch (i) {
             case TAG_SOLITAIRE:
-                pos.x = -getSizeWithDevice(230);
-                pos.y = -getSizeWithDevice(20);
-//                pos.x = 0;
-//                pos.y = 0;
+                pos.x = getSizeWithDevice(280);
+                pos.y = getSizeWithDevice(240);
                 break;
             case TAG_FORTY_THIEVES:
-                pos.x = -getSizeWithDevice(230);
-                pos.y = -getSizeWithDevice(175);
+                pos.x = getSizeWithDevice(660);
+                pos.y = getSizeWithDevice(240);
                 break;
             case TAG_FREECELL:
-                pos.x = getSizeWithDevice(230);
-                pos.y = -getSizeWithDevice(20);
-//                pos.x = 0;
-//                pos.y = 0;
+                pos.x = getSizeWithDevice(280);
+                pos.y = getSizeWithDevice(100);
                 break;
             case TAG_SPIDER_SOLITAIRE:
-                pos.x = getSizeWithDevice(230);
-                pos.y = -getSizeWithDevice(175);
+                pos.x = getSizeWithDevice(660);
+                pos.y = getSizeWithDevice(100);
                 break;
-            case TAG_MAX:
-                pos.x = 100;
-                pos.y = 100;
-                break;
+//            case TAG_MAX:
+//                pos.x = 100;
+//                pos.y = 100;
+//                break;
             default:
                 break;
         }
@@ -197,7 +212,8 @@ void MenuLayer::updateLayoutWithLandscape()
         item->setPosition(pos);
     }
     
-    _menu->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
+    //_menu->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
+    _menu->setPosition(Vec2(0, 0));
     _menu->setVisible(true);
 }
 
@@ -205,49 +221,31 @@ bool MenuLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event
 {
     log("lastMovedPoint: %f, %f", lastMovedPoint.x, lastMovedPoint.y);
     
-//    Vec2 pos = btnSolitaire->getPosition();
-//    Rect r = Rect(btnSolitaire->getPosition(), Size(200, 200));
-//    
-//    if(r.containsPoint(lastMovedPoint))
-//    {
-//        btnSolitaire->setScale(1.0);
-//    }
-//    else
-//    {
-//        btnSolitaire->setScale(0.9);
-//    }
+    prevPoint = touch->getLocation();
+    
     return true;
 }
 
 void MenuLayer::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
     Director* director = Director::getInstance();
-    cocos2d::Point location = touch->getLocationInView();
+    Point location = touch->getLocationInView();
     location = director->convertToGL(location);
-    lastMovedPoint = location;
     
-    Vec2 pos = btnSolitaire->getPosition();
-    pos = director->convertToGL(pos);
-    cocos2d::Rect r = cocos2d::Rect(btnSolitaire->getPosition(), cocos2d::Size(200, 200));
+    //added by ccl
+    Vec2 delta = location - prevPoint;
+    lastMovedPoint += delta;
     
-    if(r.containsPoint(lastMovedPoint))
-    {
-        btnSolitaire->setScale(1.0);
-    }
-    else
-    {
-        btnSolitaire->setScale(0.9);
-    }
+    log("touch move: %f, %f", location.x, location.y);
+    
+    arrowSprite->setPosition(lastMovedPoint);
+    prevPoint = location;//added ccl
     
     log("touch move: %f, %f", location.x, location.y);
 }
 
 void MenuLayer::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)
 {
-//    Director* director = Director::getInstance();
-//    Point location = touch->getLocationInView();
-//    location = director->convertToGL(location);
-//    lastMovedPoint = location;
     log("touch end: %f, %f", lastMovedPoint.x, lastMovedPoint.y);
 }
 
@@ -283,4 +281,37 @@ void MenuLayer::onSpiderSolitaire(Ref* sender)
 void MenuLayer::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event)
 {
     log("key pressed: %d", keyCode);
+}
+
+void MenuLayer::hideHintLayer()
+{
+    if(tipLayer->isVisible())
+        tipLayer->setVisible(false);
+}
+
+void MenuLayer::pressBegan()
+{
+    CCLOG("Taskbarlayer - press began : (%f, %f)", lastMovedPoint.x, lastMovedPoint.y);
+    Vec2 touchPoint = convertToNodeSpace(lastMovedPoint);
+    
+    if(btnSolitaire->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(MenuLayer::onSolitaire,this));
+        btnSolitaire->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnForty->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(MenuLayer::onFortyThieves,this));
+        btnForty->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnFreecell->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(MenuLayer::onFreeCell,this));
+        btnFreecell->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnSpider->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(MenuLayer::onSpiderSolitaire,this));
+        btnSpider->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
 }

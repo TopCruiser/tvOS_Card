@@ -11,6 +11,7 @@
 #include "CardSprite.h"
 #include "GameData.h"
 #include "BoardLayer.h"
+#include "MyObjective-C-Interface.h"
 
 bool Deck::updatesDisabled = false;
 
@@ -327,7 +328,7 @@ void Deck::doneAnimation(Node* sender, void* card1)
     if(card->getDeck()->getType()==DECK_GOAL && !GameData::getInstance()->isUndoMove())
     {
         if(GameData::getInstance()->isSoundEnabled()){
-            //SimpleAudioEngine::getInstance()->playEffect("goal.mp3"); comment715
+            MyObjectDoSomethingWith(this, std::string("goal.mp3"));
         }
         
         __String *nameString = __String::createWithFormat("particle_%d.png", card->getSuit());

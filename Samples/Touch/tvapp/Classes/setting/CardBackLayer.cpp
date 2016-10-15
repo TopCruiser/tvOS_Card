@@ -240,52 +240,52 @@ void CardBackLayer::init(Layer* parent)
     
     
     
-    btnCard01->setScale(getScaleWithDevice());
-    btnCard02->setScale(getScaleWithDevice());
-    btnCard03->setScale(getScaleWithDevice());
-    btnCard04->setScale(getScaleWithDevice());
+    btnCard01->setScale(0.7);
+    btnCard02->setScale(0.7);
+    btnCard03->setScale(0.7);
+    btnCard04->setScale(0.7);
     
-    btnCard05->setScale(getScaleWithDevice());
-    btnCard06->setScale(getScaleWithDevice());
-    btnCard07->setScale(getScaleWithDevice());
-    btnCard08->setScale(getScaleWithDevice());
+    btnCard05->setScale(0.7);
+    btnCard06->setScale(0.7);
+    btnCard07->setScale(0.7);
+    btnCard08->setScale(0.7);
     
-    btnCard09->setScale(getScaleWithDevice());
-    btnCard10->setScale(getScaleWithDevice());
-    btnCard11->setScale(getScaleWithDevice());
-    btnCard12->setScale(getScaleWithDevice());
+    btnCard09->setScale(0.7);
+    btnCard10->setScale(0.7);
+    btnCard11->setScale(0.7);
+    btnCard12->setScale(0.7);
     
-    btnCard13->setScale(getScaleWithDevice());
-    btnCard14->setScale(getScaleWithDevice());
-    btnCard15->setScale(getScaleWithDevice());
-    btnCard16->setScale(getScaleWithDevice());
+    btnCard13->setScale(0.7);
+    btnCard14->setScale(0.7);
+    btnCard15->setScale(0.7);
+    btnCard16->setScale(0.7);
     
-    btnCard17->setScale(getScaleWithDevice());
-    btnCard18->setScale(getScaleWithDevice());
-    btnCard19->setScale(getScaleWithDevice());
-    btnCard20->setScale(getScaleWithDevice());
+    btnCard17->setScale(0.7);
+    btnCard18->setScale(0.7);
+    btnCard19->setScale(0.7);
+    btnCard20->setScale(0.7);
     
-    btnCard21->setScale(getScaleWithDevice());
-    btnCard22->setScale(getScaleWithDevice());
-    btnCard23->setScale(getScaleWithDevice());
-    btnCard24->setScale(getScaleWithDevice());
+    btnCard21->setScale(0.7);
+    btnCard22->setScale(0.7);
+    btnCard23->setScale(0.7);
+    btnCard24->setScale(0.7);
     
-    btnCard25->setScale(getScaleWithDevice());
-    btnCard26->setScale(getScaleWithDevice());
-    btnCard27->setScale(getScaleWithDevice());
-    btnCard28->setScale(getScaleWithDevice());
+    btnCard25->setScale(0.7);
+    btnCard26->setScale(0.7);
+    btnCard27->setScale(0.7);
+    btnCard28->setScale(0.7);
     
-    btnCard29->setScale(getScaleWithDevice());
-    btnCard30->setScale(getScaleWithDevice());
-    btnCard31->setScale(getScaleWithDevice());
-    btnCard32->setScale(getScaleWithDevice());
+    btnCard29->setScale(0.7);
+    btnCard30->setScale(0.7);
+    btnCard31->setScale(0.7);
+    btnCard32->setScale(0.7);
     
     _menu = Menu::create();
     //add dummy object to receive focus
     MenuItem* dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
                                              Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
                                              this, menu_selector(CardBackLayer::onDummy));
-    dummy->setScale(0.001);
+    //dummy->setScale(0.001);
     
     _menu->addChild(btnCard01, 1, TAG_CARD01);
     _menu->addChild(btnCard02, 1, TAG_CARD02);
@@ -327,23 +327,27 @@ void CardBackLayer::init(Layer* parent)
     _menu->addChild(btnCard31, 1, TAG_CARD31);
     _menu->addChild(btnCard32, 1, TAG_CARD32);
     
-    _menu->addChild(dummy);
+    //_menu->addChild(dummy);
     
     _menu->addChild(_selectedCardBack, 3, 10000);
     _menu->setVisible(false);
+    _menu->setPosition(Vec2(0, 0));
+    addChild(_menu);
     
-    Size winSize = Director::getInstance()->getWinSize();
-
-    _ScrollView = ScrollView::create(Size(winSize.width, winSize.height/1.75f), _menu);
-
-    _ScrollView->setDirection(cocos2d::extension::ScrollView::Direction::VERTICAL);
-    _ScrollView->setAnchorPoint(Vec2(0, 0));
-    _ScrollView->setPosition(Vec2(0, 0));
-    addChild(_ScrollView);
-
-    _ScrollView->setViewSize(Size(winSize.width, winSize.height));
-    _ScrollView->setContentSize(Size(winSize.width/2,winSize.height));
-    _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height));
+    if(arrowSprite) removeChild(arrowSprite);
+    
+    arrowSprite = MenuItemSprite::create(Sprite::create(getNameWithResolution("hand_icon").c_str()),
+                                         Sprite::create(getNameWithResolution("hand_icon").c_str()),
+                                         this, menu_selector(BoardLayer::onDummy));
+    arrowSprite->setScale(0.5);
+    arrowSprite->setAnchorPoint(Vec2(0.5, 1));
+    arrowSprite->setPosition(Vec2(960, 540));
+    addChild(arrowSprite, 1000);
+    
+    lastMovedPoint = Vec2(960, 540);
+    
+    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+    setTouchEnabled(true);
 }
 
 void CardBackLayer::onDummy(cocos2d::Ref *sender)
@@ -366,182 +370,143 @@ void CardBackLayer::updateLayoutWithLandscape()
     _title->setScale(getScaleWithDevice() * 0.5f);
     _title->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f + getSizeWithDevice(300.0f)));
 
-    int InitY = winSize.height*1.4;
-    int DeltaY = 155;
+    int InitY = 570;
+    int DeltaY = 180;
     
     for(int i = 0; i < TAG_MAX; i++)
     {
-        Point pos = Vec2(0, 0);;
+        Point pos = Vec2(960, 540);
         switch (i) {
                 ///////////////////////by amr
             case TAG_CARD01:
-                pos.x = -getSizeWithDevice(382);
-//                pos.y = -getSizeWithDevice(20);
-                pos.y = getSizeWithDevice(InitY);
+                pos.x = (160);
+                pos.y = (InitY);
                 break;
             case TAG_CARD02:
-                pos.x = -getSizeWithDevice(230);
-//                pos.y = -getSizeWithDevice(20);
-                pos.y = getSizeWithDevice(InitY);
+                pos.x = (320);
+                pos.y = (InitY);
                 break;
             case TAG_CARD03:
-                pos.x = getSizeWithDevice(-78);
-//                pos.y = -getSizeWithDevice(20);
-                pos.y = getSizeWithDevice(InitY);
+                pos.x = (480);
+                pos.y = (InitY);
                 break;
             case TAG_CARD04:
-                pos.x = getSizeWithDevice(78);
-//                pos.y = -getSizeWithDevice(20);
-                pos.y = getSizeWithDevice(InitY);
+                pos.x = (640);
+                pos.y = (InitY);
                 break;
             case TAG_CARD05:
-                pos.x = getSizeWithDevice(230);
-//                pos.y = -getSizeWithDevice(20);
-                pos.y = getSizeWithDevice(InitY);
+                pos.x = (800);
+                pos.y = (InitY);
                 break;
             case TAG_CARD06:
-                pos.x = getSizeWithDevice(382);
-//                pos.y = -getSizeWithDevice(20);
-                pos.y = getSizeWithDevice(InitY);
+                pos.x = (1760);
+                pos.y = (InitY - (DeltaY * 2));
                 break;
-                
-                
-             
             case TAG_CARD07:
-                pos.x = -getSizeWithDevice(382);
-//                pos.y = -getSizeWithDevice(175);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 1));
+                pos.x = (1120);
+                pos.y = (InitY);
                 break;
             case TAG_CARD08:
-                pos.x = -getSizeWithDevice(230);
-//                pos.y = -getSizeWithDevice(175);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 1));
+                pos.x = (1280);
+                pos.y = (InitY);
                 break;
             case TAG_CARD09:
-                pos.x = getSizeWithDevice(-78);
-//                pos.y = -getSizeWithDevice(175);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 1));
+                pos.x = (1440);
+                pos.y = (InitY);
                 break;
             case TAG_CARD10:
-                pos.x = getSizeWithDevice(78);
-//                pos.y = -getSizeWithDevice(175);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 1));
+                pos.x = (1600);
+                pos.y = (InitY);
                 break;
             case TAG_CARD11:
-                pos.x = getSizeWithDevice(230);
-//                pos.y = -getSizeWithDevice(175);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 1));
+                pos.x = (1760);
+                pos.y = (InitY);
                 break;
+                //second row
             case TAG_CARD12:
-                pos.x = getSizeWithDevice(382);
-//                pos.y = -getSizeWithDevice(175);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 1));
+                pos.x = (160);
+                pos.y = (InitY - (DeltaY * 1));
                 break;
-                
-                
             case TAG_CARD13:
-                pos.x = -getSizeWithDevice(382);
-//                pos.y = -getSizeWithDevice(330);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 2));
+                pos.x = (320);
+                pos.y = (InitY - (DeltaY * 1));
                 break;
             case TAG_CARD14:
-                pos.x = -getSizeWithDevice(230);
-//                pos.y = -getSizeWithDevice(330);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 2));
+                pos.x = (480);
+                pos.y = (InitY - (DeltaY * 1));
                 break;
             case TAG_CARD15:
-                pos.x = getSizeWithDevice(-78);
-//                pos.y = -getSizeWithDevice(330);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 2));
+                pos.x = (640);
+                pos.y = (InitY - (DeltaY * 1));
                 break;
             case TAG_CARD16:
-                pos.x = getSizeWithDevice(78);
-//                pos.y = -getSizeWithDevice(330);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 2));
+                pos.x = (800);
+                pos.y = (InitY - (DeltaY * 1));
                 break;
             case TAG_CARD17:
-                pos.x = getSizeWithDevice(230);
-//                pos.y = -getSizeWithDevice(330);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 2));
+                pos.x = (960);
+                pos.y = (InitY - (DeltaY * 1));
                 break;
             case TAG_CARD18:
-                pos.x = getSizeWithDevice(382);
-//                pos.y = -getSizeWithDevice(330);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 2));
+                pos.x = (1120);
+                pos.y = (InitY - (DeltaY * 1));
                 break;
-                
-                
             case TAG_CARD19:
-                pos.x = -getSizeWithDevice(382);
-//                pos.y = -getSizeWithDevice(485);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 3));
+                pos.x = (1280);
+                pos.y = (InitY - (DeltaY * 1));
                 break;
             case TAG_CARD20:
-                pos.x = -getSizeWithDevice(230);
-//                pos.y = -getSizeWithDevice(485);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 3));
+                pos.x = (1440);
+                pos.y = (InitY - (DeltaY * 1));
                 break;
             case TAG_CARD21:
-                pos.x = getSizeWithDevice(-78);
-//                pos.y = -getSizeWithDevice(485);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 3));
+                pos.x = (1600);
+                pos.y = (InitY - (DeltaY * 1));
                 break;
             case TAG_CARD22:
-                pos.x = getSizeWithDevice(78);
-//                pos.y = -getSizeWithDevice(485);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 3));
+                pos.x = (1760);
+                pos.y = (InitY - (DeltaY * 1));
                 break;
+                //third row
             case TAG_CARD23:
-                pos.x = getSizeWithDevice(230);
-//                pos.y = -getSizeWithDevice(485);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 3));
+                pos.x = (160);
+                pos.y = (InitY - (DeltaY * 2));
                 break;
             case TAG_CARD24:
-                pos.x = getSizeWithDevice(382);
-//                pos.y = -getSizeWithDevice(485);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 3));
+                pos.x = (320);
+                pos.y = (InitY - (DeltaY * 2));
                 break;
-                
             case TAG_CARD25:
-                pos.x = -getSizeWithDevice(382);
-//                pos.y = -getSizeWithDevice(640);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 4));
+                pos.x = (480);
+                pos.y = (InitY - (DeltaY * 2));
                 break;
             case TAG_CARD26:
-                pos.x = -getSizeWithDevice(230);
-//                pos.y = -getSizeWithDevice(640);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 4));
+                pos.x = (640);
+                pos.y = (InitY - (DeltaY * 2));
                 break;
             case TAG_CARD27:
-                pos.x = getSizeWithDevice(-78);
-//                pos.y = -getSizeWithDevice(640);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 4));
+                pos.x = (800);
+                pos.y = (InitY - (DeltaY * 2));
                 break;
             case TAG_CARD28:
-                pos.x = getSizeWithDevice(78);
-//                pos.y = -getSizeWithDevice(640);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 4));
+                pos.x = (960);
+                pos.y = (InitY - (DeltaY * 2));
                 break;
             case TAG_CARD29:
-                pos.x = getSizeWithDevice(230);
-//                pos.y = -getSizeWithDevice(640);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 4));
+                pos.x = (1120);
+                pos.y = (InitY - (DeltaY * 2));
                 break;
             case TAG_CARD30:
-                pos.x = getSizeWithDevice(382);
-//                pos.y = -getSizeWithDevice(640);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 4));
+                pos.x = (1280);
+                pos.y = (InitY - (DeltaY * 2));
                 break;
-                
             case TAG_CARD31:
-                pos.x = -getSizeWithDevice(382);
-//                pos.y = -getSizeWithDevice(795);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 5));
+                pos.x = (1440);
+                pos.y = (InitY - (DeltaY * 2));
                 break;
             case TAG_CARD32:
-                pos.x = -getSizeWithDevice(230);
-//                pos.y = -getSizeWithDevice(795);
-                pos.y = getSizeWithDevice(InitY - (DeltaY * 5));
+                pos.x = (1600);
+                pos.y = (InitY - (DeltaY * 2));
                 break;
             default:
                 break;
@@ -558,9 +523,9 @@ void CardBackLayer::updateLayoutWithLandscape()
     
     _menu->setVisible(true);
     
-    _ScrollView->setViewSize(Size(winSize.width, winSize.height/2.0));
-    _ScrollView->setContentSize(Size(winSize.width/2,winSize.height*3.0));
-    _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*2.0));
+//    _ScrollView->setViewSize(Size(winSize.width, winSize.height/2.0));
+//    _ScrollView->setContentSize(Size(winSize.width/2,winSize.height*3.0));
+//    _ScrollView->setContentOffset(Vec2(winSize.width/2,-winSize.height*2.0));
 }
 
 void CardBackLayer::onCardTap(Ref* sender)
@@ -588,4 +553,206 @@ void CardBackLayer::onBack(Ref* sender)
 {
     setVisible(false);
     ((GameLayer*)_parentLayer)->getSettingLayer()->didFinishCell();
+}
+
+bool CardBackLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    if(!this->isVisible()) return false;
+    
+    log("lastMovedPoint: %f, %f", lastMovedPoint.x, lastMovedPoint.y);
+    
+    prevPoint = touch->getLocation();
+    
+    return true;
+}
+
+void CardBackLayer::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    Director* director = Director::getInstance();
+    Point location = touch->getLocationInView();
+    location = director->convertToGL(location);
+    
+    //added by ccl
+    Vec2 delta = location - prevPoint;
+    lastMovedPoint += delta;
+    
+    log("touch move: %f, %f", location.x, location.y);
+    
+    arrowSprite->setPosition(lastMovedPoint);
+    prevPoint = location;//added ccl
+    
+    log("touch move: %f, %f", location.x, location.y);
+}
+
+void CardBackLayer::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    log("touch end: %f, %f", lastMovedPoint.x, lastMovedPoint.y);
+}
+
+void CardBackLayer::pressBegan()
+{
+    CCLOG("Taskbarlayer - press began : (%f, %f)", lastMovedPoint.x, lastMovedPoint.y);
+    Vec2 touchPoint = convertToNodeSpace(lastMovedPoint);
+    
+    if(btnCard01->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard01->runAction(Sequence::create(ScaleTo::create(0.01, 0.7), ScaleTo::create(0.01, 1.0), func, NULL));
+    }
+    if(btnCard02->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard02->runAction(Sequence::create(ScaleTo::create(0.01, 0.7), ScaleTo::create(0.01, 1.0), func, NULL));
+    }
+    if(btnCard03->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard03->runAction(Sequence::create(ScaleTo::create(0.01, 0.7), ScaleTo::create(0.01, 1.0), func, NULL));
+    }
+    if(btnCard04->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard04->runAction(Sequence::create(ScaleTo::create(0.01, 0.7), ScaleTo::create(0.01, 1.0), func, NULL));
+    }
+    if(btnCard05->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard05->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard06->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard06->runAction(Sequence::create(ScaleTo::create(0.01, 0.7), ScaleTo::create(0.01, 1.0), func, NULL));
+    }
+    if(btnCard07->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard07->runAction(Sequence::create(ScaleTo::create(0.01, 0.7), ScaleTo::create(0.01, 1.0), func, NULL));
+    }
+    if(btnCard08->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard08->runAction(Sequence::create(ScaleTo::create(0.01, 0.7), ScaleTo::create(0.01, 1.0), func, NULL));
+    }
+    if(btnCard09->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard09->runAction(Sequence::create(ScaleTo::create(0.01, 0.7), ScaleTo::create(0.01, 1.0), func, NULL));
+    }
+    if(btnCard10->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard10->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard11->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard11->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    
+    if(btnCard12->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard12->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard13->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard13->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard14->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard14->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard15->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard15->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard16->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard16->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard17->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard17->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard18->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard18->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard19->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard19->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard20->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard20->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard21->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard21->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard22->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard22->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard23->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard23->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard24->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard24->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard25->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard25->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard26->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard26->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard27->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard27->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard28->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard28->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard29->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard29->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard30->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard30->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard31->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard31->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
+    if(btnCard32->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(CardBackLayer::onCardTap,this));
+        btnCard32->runAction(Sequence::create(ScaleTo::create(0.1, 0.7), func, NULL));
+    }
 }

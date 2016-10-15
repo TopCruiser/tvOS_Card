@@ -32,6 +32,9 @@
 #endif
 
 #import "GameLayer.h"
+#import "MenuLayer.h"
+#import "TipLayer.h"
+#import "SolitaireOptionLayer.h"
 
 USING_NS_CC;
 
@@ -102,15 +105,10 @@ USING_NS_CC;
 - (void)didReceiveMemoryWarning {
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
-
-    // Release any cached data, images, etc that aren't in use.
 }
 
 - (void)viewDidUnload {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    
 }
 
 
@@ -131,15 +129,51 @@ USING_NS_CC;
         Layer *layer = (Layer*)(pScene->getChildren().at(1));
         long tag = layer->getTag();
         
+        if(tag == 97)
+        {
+            GameLayer* gameLayer = dynamic_cast<GameLayer*>(layer);
+            gameLayer->_spiderOptionLayer->pressBegan();
+        }
+        if(tag == 98)
+        {
+            GameLayer* gameLayer = dynamic_cast<GameLayer*>(layer);
+            gameLayer->_solitaireOptionLayer->pressBegan();
+        }
         if(tag == 100)
         {
-
+            MenuLayer* menuLayer = dynamic_cast<MenuLayer*>(layer);
+            menuLayer->pressBegan();
+            
         }
-        else if(tag == 101)
+        if(tag == 101)
         {
             GameLayer* gameLayer = dynamic_cast<GameLayer*>(layer);
             gameLayer->_boardLayer->pressesBegan();
-            //gameLayer->_taskbarLayer->pressesBegan();
+        }
+        if(tag == 104)
+        {
+            GameLayer* gameLayer = dynamic_cast<GameLayer*>(layer);
+            gameLayer->_cardFaceLayer->pressBegan();
+        }
+        if(tag == 105)
+        {
+            GameLayer* gameLayer = dynamic_cast<GameLayer*>(layer);
+            gameLayer->_backgroundLayer->pressBegan();
+        }
+        if(tag == 103)
+        {
+            GameLayer* gameLayer = dynamic_cast<GameLayer*>(layer);
+            gameLayer->_cardBackLayer->pressBegan();
+        }
+        if(tag == 201)
+        {
+            GameLayer* gameLayer = dynamic_cast<GameLayer*>(layer);
+            gameLayer->_taskbarLayer->_exitLayer->pressBegan();
+        }
+        if(tag == 202)
+        {
+            GameLayer* gameLayer = dynamic_cast<GameLayer*>(layer);
+            gameLayer->_taskbarLayer->_newGameLayer->pressBegan();
         }
     }
     else if(p.type == UIPressTypeMenu)
@@ -148,6 +182,7 @@ USING_NS_CC;
         Layer *layer = (Layer*)(pScene->getChildren().at(1));
         String *s = String::create(layer->getName().c_str());
         long tag = layer->getTag();
+        
         if(tag == 102)//Setting
         {
             GameLayer* gameLayer = dynamic_cast<GameLayer*>(layer);

@@ -9,6 +9,7 @@
 #include "Common.h"
 
 int g_nOrientation;
+bool g_bTipDisplay = false;
 
 std::string getNameWithDeviceIpad(std::string name)
 {

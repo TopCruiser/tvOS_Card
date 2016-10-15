@@ -7,6 +7,7 @@
 //
 
 #include "Common.h"
+#include "TipLayer.h"
 
 class MenuLayer : public cocos2d::Layer
 {
@@ -21,19 +22,28 @@ public:
     void onFortyThieves(Ref* sender);
     void onSpiderSolitaire(Ref* sender);
     void onDummy(Ref* sender);
+    void hideHintLayer();
+    void pressBegan();
     
 private:
     void updateLayoutWithPortrait();
     void updateLayoutWithLandscape();
     
 public:
+    TipLayer* tipLayer;
+    
     MenuItem* btnSolitaire;
+    MenuItem* btnForty;
+    MenuItem* btnFreecell;
+    MenuItem* btnSpider;
+    
+    MenuItem* arrowSprite;
+    
+    Vec2 prevPoint;
 private:
     Sprite* _background;
     Sprite* _title;
     Menu* _menu;
-    
-    
     
     void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
     

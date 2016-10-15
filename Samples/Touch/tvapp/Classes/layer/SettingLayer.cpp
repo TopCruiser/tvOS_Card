@@ -11,6 +11,7 @@
 #include "MenuLayer.h"
 #include "BoardLayer.h"
 #include "AppDelegate.h"
+#include "MyObjective-C-Interface.h"
 
 Scene* SettingLayer::scene()
 {
@@ -418,11 +419,11 @@ void SettingLayer::tableCellTouched(TableView *table, TableViewCell *cell)
             GameData::getInstance()->setEffectEnabled(isEffect);
             
             if(isEffect){
-                //SimpleAudioEngine::sharedEngine()->playBackgroundMusic("bgm.mp3", true); comment715
+                MyObjectDoSomethingWith(this, std::string("bgm.mp3"));
                 _iconSprite ->initWithFile(getNameWithResolution("setting_check_on").c_str());
             }
             else{
-                //SimpleAudioEngine::sharedEngine()->stopBackgroundMusic(); comment715
+                stopBackgroundMusic();
                 _iconSprite ->initWithFile(getNameWithResolution("setting_check_off").c_str());
             }
             
@@ -538,7 +539,7 @@ void SettingLayer::tableCellTouched(TableView *table, TableViewCell *cell)
         case 15:
         {
             //Feedback Email
-            //AppDelegate::get()->sendMessageToNative(MSG_RESTORE_REQUEST, "Restore", 1);comment715
+            AppDelegate::get()->sendMessageToNative(MSG_RESTORE_REQUEST, "Restore", 1);
             
         }
             break;

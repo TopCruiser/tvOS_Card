@@ -215,7 +215,7 @@ void GameLayer::showBoardLayerWithSpider()
     _boardLayer->setPosition(Vec2(0.0f, 0.0f));
     addChild(_boardLayer, ORDER_BOARD);
     
-    _boardLayer->startNewGame();    
+    _boardLayer->startNewGame();
 }
 
 void GameLayer::showTaskbar()
@@ -340,6 +340,7 @@ void GameLayer::showSolitaireOptionLayer()
     _solitaireOptionLayer->init(this);
     _solitaireOptionLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
     _solitaireOptionLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
+    setTag(98);//pending
     addChild(_solitaireOptionLayer, 6);
 }
 
@@ -351,6 +352,7 @@ void GameLayer::showSpiderOptionLayer()
     _spiderOptionLayer->init(this);
     _spiderOptionLayer->setAnchorPoint(Vec2(0.5f, 0.5f));
     _spiderOptionLayer->setPosition(Vec2(winSize.width/2.0f, winSize.height/2.0f));
+    setTag(97);
     addChild(_spiderOptionLayer, ORDER_OPTION);
 }
 
@@ -364,6 +366,9 @@ void GameLayer::showSettingLayer()
     Sequence *_sequence  =  Sequence::create(_easein, __CCCallFuncO::create(this, callfuncO_selector(GameLayer::doneSettingAnimation), NULL), nullptr);
     _settingLayer->runAction(_sequence);
     setTag(102);
+    
+    setTag(103);
+    
 }
 
 void GameLayer::hideSettingLayer()

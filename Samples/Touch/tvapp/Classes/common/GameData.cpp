@@ -242,7 +242,7 @@ int GameData::getInt(std::string key, int defaultValue)
 
 void GameData::setInt(std::string key, int value)
 {
-    UserDefault::getInstance()->setIntegerForKey(key.c_str(), value);
+    //UserDefault::getInstance()->setIntegerForKey(key.c_str(), value);pending
 }
 
 float GameData::getFloat(std::string key, float defaultValue)

@@ -94,7 +94,7 @@ void TaskbarLayer::init(Layer* parent)
     _menu->addChild(_playItem);
     _menu->addChild(_hintItem);
     _menu->addChild(_undoItem);
-    _menu->addChild(dummy);
+    //_menu->addChild(dummy);
     
     addChild(_menu);
     
@@ -245,52 +245,52 @@ void TaskbarLayer::onCenter(Ref* sender)
     
     GameData::getInstance()->playSoundEffect();
     
-    //AppDelegate *app = AppDelegate::get();comment715
+    AppDelegate *app = AppDelegate::get();
     
     //custom
     //app->sendMessageToNative(MSG_GAMECENTER, "LeaderBoard", GameData::getInstance()->getGameType());
     
     
     
-//    switch (GameData::getInstance()->getGameType()) {
-//        case TYPE_SOLITAIRE:
-//        {
-//            if(GameData::getInstance()->isVegasMode())
-//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sVegasStyleScore", 1);
-//            else{
-//                if(GameData::getInstance()->isDrawFlag()){
-//                    app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sDraw3Score", 1);
-//                }else{
-//                    app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sDraw1Score", 1);
-//                }
-//            }
-//            
-//        }
-//            break;
-//            
-//        case TYPE_FREECELL:
-//            app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.FCHighScores", 1);
-//            break;
-//            
-//        case TYPE_FORTY_THIEVES:
-//            app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.FTHighScores", 1);
-//            break;
-//            
-//        case TYPE_SPIDER:
-//            if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EASY){
-//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss1suitscore", 1);
-//            }
-//            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_NORMAL){
-//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss2suitscore", 1);
-//            }
-//            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EXPERT){
-//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss3suitscore", 1);
-//            }
-//            else{
-//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss4suitscore", 1);
-//            }
-//            break;
-//    }comment715
+    switch (GameData::getInstance()->getGameType()) {
+        case TYPE_SOLITAIRE:
+        {
+            if(GameData::getInstance()->isVegasMode())
+                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sVegasStyleScore", 1);
+            else{
+                if(GameData::getInstance()->isDrawFlag()){
+                    app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sDraw3Score", 1);
+                }else{
+                    app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sDraw1Score", 1);
+                }
+            }
+            
+        }
+            break;
+            
+        case TYPE_FREECELL:
+            app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.FCHighScores", 1);
+            break;
+            
+        case TYPE_FORTY_THIEVES:
+            app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.FTHighScores", 1);
+            break;
+            
+        case TYPE_SPIDER:
+            if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EASY){
+                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss1suitscore", 1);
+            }
+            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_NORMAL){
+                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss2suitscore", 1);
+            }
+            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EXPERT){
+                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss3suitscore", 1);
+            }
+            else{
+                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss4suitscore", 1);
+            }
+            break;
+    }
     
 }
 
@@ -300,16 +300,14 @@ void TaskbarLayer::onStore(Ref* sender)
     
     GameData::getInstance()->playSoundEffect();
     
-    //AppDelegate::get()->sendMessageToNative(MSG_REMOVE_ADS, "com.cobraclip.removeads", 1);comment715
+    AppDelegate::get()->sendMessageToNative(MSG_REMOVE_ADS, "com.cobraclip.removeads", 1);
     
-    /*
     if(GameData::getInstance()->getBannerHeight()>0){
     
         ((GameLayer*)_parentLayer)->upTaskbar(-GameData::getInstance()->getBannerHeight());
         GameData::getInstance()->setBannerHeight(0);
         AppDelegate::get()->sendMessageToNative(MSG_ADMOB_BANNER, "GoogleMobileAds", 0);
     }
-    *///comment715
 }
 
 void TaskbarLayer::onMenu(Ref* sender)
@@ -342,7 +340,7 @@ void TaskbarLayer::onMenu(Ref* sender)
         Sequence *_sequence  =  Sequence::create( _easein, NULL ,NULL);
         
         _exitLayer->runAction(_sequence);
-        
+        ((GameLayer*)_parentLayer)->setTag(201);
     }
     
 }
@@ -413,11 +411,12 @@ void TaskbarLayer::showNewGame()
      ((GameLayer*) _parentLayer)->getSettingLayer()->setEnabled(false);
      GameData::getInstance()->getInstance()->setNewGame(0);
      
-     MoveTo* action = MoveTo::create(0.3f, Vec2(0,winSize.height/2.0f));
+     MoveTo* action = MoveTo::create(0.3f, Vec2(0,winSize.height/2.0f - 20));
      EaseIn *_easein = EaseIn::create(action,0.3f);
      Sequence *_sequence  =  Sequence::create( _easein, NULL ,NULL);
      
      _newGameLayer->runAction(_sequence);
+    ((GameLayer*)_parentLayer)->setTag(202);
 }
 
 void TaskbarLayer::onNewGame(Ref* sender)
@@ -452,6 +451,7 @@ void TaskbarLayer::onNewGame(Ref* sender)
         Sequence *_sequence = Sequence::create( _easein, NULL ,NULL);
         
         _exitLayer->runAction(_sequence);
+        ((GameLayer*)_parentLayer)->setTag(201);
     }
     
 }
@@ -501,14 +501,41 @@ bool TaskbarLayer::pressesBegan(Vec2 touchPoint)
     CCLOG("Taskbarlayer - press began : (%f, %f)", touchPoint.x, touchPoint.y);
     touchPoint = convertToNodeSpace(touchPoint);
     
-    if(_settingItem->getBoundingBox().containsPoint(touchPoint)) onSetting(this);
-    if(_undoItem->getBoundingBox().containsPoint(touchPoint)) onUndo(this);
-    if(_playItem->getBoundingBox().containsPoint(touchPoint)) onNewGame(this);
-    if(_hintItem->getBoundingBox().containsPoint(touchPoint)) onHint(this);
-    if(_centerItem->getBoundingBox().containsPoint(touchPoint)) onCenter(this);
-    if(_storeItem->getBoundingBox().containsPoint(touchPoint)) onStore(this);
-    if(_menuItem->getBoundingBox().containsPoint(touchPoint)) onMenu(this);
+    if(_settingItem->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(TaskbarLayer::onSetting,this));
+        _settingItem->runAction(Sequence::create(FadeTo::create(0.1, 0.7), func, NULL));
+    }
+    if(_undoItem->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(TaskbarLayer::onUndo,this));
+        _undoItem->runAction(Sequence::create(FadeTo::create(0.1, 0.7), func, NULL));
+    }
+    if(_playItem->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(TaskbarLayer::onNewGame,this));
+        _playItem->runAction(Sequence::create(FadeTo::create(0.1, 0.7), func, NULL));
+    }
+    if(_hintItem->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(TaskbarLayer::onHint,this));
+        _hintItem->runAction(Sequence::create(FadeTo::create(0.1, 0.7), func, NULL));
+    }
+    if(_centerItem->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(TaskbarLayer::onCenter,this));
+        _centerItem->runAction(Sequence::create(FadeTo::create(0.1, 0.7), func, NULL));
+    }
+    if(_storeItem->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(TaskbarLayer::onStore,this));
+        _storeItem->runAction(Sequence::create(FadeTo::create(0.1, 0.1), func, NULL));
+    }
+    if(_menuItem->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(TaskbarLayer::onMenu,this));
+        _menuItem->runAction(Sequence::create(FadeTo::create(0.1, 0.1), func, NULL));
+    }
     
     return true;
-    
 }

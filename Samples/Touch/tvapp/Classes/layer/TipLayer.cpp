@@ -31,247 +31,71 @@ void TipLayer::init(Layer* parent)
 {
     _parentLayer = parent;
     
-    Sprite* background = Sprite::create(getNameWithResolution("dialog_congratulation").c_str());
-    
+    Sprite* background = Sprite::create("images.jpg");
     background->setScale(getScaleWithDevice());
     background->setPosition(Vec2(0.0f, 0.0f));
+    background->setOpacity(127);
     addChild(background);
+    
+    Sprite* remote = Sprite::create("remote controller.png");
+    remote->setScale(getScaleWithDevice());
+    remote->setPosition(Vec2(300.0f, -300.0f));
+    addChild(remote);
     
     Size size = background->getContentSize();
     setContentSize(size);
     
-    MenuItem* btnFacebook = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_facebook_nor").c_str()),
-                                                     Sprite::create(getNameWithResolution("btn_facebook_act").c_str()),
-                                                     this, menu_selector(TipLayer::onFacebook));
+    Sprite* hintSprite = Sprite::create("hint_icon.png");
+    hintSprite->setScale(0.8);
+    hintSprite->setPosition(Vec2(300.0, -150.0));
+    addChild(hintSprite);
     
-    MenuItem* btnTwitter = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_twitter_nor").c_str()),
-                                                       Sprite::create(getNameWithResolution("btn_twitter_act").c_str()),
-                                                       this, menu_selector(TipLayer::onTwitter));
+    FadeTo* fadeIn = FadeTo::create(0.1, 127);
+    FadeTo* fadeOut = FadeTo::create(0.1, 255);
+    MoveTo* moveTo = MoveTo::create(0.4f, Vec2(220.0, -100.0));
+    MoveTo* moveTo1 = MoveTo::create(0.01f, Vec2(300.0, -150.0));
     
-    MenuItem* btnChat = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_chat_nor").c_str()),
-                                                     Sprite::create(getNameWithResolution("btn_chat_act").c_str()),
-                                                     this, menu_selector(TipLayer::onChat));
+    hintSprite->runAction(RepeatForever::create(Sequence::create(DelayTime::create(0.4f),
+                                                                 fadeIn,
+                                                                 DelayTime::create(0.5f),
+                                                                 moveTo,
+                                                                 DelayTime::create(0.2f),
+                                                                 fadeOut,
+                                                                 DelayTime::create(0.5f),
+                                                                 moveTo1,
+                                                                 NULL)));
     
-    MenuItem* btnMail = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_mail_nor").c_str()),
-                                                     Sprite::create(getNameWithResolution("btn_mail_act").c_str()),
-                                                     this, menu_selector(TipLayer::onMail));
+    Size textSize;
+    textSize = Size(size.width - getSizeWithDevice(120), getSizeWithDevice(700));
+    //CCLabelTTF* _cellLabel = CCLabelTTF::create("Gesture Tip\n This game allows you to interact with all buttons using only Touch gesture.", "Thonburi", getSizeWithDevice(25), Size(0, 0), kCCTextAlignmentCenter);
     
-    
-    MenuItem* btnGameCenter = MenuItemSprite::create(Sprite::create(getNameWithResolution("center_nor").c_str()),
-                                                       Sprite::create(getNameWithResolution("center_act").c_str()),
-                                                       this, menu_selector(TipLayer::onGameCenter));
-    
-    MenuItem* btnReplay = MenuItemSprite::create(Sprite::create(getNameWithResolution("congratulation_replay_nor").c_str()),
-                                                     Sprite::create(getNameWithResolution("congratulation_replay_act").c_str()),
-                                                     this, menu_selector(TipLayer::onReplay));
-    
-    MenuItem* btnDone = MenuItemSprite::create(Sprite::create(getNameWithResolution("congratulation_done_nor").c_str()),
-                                                   Sprite::create(getNameWithResolution("congratulation_done_act").c_str()),
-                                                   this, menu_selector(TipLayer::onDone));
-    
-    //add dummy object to receive focus
-    MenuItem* dummy = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_freecell_nor").c_str()),
-                                             Sprite::create(getNameWithResolution("btn_freecell_act").c_str()),
-                                             this, menu_selector(TipLayer::onDummy));
-    dummy->setScale(0.01);
-    
-    btnFacebook->setAnchorPoint(Vec2(0.5f, 0.5f));
-    btnTwitter->setAnchorPoint(Vec2(0.5f, 0.5f));
-    btnChat->setAnchorPoint(Vec2(0.5f, 0.5f));
-    btnMail->setAnchorPoint(Vec2(0.5f, 0.5f));
-    btnGameCenter->setAnchorPoint(Vec2(0.5f, 0.5f));
-    
-    btnReplay->setAnchorPoint(Vec2(0.5f, 0.5f));
-    btnDone->setAnchorPoint(Vec2(0.5f, 0.0f));
-    
-    btnFacebook->setScale(getScaleWithDevice());
-    btnTwitter->setScale(getScaleWithDevice());
-    btnChat->setScale(getScaleWithDevice());
-    btnGameCenter->setScale(getScaleWithDevice());
-    btnMail->setScale(getScaleWithDevice());
-    
-    btnReplay->setScale(getScaleWithDevice());
-    btnDone->setScale(getScaleWithDevice());
-    
-    btnFacebook->setPosition(Vec2(getSizeWithDevice(-210.0f), getSizeWithDevice(50.0f)));
-    btnTwitter->setPosition(Vec2(getSizeWithDevice(-160.0f), getSizeWithDevice(50.0f)));
-    btnChat->setPosition(Vec2(getSizeWithDevice(-210.0f), getSizeWithDevice(0.0f)));
-    btnMail->setPosition(Vec2(getSizeWithDevice(-160.0f), getSizeWithDevice(0.0f)));
-    btnGameCenter->setPosition(Vec2(getSizeWithDevice(200.0f), getSizeWithDevice(0.0f)));
-    
-    btnReplay->setPosition(Vec2(getSizeWithDevice(-120.0f), -size.height/2.0f + getSizeWithDevice(45.0f)));
-    btnDone->setPosition(Vec2(getSizeWithDevice(148.0f),  -size.height/2.0f + getSizeWithDevice(27.0f)));
-    
-    _menu = Menu::create();
-    _menu->addChild(btnFacebook);
-    _menu->addChild(btnTwitter);
-    _menu->addChild(btnChat);
-    _menu->addChild(btnMail);
-    _menu->addChild(btnGameCenter);
-    _menu->addChild(btnReplay);
-    _menu->addChild(btnDone);
-    _menu->addChild(dummy);
-    
-    _menu->setPosition(Vec2(0.0f, 0.0f));
-    addChild(_menu);
-    
-    //showScore
-    //add by khj 3.9.2015
-    
-    int score = ((BoardLayer*)_parentLayer)->getScore();
-    
-    std::string temp=to_string(score);
-    
-    
-    CCLabelTTF* _scoreLabel = CCLabelTTF::create(temp.c_str(), "tt0283m.ttf", getSizeWithDevice(30));
-    _scoreLabel->setColor(Color3B(255, 255, 255));
-    addChild(_scoreLabel, 0);
-    
-    int moveCount = ((BoardLayer*)_parentLayer)->_totalMoveCount;
-    temp=to_string(moveCount);
-    
-    CCLabelTTF* _moveLabel = CCLabelTTF::create(temp.c_str(), "tt0283m.ttf", getSizeWithDevice(30));
-    _moveLabel->setColor(Color3B(255, 255, 255));
-    addChild(_moveLabel, 0);
-    
-    temp=((BoardLayer*)_parentLayer)->getTime();
-    
-    CCLabelTTF* _timeLabel = CCLabelTTF::create(temp.c_str(), "tt0283m.ttf", getSizeWithDevice(30));
-    _timeLabel->setColor(Color3B(255, 255, 255));
-    addChild(_timeLabel, 0);
-    
-    _scoreLabel->setAnchorPoint(Vec2(0.5f, 0.5f));
-    _moveLabel->setAnchorPoint(Vec2(0.5f, 0.5f));
-    _timeLabel->setAnchorPoint(Vec2(0.5f, 0.5f));
-    
-    _scoreLabel->setPosition(Vec2(getSizeWithDevice(55.0f), getSizeWithDevice(65.0f)));
-    _moveLabel->setPosition(Vec2(getSizeWithDevice(55.0f),  getSizeWithDevice(20.0f)));
-    _timeLabel->setPosition(Vec2(getSizeWithDevice(60.0f),  -getSizeWithDevice(25.0f)));
-    
-    
-    //AppDelegate::get()->sendMessageToNative(MSG_SHOW_REWARDEDVIDEO, "Chartboost Rewarded Video", 1);
-//    if(!GameData::getInstance()->isRemoveAds())
-//        AppDelegate::get()->sendMessageToNative(MSG_ADCOLONY_VIDEO, "AdColony Video", 1);
+//    Label* _cellLabel = Label::createWithTTF("Gesture Tip\n This game allows you to interact with all buttons \nusing only Touch gesture.", "tt0283m.ttf", getSizeWithDevice(25));
 //    
-//    //Appirater
-//    AppDelegate::get()->sendMessageToNative(MSG_APPIRATER, "Appirater", 1);comment715
+//    _cellLabel->setAlignment(TextHAlignment::CENTER);
+//    _cellLabel->setTextColor(Color4B(255, 255, 0, 255));
+//    _cellLabel->setAnchorPoint(Vec2(0, 0));
+//    _cellLabel->setPosition(Vec2(-900, 300));
+//    
+//    addChild(_cellLabel);
     
+    Label* comment = Label::createWithTTF("Not press on Remote Controller! Move finger holding tap on it \ntoward destination button. Look out touch start point and moving distance.\n Touch should be started on center of the screen\n and moved to the destination button by distance between center and button.", "tt0283m.ttf", getSizeWithDevice(20));
     
-}
-
-void TipLayer::onDummy(Ref* sender)
-{
+    comment->setAlignment(TextHAlignment::CENTER);
+    comment->setTextColor(Color4B(0, 255, 0, 255));
+    comment->setAnchorPoint(Vec2(0, 0));
+    comment->setPosition(Vec2(-750, 150));
     
-}
-
-void TipLayer::onFacebook(Ref* sender)
-{
-    //AppDelegate::get()->sendMessageToNative(MSG_SHOW_FACEBOOK, getMessage().c_str(), 1);comment715
-}
-
-void TipLayer::onTwitter(Ref* sender)
-{
-    //AppDelegate::get()->sendMessageToNative(MSG_SHOW_TWITTER, getMessage().c_str(), 1);comment715
-}
-
-void TipLayer::onChat(Ref* sender)
-{
-    //SMS
-    //AppDelegate::get()->sendMessageToNative(MSG_SMS, getMessage().c_str(), 1);//comment715
-}
-
-void TipLayer::onMail(Ref* sender)
-{
-    //AppDelegate::get()->sendMessageToNative(MSG_EMAIL, getMessage().c_str(), 1);comment715
-}
-
-std::string TipLayer::getMessage(){
+    addChild(comment);
     
-    std::string msg = "Check out my score ";
+    Sprite* arrow = Sprite::create("arrow left.png");
+    arrow->setScale(0.8);
+    arrow->setPosition(Vec2(20.0, -250.0));
+    arrow->setAnchorPoint(Vec2(1.0, 0.0));
+    addChild(arrow);
     
-    long score = ((BoardLayer*)_parentLayer)->getScore();
-    std::string temp=to_string(score);
+    FadeTo* fade1 = FadeTo::create(1.5, 100);
+    FadeTo* fade2 = FadeTo::create(0.6, 255);
+    arrow->runAction(RepeatForever::create(Sequence::create(fade1, fade2, NULL)));
     
-    msg+=temp;
-    
-    msg+=" for ";
-    
-    switch (GameData::getInstance()->getGameType()) {
-        case TYPE_SOLITAIRE:
-            msg+="Solitaire!";
-            break;
-            
-        case TYPE_FREECELL:
-            msg+="Freecell!";
-            break;
-        case TYPE_FORTY_THIEVES:
-            msg+="Forty Thieves!";
-            break;
-            
-        case TYPE_SPIDER:
-            msg+="Spider Solitaire!";
-            break;
-    }
-    
-    return msg;
-}
-
-void TipLayer::onGameCenter(Ref* sender)
-{
-//    AppDelegate* app = AppDelegate::get();
-    
-//    switch (GameData::getInstance()->getGameType()) {
-//        case TYPE_SOLITAIRE:
-//        {
-//            if(GameData::getInstance()->isDrawFlag()){
-//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sDraw3Wins", 1);
-//            }else{
-//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.sDraw1Wins", 1);
-//            }
-//        }
-//            break;
-//            
-//        case TYPE_FREECELL:
-//        {
-//            app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.FCTotalWins", 1);
-//        }
-//            break;
-//            
-//        case TYPE_FORTY_THIEVES:
-//        {
-//            app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.FTTotalWins", 1);
-//        }
-//            break;
-//            
-//        case TYPE_SPIDER:
-//        {
-//            if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EASY){
-//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss1suitwins", 1);
-//            }
-//            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_NORMAL){
-//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss2suitwins", 1);
-//            }
-//            else if(GameData::getInstance()->getSpiderMode() == SPIDER_MODE_EXPERT){
-//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss3suitwins", 1);
-//            }
-//            else{
-//                app->sendMessageToNative(MSG_GAMECENTER, "com.cobraclip.cardgames.ss4suitwins", 1);
-//            }
-//        }
-//            break;
-//    }comment715
-}
-
-void TipLayer::onReplay(Ref* sender)
-{
-    GameData::getInstance()->playSoundEffect();
-    
-    ((BoardLayer*)_parentLayer)->didCongratulationDialog(true);
-}
-
-void TipLayer::onDone(Ref* sender)
-{
-    GameData::getInstance()->playSoundEffect();
-    
-    ((BoardLayer*)_parentLayer)->didCongratulationDialog(false);
+    setTag(200);
 }

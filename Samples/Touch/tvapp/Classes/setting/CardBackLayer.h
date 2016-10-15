@@ -22,8 +22,13 @@ public:
     virtual bool init();
     virtual void init(Layer* parent);
     
+    virtual bool onTouchBegan(Touch *touch, Event *unused_event);
+    virtual void onTouchMoved(Touch *touch, Event *unused_event);
+    virtual void onTouchEnded(Touch *touch, Event *unused_event);
+    
     void updateLayoutWithLandscape();
     
+    void pressBegan();
     
 private:
     void onCardTap(Ref* sender);
@@ -37,6 +42,11 @@ private:
     Menu* _menu;
     Menu* _btnmenu;
     cocos2d::extension::ScrollView* _ScrollView;
+    
+    Vec2 lastMovedPoint;
+    Vec2 prevPoint;
+    
+    MenuItem* arrowSprite;
     
     MenuItem* btnBack;
     

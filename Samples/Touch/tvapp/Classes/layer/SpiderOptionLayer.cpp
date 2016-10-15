@@ -58,24 +58,30 @@ void SpiderOptionLayer::init(Layer* parent)
             break;
     }
     
-    MenuItem* btnDone = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_done_nor").c_str()),
+    btnDone = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_done_nor").c_str()),
                                                    Sprite::create(getNameWithResolution("btn_done_act").c_str()),
                                                    this, menu_selector(SpiderOptionLayer::onDone));
-    MenuItem* easyLabel = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_label").c_str()),
-                                                   Sprite::create(getNameWithResolution("btn_check_label").c_str()),
-                                                   this, menu_selector(SpiderOptionLayer::onSelEasyMode));
-    MenuItem* normalLabel = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_label").c_str()),
-                                                   Sprite::create(getNameWithResolution("btn_check_label").c_str()),
-                                                   this, menu_selector(SpiderOptionLayer::onSelNormalMode));
     
-    MenuItem* expertLabel = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_label").c_str()),
-                                                       Sprite::create(getNameWithResolution("btn_check_label").c_str()),
-                                                       this, menu_selector(SpiderOptionLayer::onSelExpertMode));
+    Sprite* easyLabel = Sprite::create(getNameWithResolution("btn_check_label").c_str());
+    Sprite* normalLabel = Sprite::create(getNameWithResolution("btn_check_label").c_str());
+    Sprite* expertLabel = Sprite::create(getNameWithResolution("btn_check_label").c_str());
+    Sprite* hardLabel = Sprite::create(getNameWithResolution("btn_check_label").c_str());
     
-    
-    MenuItem* hardLabel = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_label").c_str()),
-                                                   Sprite::create(getNameWithResolution("btn_check_label").c_str()),
-                                                   this, menu_selector(SpiderOptionLayer::onSelHardMode));
+//    MenuItem* easyLabel = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_label").c_str()),
+//                                                   Sprite::create(getNameWithResolution("btn_check_label").c_str()),
+//                                                   this, menu_selector(SpiderOptionLayer::onSelEasyMode));
+//    MenuItem* normalLabel = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_label").c_str()),
+//                                                   Sprite::create(getNameWithResolution("btn_check_label").c_str()),
+//                                                   this, menu_selector(SpiderOptionLayer::onSelNormalMode));
+//    
+//    MenuItem* expertLabel = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_label").c_str()),
+//                                                       Sprite::create(getNameWithResolution("btn_check_label").c_str()),
+//                                                       this, menu_selector(SpiderOptionLayer::onSelExpertMode));
+//    
+//    
+//    MenuItem* hardLabel = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_label").c_str()),
+//                                                   Sprite::create(getNameWithResolution("btn_check_label").c_str()),
+//                                                   this, menu_selector(SpiderOptionLayer::onSelHardMode));
     
     _easyItem->setAnchorPoint(Vec2(0.5f, 0.5f));
     _normalItem->setAnchorPoint(Vec2(0.5f, 0.5f));
@@ -95,7 +101,7 @@ void SpiderOptionLayer::init(Layer* parent)
     _expertItem->setPosition(Vec2(getSizeWithDevice(230.0f), -getSizeWithDevice(45.0f)));
     _hardItem->setPosition(Vec2(getSizeWithDevice(230.0f), -getSizeWithDevice(120.0f)));
     
-    _hardItem->setPosition(Vec2(0.6, 0.6));//pending
+    //_hardItem->setPosition(Vec2(0.6, 0.6));//pending
     
     easyLabel->setPosition(Vec2(getSizeWithDevice(10.0f), getSizeWithDevice(100.0f)));
     normalLabel->setPosition(Vec2(getSizeWithDevice(10.0f), getSizeWithDevice(30.0f)));
@@ -106,11 +112,6 @@ void SpiderOptionLayer::init(Layer* parent)
     btnDone->setPosition(Vec2(getSizeWithDevice(0.0f),  -size.height/2.0f + getSizeWithDevice(27.0f)));
     
     _menu = Menu::create();
-    _menu->addChild(easyLabel);
-    _menu->addChild(normalLabel);
-    
-    _menu->addChild(expertLabel);
-    _menu->addChild(hardLabel);
     
     _menu->addChild(_easyItem);
     _menu->addChild(_normalItem);
@@ -122,11 +123,30 @@ void SpiderOptionLayer::init(Layer* parent)
     
     _menu->setPosition(Vec2(0.0f, 0.0f));
     addChild(_menu);
+    
+    setTouchMode(Touch::DispatchMode::ONE_BY_ONE);
+    setSwallowsTouches(true);
+    setTouchEnabled(true);
+    
+    if(arrowSprite) removeChild(arrowSprite);
+    
+    arrowSprite = MenuItemSprite::create(Sprite::create(getNameWithResolution("hand_icon").c_str()),
+                                         Sprite::create(getNameWithResolution("hand_icon").c_str()),
+                                         this, menu_selector(BoardLayer::onDummy));
+    arrowSprite->setScale(0.5);
+    arrowSprite->setAnchorPoint(Vec2(0.5, 1));
+    arrowSprite->setPosition(Vec2(0, 0));
+    addChild(arrowSprite, 1000);
+    
+    Size winSize = Director::getInstance()->getWinSize();
+    
+    lastMovedPoint = Vec2(0, 0);
 }
 
 void SpiderOptionLayer::createMenuWithEasy()
 {
  
+    
     _easyItem = MenuItemSprite::create(Sprite::create(getNameWithResolution("btn_check_on").c_str()),
                                          Sprite::create(getNameWithResolution("btn_check_on").c_str()),
                                          this, menu_selector(SpiderOptionLayer::onSelEasyMode));
@@ -347,4 +367,68 @@ void SpiderOptionLayer::onDone(Ref* sender)
         ((GameLayer*)_parentLayer)->removeOptionLayers();
         ((GameLayer*)_parentLayer)->getTaskbarLayer()->showNewGame();
     }
+}
+
+void SpiderOptionLayer::pressBegan()
+{
+    CCLOG("Taskbarlayer - press began : (%f, %f)", lastMovedPoint.x, lastMovedPoint.y);
+    Vec2 touchPoint = lastMovedPoint;
+    
+    if(btnDone->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(SpiderOptionLayer::onDone,this));
+        btnDone->runAction(Sequence::create(FadeTo::create(0.1, 0.7), func, NULL));
+    }
+    if(_easyItem->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(SpiderOptionLayer::onSelEasyMode,this));
+        _easyItem->runAction(Sequence::create(func, NULL));
+    }
+    if(_normalItem->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(SpiderOptionLayer::onSelNormalMode,this));
+        _normalItem->runAction(Sequence::create(func, NULL));
+    }
+    if(_hardItem->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(SpiderOptionLayer::onSelHardMode,this));
+        _hardItem->runAction(Sequence::create(func, NULL));
+    }
+    if(_expertItem->getBoundingBox().containsPoint(touchPoint))
+    {
+        CallFuncN *func = CallFuncN::create(CC_CALLBACK_1(SpiderOptionLayer::onSelExpertMode,this));
+        _expertItem->runAction(Sequence::create(func, NULL));
+    }
+}
+
+bool SpiderOptionLayer::onTouchBegan(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    log("lastMovedPoint: %f, %f", lastMovedPoint.x, lastMovedPoint.y);
+    
+    prevPoint = touch->getLocation();
+    
+    return true;
+}
+
+void SpiderOptionLayer::onTouchMoved(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    Director* director = Director::getInstance();
+    Point location = touch->getLocationInView();
+    location = director->convertToGL(location);
+    
+    //added by ccl
+    Vec2 delta = location - prevPoint;
+    lastMovedPoint += delta;
+    
+    log("touch move: %f, %f", location.x, location.y);
+    
+    arrowSprite->setPosition(lastMovedPoint);
+    prevPoint = location;//added ccl
+    
+    log("touch move: %f, %f", location.x, location.y);
+}
+
+void SpiderOptionLayer::onTouchEnded(cocos2d::Touch *touch, cocos2d::Event *unused_event)
+{
+    log("touch end: %f, %f", lastMovedPoint.x, lastMovedPoint.y);
 }

@@ -18,11 +18,16 @@ public:
     
     virtual bool init();
     virtual void init(Layer* parent);
+    virtual bool onTouchBegan(Touch *touch, Event *unused_event);
+    virtual void onTouchMoved(Touch *touch, Event *unused_event);
+    virtual void onTouchEnded(Touch *touch, Event *unused_event);
     
     void onSelDrawThree(Ref* sender);
     void onSelVegasStyle(Ref* sender);
     void onDone(Ref* sender);
     void onDummy(Ref* sender);
+    
+    void pressBegan();
     
 private:
     Layer* _parentLayer;
@@ -30,7 +35,11 @@ private:
     MenuItem* _drawthreeLabel;
     MenuItem* _vegasItem;
     MenuItem* _vegasLabel;
+    MenuItem* btnDone;
     Menu* _menu;
+    cocos2d::Vec2 lastMovedPoint;
+    cocos2d::Vec2 prevPoint;
+    MenuItem* arrowSprite;
     
 public:
     CREATE_FUNC(SolitaireOptionLayer);
